@@ -1,0 +1,57 @@
+# 代谢模型 {#metabolic-model}
+
+## Genome-scale Models
+
+> 来源：[@pachecoResolvingMetabolicInteraction2023]
+
+基因组尺度模型是生物体已知或推断的代谢网络的数学表示\[72\]。利用基因组尺度模型进行模拟，可预测生物体如何利用环境中的特定资源进行生长，以及由于分泌、细胞外降解或泄漏而产生的任何新的代谢物（图 2）。因此，利用多个生物体的模型进行模拟（通过将数字生命体视为独立的组件来进行），可以对资源竞争、生态位划分或代谢交叉喂养进行定量预测，并已应用于多种系统，包括人类肠道微生物群73、74、75。
+
+在活体植物中，将基因组尺度模型的预测结果与合成群落实验相结合，为了解更复杂的代谢相互作用的复杂性提供了一条特别有前途的途径\[27\]。例如，这种综合方法最近揭示了从杨树根瘤中分离出来的细菌群落稳定性的代谢因素\[76\]。此外，在空间范围内模拟代谢相互作用的新方法 77、78 可以预测多物种在环境中的相互作用，这种环境近似于与植物相关的微环境 79、80、81 中与空间和时间相关的资源条件。高通量培养技术\[82\]、代谢组学技术\[83\]和可视化技术\[84\]的进步也有望提高更复杂群落尺度下相互作用预测的准确性。
+
+值得注意的是，Borer 等人最近利用了这一技术组合，他们使用经过实验验证的四种特征良好菌株的基因组尺度模型来预测土壤细菌之间的群落组装和代谢交换[@borerPrimaryCarbonSources2022]。这项研究进一步突出了基因组尺度模型描述空间分辨环境中相互作用机制的能力，表明预测复杂环境中群落生态学的潜力越来越大。
+
+## 使用 DFBAlab
+
+**Write a dFBA model**
+
+Dynamic flux balance analysis is an extension of FBA that has the advantage that it enables analysis of interactions between the metabolism and the environment. The structure of the dFBA model that is assumed here has the following elements:
+
+-   A flux balance model of each of the microorganisms.
+-   A list of external metabolites.
+-   Description of the interaction between FBA models through uptake and production of external metabolites.
+-   The dynamic equations that are integrated by DFBAlab.
+
+![](https://yoric.mit.edu/sites/default/files/images/CodeCogsEqn.png)
+
+where $N$ is the number of biological species and $M$ is the number of extracellular chemical species. The variable $x_j$ is the biomass concentration of the $j^{th}$ metabolism, $s_i$ is the extracellular concentration of the $i^{th}$ chemical species, $F_{in} = \sum_{i=1}M_F_i(t)$ with *Fi* is the feed rate of chemical species *i*, *D*=Σ*i=1MFi /V* is the dilution rate, *vij* is the uptake or production rate of chemical species *i* due to species *j* and *V* is the volume of the bio-reactor. If the function *vij* describes the production rate of the *i*th external metabolite by the *j*th metabolism, then its value can be determined by secondary optimization for the production rate.
+
+**Setup the simulation**
+
+The simulation parameters are determined by the batch conditions of the experiments. A minimal set of parameter consists of
+
+-   The (maximal) batch time.
+-   The initial conditions for the biomass, substrates and total volume.
+-   Definition of the external control inputs such as feed rate and composition and other environmental changes that are should be implemented during the batch.
+-   Optional definition of minimal growth conditions to determine when the simulation should stop prior to reaching the final batch time.
+
+## Community Simulator {#community-simulator}
+
+> Citation: Marsland R, Cui W, Goldford J, Mehta P (2020) The Community Simulator: A Python package for microbial ecology. PLoS ONE 15(3): e0230430. https://doi.org/10.1371/journal.pone.0230430
+
+[Community Simulator](https://github.com/Emergent-Behaviors-in-Biology/community-simulator) is a Python package called Community Simulator for simulating microbial population dynamics in a reproducible, transparent and scalable way.
+
+The Community Simulator includes five major elements: tools for preparing the initial states and environmental conditions for a set of samples, automatic generation of dynamical equations based on a dictionary of modeling assumptions, random parameter sampling with tunable levels of metabolic and taxonomic structure, parallel integration of the dynamical equations, and support for metacommunity dynamics with migration between samples.
+
+This package is designed for simulating batch culture experiments on complex microbial communities. The architecture is based on the standard protocol for these experiments:
+
+-   Add media to each of the wells in a 96-well plate. It could be the same media for all wells, or different media for each well, depending on what the experimenter is trying to test.
+
+-   Add a small sample of an existing bacterial culture to each of the wells. Again, these could be the same for all wells, or different initial conditions could be tested in parallel.
+
+-   Let the bacteria grow while stirring or shaking for some fixed time T.
+
+-   Pipette a small fraction of each of the wells into a well on a new plate, with fresh media (added according to the same protocol as in step 1).
+
+-   Repeat the previous two steps as many times as desired.
+
+Communities can also be run in chemostat mode, where nutrients are continually supplied and populations continuously diluted.

@@ -1,0 +1,30 @@
+# 前言 {#preface .unnumbered}
+
+This is a Quarto book.
+
+To learn more about Quarto books visit <https://quarto.org/docs/books>.
+
+<!-- 建设一门《合成微生物组研究方法》的课程，包含理论课与实验课。-->
+
+本书收集整理“合成菌群”研究相关的理论和方法。
+
+**理论部分**
+
+-   微生物组及合成微生物组技术
+    -   微生物与人类的关系
+    -   微生物与人类的未来
+-   细菌分离、培养和组合
+-   自然状态下的微生物组------生物膜
+-   种间相互作用
+-   模型模拟、仿真计算
+    -   资源竞争模型
+    -   dFBA 模型：IndiMeSH，DFBAlab。
+    -   FBA 模型
+    -   gLV 模型
+
+**实验部分**
+
+-   微生物分离培养
+-   菌株特异性 PCR
+-   16S rRNA 基因测序及数据分析
+-   全基因组代谢网络

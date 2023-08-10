@@ -1,0 +1,279 @@
+# 如何写公式 {#write-an-equation}
+
+**参考页面**：<http://www.uinio.com/Math/LaTex>
+
+写技术文档少不了公式。这需要用到一些 $LATEX$ 语法。
+
+下面列举一些常用字符的写法。
+
+## 希腊字母
+
+| 序号   | 标准符号   | LaTeX      | 首字母大写 | LaTeX      |
+|--------|------------|------------|------------|------------|
+| **1**  | $\alpha$   | `\alpha`   |            |            |
+| **2**  | $\beta$    | `\beta`    |            |            |
+| **3**  | $\gamma$   | `\gamma`   | $\Gamma$   | `\Gamma`   |
+| **4**  | $\delta$   | `\delta`   | $\Delta$   | `\Delta`   |
+| **5**  | $\epsilon$ | `\epsilon` |            |            |
+| **6**  | $\zeta$    | `\zeta`    |            |            |
+| **7**  | $\eta$     | `\eta`     |            |            |
+| **8**  | $\theta$   | `\theta`   | $\Theta$   | `\Theta`   |
+| **9**  | $\iota$    | `\iota`    |            |            |
+| **10** | $\kappa$   | `\kappa`   |            |            |
+| **11** | $\lambda$  | `\lambda`  | $\Lambda$  | `\Lambda`  |
+| **12** | $\mu$      | `\mu`      |            |            |
+| **13** | $\nu$      | `\nu`      |            |            |
+| **14** | $\xi$      | `\xi`      | $\Xi$      | `\Xi`      |
+| **15** | $o$        | `o`        | $O$        | `O`        |
+| **16** | $\pi$      | `\pi`      | $\Pi$      | `\Pi`      |
+| **17** | $\rho$     | `\rho`     |            |            |
+| **18** | $\sigma$   | `\sigma`   | $\Sigma$   | `\Sigma`   |
+| **19** | $\tau$     | `\tau`     |            |            |
+| **20** | $\upsilon$ | `\upsilon` | $\Upsilon$ | `\Upsilon` |
+| **21** | $\phi$     | `\phi`     | $\Phi$     | `\Phi`     |
+| **22** | $\chi$     | `\chi`     |            |            |
+| **23** | $\psi$     | `\psi`     | $\Psi$     | `\Psi`     |
+| **24** | $\omega$   | `\omega`   | $\Omega$   | `\Omega`   |
+| **25** | $\digamma$ | `\digamma` |            |            |
+
+## 二元运算符
+
+| 序号   | 符号             | LaTeX            |
+|--------|------------------|------------------|
+| **1**  | $+$              | `+`              |
+| **2**  | $-$              | `-`              |
+| **3**  | $\times$         | `\times`         |
+| **4**  | $\div$           | `\div`           |
+| **5**  | $\pm$            | `\pm`            |
+| **6**  | $\mp$            | `\mp`            |
+| **7**  | $\triangleleft$  | `\triangleleft`  |
+| **8**  | $\triangleright$ | `\triangleright` |
+| **9**  | $\cdot$          | `\cdot`          |
+| **10** | $\setminus$      | `\setminus`      |
+| **11** | $\star$          | `\star`          |
+| **12** | $\ast$           | `\ast`           |
+| **13** | $\cup$           | `\cup`           |
+| **14** | $\cap$           | `\cap`           |
+| **15** | $\sqcup$         | `\sqcup`         |
+| **16** | $\sqcap$         | `\sqcap`         |
+| **17** | $\vee$           | `\vee`           |
+| **18** | $\wedge$         | `\wedge`         |
+| **19** | $\circ$          | `\circ`          |
+
+## 二元关系符
+
+| 序号  | 符号         | LaTeX        |
+|-------|--------------|--------------|
+| **1** | $=$          | `=`          |
+| **2** | $\ne$        | `\ne`        |
+| **3** | $\neq$       | `\neq`       |
+| **4** | $\equiv$     | `\equiv`     |
+| **5** | $\not\equiv$ | `\not\equiv` |
+| **6** | $\doteq$     | `\doteq`     |
+| **7** | $\doteqdot$  | `\doteqdot`  |
+
+## 逻辑符号
+
+| 序号  | 符号         | LaTeX        |
+|-------|--------------|--------------|
+| **1** | $\forall$    | `\forall`    |
+| **2** | $\exists$    | `\exists`    |
+| **3** | $\nexists$   | `\nexists`   |
+| **4** | $\therefore$ | `\therefore` |
+| **5** | $\because$   | `\because`   |
+| **6** | $\And$       | `\And`       |
+| **7** | $\lor$       | `\lor`       |
+| **8** | $\vee$       | `\vee`       |
+
+## 集合符号
+
+| 序号   | 符号          | LaTeX         |
+|--------|---------------|---------------|
+| **1**  | $\{ \}$       | `\{ \}`       |
+| **2**  | $\emptyset$   | `\emptyset`   |
+| **3**  | $\varnothing$ | `\varnothing` |
+| **4**  | $\in$         | `\in`         |
+| **5**  | $\notin$      | `\notin`      |
+| **6**  | $\ni$         | `\ni`         |
+| **7**  | $\cap$        | `\cap`        |
+| **8**  | $\Cap$        | `\Cap`        |
+| **9**  | $\sqcap$      | `\sqcap`      |
+| **10** | $\bigcap$     | `\bigcap`     |
+| **11** | $\cup$        | `\cup`        |
+| **12** | $\Cup$        | `\Cup`        |
+| **13** | $\sqcup$      | `\sqcup`      |
+| **14** | $\bigcup$     | `\bigcup`     |
+| **15** | $\bigsqcup$   | `\bigsqcup`   |
+
+## 特殊符号
+
+| 序号  | 符号     | LaTeX    |
+|-------|----------|----------|
+| **1** | $\infty$ | `\infty` |
+
+## 分数
+
+| 类型     | 符号                | LaTeX               |
+|----------|---------------------|---------------------|
+| **分数** | $\frac{2}{4}x=0.5x$ | `\frac{2}{4}x=0.5x` |
+| **分数** | ${2 \over 4}x=0.5x$ | `{2 \over 4}x=0.5x` |
+
+## 数值函数
+
+| 符号                                             | LaTeX                                            |
+|------------------------------------|------------------------------------|
+| $\exp_a b = a^b, \exp b = e^b, 10^m$             | `\exp_a b = a^b, \exp b = e^b, 10^m`             |
+| $\ln c, \lg d = \log e, \log_{10} f$             | `\ln c, \lg d = \log e, \log_{10} f`             |
+| $\sin a, \cos b, \tan c, \cot d, \sec e, \csc f$ | `\sin a, \cos b, \tan c, \cot d, \sec e, \csc f` |
+| $\min(x,y), \max(x,y)$                           | `\min(x,y), \max(x,y)`                           |
+
+## 根号
+
+| 符号                           | LaTeX                          |
+|--------------------------------|--------------------------------|
+| $\surd$                        | `\surd`                        |
+| $\sqrt{\pi}$                   | `\sqrt{\pi}`                   |
+| $\sqrt[n]{\pi}$                | `\sqrt[n]{\pi}`                |
+| $\sqrt[3]{\frac{x^3+y^3}{2}}*$ | `\sqrt[3]{\frac{x^3+y^3}{2}}*` |
+
+## 微分与导数
+
+| 符号                                             | LaTeX                                            |
+|------------------------------------|------------------------------------|
+| $dt, \mathrm{d}t, \partial t, \nabla\psi$        | `dt, \mathrm{d}t, \partial t, \nabla\psi`        |
+| $dy/dx, \mathrm{d}y/\mathrm{d}x$                 | `dy/dx, \mathrm{d}y/\mathrm{d}x`                 |
+| $\frac{dy}{dx}, \frac{\mathrm{d}y}{\mathrm{d}x}$ | `\frac{dy}{dx}, \frac{\mathrm{d}y}{\mathrm{d}x}` |
+| $\prime, \backprime, f^\prime, f', f''$          | `\prime, \backprime, f^\prime, f', f''`          |
+
+## 极限
+
+| 符号                     | LaTeX                    |
+|--------------------------|--------------------------|
+| $\lim_{n \to \infty}x_n$ | `\lim_{n \to \infty}x_n` |
+
+## 大型运算符
+
+| 分类       | 符号                | LaTeX               |
+|------------|---------------------|---------------------|
+| **求和**   | $\sum_{a}^{b}$      | `\sum_{a}^{b}`      |
+| **连乘积** | $\prod_{a}^{b}$     | `\prod_{a}^{b}`     |
+| **余积**   | $\coprod_{a}^{b}$   | `\coprod_{a}^{b}`   |
+| **并集**   | $\bigcup_{a}^{b}$   | `\bigcup_{a}^{b}`   |
+| **交集**   | $\bigcap_{a}^{b}$   | `\bigcap_{a}^{b}`   |
+| **析取**   | $\bigvee_{a}^{b}$   | `\bigvee_{a}^{b}`   |
+| **合取**   | $\bigwedge_{a}^{b}$ | `\bigwedge_{a}^{b}` |
+
+## 上下标
+
+| 类型           | 符号                             | 代码                             |
+|-----------------|----------------------------|----------------------------|
+| **上标**       | $a^2$ $a^{x+3}$                  | `a^2` `a^{x+3}`                  |
+| **下标**       | $a_2$                            | `a_2`                            |
+| **组合**       | $10^{30} a^{2+2}$ $a{i,j} b{f'}$ | `10^{30} a^{2+2}` `a{i,j} b{f'}` |
+| **上下标混合** | $x_2^3$ ${x_2}^3$                | `x_2^3` `{x_2}^3`                |
+| **上标的上标** | $10^{10^{8}}$                    | `10^{10^{8}}`                    |
+
+## 二项式系数
+
+| 类型           | 符号            | LaTeX           |
+|----------------|-----------------|-----------------|
+| 二项式系数     | $\binom{n}{k}$  | `\binom{n}{k}`  |
+| 小型二项式系数 | $\tbinom{n}{k}$ | `\tbinom{n}{k}` |
+| 大型二项式系数 | $\dbinom{n}{k}$ | `\dbinom{n}{k}` |
+
+## 矩阵
+
+$$
+\begin{matrix}
+x & y \\
+z & v
+\end{matrix}
+$$
+
+``` tex
+\begin{matrix}
+x & y \\
+z & v
+\end{matrix}
+```
+
+$$
+\begin{vmatrix}
+x & y \\
+z & v
+\end{vmatrix}
+$$
+
+``` tex
+\begin{vmatrix}
+x & y \\
+z & v
+\end{vmatrix}
+```
+
+## 数组
+
+$$
+\begin{array}{ | c | c | c | }
+a & b & S \\
+\hline
+0 & 0 & 1 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0
+\end{array}
+$$
+
+``` tex
+\begin{array}{ | c | c | c | }
+a & b & S \\
+\hline
+0 & 0 & 1 \\
+0 & 1 & 1 \\
+1 & 0 & 1 \\
+1 & 1 & 0
+\end{array}
+```
+
+## 方程组
+
+$$
+\begin{cases}
+3x + 5y + z \\
+7x - 2y + 4z \\
+-6x + 3y + 2z
+\end{cases}
+$$
+
+``` tex
+\begin{cases}
+3x + 5y + z \\
+7x - 2y + 4z \\
+-6x + 3y + 2z
+\end{cases}
+```
+
+## 多行等式
+
+$$
+\begin{align}
+f(x) & = (a+b)^2\\
+& = a^2+2ab+b^2
+\end{align}
+$$
+
+``` tex
+\begin{align}
+f(x) & = (a+b)^2\\
+& = a^2+2ab+b^2
+\end{align}
+```
+
+## 括号
+
+常用的 `()`、`[]`、`{}` 括号符号可以在 LaTeX 环境当中直接进行使用，但是如果处于较大的符号当中，就应该配合 `\left` 与 `\right` 命令来使用：
+
+| 类型           | 符号                           | LaTeX                          |
+|-----------------|---------------------------|---------------------------|
+| 圆括号、小括号 | $\left ( \frac{a}{b} \right )$ | `\left ( \frac{a}{b} \right )` |
+| 圆括号、小括号 | $( \frac{a}{b} )$              | `( \frac{a}{b} )`              |
