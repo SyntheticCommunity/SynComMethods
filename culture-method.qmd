@@ -6,19 +6,53 @@
 
 ### 都有哪些常用的碳源类型？
 
-
 ## 培养条件如何设置？
 
 ### 静置还是振荡培养？
 
-
 ### 培养温度如何设置？
 
-
 ### 培养多长时间？
-
 
 ## 有哪些常用的培养策略？
 
 ### 什么是连续梯度稀释培养？
 
+## FBA 分析中的培养基
+
+[@harcombe2014]
+
+**Table S1**: Metabolite concentrations used to simulate minimal medium in COMETS. Lactose (lcts) was replaced with alternative carbon sources for individual E. coli colony simulations (glc = 3.5e-6, lac-L = 7.1e-6, or ac = 1.1e-5). Oxygen was lowered to maintain the same concentration with smaller pixel size (i.e. if box length (L)= 0.2 mm then o2 = 1e-5). For the 3-species consortium methylamine was added (mea = 2.0e-6).
+
+| Compound     | mM per box |
+|--------------|------------|
+| ca2\[e\]     | 1000.0     |
+| cl\[e\]      | 1000.0     |
+| cobalt2\[e\] | 1000.0     |
+| cu2\[e\]     | 1000.0     |
+| fe2\[e\]     | 1000.0     |
+| fe3\[e\]     | 1000.0     |
+| k\[e\]       | 1000.0     |
+| lcts\[e\]    | 1.2e-5     |
+| mg2\[e\]     | 1000.0     |
+| mn2\[e\]     | 1000.0     |
+| mobd\[e\]    | 1000.0     |
+| nh4\[e\]     | 1000.0     |
+| ni2\[e\]     | 1000.0     |
+| o2\[e\]      | 6.2e-5     |
+| pi\[e\]      | 1000.0     |
+| so4\[e\]     | 1000.0     |
+| zn2\[e\]     | 1000.0     |
+
+**Table S2**: Metal Mix used in Hypho minimal media for lab experiments
+
+| Metal               | 1000x concentration (mM) |
+|---------------------|--------------------------|
+| $\ce{ZnSO4}$        | 0.60                     |
+| $\ce{CaCl2}$        | 9.98                     |
+| $\ce{MnCl2}$        | 0.51                     |
+| $\ce{(NH4)6Mo7O24}$ | 1.00                     |
+| $\ce{CuSO4}$        | 0.50                     |
+| $\ce{CoCl2}$        | 1.00                     |
+| $\ce{Na2WO4}$       | 0.17                     |
+| $\ce{FeSO4}$        | 8.88                     |

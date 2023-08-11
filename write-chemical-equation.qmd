@@ -1,0 +1,110 @@
+# 书写化学反应式 {#write-chemical-equation}
+
+> 参见：<https://mhchem.github.io/MathJax-mhchem/>
+
+If you are configuring MathJax yourself, see this [JS Bin](https://jsbin.com/?html=%3C%21DOCTYPE%20html%3E%0A%3Chtml%3E%0A%3Chead%3E%0A%20%20%3Cmeta%20charset%3D%22utf-8%22%3E%0A%20%20%3Cmeta%20name%3D%22viewport%22%20content%3D%22width%3Ddevice-width%22%3E%0A%20%20%3Ctitle%3EMathJax%20%2B%20mhchem%20example%3C%2Ftitle%3E%0A%20%20%3Cscript%3E%0A%20%20%20%20window.MathJax%20%3D%20%7B%0A%20%20%20%20%20%20tex%3A%20%7B%0A%20%20%20%20%20%20%20%20%2F%2F%20inlineMath%3A%20%5B%5B%27%24%27%2C%20%27%24%27%5D%2C%20%5B%27%5C%5C%28%27%2C%20%27%5C%5C%29%27%5D%5D%2C%0A%20%20%20%20%20%20%20%20packages%3A%20%7B%27%5B%2B%5D%27%3A%20%5B%27mhchem%27%5D%7D%0A%20%20%20%20%20%20%7D%2C%0A%20%20%20%20%20%20loader%3A%20%7Bload%3A%20%5B%27%5Btex%5D%2Fmhchem%27%5D%7D%2C%0A%20%20%20%20%7D%3B%0A%20%20%3C%2Fscript%3E%0A%20%20%3Cscript%20id%3D%22MathJax-script%22%20async%20src%3D%22https%3A%2F%2Fcdn.jsdelivr.net%2Fnpm%2Fmathjax%403%2Fes5%2Ftex-mml-chtml.js%22%3E%3C%2Fscript%3E%0A%3C%2Fhead%3E%0A%3Cbody%3E%0A%20%20%5C%28%5Cce%7B2H%20%2B%20O%20-%3E%20H2O%7D%5C%29%0A%3C%2Fbody%3E%0A%3C%2Fhtml%3E&live) and the MathJax documentation and the extension page.
+
+使用 **mhchem** 工具渲染漂亮的化学反应式。这个工具有 **MathJax** 扩展，需要额外载入。
+
+``` yaml
+format:
+  html:
+    theme: cosmo
+    include-after-body:
+        - text: |
+              <script src="path/to/tex-mml-chtml.js"></script>
+```
+
+在使用时，使用 `\ce{}` 来调用。
+
+## 分子式
+
+$\ce{H2O}$
+
+`$\ce{H2O}$`
+
+$\ce{Sb2O3}$
+
+`$\ce{Sb2O3}$`
+
+## 电荷
+
+$\ce{H+}$
+
+$\ce{CrO4^2-}$
+
+$\ce{[AgCl2]-}$
+
+$\ce{Y^99+}$
+
+$\ce{Y^{99+}}$
+
+``` latex
+$\ce{H+}$
+ 
+$\ce{CrO4^2-}$
+ 
+$\ce{[AgCl2]-}$
+ 
+$\ce{Y^99+}$
+ 
+$\ce{Y^{99+}}$
+```
+
+## 化学方程式
+
+$\ce{CO2 + C -> 2 CO}$
+
+`$\ce{CO2 + C -> 2 CO}$`
+
+$\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}$
+
+`$\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}$`
+
+$C_p[\ce{H2O(l)}] = \pu{75.3 J // mol K}$
+
+`$C_p[\ce{H2O(l)}] = \pu{75.3 J // mol K}$`
+
+## 同位素
+
+$\ce{^{227}_{90}Th+}$
+
+$\ce{^227_90Th+}$
+
+$\ce{^{0}_{-1}n^{-}}$
+
+$\ce{^0_-1n-}$
+
+``` latex
+$\ce{^{227}_{90}Th+}$
+ 
+$\ce{^227_90Th+}$
+ 
+$\ce{^{0}_{-1}n^{-}}$
+ 
+$\ce{^0_-1n-}$
+```
+
+## 反应箭头
+
+$\ce{A -> B}$
+
+$\ce{A <- B}$
+
+$\ce{A <--> B}$
+
+$\ce{A <=> B}$
+
+``` latex
+$\ce{A -> B}$
+ 
+$\ce{A <- B}$
+ 
+$\ce{A <--> B}$
+ 
+$\ce{A <=> B}$
+```
+
+$\ce{A ->[{text above}][{text below}] B}$
+
+`$\ce{A ->[{text above}][{text below}] B}$`

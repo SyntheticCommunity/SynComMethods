@@ -1,0 +1,277 @@
+# Quarto 常用文档元素 {#technical-writing-with-quarto}
+
+## 使用 Bootstrap 样式类
+
+作为表格标题旁边的属性给出的 Bootstrap 表格类会插入 `<table>` 元素。允许使用的类是那些明确适用于整个表格的类，它们是：`"primary"`, `"secondary"`, `"success"`, `"danger"`, `"warning"`, `"info"`, `"light"`, `"dark"`, `"striped"`, `"hover"`, `"active"`, `"bordered"`, `"borderless"`, `"sm"`, `"responsive"`, `"responsive-sm"`, `"responsive-md"`, `"responsive-lg"`, `"responsive-xl"`, `"responsive-xxl"`。
+
+例如，下面的 Markdown 表格将以行条纹呈现，悬停时还会高亮显示行：
+
+``` markdown
+| fruit  | price  |
+|--------|--------|
+| apple  | 2.05   |
+| pear   | 1.37   |
+| orange | 3.09   |
+
+: Fruit prices {.striped .hover}
+```
+
+| fruit  | price |
+|--------|-------|
+| apple  | 2.05  |
+| pear   | 1.37  |
+| orange | 3.09  |
+
+: Fruit prices {.striped .hover}
+
+## 小贴士
+
+``` markdown
+:::{.callout-note}
+Note that there are five types of callouts, including: 
+`note`, `tip`, `warning`, `caution`, and `important`.
+:::
+```
+
+::: callout-note
+Note that there are five types of callouts, including: `note`, `tip`, `warning`, `caution`, and `important`.
+:::
+
+## 分页符 {#sec-quarto-page-break}
+
+``` {.markdown shortcodes="false"}
+page 1
+
+{{< pagebreak >}}
+
+page 2
+```
+
+## 视频
+
+``` {.markdown shortcodes="false"}
+{{< video local-video.mp4 >}}
+
+{{< video https://www.youtube.com/embed/wo9vZccmqwc >}}
+
+{{< video https://vimeo.com/548291297 >}}
+
+{{< video https://youtu.be/wo9vZccmqwc width="400" height="300" >}}
+
+{{< video https://www.youtube.com/embed/wo9vZccmqwc
+    title="What is the CERN?"
+    start="116"
+    aspect-ratio="21x9" 
+>}}
+```
+
+## DIV
+
+DIV 插入使用 3 个以上连续的英文分号（`:::`），并在对应数量的连续分号处结束。通过改变分号的数量，可以实现 DIV 的嵌套。
+
+``` markdown
+::: {.border}
+This content can be styled with a border
+:::
+```
+
+``` markdown
+::::: {#special .sidebar}
+
+::: {.warning}
+Here is a warning.
+:::
+
+More content.
+:::::
+```
+
+::: {#special .sidebar}
+::: warning
+Here is a warning.
+:::
+
+More content.
+:::
+
+## 流程图
+
+    ```{{mermaid}}
+    flowchart LR
+      A[Hard edge] --> B(Round edge)
+      B --> C{Decision}
+      C --> D[Result one]
+      C --> E[Result two]
+    ```
+
+效果如下
+
+```{mermaid}
+flowchart LR
+  A[Hard edge] --> B(Round edge)
+  B --> C{Decision}
+  C --> D[Result one]
+  C --> E[Result two]
+```
+
+## 键盘快捷键
+
+``` markdown
+To print, press {{{< kbd Shift-Ctrl-P >}}}. 
+
+To open an existing new project, press {{{< kbd mac=Shift-Command-O win=Shift-Control-O linux=Shift-Ctrl-L >}}}.
+```
+
+在运行上面代码时，会根据操作系统显示相应的快捷键。
+
+To print, press {{< kbd Shift-Ctrl-P >}}. To open an existing new project, press {{< kbd mac=Shift-Command-O win=Shift-Control-O linux=Shift-Ctrl-L >}}.
+
+## 交叉引用
+
+交叉引用需要用到索引标签。
+
+::: {#cross-reference-prefix .callout-note}
+| 类型       | 标签前缀         | 引用方法         |
+|------------|------------------|------------------|
+| 表格       | `tbl-`           | `@tbl-id`        |
+| 图片       | `fig-`           |                  |
+| 代码块     | `#tbl-`，`fig-`  |                  |
+| 公式       | `#eq-`           |                  |
+| 章节       | `#sec-`          |                  |
+| 代码列表   | `#lst-customers` | `@lst-customers` |
+| 定理与证明 | `#thm-`，`#lem-` |                  |
+:::
+
+### 引用格式
+
+| 类型       | 语法                |
+|------------|---------------------|
+| 默认       | `@fig-elephant`     |
+| 首字母大写 | `@Fig-elephant`     |
+| 自定义前缀 | `Fig @fig-elephant` |
+| 仅序号     | `-@fig-elephant`    |
+
+标签可以在代码块属性中设置：
+
+    ```{{python}}
+    #| label: tbl-planets
+    #| tbl-cap: Astronomical object
+    
+    from IPython.display import Markdown
+    from tabulate import tabulate
+    table = [["Sun","696,000",1.989e30],
+             ["Earth","6,371",5.972e24],
+             ["Moon","1,737",7.34e22],
+             ["Mars","3,390",6.39e23]]
+    Markdown(tabulate(
+      table, 
+      headers=["Astronomical object","R (km)", "mass (kg)"]
+    ))
+    ```
+
+### 表格
+
+::: callout-important
+In order for a table to be cross-referenceable, its label must start with the tbl- prefix.
+:::
+
+对于 Markdown 表格来说，如此添加索引标签。
+
+``` markdown
+| Col1 | Col2 | Col3 |
+|------|------|------|
+| A    | B    | C    |
+| E    | F    | G    |
+| A    | G    | G    |
+
+: My Caption {#tbl-letters}
+
+See @tbl-letters.
+```
+
+如果表格是由代码段生成的，则依据前缀规则指定代码段标签。
+
+    ```{{r}}
+    #| label: tbl-tables
+    #| tbl-cap: "Tables"
+    #| tbl-subcap: true
+    #| layout-ncol: 2
+    
+    library(knitr)
+    kable(head(cars))
+    kable(head(pressure))
+    ```
+
+### 图片
+
+``` markdown
+![Elephant](elephant.png){#fig-elephant}
+
+See @fig-elephant for an illustration.
+```
+
+如果图片是由代码段生成的，则依据前缀规则指定代码段标签。
+
+
+    ```{{r}}
+    #| label: fig-plot
+    #| fig-cap: "Plot"
+    
+    plot(cars)
+    ```
+    For example, see @fig-plot.
+
+
+### 公式
+
+```{.markdown}
+$$
+E = m C^2
+$$ {#eq-mass-energy}
+```
+
+$$
+E = m C^2
+$$ {#eq-mass-energy}
+
+质能方程参见 @eq-mass-energy 。
+
+## 代码
+
+指定代码语言使用 ```` ```<lang> ````，指定代码语言并运行使用 ```` ```{lang} ````。
+
+## 标签页
+
+::: panel-tabset
+#### Jupyter
+
+    ```{{python}}
+    #| label: fig-plot
+    #| fig-cap: "Plot"
+    
+    import matplotlib.pyplot as plt
+    plt.plot([1,23,2,4])
+    plt.show()
+    ```
+    
+    For example, see @fig-plot.
+
+#### Knitr
+
+    ```{{r}}
+    #| label: fig-plot
+    #| fig-cap: "Plot"
+    
+    plot(cars)
+    ```
+    
+    For example, see @fig-plot.
+:::
+
+## 特殊符号
+
+-   如果想要插入 ```` ``` ````，则需要连续用 4 个反引号，将 3 个反引号包括起来。
+
+-   如果想要插入 ```` ```{r} ````，需要使用两个大括号 `{{r}}`。
+
+-   如果想要插入一段代码却不执行，还可以增加缩进。
