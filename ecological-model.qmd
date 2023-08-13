@@ -11,9 +11,59 @@ knitr::include_graphics("https://vnote-1251564393.cos.ap-chengdu.myqcloud.com/20
 
 Bansept 等人应用了微分方程模型，该模型考虑了微生物物种的双相生活方式，该模型由宿主相关相和环境相组成\[62\]。将这种建模框架扩展到群落环境中可能特别能提供与植物相关的微生物在其整个生命周期中经历不同的环境或时间定义的选择压力的信息。
 
-## Lotka-Volterra Model
+## Generalized Lotka-Volterra Model
 
-Lotka-Volterra 模型可以使用不同条件下生物体的时间序列丰度数据进行参数化，这些数据可用于推断生物体特定的生长速率以及生物体对其他生物体丰度的影响。然后可以将这些应用于预测未来的种间动态。
+> **参考资料**：
+>
+> -   <https://github.com/yuhao-yang-cy/sci-simulations/blob/main/lotka-volterra-predator-prey-model.ipynb>
+>
+> -   [知乎专栏](https://zhuanlan.zhihu.com/p/413164717)
+>
+> -   [A Tour of the Generalized Lotka-Volterra Model](https://stefanoallesina.github.io/Sao_Paulo_School/)：四个讲座半严谨地介绍了 gLV 模型及其在群落生态学中的应用。在这本电子书中，作者都加入了可用于模拟从数学角度介绍的过程的代码。[source code](https://github.com/StefanoAllesina/Sao_Paulo_School)。
+>
+> -   [Theoretical Community Ecology](https://stefanoallesina.github.io/Theoretical_Community_Ecology/)：本资料是芝加哥大学 2020/2021 学年的理论群落生态学（ECEV 43900）研究生课程准备的（主讲人：[Stefano Allesina](https://stefanoallesina.github.io/) ）。学习本教材需要熟悉微积分（多元积分、导数、链式法则）和线性代数（向量空间、特征值、特征向量）。此外，还需要具备良好的 R 工作知识（编写函数、使用 deSolve 和 tidyverse 软件包）。该课程以种群、群落和理论生态学课程中通常介绍的材料为基础，主要目标是建立一个解决理论群落生态学问题的工具箱，在入门课程和主要文献之间架起一座桥梁。[source code](https://github.com/StefanoAllesina/Theoretical_Community_Ecology)
+>
+> -   [MIT opencourse: Systems biologly - Interspecies interaction](https://ocw.mit.edu/courses/8-591j-systems-biology-fall-2014/resources/interspecies-interactions/)：本讲座由 Jeff Gore 教授主讲，内容涉及捕食者-猎物相互作用和振荡的模型和实验。他从 Lokta-Volterra 模型开始，该模型既被称为 "糟糕的"（从数学角度讲），又被称为 "意义深远的"。
+
+![Stefano Allesina](https://profiles.uchicago.edu/profiles/profile/Modules/CustomViewPersonGeneralInfo/PhotoHandler.ashx?NodeID=36947&cachekey=c2a4884b-92da-42e3-a299-6a14fe861a47){fig-align="right"}
+
+洛特卡-沃尔泰拉模型（Lotka-Volterra 模型）是一种著名的描述捕食者和猎物之间相互作用的数学模型[^ecological-model-1]，用于研究生态系统中的种群动态。它由意大利数学家洛特卡（Alfred Lotka）和法国数学家沃尔泰拉（Vito Volterra）分别在20世纪初提出，并且被广泛应用于生态学和数学生物学领域。该模型基于两个基本假设：1）猎物的增长受到非捕食者相关因素的影响（如资源供应、自然死亡率等）；2）捕食者的增长受到猎物的存在和捕食率的影响。
+
+[^ecological-model-1]: 因此也叫做"捕食者-猎物模型"。
+
+![捕食者与猎物](https://pic1.zhimg.com/70/v2-e8130abf786d76cd71348ba4666db772_1440w.avis?source=172ae18b&biz_tag=Post)
+
+在洛特卡-沃尔泰拉模型中，假设存在两个种群：猎物（Prey）和捕食者（Predator）。它的数学描述通常由一组耦合的微分方程表示，其中包括猎物种群的变化和捕食者种群的变化。模型的一般形式如下：
+
+**猎物的增长模型**（Prey dynamics）：
+
+$$\frac{dP}{dt} = rP - aP\cdot C$$
+
+其中，$P$ 表示猎物种群的数量，$r$ 是猎物的内禀增长率[^ecological-model-2]，$a$ 是猎物受到捕食者影响的捕食率，$C$ 表示捕食者种群的数量。
+
+[^ecological-model-2]: 猎物在没有捕食者存在的情况下，会指数增长。
+
+**捕食者的增长模型**（Predator dynamics）：
+
+$$\frac{dC}{dt} = -sC + bP\cdot C$$
+
+其中，$C$ 表示捕食者种群的数量，$s$ 是捕食者的死亡率[^ecological-model-3]，$b$ 是捕食者每捕食一单位猎物能够获得的增长量。
+
+[^ecological-model-3]: 捕食者没有猎物吃会死亡。
+
+洛特卡-沃尔泰拉模型可以产生一系列有趣的动态行为，包括周期性波动、稳定的周期、混沌等，取决于参数的设定。这个模型在理论上和定量分析上都提供了一种理解捕食和被捕食者之间相互作用的方式，但也有一些局限性，例如未考虑环境因素的变化和其他种群互动方式。
+
+gLV 模型（Generalized Lotka-Volterra Model）是对传统洛特卡-沃尔泰拉模型的扩展和泛化，用于描述多物种相互作用的复杂生态系统。与传统的捕食者-猎物模型不同，gLV 模型考虑了多个物种之间的相互关系，包括竞争、捕食、共生等各种相互作用。
+
+gLV 模型的数学描述可以根据涉及的物种数量和相互作用的类型而有所不同。这些模型通常使用耦合的微分方程来表示不同物种的种群动态。例如，假设我们有 $n$ 个物种，可以表示如下：
+
+$$\frac{dN_i}{dt} = r_i N_i \left(1 - \sum_{j=1}^n a_{ij} N_j\right)$$
+
+其中，$N_i$ 表示第 $i$ 个物种的种群数量，$r_i$ 是内禀增长率，$a_{ij}$ 是描述物种 $i$ 对物种 $j$ 的影响系数。这些系数可以表示为竞争系数、捕食率、共生关系等等，取决于实际的生态系统研究。
+
+gLV 模型的一个重要应用是在生态系统的稳定性和动态行为分析。通过调整不同物种之间的相互作用系数，可以模拟和预测多种物种在生态系统中的相互作用和种群动态，以及可能出现的周期性波动、稳定状态、混沌等。
+
+这种模型在生态学和生物学的研究中具有重要意义，可以帮助我们更好地理解自然界中物种之间的复杂关系，同时也有助于环境保护和资源管理等领域的决策。然而，需要指出的是，由于现实生态系统的复杂性，gLV 模型通常是一种理想化简化，实际中的生态系统往往受到更多因素的影响。
 
 ## Consumer Resource Model
 

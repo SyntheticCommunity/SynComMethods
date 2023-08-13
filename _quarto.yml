@@ -14,6 +14,7 @@ book:
     - culture-method.qmd
     - metabolic-model.qmd
     - ecological-model.qmd
+    - glv-model.qmd
     - references.qmd
 
 bibliography: references.bib
