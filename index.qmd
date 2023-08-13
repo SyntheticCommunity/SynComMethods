@@ -6,7 +6,7 @@ To learn more about Quarto books visit <https://quarto.org/docs/books>.
 
 <!-- 建设一门《合成微生物组研究方法》的课程，包含理论课与实验课。-->
 
-本书收集整理“合成菌群”研究相关的理论和方法。
+本书收集整理"合成菌群"研究相关的理论和方法。
 
 **理论部分**
 
@@ -28,3 +28,23 @@ To learn more about Quarto books visit <https://quarto.org/docs/books>.
 -   菌株特异性 PCR
 -   16S rRNA 基因测序及数据分析
 -   全基因组代谢网络
+
+## 符号定义 {#sec-notation .unnumbered}
+
+Unless specified or for obvious exceptions, Greek letters stand for scalars (i.e., real or complex numbers), lower case Roman letters for vectors, and capital Roman letters for matrices (as such $a_i$ or $A_{ij}$ are scalars). We typically work in $\mathbb{R}^n$ (the $n$-dimensional Euclidean space), $\mathbb{R}^n_+$ (i.e., the positive orthant of $\mathbb{R}^n$), or $\mathbb{R}^n_{0+}$ (non-negative orthant). $D(x)$ is a diagonal matrix with $x$ on the diagonal. The matrix $A^T$ is the transpose of $A$. Whenever it is clear what I mean, I will drop the dependency on time of certain variables.
+
+希腊字母表示标量(即实数或复数)，小写罗马字母表示向量，大写罗马字母表示矩阵（如 $a_i$，$A_{ij}$ 是标量）。我们通常工作在 $n$ 维欧几里得空间 $\mathbb{R}^n$。$D(x)$ 表示一个正交矩阵，其中 $x$ 是对角线的元素。$A^T$ 表示矩阵的转置。如果不会引起歧义的话，自变量 $t$ 会被舍去。[^index-1]
+
+[^index-1]: 这段定义在 [Theoretical Community Ecology](https://stefanoallesina.github.io/Theoretical_Community_Ecology/index.html#notation) 书中定义。
+
+The Generalized Lotka-Volterra model:
+
+$$
+\dfrac{d x_i(t)}{d t} = x_i(t) \left(a_i + \sum_{j} B_{ij} x_j(t) \right)
+$$
+
+can be written in compact form as:
+
+$$
+\dfrac{d x}{d t} = D(x) (a + B x)
+$$
