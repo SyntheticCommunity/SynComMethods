@@ -116,7 +116,20 @@ LEVELS <- 5 # max number of each k-mer
 -   获取引物序列
 
 ```{r}
-primers = DesignPrimers(tiles, identifier = "")
+primers = DesignPrimers(tiles, identifier = "CK1",
+                        minCoverage = 1,
+                        minGroupCoverage = 1, 
+                        numPrimerSets = 5, 
+                        maxSearchSize = 20)
+primers |> as_tibble()
 ```
 
 -   验证引物特异性
+
+
+```{r}
+primers <- c("AAAAACGGGGAGCGGGGGG", "AAAAACTCAACCCGAGGAGCGCGT")
+targets <- reverseComplement(DNAStringSet(primers))
+CalculateEfficiencyPCR(primers, targets, temp = 60, P = 4e-7, ions = 0.225)
+```
+
