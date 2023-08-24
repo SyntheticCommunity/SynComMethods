@@ -1,0 +1,122 @@
+# 菌株特异性 PCR {#strain-specific-pcr}
+
+菌株特异性 PCR 是指利用特异性引物扩增合成菌群的 DNA，是检测合成菌群中物种是否存在和丰度的金标准[^strain-specific-pcr-1]。
+
+[^strain-specific-pcr-1]: 定量丰度时需要结合采用实时定量 PCR 的方法。
+
+特异性引物设计有两种途径：
+
+-   一种是先找出每个物种特异的模板序列，然后针对特异性模板序列设计引物。这种方法设计的引物相当于 DNA 条形码。
+
+-   一种是先做序列比对，然后根据序列比对的可变区域设计引物。
+
+下面将分别介绍。
+
+## DECIPHER 包引物设计
+
+> DECIPHER is a software toolset that can be used for deciphering and managing biological sequences efficiently using the R programming language.
+
+[Oligo Design](http://www2.decipher.codes/OligoDesign.html)
+
+这是一个被名字耽误了的好软件。如果在 R 环境中用于基因组分析将非常合适。软件采用了 SQLite 数据库和大量的 C 语言代码，并实现了多线程，使得具有非常好的性能。可能是因为其文档不甚友好，导致圈内关注的似乎不多。
+
+### Features of DECIPHER
+
+-   **Sequence databases**: import, maintain, view, and export a massive number of sequences.
+-   **Sequence alignment**: accurately align thousands of DNA, RNA, or amino acid sequences. Quickly find and align the syntenic regions of multiple genomes.
+-   **Oligo design**: test oligos *in silico*, or create new primer and probe sequences optimized for a variety of objectives.
+-   **Manipulate sequences**: trim low quality regions, correct frameshifts, reorient nucleotides, determine consensus, or digest with restriction enzymes.
+-   **Analyze sequences**: find chimeras, classify into a taxonomy of organisms or functions, detect repeats, predict secondary structure, create phylogenetic trees, and reconstruct ancestral states.
+-   **Gene finding**: predict coding and non-coding genes in a genome, extract them from the genome, and export them to a file.
+
+### 设计步骤
+
+```{r}
+if (!require("DECIPHER")){
+    pak::pak("DECIPHER")
+}
+library(DECIPHER)
+```
+
+#### 读取 FASTA 文件
+
+```{r}
+fasta_file = xfun::magic_path("extdata/example-16S-rRNA-gene.fasta")
+rRNA_gene = readDNAStringSet(fasta_file)
+rRNA_gene
+```
+
+#### 运行多序列比对
+
+```{r}
+rRNA_gene_aln = AlignSeqs(rRNA_gene)
+rRNA_gene_aln
+
+# write alignment to file
+writeXStringSet(rRNA_gene_aln, xfun::with_ext(fasta_file, "aln"))
+```
+
+#### 导入数据库
+
+::: {callout-important}
+需要将序列保存在数据库中才能进行下一步。
+:::
+
+这里结合使用 **dbplyr** [@dbplyr] 软件包，将数据库表格链接绑定到一个变量上去[^strain-specific-pcr-2]。
+
+[^strain-specific-pcr-2]: 数据库使用时不方便的地方是难以查看，现在有了 dbplyr 的帮助，这样的问题已经不复存在了。
+
+```{r}
+db_conn = dbConnect(SQLite(), ":memory:")
+tbl_name = "rRNA_gene_aln"
+N = Seqs2DB(rRNA_gene_aln, 
+            type = "XStringSet", 
+            dbFile = db_conn, 
+            identifier = "",
+            tblName = tbl_name)
+BrowseDB(db_conn, tblName = tbl_name)
+```
+
+-   设置序列的 ID
+
+```{r}
+library(dbplyr)
+seq_aln = dplyr::tbl(db_conn, tbl_name)
+seq_aln
+```
+
+```{r}
+library(dplyr)
+seq_aln = seq_aln %>% mutate(identifier =  substr(description, 1, 5)) 
+```
+
+-   序列瓦片化
+
+`TileSeqs()` 将创建一组重叠的 k-mers，称为 "瓦片"，代表序列排列中的每个目标位点。最常见的瓦片排列会被添加，直到获得所需的最小组覆盖率。默认设置是创建长度为 26-27 个核苷酸、最多有 10 种排列方式的片段，这些排列方式至少代表了每个目标位点中 90% 的排列方式。\
+\
+如果目标位点有一个或多个瓦片不符合一组要求，则标记为 `misprime` 等于 `TRUE`。要求包括最小群组覆盖率、最小长度和最大长度。此外，瓦片还要求不包含超过四个单碱基运行或四个二核苷酸重复。我们将把生成的瓦片保存回数据库，作为一个名为 "Tiles "的新表，以备将来访问。
+
+```{r}
+tiles = TileSeqs(db_conn, 
+                 tblName = tbl_name,
+                 identifier = "")
+```
+
+-   配置运行参数
+
+```{r}
+# Designing primers for sequencing experiments:
+TYPE <- "sequence"
+MIN_SIZE <- 300 # base pairs
+MAX_SIZE <- 700
+RESOLUTION <- 5 # k-mer signature
+LEVELS <- 5 # max number of each k-mer
+```
+
+-   获取引物序列
+
+```{r}
+primers = DesignPrimers(tiles, identifier = "")
+```
+
+-   验证引物特异性
