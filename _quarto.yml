@@ -15,6 +15,7 @@ book:
     - metabolic-model.qmd
     - ecological-model.qmd
     - glv-model.qmd
+    - strain-specific-pcr.qmd
     - references.qmd
 
 bibliography: references.bib

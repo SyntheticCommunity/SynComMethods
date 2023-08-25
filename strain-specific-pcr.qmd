@@ -32,6 +32,7 @@
 ### 设计步骤
 
 ```{r}
+#| message: false
 if (!require("DECIPHER")){
     pak::pak("DECIPHER")
 }
@@ -49,57 +50,72 @@ rRNA_gene
 #### 运行多序列比对
 
 ```{r}
-rRNA_gene_aln = AlignSeqs(rRNA_gene)
+rRNA_gene_aln = AlignSeqs(rRNA_gene, verbose = FALSE)
 rRNA_gene_aln
 
 # write alignment to file
-writeXStringSet(rRNA_gene_aln, xfun::with_ext(fasta_file, "aln"))
+# writeXStringSet(rRNA_gene_aln, xfun::with_ext(fasta_file, "aln"))
 ```
 
 #### 导入数据库
 
-::: {callout-important}
+::: callout-important
 需要将序列保存在数据库中才能进行下一步。
 :::
 
-这里结合使用 **dbplyr** [@dbplyr] 软件包，将数据库表格链接绑定到一个变量上去[^strain-specific-pcr-2]。
+```{r}
+# initialize a in-memory database
+db_conn = dbConnect(SQLite(), ":memory:")
+
+# save to Seqs table by default
+N = Seqs2DB(rRNA_gene_aln, 
+            type = "XStringSet", 
+            dbFile = db_conn, 
+            identifier = "community")
+```
+
+####   设置序列的 ID
+
+默认情况下，可以使用 `BrowseDB()` 来查看数据库中的表格。
+
+```{r}
+#| eval: false
+BrowseDB(db_conn,
+         tblName = "Seqs")
+```
+
+
+这里结合使用 **dbplyr** [@dbplyr] 软件包，将数据库表格链接绑定到一个变量上去[^strain-specific-pcr-2]。然后就可以以 tidy 方式查询。
 
 [^strain-specific-pcr-2]: 数据库使用时不方便的地方是难以查看，现在有了 dbplyr 的帮助，这样的问题已经不复存在了。
 
 ```{r}
-db_conn = dbConnect(SQLite(), ":memory:")
-tbl_name = "rRNA_gene_aln"
-N = Seqs2DB(rRNA_gene_aln, 
-            type = "XStringSet", 
-            dbFile = db_conn, 
-            identifier = "",
-            tblName = tbl_name)
-BrowseDB(db_conn, tblName = tbl_name)
-```
-
--   设置序列的 ID
-
-```{r}
+#| message: false
 library(dbplyr)
-seq_aln = dplyr::tbl(db_conn, tbl_name)
-seq_aln
-```
-
-```{r}
 library(dplyr)
-seq_aln = seq_aln %>% mutate(identifier =  substr(description, 1, 5)) 
+seq_aln = dplyr::tbl(db_conn, "Seqs")
+
+# process species identifier
+id = seq_aln |> 
+    pull(description) |> 
+    gsub(pattern = "\\s.+$", replacement = "")
+
+# update table
+Add2DB(data.frame(identifier = id), db_conn)
 ```
 
--   序列瓦片化
+####   序列瓦片化
 
-`TileSeqs()` 将创建一组重叠的 k-mers，称为 "瓦片"，代表序列排列中的每个目标位点。最常见的瓦片排列会被添加，直到获得所需的最小组覆盖率。默认设置是创建长度为 26-27 个核苷酸、最多有 10 种排列方式的片段，这些排列方式至少代表了每个目标位点中 90% 的排列方式。\
-\
-如果目标位点有一个或多个瓦片不符合一组要求，则标记为 `misprime` 等于 `TRUE`。要求包括最小群组覆盖率、最小长度和最大长度。此外，瓦片还要求不包含超过四个单碱基运行或四个二核苷酸重复。我们将把生成的瓦片保存回数据库，作为一个名为 "Tiles "的新表，以备将来访问。
+`TileSeqs()` 将创建一组重叠的 k-mers，称为 "瓦片"，代表序列排列中的每个目标位点。最常见的瓦片排列会被添加，直到获得所需的最小组覆盖率。默认设置是创建长度为 26-27 个核苷酸、最多有 10 种排列方式的片段，这些排列方式至少代表了每个目标位点中 90% 的排列方式。
+
+如果目标位点有一个或多个瓦片不符合一组要求，则标记为 `misprime` 等于 `TRUE`。要求包括最小群组覆盖率、最小长度和最大长度。此外，瓦片还要求不包含超过四个单碱基运行或四个二核苷酸重复。我们将把生成的瓦片保存回数据库，作为一个名为 "Tiles"的新表，以备将来访问。
 
 ```{r}
 tiles = TileSeqs(db_conn, 
-                 tblName = tbl_name,
-                 identifier = "")
+                 add2tbl = "tiles",
+                 minCoverage = 1,
+                 verbose = FALSE)
+tbl(db_conn, "tiles")
 ```
 
 -   配置运行参数
@@ -113,19 +129,93 @@ RESOLUTION <- 5 # k-mer signature
 LEVELS <- 5 # max number of each k-mer
 ```
 
--   获取引物序列
+####   获取引物序列
+
+因为我们需要引物具有物种特异性，所以这里使用 `minCoverage = 1` 和 `minGroupCoverage = 1`，而不是分别使用默认的 90% 和 20%。
+
+其它默认的引物设计参数包括引物长度 17 - 26 bp，扩增产物长度 75 - 1200 bp，退火温度 64 度等。
 
 ```{r}
 primers = DesignPrimers(tiles, identifier = "CK1",
                         minCoverage = 1,
                         minGroupCoverage = 1, 
-                        numPrimerSets = 5, 
-                        maxSearchSize = 20)
-primers |> as_tibble()
+                        numPrimerSets = 1,
+                        minProductSize = 200,
+                        maxProductSize = 300,
+                        maxSearchSize = 20,
+                        verbose = FALSE)
 ```
 
--   验证引物特异性
+引物是根据一组瓦片设计的，以每个标识物为目标，同时尽量减少与所有其他瓦片组的亲和性。参数提供的约束条件可确保设计的引物集符合指定的标准，并针对特定的实验条件进行优化。
 
+如果 `numPrimerSets` 大于或等于 1，则会返回一组能最大限度减少潜在假阳性重叠的正向和反向引物。这也将启动对预期结合位点上游和下游所有目标位点的彻底搜索，以确保引物不会结合到附近的位置。降低 `maxSearchSize` 会加快彻底搜索的速度，但代价是可能会遗漏意外的目标位点。随着 `numPrimers` 大小的增加，可能评估的引物集数量也会增加。
+
+值得一提的是，`DesignPrimers()` 返回的引物与常规引物不同之处是它是一个 Primer Set。不仅包含上游和下游引物，每个上游引物或下游引物还可能有多于 1 条的序列。
+
+### 结果分析
+
+```{r}
+unAsIs <- function(X) {
+    if("AsIs" %in% class(X)) {
+        class(X) <- class(X)[-match("AsIs", class(X))]
+    }
+    X
+}
+
+primers = primers |> as_tibble() |> mutate(across(everything(), unAsIs))
+```
+
+```{r}
+primers |> select(identifier, product_size, ends_with("primer")) 
+```
+
+`DesignPrimers()` 输出的结果中，列的定义如下：
+
+1.  标识符（identifier）：
+
+    与用户设置的目标组相匹配。
+
+2.  start_forward，start_reverse：
+
+    正向/反向引物在代表目标组的共识序列中的大致起始位置。共识序列位置不包括间隙位置。
+
+3.  product_size（产物大小）：
+
+    根据正向引物和反向引物起始位置之间的距离确定的 PCR 产物中预期碱基对的大致数量。
+
+4.  start_aligned_forward，start_aligned_reverse：
+
+    正向/反向引物序列在比对中的大致位置，包括间隙位置。
+
+5.  permutations_forward，permutations_reverse：
+
+    达到目标组所需覆盖率所需的正向或反向引物排列次数。
+
+6.  score_forward、score_reverse、score_set：
+
+    衡量正向、反向或一组引物对目标基团的特异性。0 分表示特异性最高，负分表示特异性较低。正向和反向引物的得分是根据所有预测的非目标扩增效率的负和计算得出的。组得分是按每组正向和反向引物扩增效率几何平均数的负和计算的。
+
+7.  forward_primer.x，reverse_primer.x：
+
+    每个正向和反向引物的序列，其中 "x"的范围从 1 到排列总数。"NA"表示不需要额外的引物排列来达到目标组的预期覆盖率。
+
+8.  正向效率（forward_efficiency.x）、反向效率（reverse_efficiency.x）：
+
+    每个正向和反向引物各自的效率，要求在指定退火温度下至少达到 80%。
+
+9.  forward_coverage.x，reverse_coverage.x：
+
+    与正向和反向引物完全匹配的目标组比例。
+
+10. mismatches_forward, mismatches_reverse, mismatches_set：
+
+    列出正向和反向引物的预测特异性，mismatches_set 列显示任何潜在的交叉扩增。每一列都列出了与非目标组的任何大于 0.1%的预测效率，以及对齐的引物/模板结合情况。Mismatches_set 列出了与同一非目标基团匹配的正向和反向效率的乘积，但只有在 mismatches_forward 和 mismatches_reverse 列表中都存在非目标基团时才会列出。
+
+11. forward_MM.x，reverse_MM.x：
+
+    如果选择了在引物 3'-end 的第 6 位诱导错配（MM），则这两列将提供目标组的引物/模板错配类型。
+
+### 验证引物特异性
 
 ```{r}
 primers <- c("AAAAACGGGGAGCGGGGGG", "AAAAACTCAACCCGAGGAGCGCGT")
@@ -133,3 +223,12 @@ targets <- reverseComplement(DNAStringSet(primers))
 CalculateEfficiencyPCR(primers, targets, temp = 60, P = 4e-7, ions = 0.225)
 ```
 
+最后，我们可以订购引物，并在 PCR 反应中测试！
+
+::: callout-warning
+合成引物时，正向和反向引物的方向和 DNA 链应与输出（引物）中列出的方向和 DNA 链相同。
+:::
+
+::: callout-note
+最初可能需要对目标 DNA 进行温度梯度 PCR 反应，以便通过实验确定熔点。例如，在这种情况下，我们可以用目标物种在升高的温度下进行几次反应，从大约 56 - 72 度。随着退火温度的升高，杂交效率最终会降低，直至观察不到扩增。在随后的实验中，退火温度应刚好低于观察到强扩增的最高温度。
+:::

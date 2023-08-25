@@ -4,3 +4,6 @@ clean:
 
 deploy:
 	/bin/bash _deploy.sh
+
+book:
+	quarto render
