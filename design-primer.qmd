@@ -1,0 +1,54 @@
+# 引物设计 {#design-primer}
+
+
+```{r setup}
+library(cailab.utils)
+```
+
+## 设计常规 PCR 引物
+
+使用 Primer3 设计常规引物。
+
+```{r}
+library(rPrimer3)
+fas = system.file("sequence.fa", package = "rPrimer3")
+design_primer_from_file(fas, parts = 1)
+```
+
+
+## 设计菌株特异性引物
+
+
+
+```{r}
+library(cailab.utils)
+design_specific_primer(fas)
+```
+
+## 使用 unikmer
+
+```{r}
+Sys.setenv(UNIKMER="/home/gaoch/anaconda3/envs/kprimer/bin/unikmer")
+```
+
+
+
+
+
+
+## 设计克隆引物
+
+**获取匹配序列**
+
+
+**添加酶切位点**
+
+
+**调优引物性能**
+
+## 验证引物扩增
+
+```{r}
+
+```
+

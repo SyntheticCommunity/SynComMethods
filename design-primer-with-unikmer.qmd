@@ -1,22 +1,12 @@
----
-title: "Design specific primer with unikmer & R"
-format:
-  html:
-    toc: true
-    toc-depth: 3
-    toc-location: left 
-    toc-expand: true
-    embed-resources: true
-number-sections: true
----
+# Design specific primer with unikmer
 
-# Aim
+## Aim
 
 I have several gzipped fasta format genomes, and want to design specific primers for each of them.
 
 ```{r}
 gfiles = list.files(
-  path = "/media/gaoch/BAK/unikmer-db/genomes",
+  path = "./extdata/genomes",
   pattern = "*.fa.gz",
   full.names = TRUE
 )
@@ -42,7 +32,7 @@ the genomic DNA of strain 1 but not with all the DNA of the other 29 strains.
 - rPrimer3 <https://github.com/gaospecial/rPrimer3>
 - DECIPHER <https://bioconductor.org/packages/release/bioc/html/DECIPHER.html>
 
-# Initializing work space
+## Initializing work space
 
 创建工作区，就是新建一个子目录，把运行产生的文件放到一起，避免运行产生的文件与原始数据（这里是基因组序列）混在一起，清理文件时发生意外。
 
@@ -73,7 +63,7 @@ all_files
 ```
 
 
-# Get Specific DNA
+## Get Specific DNA
 
 ::: callout-important
 **Note**: 下面的脚本已更新，在 R 环境中可以执行[^quarto-rush]。
@@ -100,7 +90,7 @@ all_files
   直接进化到 `rush`，非常好用！`rush` 一下真的快很多，而且执行进度提醒非常友好！在沈教授的启发下，我也对 R 语言的代码进行了并行计算的修改。
 
 
-## Generation of kmer
+### Generation of kmer
 
 Since 31 nt is enough for a primer, so we start with `k = 31`.
 
@@ -151,7 +141,7 @@ run_cmd(cmd)
 ```
 
 
-## Remove common kmers
+### Remove common kmers
 
 Common kmers shared by >2 genomes will be removed. After that, unique sub-sequences are assembled by the resting kmers.
 
@@ -181,7 +171,7 @@ cmd = paste('unikmer stats -a', paste(all_files$kmer_uniq, collapse = " "))
 run_cmd(cmd)
 ```
 
-## Assemble strain-specific DNA fragments
+### Assemble strain-specific DNA fragments
 
 Mapping specific k-mers to each input genome.
 
@@ -220,9 +210,9 @@ cmd = lapply(seq_along(gfiles), function(i){
 run_cmd(cmd, "find longest specific sequence")
 ```
 
-# Designing primers
+## Designing primers
 
-## Run Primer3
+### Run Primer3
 
 Using **rPrimer3** to design primer with `*.one.fa` sequences.
 
@@ -235,7 +225,7 @@ primers = mclapply(seq_along(gfiles), function(i){
 }, mc.cores = 10)
 ```
 
-# Verify Primer Specificity
+## Verify Primer Specificity
 
 Subsequently, we use `DECIPHER::AmplifyDNA()` to check primer specificity.
 
@@ -292,9 +282,9 @@ success = lapply(seq_along(gfiles), function(i){
 
 :::
 
-# 流程存在的问题
+## 流程存在的问题
 
-## 得不到引物
+### 得不到引物
 
 虽然该途径可以找到一些比较长的特异性序列，但是在引物设计方面的性能仍然不能令人满意。在这里，我们测试了 32 个基因组，其中就有 3 - 5 个基因组没有找到合适的引物。
 
@@ -302,13 +292,13 @@ success = lapply(seq_along(gfiles), function(i){
 
 实际上，特异性的引物不需要要求扩增的序列本身是特异性的。哪怕是一段比较保守的序列，只要引物本身存在差异，是不影响对片段进行特异性扩增的。
 
-## 特异性不好的引物
+### 特异性不好的引物
 
 如果使用的基因组数量很少，那么设计引物的时候又会面临新的问题。那就是引物的特异性可能会比较差。为了解决这一问题，应当尝试在软件流程中加入一个最常见的 kmer 矩阵，能够在基因组数量比较少的时候对 kmer 进行过滤，使得设计的引物仍然具有较高的特异性。
 
 这样的 kmer 矩阵可以有多个，分别对应着不同的过滤强度。
 
-# Feature request
+## Feature request
 
 - [能不能针对含有多个序列的 FASTA 文件，分别生成 kmer？](https://github.com/shenwei356/unikmer/issues/30)
 
@@ -325,15 +315,15 @@ success = lapply(seq_along(gfiles), function(i){
     给定一个引物，输入一个基因组，能够计算扩增效率，得到扩增的结果。这方面在 `DECIPHER::AmplifyDNA()` 中有涉及。不过它也是通过一个 `hybrid-min` 程序获取的。我看了计算的源代码，扩增效率的计算好像也不是很复杂，能不能一并实现了。
    
 
-# Supplementary information
+## Supplementary information
 
-## Unikmer version
+### Unikmer version
 
 ```{bash}
 unikmer
 ```
 
-## Session info
+### Session info
 
 ```{r}
 sessionInfo()

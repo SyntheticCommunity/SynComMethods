@@ -1,0 +1,69 @@
+# Design specific primer with cailab.utils
+
+根据我的研究，16S rRNA 基因特异性引物的设计实际上没有很好的工具，更多时候要凭借多序列比对的结果，自己观察序列之间的差异，从中选择不保守的区域进行设计。
+
+我开发了一个叫做 [cailab.utils](https://github.com/gaospecial/cailab.utils)，其中包含了一个实验性的函数 `design_specific_primer()`，来帮助设计特异性引物。 
+
+要使用该软件包，首先需要安装该软件包以及相关的依赖。
+
+## 安装软件包及 R 包的依赖
+
+因为这是一个开发版本，所以需要通过 `remotes::install_github("gaospecial/cailab.utils")` 安装。
+
+```{r eval=FALSE}
+remotes::install_github("gaospecial/cailab.utils")
+```
+
+## 安装 DECIPHER 的系统依赖
+
+`design_specific_primer()` 的功能主要通过 `DECIPHER` 包来实现。它将 DECIPHER 中引物设计的流程打包成了一个函数，方便傻瓜式的调用。如果你了解 DECIPHER 的原理，那么可以不用这个函数。
+
+需要注意的时，DECIPHER 运行时需要有一个来自于 `oligoarrayaux` 软件的系统可执行程序 `hybrid-min`，这个软件需要自己安装好。
+
+> The program OligoArrayAux (http://www.unafold.org/Dinamelt/software/oligoarrayaux.php) must be installed in a location accessible by the system. For example, the following code should print the installed OligoArrayAux version when executed from the R console:
+
+对于 Windows 用户，需要下载软件的可执行程序，并将其放在环境变量 PATH 包含的路径下。
+
+对于 Linux/MacOS 用户则需要自己编译源代码安装。
+
+To install OligoArrayAux from the downloaded source folder on Unix-like platforms, open the shell (or Terminal on Mac OS) and type:
+
+```
+cd oligoarrayaux # change directory to the correct folder name
+./configure
+make
+sudo make install
+```
+
+安装成功后，在 R 终端中运行 `system("hybrid-min -V")` 应该会出现类似地结果。
+
+```{r eval=FALSE}
+system("hybrid-min -V")
+```
+
+```{r echo=FALSE}
+# format output
+system("hybrid-min -V", intern = TRUE) |> paste(collapse = "\n") |>  cat()
+```
+## 引物设计
+
+`design_specific_primer()` 函数的用法很简单。给它一个包含多个序列的 FASTA 格式文件，它就会返回特异性的引物。这里的特异性引物指的是仅能与 FASTA 文件中一条序列特异性扩增，而同时不能与另外所有序列特异性扩增的 DNA 片段。
+
+```{r}
+library(cailab.utils)
+fasta_file = "/Users/gaoch/Projects/KN-strain/2023-12-06 rRNA gene sequence/16S-rRNA-gene-sequence-of-KN-strains.fa"
+design_specific_primer(fasta_file, 20, 20, 100, 1500, TRUE)
+```
+
+需要注意的是，该函数并不总是能设计出来特异性引物。如果长时间没有反应，那么请强制结束它的运行，调整参数后再试。它可用的参数参见函数的帮助文档。
+
+```{r include=FALSE}
+# use printr to output help page of a function
+library(printr)
+```
+
+
+```{r}
+?design_specific_primer
+```
+
