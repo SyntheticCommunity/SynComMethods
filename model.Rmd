@@ -1,0 +1,86 @@
+---
+title: "Metabolic Modeling"
+author: "Chun-Hui Gao"
+date: "`r Sys.Date()`"
+output: 
+  bookdown::html_document2:
+    toc: yes
+    number_sections: no
+    toc_float: yes
+    toc_depth: 3
+bibliography: references.bib
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## Load model
+
+Download the state-of-art metabolic models from BIGG database.
+
+### *Escherichia coli* str. K-12 substr. MG1655：[iML1515](http://bigg.ucsd.edu/models/iML1515)
+
+- Metabolites：1877
+- Reactions：2712
+- Genes：1516
+
+
+```{python}
+import os
+import cobra
+import cobra.test
+from os.path import join
+
+model_dir = "model"
+
+eco_model = cobra.io.load_json_model(join(model_dir, "iML1515.json"))
+eco_model
+```
+
+
+### *Pseudomonas putida* KT2440：[iJN1463](http://bigg.ucsd.edu/models/iJN1463)
+
+- Metabolites：2153
+- Reactions：2927
+- Genes：1462
+
+
+```{python}
+ppu_model = cobra.io.load_json_model(join(model_dir, "iJN1463.json"))
+ppu_model
+```
+
+
+
+
+
+
+## Running FBA
+
+```{python}
+eco_solution = eco_model.optimize()
+eco_solution
+eco_solution.objective_value
+eco_solution.status
+eco_solution.fluxes
+```
+
+
+```{python}
+ppu_solution = ppu_model.optimize()
+ppu_solution
+ppu_solution.objective_value
+ppu_solution.status
+ppu_solution.fluxes
+```
+
+
+### Analyzing FBA solutions
+
+```{python}
+eco_model.optimize()
+eco_model.summary()
+eco_model.metabolites.nadh_c.summary()
+```
+
