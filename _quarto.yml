@@ -18,7 +18,7 @@ book:
     - strain-specific-pcr.qmd
     - design-primer.qmd
     - design-specific-primer-with-cailab-utils.qmd
-    - design-primer-with-unikmer.qmd
+#    - design-primer-with-unikmer.qmd
     - references.qmd
 
 bibliography: references.bib
