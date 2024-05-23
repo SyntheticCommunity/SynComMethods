@@ -1,0 +1,998 @@
+# 数学优化 {#mathematical-optimization}
+
+数学优化（Mathematical Optimization），也称为数值优化或数理优化，是关于选择最优元素（通常是最大化或最小化某一特定函数的值）的一门数学学科。这些元素来自某个定义域，该定义域受到一系列约束条件的限制。数学优化在工程、经济学、运营管理、物流和医学等多个领域有广泛应用。
+
+## 基础知识
+
+### 基本概念和术语
+
+1.  **目标函数（Objective Function）**：
+    
+    *   这是需要优化（最大化或最小化）的函数。目标函数根据不同场景可以是成本函数、收益函数、时间函数等。
+    *   例如，在生产规划中，目标函数可能是总成本函数，目标是使其最小化。
+
+2.  **决策变量（Decision Variables）**：
+    
+    *   这些变量是需要确定的，它们的值直接影响目标函数的值。
+    *   例如，一个生产公司可能需要决定多少产品应生产，这些数量就是决策变量。
+
+3.  **约束条件（Constraints）**：
+    
+    *   这是模型中的限制条件，定义了决策变量的可行范围。
+    *   约束可以是等式或不等式，例如资源限制（原材料、时间、人力）等。
+    *   例如，一天工作的时间上限、机器的最大操作能力都可以作为约束条件。
+
+## 优化问题的类型
+
+1.  **线性规划（Linear Programming, LP）**：
+    
+    *   目标函数和约束条件都是线性的。
+    *   例如：最大化 (3x + 4y)，约束条件是 (2x + y \\leq 20)、(x \\geq 0)、(y \\geq 0)。
+
+2.  **非线性规划（Non-linear Programming, NLP）**：
+    
+    *   目标函数或约束条件中包含非线性项。
+    *   例如：最大化 (x^2 + y^2)，约束条件是 (2x + y \\leq 20)、(x \\geq 0)、(y \\geq 0)。
+
+3.  **混合整数规划（Mixed-Integer Programming, MIP）**：
+    
+    *   决策变量中既有连续变量（可以取任意实数值）也有离散变量（只能取整数值）。
+    *   例如：一个配送问题，某些变量代表配送路径，必须是整数。
+
+4.  **动态规划（Dynamic Programming, DP）**：
+    
+    *   问题可以分解成子问题，并利用这些子问题的最优解进行递归式求解。
+    *   常用于多阶段决策问题，如最短路径问题等。
+
+### 数学优化的应用领域
+
+1.  **供应链管理**：
+    *   通过优化模型来确定最佳的库存水平、生产计划和配送路径。
+
+2.  **金融工程**：
+    *   用于投资组合优化、风险管理和期权定价。
+
+3.  **工程设计**：
+    *   优化设计参数以最小化成本、时间或材料使用，并满足功能和安全要求。
+
+4.  **运营管理**：
+    *   优化资源分配、工作调度、服务路线及排队系统等。
+
+### 简单示例
+
+设想一个简单的问题，一个公司生产两种产品 (A) 和 (B)，利润分别是 (20) 和 (30) 元，每种产品需要的生产时间分别是 (1) 小时和 (2) 小时，而生产时间的总约束是 (8) 小时。公司希望最大化利润。
+
+```{python}
+from scipy.optimize import linprog
+
+# 定义目标函数系数（利润）
+c = [-20, -30]  # 因为 linprog 函数默认是最小化问题，所以这里用负数表示最大化
+
+# 定义不等式约束，A_ub * x <= b_ub
+A = [[1, 2]]  # 每种产品的时间约束
+b = [8]  # 总时间限制
+
+# 定义变量的非负约束
+x_bounds = (0, None)
+y_bounds = (0, None)
+
+# 求解线性规划
+res = linprog(c, A_ub=A, b_ub=b, bounds=[x_bounds, y_bounds], method='highs')
+
+print('Optimal value:', -res.fun)  # 恢复成正数表示最大化
+print('X:', res.x)
+``` 
+
+在这个例子中，数学优化帮助我们确定了在生产时间有限的情况下，应该生产多少种产品来最大化总利润。这就是数学优化在实际应用中的一个经典示例。
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+
+# 提取结果
+optimal_value = -res.fun  # 最优目标函数值（转正数）
+optimal_x = res.x  # 最优变量值
+
+# 设置图表数据
+x = np.linspace(0, 10, 10)
+y = (8 - x) / 2  # 从约束方程 y = (8 - x) / 2 得到
+
+plt.figure(figsize=(10, 6))
+
+# 绘制约束条件的可行域
+plt.plot(x, y, label=r'$x + 2y \leq 8$', color='r', linestyle='-')
+plt.fill_between(x, 0, y, where=(y >= 0), color='gray', alpha=0.3)
+
+# 绘制目标函数等高线（等价值线）
+contour_lines = np.arange(100, 240, 20)
+for value in contour_lines:
+    plt.plot(x, (value / 30) - (20 / 30) * x, linestyle='--', label=f'$20x + 30y = {value}$')
+
+# 绘制最优点
+plt.plot(optimal_x[0], optimal_x[1], 'bo')  # 最优点
+plt.text(optimal_x[0], optimal_x[1], f' Optimal Point\n({optimal_x[0]:.2f}, {optimal_x[1]:.2f})', fontsize=12, color='blue')
+
+# 添加图表元素
+plt.xlabel('Product A')
+plt.ylabel('Product B')
+plt.title('Linear Programming Optimization')
+plt.axhline(0, color='black',linewidth=0.5)
+plt.axvline(0, color='black',linewidth=0.5)
+plt.legend(loc='upper right')
+plt.grid(True)
+
+plt.show()
+```
+
+之前的例子没有考虑到 `Product A` 和 `Product B` 的取值需要是非负整数。如果我们要在这个条件下进行优化，就需要进行整数规划。在这种情况下，我们需要使用混合整数线性规划（Mixed-Integer Linear Programming, MILP）来求解。
+
+使用 `Gurobipy` 库可以解决这个问题。
+
+:::{.callout-note}
+**安装 Gurobipy**
+
+`conda install -c gurobi gurobi`
+:::
+
+
+```{python}
+import numpy as np
+import matplotlib.pyplot as plt
+from gurobipy import Model, GRB
+
+# 创建模型
+model = Model()
+
+# 添加变量
+x = model.addVar(vtype=GRB.INTEGER, name="x")  # Product A
+y = model.addVar(vtype=GRB.INTEGER, name="y")  # Product B
+
+# 设置目标函数：最大化利润
+model.setObjective(20 * x + 30 * y, GRB.MAXIMIZE)
+
+# 添加约束：时间限制
+model.addConstr(x + 2 * y <= 8, 'time_limit')
+
+# 优化模型
+model.optimize()
+
+# 提取结果
+optimal_value = model.objVal
+optimal_x = [v.x for v in model.getVars()]
+
+# 打印结果
+for v in model.getVars():
+    print(f'{v.VarName}: {v.x}')
+print(f'Optimal value: {optimal_value}')
+
+# 画图
+x_vals = np.arange(0, 9, 1)  # Product A 的整数取值范围
+y_vals = np.arange(0, 5, 1)  # Product B 的整数取值范围
+X, Y = np.meshgrid(x_vals, y_vals)
+Z = 20 * X + 30 * Y  # 目标函数
+
+plt.figure(figsize=(10, 6))
+contour = plt.contourf(X, Y, Z, levels=10, cmap='Blues')
+plt.colorbar(contour)
+plt.plot(optimal_x[0], optimal_x[1], 'bo')  # 最优点
+plt.text(optimal_x[0], optimal_x[1], f' Optimal Point\n({int(optimal_x[0])}, {int(optimal_x[1])})', fontsize=12, color='blue')
+
+# 绘制约束线和可行域
+plt.plot(x_vals, (8 - x_vals) / 2, label=r'$x + 2y \leq 8$', color='red', linestyle='-')
+plt.fill_between(x_vals, 0, (8 - x_vals) / 2, where=(8 - x_vals) / 2 >= 0, color='gray', alpha=0.3)
+
+# 设置Y轴整数刻度
+plt.yticks(np.arange(0, max(y_vals)+1, 1))  # 设置Y轴仅显示整数刻度
+
+# 添加图表元素
+plt.xlabel('Product A')
+plt.ylabel('Product B')
+plt.title('Integer Linear Programming Optimization')
+plt.legend(loc='upper right')
+plt.grid(True)
+
+plt.show()
+```
+
+#### 图示的解释如下：
+
+1. 约束条件的可行域
+
+   *   图中的红色线表示约束条件 ( $x + 2y \leq 8$ )。
+   *   阴影部分表示满足约束条件的可行解区域。在这一区域内的所有点都满足问题的约束条件。
+
+2. 目标函数的等高线
+
+   *   颜色填充表示不同目标函数值的区域。颜色越深，表示目标函数值越大。
+
+3. 最优点
+
+   *   图中的蓝色点标记的是最优点，该点满足所有约束条件且目标函数值最大。
+   *   从图中可以看到，这个点位于阴影区域的边界线上（即 ( $x + 2y \leq 8$ ) 的交点之一），并且是可行解域中利润最大的位置。
+
+#### 结果解释
+
+*   **Optimal Value（最优值）**：
+
+    *   图中的利润最大值大约为 ( 160 )，该值表示在约束条件下所能达到的最大利润值。代码输出的 `optimal_value` 为 160，即表示在给定约束条件下所能达到的最大目标函数值（利润）。
+    
+*   **Optimal X（最优解）**：
+    
+    *   图中的最优解 ((x, y)) 的值为 (8, 0)，即生产 8 个产品 A 和 0 个产品 B，可以实现最大利润。代码输出 `optimal_x` 为 `[8., 0.]`，即为达到最优目标所需要的产品 A 和产品 B 的生产数量。
+
+通过上述图示和解释，我们可以清晰、准确地理解在整数规划条件下优化问题的求解过程及最优值和最优解的实际含义。
+
+## 数学优化的应用和初级方法
+
+上面介绍了数学优化的好处，现在让我们看看它的实际应用，以及优化与机器学习如何协同工作
+
+### 数学优化的概念回顾
+
+*   **数学优化的概念回顾：** 简单回顾初级课程中的概念，主要包括线性规划、混合整数规划、目标函数和约束条件的作用。
+
+线性回归模型中的参数求解过程——其实就在最小化损失函数。
+
+```{python}
+# 线性回归示例
+import numpy as np
+from sklearn.linear_model import LinearRegression
+
+# 生成数据
+X = np.array([[1, 1], [1, 2], [2, 2], [2, 3]])
+y = np.dot(X, np.array([1, 2])) + 3
+
+# 创建线性回归模型并训练
+model = LinearRegression().fit(X, y)
+
+# 优化结果
+print(model.coef_, model.intercept_)
+```
+
+#### 混合整数规划
+
+混合整数规划（Mixed-Integer Programming, MIP）是一种数学优化技术，包含二类变量：连续变量（可以取任意实数值）和离散变量（只能取整数值）。MIP在许多实际应用中都有广泛的应用，尤其在那些需要对决策变量进行整数限定的问题领域。以下是一些常见的应用领域和具体实例：
+
+**应用领域**
+
+1.  **生产与供应链管理**：
+    
+    *   **生产计划**：决定何时生产哪些产品，以满足需求并最小化成本。
+    *   **库存管理**：确定最佳的库存水平，以平衡库存成本和缺货成本。
+    *   **运输与物流**：优化车辆调度、配送路径和运输频率。
+
+2.  **金融与投资**：
+    
+    *   **投资组合优化**：决定在不同资产之间的投资分配，以最大化回报率并控制风险。
+    *   **项目选择**：在预算约束下选择最优的项目组合，确保净现值最大化。
+
+3.  **能源管理**：
+    
+    *   **电力调度**：决定哪种发电机在何时运行，以满足需求并最小化费用。
+    *   **可再生能源优化**：优化风能、太阳能等可再生能源的利用。
+
+4.  **设施选址**：
+    
+    *   **工厂选址**：在多个候选地点选择最优的工厂或仓库位置，最大化覆盖范围且最小化物流成本。
+    *   **灾害管理**：在灾害发生时决定临时配置的救援设施的最佳位置。
+
+5.  **健康管理**：
+    
+    *   **手术排期**：优化手术的排期安排，确保资源利用最大化且等待时间最小化。
+
+**具体实例：生产计划问题**
+
+假设一个工厂生产两种产品：产品 A 和产品 B。工厂有两个机器，分别用来生产这两种产品。每个产品的生产时间和利润如下表所示：
+
+| 产品 | 机器1时间（小时） | 机器2时间（小时） | 利润（美元） |
+| --- | --- | --- | --- |
+| A | 2 | 1 | 30 |
+| B | 1 | 2 | 20 |
+
+机器 1 每周的总可用时间为 40 小时，机器 2 每周的总可用时间为 60 小时。目标是确定产品A和B的生产数量，使得总利润最大化。在这里，生产数量是整数变量。
+
+混合整数规划模型如下：
+
+```{python}
+from gurobipy import Model, GRB
+
+# 创建模型
+model = Model()
+
+# 添加变量
+x = model.addVar(vtype=GRB.INTEGER, name="x")  # 产品A
+y = model.addVar(vtype=GRB.INTEGER, name="y")  # 产品B
+
+# 设置目标函数：最大化利润
+model.setObjective(30 * x + 20 * y, GRB.MAXIMIZE)
+
+# 添加约束
+model.addConstr(2 * x + y <= 40)  # 机器1时间约束
+model.addConstr(x + 2 * y <= 60)  # 机器2时间约束
+
+# 优化模型
+model.optimize()
+
+# 提取结果
+for v in model.getVars():
+    print(f'{v.VarName}: {v.x}')
+print(f'Optimal value: {model.objVal}')
+``` 
+
+在这个实例中，MIP 帮助我们找到最大化利润的最佳生产数量。
+
+### 交通流量优化问题实例
+
+假设一个城市的交通网络如下图所示，每条边（道路）上标出的是该路段的道路容量（即最多允许通过的车辆数）。我们的目标是从源节点 `S` 到目标节点 `T` 的流量最大化。
+
+```{mermaid}
+graph TD
+    S -->|4| A
+    S -->|5| B
+    A -->|3| C
+    A -->|2| D
+    B -->|3| D
+    B -->|4| E
+    C --->|3| T
+    D --->|2| T
+    E -->|2| F
+    F -->|3| T
+```
+
+
+路径上的数值表示该路径的最大容量，例如 `S → A = 4` 指 `S` 点到 `A` 点最大流量为 4.
+
+下面是使用 Gurobi 进行交通流量优化建模和求解的代码。
+
+```{python}
+from gurobipy import Model, GRB
+
+# 创建模型
+model = Model("MaxFlow")
+
+# 边及其容量
+edges = {'S': {'A': 4, 'B': 5},
+         'A': {'C': 3, 'D': 2},
+         'B': {'D': 3, 'E': 4},
+         'C': {'T': 3},
+         'D': {'T': 2},
+         'E': {'F': 2},
+         'F': {'T': 3}}
+
+# 添加变量
+flows = {}
+for u in edges:
+    for v in edges[u]:
+        flows[u, v] = model.addVar(name=f"flow_{u}_{v}", ub=edges[u][v])
+
+# 设置目标函数：最大化从 S 到 T 的流量
+model.setObjective(sum(flows['S', v] for v in edges['S']), GRB.MAXIMIZE)
+
+# 添加节点平衡约束
+# 所有中间节点的流量平衡：输入等于输出
+nodes = set(edges.keys()).union({v for u in edges for v in edges[u]})
+for node in nodes:
+    if node not in ['S', 'T']:
+        inflow = sum(flows[u, node] for u in edges if (u, node) in flows)
+        outflow = sum(flows[node, v] for v in edges[node]) if node in edges else 0
+        model.addConstr(inflow == outflow, name=f"node_{node}_balance")
+
+# 优化模型
+model.optimize()
+
+# 打印结果
+if model.status == GRB.OPTIMAL:
+    print('\nOptimal flow value: ', model.objVal)
+    for (u, v), flow_var in flows.items():
+        print(f"{u} -> {v}: {flow_var.x}")
+```
+
+
+#### 模型和变量
+
+*   **模型**：创建一个名为 "MaxFlow" 的模型。
+*   **变量**：定义每条边上的流量，变量的上限（`ub`）设为边的容量。例如 `flow_S_A` 表示从 `S` 到 `A` 的流量，它的上限为 `4`。
+
+#### 目标函数
+
+*   **目标函数**：设置要最大化 `S` 的总出流量，即从 `S` 到所有邻接节点（即 `S → A` 和 `S → B`）的流量之和。
+
+#### 约束条件
+
+*   **节点平衡约束**：对所有中间节点，流入流量等于流出流量。
+*   对于每个节点，除了源节点和目标节点之外，输入流量必须等于输出流量。例如，对节点 `A` 的约束是 `flow_S_A == flow_A_C + flow_A_D`。
+*   该约束条件确保流量在整个网络中保持平衡，没有无中生有的流量，也没有流量消失。
+*   节点 `S` 和 `T` 将没有这一平衡约束，因为 `S` 是源点，而 `T` 是目的点。
+
+#### 结果
+
+*   **求解模型**：调用 `model.optimize()` 来求解最大流量问题。
+*   **输出结果**：打印最优流量值和每条边上的流量值。
+
+各条路径上的流量如下图所示，最大的流量即为 7。
+
+```{mermaid}
+graph TD
+    S -->|3| A
+    S -->|4| B
+    A -->|3| C
+    A .->|0| D
+    B -->|2| D
+    B -->|2| E
+    C --->|3| T
+    D --->|2| T
+    E -->|2| F
+    F -->|2| T
+```
+
+这个实例展示了如何使用混合整数规划方法处理最大流问题，确定从源节点到目标节点的最大流量，同时满足所有边的容量约束。
+
+### 数学优化与机器学习
+
+*   **优化与机器学习的协同作用：** 理解优化如何帮助改进机器学习模型，如超参数调优、特征选择和构建更稳健的预测模型。
+
+数学优化在改进机器学习模型的各个方面起着至关重要的作用，包括超参数调优、特征选择和构建更稳健的预测模型。以下是这些方面的详细解释以及如何使用数学优化来实现它们的改进。
+
+`X_train` 和 `y_train` 被假定是已经分割好的训练数据集。为了完整地说明这些概念，我们将使用一个流行的内置数据集，并展示如何加载、预处理和分割数据集。在这次演示中，我们将使用 `scikit-learn` 中的 `iris` 数据集。
+
+我们将首先展示如何从 `scikit-learn` 加载数据集，并进行数据预处理和分割。例如，对于 `iris` 数据集，以下是代码示例：
+
+```{python}
+from sklearn.datasets import load_iris
+from sklearn.model_selection import train_test_split
+from sklearn.preprocessing import StandardScaler
+import pandas as pd
+
+# 加载 iris 数据集
+iris = load_iris()
+X = iris.data  # 特征矩阵
+y = iris.target  # 目标变量
+
+# 数据标准化
+scaler = StandardScaler()
+X = scaler.fit_transform(X)
+
+# 分割数据集为训练集和测试集
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)
+
+# 将数据转换为 pandas DataFrame 以便后续使用
+X_train = pd.DataFrame(X_train, columns=iris.feature_names)
+X_test = pd.DataFrame(X_test, columns=iris.feature_names)
+y_train = pd.Series(y_train)
+y_test = pd.Series(y_test)
+
+print("训练集特征维度:", X_train.shape)
+print("训练集标签维度:", y_train.shape)
+print("测试集特征维度:", X_test.shape)
+print("测试集标签维度:", y_test.shape)
+```
+
+#### 1. 超参数调优
+
+超参数调优是优化机器学习模型性能的关键部分，因为超参数对模型的训练过程和最终性能有重大影响。
+
+*   **网格搜索（Grid Search）**：这种方法通过系统地遍历指定的超参数值组合来找到最优的一组超参数。它的局限性在于对高维度超参数空间可能会非常耗时。
+    
+```{python}
+from sklearn.model_selection import GridSearchCV
+from sklearn.ensemble import RandomForestClassifier
+
+# 定义参数网格
+param_grid = {
+    'n_estimators': [100, 200, 300],
+    'max_depth': [10, 20, 30]
+}
+
+# 创建模型
+model = RandomForestClassifier()
+
+# 创建网格搜索实例
+grid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5)
+grid_search.fit(X_train, y_train)
+
+# 最优参数
+print(f'Best Parameters: {grid_search.best_params_}')
+``` 
+    
+
+*   **随机搜索（Random Search）**：与网格搜索不同，随机搜索通过对超参数空间进行随机采样来寻找最优参数。它对高维度空间更有效。
+
+```{python}
+from sklearn.model_selection import RandomizedSearchCV
+from sklearn.ensemble import RandomForestClassifier
+from scipy.stats import randint
+
+# 定义参数分布
+param_dist = {
+    'n_estimators': randint(100, 500),
+    'max_depth': randint(10, 50)
+}
+
+# 创建模型
+model = RandomForestClassifier()
+
+# 创建随机搜索实例
+random_search = RandomizedSearchCV(estimator=model, param_distributions=param_dist, n_iter=50, cv=5)
+random_search.fit(X_train, y_train)
+
+# 最优参数
+print(f'Best Parameters: {random_search.best_params_}')
+``` 
+    
+
+#### 2. 特征选择
+
+特征选择有助于减少模型的复杂性，提高模型的泛化能力和性能。
+
+*   **L1正则化（Lasso回归）**：L1正则化可以通过强制一些权重变为零来进行特征选择。
+    
+```{python}
+from sklearn.linear_model import Lasso
+
+# 创建Lasso模型
+model = Lasso(alpha=0.1)
+model.fit(X_train, y_train)
+
+# 选择非零特征
+selected_features = X_train.columns[model.coef_ != 0]
+print(f'Selected Features: {selected_features}')
+``` 
+
+*   **递归特征消除（Recursive Feature Elimination, RFE）**：RFE是一个递归特征选择过程，将特征逐一移除，并基于模型性能选择最佳特征子集。
+    
+```{python}
+from sklearn.feature_selection import RFE
+from sklearn.ensemble import RandomForestClassifier
+
+# 创建模型
+model = RandomForestClassifier()
+
+# 创建RFE实例
+selector = RFE(estimator=model, n_features_to_select=5, step=1)
+selector = selector.fit(X_train, y_train)
+
+# 选择特征
+selected_features = X_train.columns[selector.support_]
+print(f'Selected Features: {selected_features}')
+``` 
+    
+
+#### 3. 构建更稳健的预测模型
+
+数学优化有助于构建更稳健的预测模型，增强其泛化能力，处理数据噪声和异常值。
+
+*   **对抗训练（Adversarial Training）**：对抗训练是通过向训练数据中添加对抗样本（小扰动的样本）来训练模型，从而增强模型的稳健性。
+    
+```{python}
+# 使用随机森林模型
+model = RandomForestClassifier()
+model.fit(X_train, y_train)
+
+# 使用梯度生成对抗样本（这里模拟一个简单的对抗样本生成过程，但实际效果存在局限）
+def adversarial_training(model, X_train, y_train, epsilon=0.1):
+    # 模拟对抗样本生成（注意：深度模型通常用梯度生成对抗样本，这里简化处理）
+    perturbation = epsilon * np.sign(np.random.randn(*X_train.shape))
+    X_adv = X_train + perturbation
+    X_combined = np.vstack([X_train, X_adv])
+    y_combined = np.hstack([y_train, y_train])
+
+    # 合并对抗样本和原样本进行训练
+    model.fit(X_combined, y_combined)
+    return model
+
+# 应用对抗训练
+model = adversarial_training(model, X_train.values, y_train.values)
+
+# 验证模型
+acc = model.score(X_test, y_test)
+print("模型在测试集上的准确率: ", acc)
+``` 
+
+*   **交叉验证（Cross-Validation）**：使用交叉验证来评估模型性能，以增强模型的稳健性。
+    
+```{python}
+from sklearn.model_selection import cross_val_score
+
+# 创建模型
+model = RandomForestClassifier()
+
+# 交叉验证评估模型
+scores = cross_val_score(model, X, y, cv=5)
+print(f'Cross-Validation Scores: {scores}')
+print(f'Mean Score: {scores.mean()}')
+``` 
+    
+
+数学优化在机器学习模型的改进中扮演着重要角色，通过优化超参数、选择最佳特征和构建更稳健的模型，可以显著提升模型的性能和泛化能力。这些方法的具体实现通过示例代码得到了展示，帮助理解和应用数学优化技术来改进机器学习模型。
+
+*   **实际应用案例：** 讨论一些优化和机器学习有效结合的实际案例，例如供应链管理、金融建模和预测性维护。
+  
+我们可以使用不同的优化方法解决复杂的问题。比如在生产计划中，我们希望尽可能减少生产成本。我们可以使用线性规划来解决这个问题。
+
+```{python}
+from scipy.optimize import linprog
+
+# 定义目标函数系数
+c = [29, 45]
+
+# 定义不等式约束，A_ub * x <= b_ub
+A = [[-5, 20], [10, -50]]
+b = [-15, -30]
+
+# 求解线性规划
+res = linprog(c, A_ub=A, b_ub=b)
+print('Optimal value:', res.fun, '\nX:', res.x)
+``` 
+
+
+### 数学优化的方法
+
+> 哦，所以你认为你可以优化：不同的方法如何帮助你做出更好的决策
+
+*   **经典优化技术：** 包括线性规划、混合整数规划、非线性规划的高级用法。
+*   **启发式和元启发式方法：** 介绍遗传算法、模拟退火、粒子群优化等高级算法。
+*   **对比分析：** 根据问题的复杂性、数据规模和性能指标选择合适的优化方法的决策标准。
+
+#### 非线性规划
+
+非线性规划（Nonlinear Programming, NLP）是数学优化中的一类重要问题，其中目标函数或约束条件至少有一个是非线性的。解决非线性规划问题的经典方法有很多，以下是一些常用的方法及其简要介绍：
+
+1. 梯度下降法（Gradient Descent）
+
+梯度下降法是一种迭代优化算法，主要用于寻找连续可微函数的局部最小值。
+
+**基本步骤**
+
+1.  初始化一个起始点。
+2.  计算该点的梯度（目标函数的导数）。
+3.  沿梯度的反方向更新当前点的位置。
+4.  重复上述步骤，直到满足终止条件（例如梯度的大小足够小或达到最大迭代次数）。
+
+**优缺点**
+
+*   **优点**：简单易行，适合高维优化问题。
+*   **缺点**：可能收敛到局部最优，收敛速度依赖于学习率的选择。
+
+```{python}
+import numpy as np
+
+def gradient_descent(f, grad_f, x0, lr=0.01, max_iter=1000, tol=1e-6):
+    x = x0
+    for i in range(max_iter):
+        grad = grad_f(x)
+        x_new = x - lr * grad
+        if np.linalg.norm(x_new - x) < tol:
+            break
+        x = x_new
+    return x
+
+# 示例
+f = lambda x: x[0]**2 + x[1]**2
+grad_f = lambda x: np.array([2*x[0], 2*x[1]])
+x0 = np.array([2, 3])
+opt_x = gradient_descent(f, grad_f, x0)
+print(f'Optimal x: {opt_x}')
+``` 
+
+1. 牛顿法（Newton's Method）
+
+牛顿法是一种基于二阶导数（Hessian矩阵）的优化方法，用于寻找可微可导函数的极小值。
+
+**基本步骤**
+
+1.  初始化一个起始点。
+2.  计算目标函数在当前点的梯度和Hessian矩阵。
+3.  更新当前点的位置： ( $x_{k+1} = x_k - H_f(x_k)^{-1} \nabla f(x_k)$ )。
+4.  重复上述步骤，直到满足终止条件。
+
+**优缺点**
+
+*   **优点**：收敛速度快（通常为二次收敛）。
+*   **缺点**：计算Hessian矩阵和其逆矩阵的成本高，不适用于高维问题。
+
+```{python}
+import numpy as np
+
+def newton_method(f, grad_f, hessian_f, x0, max_iter=100, tol=1e-6):
+    x = x0
+    for i in range(max_iter):
+        grad = grad_f(x)
+        hessian = hessian_f(x)
+        x_new = x - np.linalg.inv(hessian).dot(grad)
+        if np.linalg.norm(x_new - x) < tol:
+            break
+        x = x_new
+    return x
+
+# 示例
+f = lambda x: x[0]**2 + x[1]**2
+grad_f = lambda x: np.array([2*x[0], 2*x[1]])
+hessian_f = lambda x: np.array([[2, 0], [0, 2]])
+x0 = np.array([2, 3])
+opt_x = newton_method(f, grad_f, hessian_f, x0)
+print(f'Optimal x: {opt_x}')
+``` 
+
+1. 内点法（Interior-Point Method）
+
+内点法是一种用于处理具有约束条件的非线性规划问题的优化方法。内点法通过引入障碍函数来避免逐出可行域。
+
+**基本步骤**
+
+1.  初始化一个可行点。
+2.  通过障碍函数调整目标函数，以确保可行性。
+3.  应用优化算法（如牛顿法）进行每一步迭代。
+4.  逐步减少障碍参数，继续优化，直到满足终止条件。
+
+**优缺点**
+
+*   **优点**：适用于大型稀疏问题，可以处理不等式约束。
+*   **缺点**：算法复杂性较高，对初始化和参数选择敏感。
+
+1. 信赖域法（Trust-Region Method）
+
+信赖域法是一类迭代优化算法，通过在每一步迭代中求解一个包含约束的小规模子问题来更新变量。
+
+**基本步骤**
+
+1.  初始化一个起始点和信赖域大小。
+2.  在信赖域内建立二次近似模型并求解。
+3.  根据近似模型的解更新当前点的位置。
+4.  根据模型拟合的情况调整信赖域的大小。
+5.  重复上述步骤，直到满足终止条件。
+
+**优缺点**
+
+*   **优点**：收敛性好，适用于高维非线性问题。
+*   **缺点**：每步迭代计算成本较高。
+
+
+```{python}
+import numpy as np
+from scipy.optimize import minimize
+
+# 目标函数
+def rosenbrock(x):
+    return sum(100.0*(x[1:]-x[:-1]**2.0)**2.0 + (1-x[:-1])**2.0)
+
+x0 = np.array([1.2, 1.2])
+result = minimize(rosenbrock, x0, method='trust-constr')
+print(f'Optimal x: {result.x}, Optimal value: {result.fun}')
+```
+
+以上是一些经典的非线性规划优化方法，每种方法都有其优缺点和适用范围。选择合适的优化方法需要根据具体问题的性质、规模和目标函数的特点来决定。通过这些优化技术，可以高效解决实际中的复杂非线性规划问题。
+
+
+
+
+#### 高级优化算法
+
+高级优化算法如遗传算法、模拟退火和粒子群优化等在处理复杂的非线性、多峰、多约束优化问题时非常有用。它们通常基于生物进化、物理退火或群体智能等自然现象的启发。
+
+1. 遗传算法（Genetic Algorithm, GA）
+
+遗传算法是一种基于自然选择和遗传机制的优化算法。它通过模拟生物进化过程中的选择、交叉和突变操作来发现最优解。
+
+**基本步骤**
+
+1.  **初始化**：生成一个初始种群，种群中的每个个体都是一个潜在的解。
+2.  **适应度评估**：计算每个个体的适应度值（即目标函数值）。
+3.  **选择**：根据适应度值选择若干个体，较优的个体有更高的被选择概率。
+4.  **交叉**：对选中的个体对进行交叉操作，生成新的个体。
+5.  **突变**：对部分新个体进行突变操作，增加种群的多样性。
+6.  **替换**：用新生成的个体替换部分或全部旧个体。
+7.  **迭代**：重复步骤2~6，直到满足终止条件（如达到最大迭代次数或适应度满足阈值）。
+
+**示例代码**
+
+```{python}
+import numpy as np
+from deap import base, creator, tools, algorithms
+
+def evaluate(individual):
+    return sum(individual),
+
+creator.create("FitnessMax", base.Fitness, weights=(1.0,))
+creator.create("Individual", list, fitness=creator.FitnessMax)
+
+toolbox = base.Toolbox()
+toolbox.register("attr_float", np.random.uniform, -10, 10)
+toolbox.register("individual", tools.initRepeat, creator.Individual, toolbox.attr_float, n=10)
+toolbox.register("population", tools.initRepeat, list, toolbox.individual)
+
+toolbox.register("mate", tools.cxTwoPoint)
+toolbox.register("mutate", tools.mutGaussian, mu=0, sigma=1, indpb=0.1)
+toolbox.register("select", tools.selTournament, tournsize=3)
+toolbox.register("evaluate", evaluate)
+
+population = toolbox.population(n=100)
+NGEN = 50
+CXPB, MUTPB = 0.5, 0.2
+
+for gen in range(NGEN):
+    offspring = toolbox.select(population, len(population))
+    offspring = list(map(toolbox.clone, offspring))
+
+    for child1, child2 in zip(offspring[::2], offspring[1::2]):
+        if np.random.rand() < CXPB:
+            toolbox.mate(child1, child2)
+            del child1.fitness.values
+            del child2.fitness.values
+
+    for mutant in offspring:
+        if np.random.rand() < MUTPB:
+            toolbox.mutate(mutant)
+            del mutant.fitness.values
+
+    invalid_ind = [ind for ind in offspring if not ind.fitness.valid]
+    fitnesses = map(toolbox.evaluate, invalid_ind)
+    for ind, fit in zip(invalid_ind, fitnesses):
+        ind.fitness.values = fit
+
+    population[:] = offspring
+
+best_ind = tools.selBest(population, 1)[0]
+print(f'Best individual is {best_ind}, {best_ind.fitness.values}')
+``` 
+
+2. 模拟退火（Simulated Annealing, SA）
+
+模拟退火是一种基于物理退火过程的优化算法，通过逐步降低"温度"来寻找到函数的全局最优解。
+
+**基本步骤**
+
+1.  **初始化**：从一个初始解出发，并设定初始温度。
+2.  **邻域搜索**：从当前解的邻域中随机选择一个新解。
+3.  **接受概率**：根据目标函数值变化以及当前温度计算接受新解的概率。如果新解比当前解更优，则总是接受；否则以一定概率接受（概率随温度降低）。
+4.  **更新温度**：降低温度，然后转到步骤2，直到满足终止条件。
+
+```{python}
+import numpy as np
+
+def objective_function(x):
+    return x**2
+
+def simulated_annealing(objective, bounds, n_iterations, step_size, temp):
+    best = bounds[:, 0] + (np.random.rand(len(bounds)) * (bounds[:, 1] - bounds[:, 0]))
+    best_eval = objective(best)
+    curr, curr_eval = best, best_eval
+    for i in range(n_iterations):
+        candidate = curr + np.random.randn(len(bounds)) * step_size
+        candidate_eval = objective(candidate)
+        if candidate_eval < best_eval or np.exp((curr_eval - candidate_eval) / temp) > np.random.rand():
+            curr, curr_eval = candidate, candidate_eval
+        if candidate_eval < best_eval:
+            best, best_eval = candidate, candidate_eval
+        temp *= 0.99
+    return best, best_eval
+
+bounds = np.array([[-5.0, 5.0]])
+n_iterations = 1000
+step_size = 0.1
+temp = 10
+
+best, score = simulated_annealing(objective_function, bounds, n_iterations, step_size, temp)
+print(f'Best solution: {best}')
+print(f'Objective function value: {score}')
+``` 
+
+3. 粒子群优化（Particle Swarm Optimization, PSO）
+
+粒子群优化是一种基于群体智能的优化算法，通过模拟鸟群觅食行为来寻找最优解。
+
+**基本步骤**
+
+1.  **初始化**：生成初始粒子群，每个粒子表示一个潜在的解。
+2.  **速度和位置更新**：根据粒子的速度和位置更新规则，以及粒子自身和全局最优解的信息，分别更新每个粒子的速度和位置。
+3.  **适应度评估**：计算每个粒子的适应度值，并更新个体最佳和全局最佳位置。
+4.  **迭代**：重复步骤2和3，直到满足终止条件。
+
+
+```{python}
+import numpy as np
+
+def objective_function(x):
+    return np.sum(x**2)
+
+def particle_swarm_optimization(objective, bounds, n_particles, n_iterations, w=0.5, c1=1.0, c2=2.0):
+    dim = len(bounds)
+    swarm = np.random.rand(n_particles, dim)
+    swarm = bounds[:, 0] + swarm * (bounds[:, 1] - bounds[:, 0])
+    velocity = np.zeros_like(swarm)
+    personal_best = np.copy(swarm)
+    personal_best_scores = np.array([objective(p) for p in personal_best])
+    global_best = swarm[np.argmin(personal_best_scores)]
+    global_best_score = np.min(personal_best_scores)
+
+    for i in range(n_iterations):
+        for j in range(n_particles):
+            r1, r2 = np.random.rand(dim), np.random.rand(dim)
+            velocity[j] = w * velocity[j] + c1 * r1 * (personal_best[j] - swarm[j]) + c2 * r2 * (global_best - swarm[j])
+            swarm[j] += velocity[j]
+            score = objective(swarm[j])
+            if score < personal_best_scores[j]:
+                personal_best[j], personal_best_scores[j] = swarm[j], score
+        global_best = personal_best[np.argmin(personal_best_scores)]
+        global_best_score = np.min(personal_best_scores)
+
+    return global_best, global_best_score
+
+bounds = np.array([[-5.0, 5.0], [-5.0, 5.0]])
+n_particles = 30
+n_iterations = 100
+
+best, score = particle_swarm_optimization(objective_function, bounds, n_particles, n_iterations)
+print(f'Best solution: {best}')
+print(f'Objective function value: {score}')
+``` 
+
+上述三种高级优化算法（遗传算法、模拟退火和粒子群优化）在处理复杂的非线性、多峰和多约束优化问题时非常有效。它们通过模拟生物进化、物理退火和群体智能等自然现象的过程，能够在全局范围内搜索最优解，是解决实际优化问题的重要工具。
+
+### 使用 Gurobipy 进行中级建模
+
+*   **Gurobipy的高级功能：** 探索如参数调优、数据处理高效的方法以及使用 Gurobi 回调等高级功能。
+*   **管理模型复杂性：** 简化复杂问题的技术，理解模型细节与计算性能之间的权衡。
+
+Gurobipy 是一个功能强大的库，能够处理更复杂的线性和非线性优化问题。我们将实现一个简单的混合整数线性规划问题。
+
+```{python}
+from gurobipy import Model, GRB
+
+# 创建模型
+model = Model()
+
+# 添加变量
+x = model.addVar(vtype=GRB.CONTINUOUS, name="x")
+y = model.addVar(vtype=GRB.INTEGER, name="y")
+
+# 设置目标函数
+model.setObjective(2 * x + 3 * y, GRB.MINIMIZE)
+
+# 添加约束
+model.addConstr(x + y >= 10, "c0")
+model.addConstr(3 * x + 2 * y <= 25, "c1")
+
+# 优化模型
+model.optimize()
+
+# 输出结果
+for v in model.getVars():
+    print(f'{v.varName}: {v.x}')
+print(f'Objective: {model.objVal}')
+```
+
+
+### 实践建模和编码：部分1
+
+*   **动手实践：** 结合前面学习的知识进行实际建模。
+*   **案例分析：** 夜初步构建与优化。
+
+## 数学优化的技巧和高阶方法
+
+### 提升模型性能
+
+#### 隐藏的宝藏：了解那些能够提升模型性能的特性
+
+*   **高级功能探索：** 详细学习Gurobi支持的一些不为人知但非常有用的功能。
+*   **性能提升技巧：** 探讨提高模型性能的技巧和窍门。
+
+#### 实践建模和编码：部分2
+
+*   **深入实践：** 继续实际动手操作，更复杂的建模实例。
+*   **优化调试：** 如何有效调试优化模型。
+
+#### 综合应用：介绍中级案例
+
+*   **案例介绍：** 详细解析一个中级案例，包括问题定义、建模思路及优化策略。
+*   **问题求解：** 实际动手解决该问题。
+
+#### 在Colab中进行案例建模
+
+*   **使用Colab：** 学习如何在Colab环境中进行建模和运行优化模型。
+*   **协同操作：** 如何利用Colab进行共享和协作。
+
+
+#### 未来学习路径：Gurobi ML 包与 OptiMods 示例（可选）
+
+*   **Gurobi ML包介绍：** 深入了解Gurobi的机器学习包的功能和使用。
+*   **OptiMods示例：** 通过具体示例学习如何将学到的知识应用于更加复杂的场景。

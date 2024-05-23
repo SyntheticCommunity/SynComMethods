@@ -19,6 +19,7 @@ book:
     - design-primer.qmd
     - design-specific-primer-with-cailab-utils.qmd
 #    - design-primer-with-unikmer.qmd
+    - mathematical-optimization.qmd
     - references.qmd
 
 bibliography: references.bib
