@@ -317,6 +317,173 @@ success = lapply(seq_along(gfiles), function(i){
 
 ## Supplementary information
 
+### Unikmer 工作原理
+
+Unikmer 中，“K-mers are either encoded (k<=32) or hashed (k<=64, using ntHash v1) into `uint64`, and serialized in binary file with extension `.unik`”。如何理解这句话呢？
+
+这句话描述了 K-mers（一种生物信息学中的DNA序列片段）是如何处理和存储的。具体来说：
+
+- **K-mers**：这是指长度为 k 的 DNA 序列片段。例如，对于一个长度为 k 的 K-mer，可能是像“ATCGGTA”这样的 DNA 序列。
+
+- **encoded (k<=32)**：当 k 的值小于等于 32 时，K-mers 被“编码”。编码通常意味着将DNA序列转换为一种紧凑的二进制表示形式。
+
+- **hashed (k<=64, using ntHash v1)**：当k的值小于等于 64 时，K-mers 被“哈希”。哈希是将DNA序列通过一个哈希函数（在这里是 ntHash v1）转换为一个固定长度的数值（通常是一个 64 位的整数）。
+
+- **into uint64**：无论是编码还是哈希，最终都将 K-mers 转换为一个 64 位的无符号整数（`uint64`）。
+
+- **serialized in binary file with extension .unik**：最后，这些64位的无符号整数将被序列化，存储在一个扩展名为 `.unik` 的二进制文件中。序列化是指将数据结构转换为可以存储或传输的格式。
+
+总结来说，这句话描述了一个处理和存储 K-mers 的方法，根据 K-mers 的长度选择不同的转换方式（编码或哈希），并最终将其以 64 位无符号整数的形式存储在二进制文件中。
+
+编码、哈希和序列化的原理，可以通过以下示例进一步了解。
+
+#### 1. 编码
+
+编码是将数据转换成另一种格式，以便进行高效存储或处理。在处理DNA序列时，常见的编码方法是将每个碱基（A、C、G、T）转换为一个二进制码。
+
+DNA序列：`ATCG`
+
+编码方式：
+- A -> 00
+- T -> 11
+- C -> 01
+- G -> 10
+
+`ATCG` 编码为：`00110110`
+
+#### 2. 哈希
+
+哈希是一种将任意长度的数据映射到固定长度的数值的方法。哈希函数会将输入数据转换为一个唯一的哈希值。
+
+假设我们使用一个简单的哈希函数，将字符的ASCII值相加并取模10。
+
+DNA序列：`ATCG`
+
+ASCII值：
+- A -> 65
+- T -> 84
+- C -> 67
+- G -> 71
+
+哈希值计算：
+\[ (65 + 84 + 67 + 71) \% 10 = 287 \% 10 = 7 \]
+
+所以，`ATCG` 的哈希值为 `7`。
+
+#### 3. 序列化
+
+序列化是将数据结构或对象转换为一种可以存储或传输的格式（如二进制或文本）。反序列化则是将这种格式恢复为原始数据结构或对象。
+
+假设我们有一个包含若干DNA序列信息的结构：
+
+```{python}
+data = {
+    'sequence1': 'ATCG',
+    'sequence2': 'GGTA'
+}
+```
+
+我们可以使用Python的`pickle`模块进行序列化：
+
+```{python}
+import pickle
+
+# 序列化
+serialized_data = pickle.dumps(data)
+
+# 保存到文件
+with open('data.pkl', 'wb') as file:
+    file.write(serialized_data)
+```
+
+保存后的二进制文件`data.pkl`可以传输或存储。
+
+反序列化：
+
+```{python}
+# 从文件读取
+with open('data.pkl', 'rb') as file:
+    loaded_data = pickle.loads(file.read())
+
+print(loaded_data)
+```
+
+#### 综合示例
+
+假设我们有一个K-mer：`ATCGTACG`，长度为8。
+
+- 编码
+
+```{python}
+def encode_kmer(kmer):
+    encoding = {'A': '00', 'T': '11', 'C': '01', 'G': '10'}
+    return ''.join([encoding[base] for base in kmer])
+
+encoded_kmer = encode_kmer('ATCGTACG')
+print(encoded_kmer)  # 输出：00110111100001
+```
+
+- 哈希（使用Python内置的哈希函数）
+
+```{python}
+def hash_kmer(kmer):
+    return hash(kmer) % (2**64)
+
+hashed_kmer = hash_kmer('ATCGTACG')
+print(hashed_kmer)  # 输出：一个64位无符号整数
+```
+
+- 序列化
+
+```{python}
+import pickle
+
+kmer_data = {'kmer': 'ATCGTACG', 'encoded': encoded_kmer, 'hashed': hashed_kmer}
+
+# 序列化
+serialized_kmer_data = pickle.dumps(kmer_data)
+
+# 保存到文件
+with open('kmer_data.unik', 'wb') as file:
+    file.write(serialized_kmer_data)
+```
+
+对K-mers进行编码、哈希处理和序列化存储的意义在于：
+
+1. **提高存储效率**
+
+  编码和哈希处理将K-mers从原本的字符序列转换为紧凑的二进制格式或固定长度的数值，这样可以显著减少存储空间。
+
+   - **编码**：将字符序列转换为二进制格式，减少空间占用。
+   - **哈希**：将K-mers转换为固定长度的数值（如64位无符号整数），使得存储和比较更加高效。
+
+1. **提高计算效率**
+
+  编码和哈希处理有助于提高计算效率，特别是在大规模数据处理和查询时。
+
+  - **快速比较**：二进制格式和哈希值可以快速进行比较操作，而无需逐字符比较原始序列。
+  - **高效查询**：哈希值使得在大数据集中的查找和匹配操作更高效。
+
+1. **一致性和标准化**
+
+  通过标准化的编码和哈希处理，确保所有K-mers以一致的格式存储和处理，便于数据共享和再现性。
+
+  - **标准化表示**：编码和哈希使得不同数据来源或处理过程中的K-mers以一致的方式表示和存储，减少了数据处理中的不一致问题。
+
+1. **数据压缩**
+
+  编码和哈希可以将原本较长的DNA序列压缩成更短的表示形式，节省存储空间。
+
+  - **压缩存储**：二进制编码和哈希值占用的存储空间比原始序列要小得多，特别是在处理大量K-mers时，压缩效果更加明显。
+
+1. **便于传输和共享**
+
+  序列化存储使得数据可以方便地传输和共享，并且可以在不同系统或平台之间进行数据交换。
+
+  - **跨平台传输**：序列化后的二进制文件可以在不同计算环境中传输和加载，便于数据共享和协作。
+
+对 K-mers 进行编码、哈希处理和序列化存储，不仅可以提高存储和计算效率，还能确保数据的一致性和可移植性，这对于大规模生物信息学数据处理具有重要意义。
+
 ### Unikmer version
 
 ```{bash}
