@@ -1,0 +1,16 @@
+# dcFBA
+
+https://github.com/SystemsBioinformatics/dynamic-community-fba
+
+动态社区 FBA（dcFBA）是一种多功能工具，旨在使用基因组规模代谢模型（GSMMs）将微生物群落建模为单个生物体。该软件包基于 cbmpy 的坚实基础，并与 SBML 和 COBRApy 模型无缝集成。dcFBA 为用户提供了三种独特的动态建模方法：
+
+- 动态联合 FBA - 逐步更新所提供模型的组合化学计量矩阵中的生物量和代谢物浓度。
+
+- 动态并行 FBA - 在对单个模型执行 FBA 的同时，同时更新生物量和代谢物的浓度。
+
+- 终点 FBA - 将 CommunityMatrix 复制 N 次，并在社区的时间依赖化学计量矩阵上执行 FBA。
+
+
+
+无论你是探索寄生相互作用，还是研究微生物群落中代价高昂的交叉喂养行为，dcFBA 都提供了一个优雅且高效的解决方案。
+

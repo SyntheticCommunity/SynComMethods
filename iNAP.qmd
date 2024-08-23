@@ -1,0 +1,7 @@
+# iNAP
+
+[@feng2022]
+
+<https://inap.denglab.org.cn>
+
+通过整合共现网络和代谢藕联潜力，更好预测物种间的相互作用关系。

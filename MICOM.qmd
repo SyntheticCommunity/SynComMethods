@@ -1,0 +1,48 @@
+# MICOM
+
+MICOM 是一个用于微生物群落代谢建模的Python包，由系统生物学研究所的Gibbons实验室和墨西哥国家基因医学研究所Osbaldo Resendis Antonio教授的人类系统生物学小组开发。
+
+MICOM 允许你从输入的COBRA模型列表中构建一个群落模型，并管理个体之间以及个体与环境之间的交换通量。**它明确考虑了群落中不同个体的丰度**，因此可以结合16S扩增子测序或宏基因组实验的数据。它允许使用各种算法进行优化，模拟自私的生长速率最大化与合作目标之间的权衡。
+
+[@diener2020]
+
+workflow: <https://micom-dev.github.io/micom/high_level.html>
+
+## 输入数据
+
+To start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single [tidy DataFrame](https://vita.had.co.nz/papers/tidy-data.pdf). Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty clear when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance.
+
+```{python}
+from micom.data import test_data
+
+data = test_data()
+data
+```
+
+This is very simple example where each sample contains 4 different *E. coli* species in random abundances. Thus, every sample has 4 rows in this DataFrame. The DataFrame also contains additional columns, **the only required columns are “id”, “sample_id”, “abundance” and one column that provides the summary rank, here “species”.**
+
+Note that we also have an additional column “genus” here. The minimal taxonomic information you have to provide is only the name of the taxonomy rank matching the database you are using. So if you are using a genus-level database you will need a column “genus”. In this case we mill use a species-level database so we had to provide a column “species”. If there any additional columns from the set `{"kingdom", "phylum", "class", "order", "family", "genus", "species"}` those will be used to make the mapping with the database more stringent. For instance, here we provided a column “genus” which means models will only be counted as a “match” if the taxon has the same genus *and* species in the data and the model database.
+
+Thus, the more taxonomic rank columns you include in the data you pass to MICOM, the more stringent MICOM will become matching to the reference database. This can be used to circumvent poorly matching ranks as well. For instance, if you know your data matches well by genus and phylum names but families are named differently even for the same taxa you can omit the “family” column from your data.
+
+### **Building community models**
+
+To build a community sample for each of your sample you will need the abundance table as provided above and a model database. Usually we recommend to use one of the prebuilt MICOM database from <https://doi.org/10.5281/zenodo.3755182>. Additionally, you can also [\`create your own database \<\>\`\_\_](https://micom-dev.github.io/micom/high_level.html#id1).
+
+For our example we have a custom species-level database that is bundled with MICOM. With the abundance table and database you can now start building your models by providing a folder where the assembled community models should be stored.
+
+```{python}
+from micom.data import test_db
+from micom.workflows import build
+
+manifest = build(data, out_folder="models", model_db=test_db, cutoff=0.0001, threads=2)
+```
+
+This will also allow you to specify a relative abundance cutoff for a taxon to be included with the `cutoff`argument. The default is to include only taxa that constitute at least 0.01% of the sample. Model building will be automatically parallelized over multiple CPUs and the number of cores/threads to use for should be set with the `threads` argument. The workflows will also warn you if for any samples less than 50% of the abundance was matched to the database. Since our data was random this may have happened here.
+
+The `build` workflow will return a model manifest:
+
+```{python}
+manifest
+```
+
