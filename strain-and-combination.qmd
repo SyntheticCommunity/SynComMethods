@@ -1,3 +1,92 @@
 # 菌株和组合方式 {#strain-and-combination}
 
 
+合成菌群是人工构建的简单微生物群落，通常含有的物种数目在 3 - 7 个之间。为了能够穷尽式构建n个物种所有可能的物种组合，需要考虑包含 0 个物种、1 个物种、双物种、多物种，以及 $n$ 个物种的情况。
+
+以 $n=10$ 为例，根据排列公式可知全部的物种组合数目 N 可以通过以下公式计算得到（@eq-ten-strain）：
+
+
+$$
+N = C_{10}^0+C_{10}^1+C_{10}^2+⋯+C_{10}^9+C_{10}^{10} = 2^{10}
+$$ {#eq-ten-strain}
+
+
+
+如 @fig-combinations-of-ten-strains 所示，这个穷尽式构建方案中，不含任何物种（无菌）的组合数目为 1 个，单一物种组合数为 10 个，双物种组合数为 45 个，三物种组合数为 120 个等等。全部的组合数为 1024 个。无菌、单菌等组合虽然不能称为传统意义上的菌群，但是对于研究来说是必不可少的对照，因此也属于这一合成菌群体系的重要成员。
+
+
+```{r}
+#| label: fig-combinations-of-ten-strains
+#| fig-cap: 10 个菌株的排列组合数目
+library(ggplot2)
+combinations = data.frame(
+  number = 0:10,
+  combination = choose(10, 0:10)
+)
+ggplot(combinations, aes(factor(number),combination)) +
+  geom_col() +
+  geom_text(aes(label=combination, y = combination + 5), vjust = 0) +
+  annotate("text", label = expression(N[total] == 1024), 
+           y = Inf, x = Inf, hjust = 1.2, vjust = 1.2,
+           size = I(5)) +
+  scale_y_continuous(expand = expansion(c(0,0.1))) +
+  labs(x = "number of strain", y = "number of combination")
+```
+
+从组合数学的角度来看， $2^n$ 代表了从 n 个元素中选取子集的所有可能方式的总数。每个子集对应一个 0 - 1 向量，其中 0 表示不包含某元素，1 表示包含某元素。因此，当我们对这些向量进行排序后，它们可以有序的排列在 $(2n-1) × (2n-1)$ 布局的二维平面上。这就为我们合理规划构建合成菌群过程中的加样顺序提供了重要指引。
+由于实验室中并没有 $(2n-1) × (2n-1)$ 的微孔板，而常见的微孔板只有 24 孔、96 孔和 384 孔等规格，所以实验操作以行和列为单位在 24 孔板、96 孔板、384 孔板提供的加样空间上有序开展。每个合成菌群的组合都依据所处的孔板和在孔板中的位置给出唯一编码。最终，该方法能够实现在短时间内构建超过一千个不同的合成菌群组合。在后两种微孔板上构建合成菌群的时候，通过使用多通道移液器进行操作，可以大幅提高工作效率。为了能够明确加样完成后每个孔位中所包含合成菌群的菌株组成，我们还开发了一个 R 语言软件包 `syncons`。该软件包可以运行在本地或者通过云服务来访问，除了提供合成菌群编码信息，还有加样流程查询和数据采集表格初始化等功能。
+
+## Installation
+
+You can install the development version of `syncons` like so:
+
+``` r
+install.packages("pak")
+pak::pak("gaospecial/syncons")
+```
+
+Now you can use this package.
+
+```{r}
+library("syncons")
+```
+
+A shiny app ported with this package can be accessed through [shiny.io](https://bio-spring.shinyapps.io/SynComsConstructor/).
+
+```{r}
+#| label: fig-syncons-shiny-app-screenshot
+#| fig-cap: Screenshot of the shiny app
+knitr::include_graphics("images/syncons-shiny-app-screenshot.png")
+```
+
+
+## Layout of SynComs in a plate
+
+A 24-well plate can be used to construct 16 different SynComs with 4 strains.
+
+```{r}
+one_plate(24, return_layout = TRUE)
+```
+
+A 96-well plate can be used to construct 64 different SynComs with 6 strains.
+
+```{r}
+one_plate(96, return_layout = TRUE)
+```
+
+
+A 384-well plate can be used to construct 256 different SynComs with 8 strains.
+
+```{r}
+one_plate(384, return_layout = TRUE)
+```
+
+## Generation of sample tables
+
+Support we have eight strains and want to construct a series of SynComs with all the possible combinations.
+
+```{r}
+strains = paste0("S", 1:8)
+assign_plate(strains, plate_type = "96")
+```
+

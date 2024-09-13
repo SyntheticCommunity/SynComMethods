@@ -4,3 +4,9 @@
 .Ruserdata
 /.quarto/
 _book
+.env
+logs/
+__pycache__/
+.DS_Store
+.vscode
+_freeze

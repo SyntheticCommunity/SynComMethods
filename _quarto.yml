@@ -7,7 +7,7 @@ execute:
 book:
   title: "SynComMethods"
   author: "高春辉"
-  date: "2023/8/10"
+  date: now
   cover-image: cover.png
   chapters:
     - index.qmd
@@ -42,6 +42,8 @@ format:
               <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
   pdf:
     documentclass: scrreprt
+    mermaid-format: png
+    extract-media: images
     fig-width: 7
     fig-asp: 0.618
     warning: false
@@ -52,5 +54,7 @@ format:
             \usepackage{amsthm,mathrsfs}
             \usepackage{fvextra}
             \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+            \usepackage[version=4]{mhchem}
+            \usepackage{siunitx}
 
 

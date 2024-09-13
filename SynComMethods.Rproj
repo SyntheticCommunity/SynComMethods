@@ -15,4 +15,8 @@ LaTeX: XeLaTeX
 AutoAppendNewline: Yes
 StripTrailingWhitespace: Yes
 
-BuildType: Makefile
+BuildType: None
+
+PythonType: conda
+PythonVersion: 3.12.3
+PythonPath: /opt/homebrew/anaconda3/envs/SynComMethods/bin/python3.12

@@ -19,13 +19,11 @@ format:
 
 ## 分子式
 
-$\ce{H2O}$
+参见下面的例子：
 
-`$\ce{H2O}$`
+$\ce{H2O}$：`$\ce{H2O}$`；
 
-$\ce{Sb2O3}$
-
-`$\ce{Sb2O3}$`
+$\ce{Sb2O3}$：`$\ce{Sb2O3}$`
 
 ## 电荷
 
@@ -61,9 +59,21 @@ $\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}$
 
 `$\ce{Hg^2+ ->[I-] HgI2 ->[I-] [Hg^{II}I4]^2-}$`
 
+:::{.content-visible when-format="pdf"}
+$C_p[\ce{H2O(l)}] = \qty{75.3}{\joule\per\mole\per\kelvin}$
+
+`$C_p[\ce{H2O(l)}] = \qty{75.3}{\joule\per\mole\per\kelvin}$`
+:::
+
+
+:::{.content-visible when-format="html"}
 $C_p[\ce{H2O(l)}] = \pu{75.3 J // mol K}$
 
-`$C_p[\ce{H2O(l)}] = \pu{75.3 J // mol K}$`
+`C_p[\ce{H2O(l)}] = \pu{75.3 J // mol K}`
+:::
+
+
+see: <https://tex.stackexchange.com/questions/405579/how-to-use-mathjax-mhchem-pu-command-in-latex>
 
 ## 同位素
 

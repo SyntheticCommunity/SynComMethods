@@ -45,13 +45,14 @@ system("hybrid-min -V")
 # format output
 system("hybrid-min -V", intern = TRUE) |> paste(collapse = "\n") |>  cat()
 ```
+
 ## 引物设计
 
 `design_specific_primer()` 函数的用法很简单。给它一个包含多个序列的 FASTA 格式文件，它就会返回特异性的引物。这里的特异性引物指的是仅能与 FASTA 文件中一条序列特异性扩增，而同时不能与另外所有序列特异性扩增的 DNA 片段。
 
 ```{r}
 library(cailab.utils)
-fasta_file = "/Users/gaoch/Projects/KN-strain/2023-12-06 rRNA gene sequence/16S-rRNA-gene-sequence-of-KN-strains.fa"
+fasta_file = system.file("sequence.fa", package = "rPrimer3")
 design_specific_primer(fasta_file, 20, 20, 100, 1500, TRUE)
 ```
 

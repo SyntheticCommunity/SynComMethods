@@ -10,7 +10,7 @@
 
 给定化学计量矩阵和一组指定的可用养分吸收率，目标是求解未知细胞内反应速率（即细胞内通量）和代谢副产物分泌速率（即分泌通量）的 GSM。由于比起质量平衡方程，化学计量方程总是包含更多的未知通量，因此 GSM 有无限多的解，通量分布无法唯一确定。为了克服这一局限性，假定细胞新陈代谢受到调节，以实现某种细胞目标。最常见的目标是最大限度地生长，由此就将生物代谢物（如 RNA、DNA、蛋白质、碳水化合物等）的化学计量方程结合了起来，产生一个线性规划（LP）问题，通过有效求解，可预测细胞内通量分布、吸收和分泌（交换）通量以及生长率（ @fig-genome-scale-fba ）。
 
-![**基因组尺度通量分析方法**。GSM 构建了一个线性回归问题，利用化学计量矩阵 $A$、生物量组成权重 $w$、通量 $v_{min}$ 和 $v_{max}$ 边界以及养分吸收率的指定边界计算未知通量 $v$。在这个具体例子中，葡萄糖（$g$）和氧气（$o$）是限制生长的营养物质，乙醇（$e$）是主要的代谢副产品。根据指定的两种营养物质的通量界限（$v_{g,min}$, $v_{o,min}$），计算出细胞生长率（$μ$）、实际营养物质吸收率（$v_g$, $v_o$）和乙醇分泌率（ $v_e$）。[@hensonGenomescaleModellingMicrobial2015]](https://port.silverchair-cdn.com/port/content_public/journal/biochemsoctrans/43/6/10.1042_bst20150146/2/m_bst0431164fig1.jpeg?Expires=1694421452&Signature=Ba584bo2Hgt7tEz7u1cZ-0zSZhZTe4fh~Q8kExISppMoVep3pgL8noo6semqrlwNV7MNTA6O0ZfD57mTtiUYCLemk0OWVAaptJd3YDIIsBvjolKA8rUihh5~rAyLeJL0x2Ld1L0Kr1lWuGiF8mXKc4pI~zVc0Z5Akm1hFM3oAn4qGbKi5plpUuQTEjHruuiWBHANJ5SAwiUnWZy6RYeJCu7bgjgrpLKmk5dYUEwB8Z5CJVWzfAENqf4zTSGFbpJtXl8hFB~PBGhSN~dTE26jHwlb7tOMXz6eynKuO7MuK~fSyc768bXqZjRNUxmvVqVTc6Q0oqRT0j0n32lPf4yGvg__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA){#fig-genome-scale-fba}
+![**基因组尺度通量分析方法**。GSM 构建了一个线性回归问题，利用化学计量矩阵 $A$、生物量组成权重 $w$、通量 $v_{min}$ 和 $v_{max}$ 边界以及养分吸收率的指定边界计算未知通量 $v$。在这个具体例子中，葡萄糖（$g$）和氧气（$o$）是限制生长的营养物质，乙醇（$e$）是主要的代谢副产品。根据指定的两种营养物质的通量界限（$v_{g,min}$, $v_{o,min}$），计算出细胞生长率（$μ$）、实际营养物质吸收率（$v_g$, $v_o$）和乙醇分泌率（ $v_e$）[@hensonGenomescaleModellingMicrobial2015]。](images/hensonBiochemSocTrans2015-genome-scale-fba.jpeg){#fig-genome-scale-fba}
 
 ### SFBA 问题及最新进展 {#sec-sfba-problem-and-recent-progress}
 
@@ -18,7 +18,7 @@ FBA 所依据的假设是细胞内代谢和细胞外环境都是时间不变的�
 
 [^metabolic-model-1]: 取消细胞内稳态假设需要结合酶动力学，更加困难。
 
-![基因组尺度 DFBA 在细胞内动力学比细胞外动力学快的假设条件下，使用 GSM 进行 FBA，以预测生长率、养分吸收率和副产物分泌率。FBA 通量可作为细胞外环境常微分方程（Ordinary Differential Equation，ODE）的输入，经整合后可对生物量、营养物质和副产物浓度进行时间分辨预测。这些浓度可作为养分吸收动力学的输入，用于计算 FBA 问题中养分吸收率的传输边界。本例中，葡萄糖（ $g$）和氧气（ $o$）是限制生长的养分，乙醇（ $e$）是主要代谢副产物，其中 $X$、$G$、$E$ 和 $O$ 分别为生物量、葡萄糖、乙醇和氧气浓度。[@hensonGenomescaleModellingMicrobial2015]](https://port.silverchair-cdn.com/port/content_public/journal/biochemsoctrans/43/6/10.1042_bst20150146/2/m_bst0431164fig2.jpeg?Expires=1694421452&Signature=1Uw~YThMi1LBZUEXO7Lm7wgGsaVDXkLKJKxiZBfBbrTJA8STCjzUfGqaB698lYfW39KHI6RW9E3QDgiPWeJuSSX5fmAyGbwvrsuIxUM2Uf8DX4HPYiS4SM8EEHIyIX7HOnaVAJ0qrbcxragGNuXZiEbxt1u6e8W8zN-I4agCreVGx0~qHO6XVNLso-5NpFEBcyheI7bMV9P2umDW587z77HaLGr0IrNOV4wRRQ9jqbSPy1O7GxYVZADpcgCFXrKVU9kgn3kyg1cKeME6GuY2qgSkDV8al3LrBk8jsqQUmsbqjGxnmf~YNfUHJBRTMy1UBBkz1k4tI20Xy2Eru~rbow__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA){#fig-genome-scale-dfba}
+![基因组尺度 DFBA 在细胞内动力学比细胞外动力学快的假设条件下，使用 GSM 进行 FBA，以预测生长率、养分吸收率和副产物分泌率。FBA 通量可作为细胞外环境常微分方程（Ordinary Differential Equation，ODE）的输入，经整合后可对生物量、营养物质和副产物浓度进行时间分辨预测。这些浓度可作为养分吸收动力学的输入，用于计算 FBA 问题中养分吸收率的传输边界。本例中，葡萄糖（ $g$）和氧气（ $o$）是限制生长的养分，乙醇（ $e$）是主要代谢副产物，其中 $X$、$G$、$E$ 和 $O$ 分别为生物量、葡萄糖、乙醇和氧气浓度[@hensonGenomescaleModellingMicrobial2015]。](images/hensonBiochemSocTrans2015-genome-scale-dfba.jpeg){#fig-genome-scale-dfba}
 
 尽管 DFBA 考虑了细胞外动态对细胞内代谢的影响，但该方法是基于细胞外环境混合良好且空间均匀的假设。同时考虑空间和时间变化的数学模型通常称为**时空模型**。我们把包括环境空间异质性的 DFBA 扩展称为时空 FBA（Spatiotemporal FBA，SFBA）。
 
@@ -29,20 +29,18 @@ FBA 所依据的假设是细胞内代谢和细胞外环境都是时间不变的�
 营养物质和代谢产物在生物膜不同位置存在异质性。而且，由于细胞的生长和/或死亡，空间异质性可能会随着时间的变化。为便于说明，考虑厚度固定为 $L$ 的单一物种生物膜中，底部（ $z=0$ ）有单一限制生长的营养物质，顶部（ $z=L$ ）有单一合成的副产品排出。假设空间变化只发生在生物膜的轴向 $z$，描述生物膜扩散过程的 PDE 可写成以下形式：
 
 $$
-\begin{eqnarray}
-\begin{array}{llll}
+\begin{array}{l l l l}
 \frac {\partial X(z,t)}{\partial t} = \mu X \qquad &  X(z, 0) = X_I \\
 \frac {\partial S(z, t)}{\partial t} = \upsilon_S X + D_S \frac {\partial^2S}{\partial z^2} \qquad & S(0,t) = S_0 \quad & \frac {\partial S(L,t)}{\partial z} = 0 \quad & S(z,0) = S_I \\
 \frac {\partial P(z,t)}{\partial t} = v_P X + D_P \frac {\partial ^2 P}{\partial z^2} \qquad & \frac{\partial P(0,5)}{\partial z}=0 \quad & P(z,t)=0 \quad & P(z,0)=P_I
 \end{array}
-\end{eqnarray}
 $$
 
 这里的 $X(z,t)$、$S(z,t)$ 和 $P(z,t)$ 分别表示在 $z$ 处和时间 $t$ 的生物量、底物浓度和副产物浓度。通过求解 GSM 可以得到生长率 $μ$、底物吸收率 $v_S$ 和副产物合成率 $v_P$。基质和副产物分别以高效扩散系数 $D_S$ 和 $D_P$ 在生物膜中扩散，而生物质被假定为无运动性。第二栏列出了生物膜底部的边界条件，其假设条件是：基质的浓度为 $S0$，生物质和副产物不会穿过该边界。第三列生物膜顶部的边界条件是基于以下假设：生物质和基质不会流过该边界，而副产品的去除率足够高，以至于边界浓度为零。最后，第四栏中的初始条件是基于生物膜在 $t=0$ 时空间均匀的假设。
 
 SFBA 模型由描述细胞外环境的 PDE 和描述细胞内代谢的 LP 组成。纯物种系统只有一个 LP ，而多物种系统则需要求解每个物种的 LP。由于没有直接求解这种混合 PDE-LP 模型的计算方法，因此必须以某种方式近似 PDE 的传输行为，以生成可求解的模型。@fig-genome-scale-sfba
 
-![**基因组尺度 SFBA**。具有时空变化的微生物系统由一个时空模型来描述，该模型考虑了系统内的相关迁移过程。假定空间变化仅限于单一方向 $z$，则根据物种浓度（ $X_i$）、液相代谢物浓度（ $M_j$）和气相代谢物浓度（$Pj$）编写 PDEs。利用参与物种的 GSM 进行 FBA，以预测生长率、营养吸收率和副产物分泌率。通过对 PDEs 进行空间离散化处理，可以得到一大组带有嵌入式 LPs 的 ODEs，使用 MATLAB 软件包 DFBAlab 对这些 ODEs 进行求解，从而得出时间和空间分辨率预测结果。](https://port.silverchair-cdn.com/port/content_public/journal/biochemsoctrans/43/6/10.1042_bst20150146/2/m_bst0431164fig4.jpeg?Expires=1694421452&Signature=cQfcYMyChqIHk3KT3wM0rg7NuakOMJYpldTpyGUWI~tS3b~hEBH0hzZYkFRzafDOMoLFd5E59bgQc9xTQj-HC6oeQWWQK3fZF85r40KC2IotdCKNBVmopxDX99TN1V6dbqUGw0bGBnVSzLlpr5BZlX0CMVqmFU2ozC8p0G5QHd6GU875x-kwamNkDNvUtyRTO60jYl43lxFjs2HZ9Jp4Pia8oZhGgABf~Ut-5~c1jxZSxk6XvdEv64E9Z7pz4i4Lg7dE-J1yMgQS3lWPsdsopQpb0ClYA80l1uxov8VHrCF~PHP-0EyCXVn9nPgvRsET12lq5oBg~EXO6DVUVLwNuQ__&Key-Pair-Id=APKAIE5G5CRDK6RD3PGA){#fig-genome-scale-sfba}
+![**基因组尺度 SFBA**。具有时空变化的微生物系统由一个时空模型来描述，该模型考虑了系统内的相关迁移过程。假定空间变化仅限于单一方向 $z$，则根据物种浓度（ $X_i$）、液相代谢物浓度（ $M_j$）和气相代谢物浓度（$Pj$）编写 PDEs。利用参与物种的 GSM 进行 FBA，以预测生长率、营养吸收率和副产物分泌率。通过对 PDEs 进行空间离散化处理，可以得到一大组带有嵌入式 LPs 的 ODEs，使用 MATLAB 软件包 DFBAlab 对这些 ODEs 进行求解，从而得出时间和空间分辨率预测结果。](images/hensonBiochemSocTrans2015-genome-scale-sfba.jpeg){#fig-genome-scale-sfba}
 
 ### SFBA 案例研究 {#sec-three-sfba-examples}
 
@@ -163,7 +161,7 @@ Dynamic flux balance analysis is an extension of FBA that has the advantage that
 -   Description of the interaction between FBA models through uptake and production of external metabolites.
 -   The dynamic equations that are integrated by DFBAlab.
 
-![](https://yoric.mit.edu/sites/default/files/images/CodeCogsEqn.png){#fig-dfbalab-equation}
+![](images/CodeCogsEqn.png){#fig-dfbalab-equation}
 
 where $N$ is the number of biological species and $M$ is the number of extracellular chemical species. The variable $x_j$ is the biomass concentration of the $j^{th}$ metabolism, $s_i$ is the extracellular concentration of the $i^{th}$ chemical species, $F_{in} = \sum_{i=1}^{M}F_{i} (t)$ with $F_i$ is the feed rate of chemical species $i$, $D=\sum_{i=1}^{M}F_i /V$ is the dilution rate, $v_i^j$ is the uptake or production rate of chemical species $i$ due to species $j$ and $V$ is the volume of the bio-reactor. If the function $v_i^j$ describes the production rate of the $i^{th}$ external metabolite by the $j^{th}$ metabolism, then its value can be determined by secondary optimization for the production rate.
 

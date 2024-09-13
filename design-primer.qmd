@@ -12,7 +12,9 @@ library(cailab.utils)
 ```{r}
 library(rPrimer3)
 fas = system.file("sequence.fa", package = "rPrimer3")
-design_primer_from_file(fas, parts = 1)
+# config_path = file.path(system("brew --prefix primer3", intern = TRUE), "share/primer3/primer3_config")
+# Sys.setenv("PRIMER_THERMODYNAMIC_PARAMETERS_PATH" = config_path)
+# design_primer_from_file(fas, parts = 1)
 ```
 
 
@@ -22,7 +24,7 @@ design_primer_from_file(fas, parts = 1)
 
 ```{r}
 library(cailab.utils)
-design_specific_primer(fas)
+# design_specific_primer(fas)
 ```
 
 ## 使用 unikmer

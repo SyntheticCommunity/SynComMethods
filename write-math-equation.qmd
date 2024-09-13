@@ -255,26 +255,20 @@ $$
 
 ## 多行等式
 
-MathJax 3.0 取消了单行公式环境下 `\\` 的强制换行功能，因此强制换行命令 `\\` 仅能用于 `eqnarray`、`align`、`array`、`matrix` 等多行环境当中。除此之外，还可以在 `\displaylines{}` 行显示命令当中使用 `\\` 强制换行命令.
-
-| 符号                                 | LaTex                                |
-|------------------------------------|------------------------------------|
-| $\displaylines{y=1729x \\ y=1729-x}$ | `\displaylines{y=1729x \\ y=1729-x}` |
-
-对于多行环境，则使用换行功能即可。
+MathJax 3.0 取消了单行公式环境下 `\\` 的强制换行功能，因此强制换行命令 `\\` 仅能用于 `eqnarray`、`align`、`array`、`matrix` 等多行环境当中。
 
 $$
-\begin{align}
-f(x) & = (a+b)^2\\
+\begin{array}{rl}
+f(x) & = (a+b)^2 \\
 & = a^2+2ab+b^2
-\end{align}
+\end{array}
 $$
 
 ``` latex
-\begin{align}
-f(x) & = (a+b)^2\\
+\begin{array}{rl}
+f(x) & = (a+b)^2 \\
 & = a^2+2ab+b^2
-\end{align}
+\end{array}
 ```
 
 ## 对齐
