@@ -1,13 +1,14 @@
 project:
   type: book
 
-execute: 
+execute:
   freeze: auto
 
 book:
   title: "SynComMethods"
   author: "高春辉"
   date: "2023/8/10"
+  cover-image: cover.png
   chapters:
     - index.qmd
     - write-math-equation.qmd
@@ -22,6 +23,7 @@ book:
     - design-primer.qmd
     - design-specific-primer-with-cailab-utils.qmd
 #    - design-primer-with-unikmer.qmd
+    - kmer-facilitated-primer-design.qmd
     - mathematical-optimization.qmd
     - references.qmd
 
