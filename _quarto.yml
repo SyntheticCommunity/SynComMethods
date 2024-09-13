@@ -29,12 +29,28 @@ book:
 
 bibliography: references.bib
 
+
 format:
   html:
     theme: cosmo
+    fig-width: 7
+    fig-asp: 0.618
+    warning: false
+    message: false
     include-after-body:
         - text: |
               <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
-
+  pdf:
+    documentclass: scrreprt
+    fig-width: 7
+    fig-asp: 0.618
+    warning: false
+    message: false
+    include-in-header:
+          text: |
+            \usepackage{ctex}
+            \usepackage{amsthm,mathrsfs}
+            \usepackage{fvextra}
+            \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 
 
