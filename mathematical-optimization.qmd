@@ -1,4 +1,4 @@
-# 数学优化 {#mathematical-optimization}
+# 数学优化 {#sec-mathematical-optimization}
 
 数学优化（Mathematical Optimization），也称为数值优化或数理优化，是关于选择最优元素（通常是最大化或最小化某一特定函数的值）的一门数学学科。这些元素来自某个定义域，该定义域受到一系列约束条件的限制。数学优化在工程、经济学、运营管理、物流和医学等多个领域有广泛应用。
 
