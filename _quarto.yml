@@ -19,6 +19,7 @@ book:
     - metabolic-model.qmd
     - ecological-model.qmd
     - glv-model.qmd
+    - learn-fba.qmd
     - strain-specific-pcr.qmd
     - design-primer.qmd
     - design-specific-primer-with-cailab-utils.qmd
