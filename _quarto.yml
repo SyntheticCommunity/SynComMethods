@@ -11,21 +11,34 @@ book:
   cover-image: cover.png
   chapters:
     - index.qmd
-    - write-math-equation.qmd
-    - write-chemical-equation.qmd
-    - technical-writing-with-quarto.qmd
-    - strain-and-combination.qmd
-    - culture-method.qmd
-    - metabolic-model.qmd
-    - ecological-model.qmd
-    - glv-model.qmd
-    - learn-fba.qmd
-    - strain-specific-pcr.qmd
-    - design-primer.qmd
-    - design-specific-primer-with-cailab-utils.qmd
-#    - design-primer-with-unikmer.qmd
-    - kmer-facilitated-primer-design.qmd
-    - mathematical-optimization.qmd
+    - part: 科学写作
+      chapters:
+        - write-math-equation.qmd
+        - write-chemical-equation.qmd
+        - technical-writing-with-quarto.qmd
+    - part: 微生物培养
+      chapters:
+        - strain-and-combination.qmd
+        - culture-method.qmd
+    - part: 代谢网络
+      chapters:
+        - metabolic-model.qmd
+        - learn-fba.qmd
+        - MICOM.qmd
+    - part: 生态模型
+      chapters:
+        - ecological-model.qmd
+        - glv-model.qmd
+    - part: 引物设计
+      chapters:
+        - strain-specific-pcr.qmd
+        - design-primer.qmd
+        - design-specific-primer-with-cailab-utils.qmd
+        - design-primer-with-unikmer.qmd
+        - kmer-facilitated-primer-design.qmd
+    - part: 数学基础
+      chapters:
+        - mathematical-optimization.qmd
     - references.qmd
 
 bibliography: references.bib

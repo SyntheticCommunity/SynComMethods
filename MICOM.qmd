@@ -1,6 +1,6 @@
 # MICOM
 
-MICOM 是一个用于微生物群落代谢建模的Python包，由系统生物学研究所的Gibbons实验室和墨西哥国家基因医学研究所Osbaldo Resendis Antonio教授的人类系统生物学小组开发。
+MICOM 是一个用于微生物群落代谢建模的 Python 包，由系统生物学研究所的Gibbons实验室和墨西哥国家基因医学研究所Osbaldo Resendis Antonio教授的人类系统生物学小组开发。
 
 MICOM 允许你从输入的COBRA模型列表中构建一个群落模型，并管理个体之间以及个体与环境之间的交换通量。**它明确考虑了群落中不同个体的丰度**，因此可以结合16S扩增子测序或宏基因组实验的数据。它允许使用各种算法进行优化，模拟自私的生长速率最大化与合作目标之间的权衡。
 
@@ -10,7 +10,9 @@ workflow: <https://micom-dev.github.io/micom/high_level.html>
 
 ## 输入数据
 
-To start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single [tidy DataFrame](https://vita.had.co.nz/papers/tidy-data.pdf). Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty clear when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance.
+要开始为所有样本构建群落模型，你需要向 MICOM 提供数据。MICOM 倾向于将所有样本的分类和丰度数据存储在单个 [tidy DataFrame](https://vita.had.co.nz/papers/tidy-data.pdf) 中。在这里，每个样本中的每个物种都是一行，提供其分类和丰度信息。这听起来可能有点令人困惑，但通过查看示例就会变得非常清晰。MICOM 可以生成一个简单的示例 DataFrame 供我们参考。
+
+To start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single [tidy DataFrame](https://vita.had.co.nz/papers/tidy-data.pdf). Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty clear when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance.
 
 ```{python}
 from micom.data import test_data
@@ -19,30 +21,34 @@ data = test_data()
 data
 ```
 
-This is very simple example where each sample contains 4 different *E. coli* species in random abundances. Thus, every sample has 4 rows in this DataFrame. The DataFrame also contains additional columns, **the only required columns are “id”, “sample_id”, “abundance” and one column that provides the summary rank, here “species”.**
 
-Note that we also have an additional column “genus” here. The minimal taxonomic information you have to provide is only the name of the taxonomy rank matching the database you are using. So if you are using a genus-level database you will need a column “genus”. In this case we mill use a species-level database so we had to provide a column “species”. If there any additional columns from the set `{"kingdom", "phylum", "class", "order", "family", "genus", "species"}` those will be used to make the mapping with the database more stringent. For instance, here we provided a column “genus” which means models will only be counted as a “match” if the taxon has the same genus *and* species in the data and the model database.
+这是一个非常简单的示例，其中每个样本包含 4 种不同的 *E. coli* 物种，随机丰度。因此，每个样本在这个 DataFrame 中有 4 行。DataFrame 还包含其他列，**唯一需要提供的列是 “id”、“sample_id”、“abundance” 和提供摘要分类的一列，这里为 “species”。**
 
-Thus, the more taxonomic rank columns you include in the data you pass to MICOM, the more stringent MICOM will become matching to the reference database. This can be used to circumvent poorly matching ranks as well. For instance, if you know your data matches well by genus and phylum names but families are named differently even for the same taxa you can omit the “family” column from your data.
+
+请注意，这里我们还有一个额外的列“genus”。你需要提供的最小分类信息仅仅是与你使用的数据库匹配的分类等级名称。因此，如果你使用的是属级数据库，你就需要一个"genus"列。在本例中，我们将使用物种级数据库，所以必须提供"species"列。如果有来自集合`{"kingdom", "phylum", "class", "order", "family", "genus", "species"}`的任何额外列，这些列将用于使数据库映射更加严格。例如，在这里我们提供了一个“genus”列，这意味着只有当数据和模型数据库中的分类单元具有相同的属和种时，模型才会被视为"匹配"。
+
+因此，在传递给 MICOM 的数据中包含的分类等级列越多，MICOM 匹配到参考数据库的严格性就越高。这可以用来规避匹配不良的分类等级。
 
 ### **Building community models**
 
-To build a community sample for each of your sample you will need the abundance table as provided above and a model database. Usually we recommend to use one of the prebuilt MICOM database from <https://doi.org/10.5281/zenodo.3755182>. Additionally, you can also [\`create your own database \<\>\`\_\_](https://micom-dev.github.io/micom/high_level.html#id1).
+要为每个样本构建一个群落模型，你需要提供上述的丰度表和模型数据库。通常我们推荐使用一个预构建的 MICOM 数据库，可以从 <https://doi.org/10.5281/zenodo.3755182> 获取。此外，你也可以 [创建你自己的数据库](https://micom-dev.github.io/micom/high_level.html#id1)。
 
-For our example we have a custom species-level database that is bundled with MICOM. With the abundance table and database you can now start building your models by providing a folder where the assembled community models should be stored.
+对于我们的示例，我们有一个与 MICOM 捆绑在一起的定制物种级数据库。有了丰度表和数据库，你现在可以开始构建你的模型，提供一个文件夹，用于存储组装的群落模型。
 
 ```{python}
+#| eval: false
 from micom.data import test_db
 from micom.workflows import build
 
 manifest = build(data, out_folder="models", model_db=test_db, cutoff=0.0001, threads=2)
 ```
 
-This will also allow you to specify a relative abundance cutoff for a taxon to be included with the `cutoff`argument. The default is to include only taxa that constitute at least 0.01% of the sample. Model building will be automatically parallelized over multiple CPUs and the number of cores/threads to use for should be set with the `threads` argument. The workflows will also warn you if for any samples less than 50% of the abundance was matched to the database. Since our data was random this may have happened here.
+这将还允许你使用 `cutoff` 参数指定一个相对丰度截止值，以包括在模型中的分类单元。默认情况下，只包括丰度至少为样本的 0.01% 的分类单元。模型构建将自动并行化到多个 CPU 上，并且应该使用 `threads` 参数设置的 CPU 核心数。如果任何样本的丰度小于 50%，工作流将警告你。由于我们的数据是随机的，这里可能发生了这种情况。
 
-The `build` workflow will return a model manifest:
+`build` 工作流将返回一个模型清单:
 
 ```{python}
+#| eval: false
 manifest
 ```
 

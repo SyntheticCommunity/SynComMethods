@@ -1,5 +1,7 @@
 # Design specific primer with unikmer
 
+这可以称为 `UniPrimer` workflow 吧。
+
 ## Aim
 
 I have several gzipped fasta format genomes, and want to design specific primers for each of them.
@@ -38,9 +40,9 @@ the genomic DNA of strain 1 but not with all the DNA of the other 29 strains.
 
 ```{r}
 ws = "ws"           # working space
-outdir = file.path(".", ws) |> R.utils::getAbsolutePath()
+outdir = file.path("temp", ws) |> R.utils::getAbsolutePath()
 if (!dir.exists(outdir)){
-  dir.create(outdir)
+  dir.create(outdir, recursive = TRUE)
 } else {
   warning(paste("The work space", outdir, "is existed, skipping..."))
 }
@@ -53,8 +55,8 @@ strains = gfiles |> basename() |> stringr::str_remove(".fa.gz")
 all_files = dplyr::tibble(
   strain = strains,
   genome = gfiles,
-  kmer_all = xfun::with_ext(strains, "all.unik", extra = "."),
-  kmer_uniq = xfun::with_ext(strains, "uniq.unik", extra = "."),
+  kmer_all = xfun::with_ext(strains, "all", extra = "."),  # only prefix needed
+  kmer_uniq = xfun::with_ext(strains, "uniq", extra = "."), # only prefix needed
   fasta_all = xfun::with_ext(strains, "uniq.fa", extra = "."),
   fasta_one = xfun::with_ext(strains, "one.fa", extra = ".")
 ) |> 
@@ -149,7 +151,7 @@ Firstly, find the shared kmers of two or more genomes.
 
 ```{r}
 ## computing k-mers shared by >= 2 files
-cmd = paste("unikmer common -n 2 -o shared --verbose", paste0(all_files$kmer_all, collapse = " "))
+cmd = paste("unikmer common -n 2 -o shared --verbose", paste0(all_files$kmer_all, ".unik", collapse = " "))
 run_cmd(cmd)
 ```
 
@@ -158,7 +160,7 @@ Second, remove shared kmers from the genome kmers.
 ```{r}
 ## remove common k-mers
 cmd = lapply(seq_along(gfiles), function(i){
-  paste('unikmer diff -s -o', all_files$kmer_uniq[[i]], all_files$kmer_all[[i]], "shared.unik")
+  glue::glue('unikmer diff -s -o {all_files$kmer_uniq[[i]]} {all_files$kmer_all[[i]]}.unik shared.unik')
 })
 
 run_cmd(cmd, "Remove common k-mers")
@@ -167,7 +169,7 @@ run_cmd(cmd, "Remove common k-mers")
 Show the info of shared and genome-specific kmers, indicating how many kmers in different strains?
 
 ```{r}
-cmd = paste('unikmer stats -a', paste(all_files$kmer_uniq, collapse = " "))
+cmd = glue::glue('unikmer stats -a {all_files$kmer_uniq}.unik')
 run_cmd(cmd)
 ```
 
@@ -180,8 +182,7 @@ Mapping specific k-mers to each input genome.
 # ouput fasta (-a/--output-fasta)
 # filter genome sequence by string (-B/--seq-name-filter)
 cmd = lapply(seq_along(gfiles), function(i){
-  paste('unikmer map -m 31 -M -a -g', all_files$genome[[i]], all_files$kmer_uniq[[i]],
-        '|', 'seqkit sort -l -r -o', all_files$fasta_all[[i]])
+  glue::glue('unikmer map -m 31 -M -a -g {all_files$genome[[i]]} {all_files$kmer_uniq[[i]]}.unik | seqkit sort -l -r -o {all_files$fasta_all[[i]]}')
 })
 run_cmd(cmd, "constructing strain-specific DNA fragements")
 ```
@@ -218,11 +219,15 @@ Using **rPrimer3** to design primer with `*.one.fa` sequences.
 
 ```{r}
 library(rPrimer3)
-primers = mclapply(seq_along(gfiles), function(i){
+dir = rprojroot::find_rstudio_root_file()
+# set the path to the primer3 parameters
+setwd("/opt/homebrew/Cellar/primer3/2.4.0/share/primer3")
+primers = lapply(seq_along(gfiles), function(i){
   design_primer_from_file(all_files$fasta_one[[i]], 
                           parts = 1,
                           PRIMER_PRODUCT_SIZE_RANGE = "75-100")
-}, mc.cores = 10)
+})
+setwd(dir)
 ```
 
 ## Verify Primer Specificity
@@ -387,13 +392,26 @@ data = {
 
 ```{python}
 import pickle
+import os
 
 # 序列化
-serialized_data = pickle.dumps(data)
+try:
+    serialized_data = pickle.dumps(data)
+    print("序列化成功")
+except Exception as e:
+    print(f"序列化失败: {e}")
 
 # 保存到文件
-with open('data.pkl', 'wb') as file:
-    file.write(serialized_data)
+file_path = "temp/ws/data.pkl" # 使用与 R 项目路径一致的 workspace
+try:
+    if not os.path.exists(os.path.dirname(file_path)):
+        os.makedirs(os.path.dirname(file_path), exist_ok=True)
+        print(f"目录 {os.path.dirname(file_path)} 创建成功")
+    with open(file_path, 'wb') as file:
+        file.write(serialized_data)
+        print(f"数据已成功保存到 {file_path}")
+except Exception as e:
+    print(f"保存数据失败: {e}")
 ```
 
 保存后的二进制文件`data.pkl`可以传输或存储。
@@ -402,7 +420,7 @@ with open('data.pkl', 'wb') as file:
 
 ```{python}
 # 从文件读取
-with open('data.pkl', 'rb') as file:
+with open(file_path, 'rb') as file:
     loaded_data = pickle.loads(file.read())
 
 print(loaded_data)

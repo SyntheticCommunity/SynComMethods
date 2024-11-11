@@ -26,7 +26,7 @@ GTDB 的分类方法结合了基因组学、系统发育学和生物信息学的
 
 ### 数据库结构
 
-GTDB 数据库提供了完整的数据文件下载。根据提供的 [GTDB R09-RS220 发行说明文件](https://data.gtdb.ecogenomic.org/releases/release220/220.0/FILE_DESCRIPTIONS.txt)，以下是列出的各个文件及其作用的总结：
+GTDB 数据库提供了完整的[数据文件下载](https://data.ace.uq.edu.au/public/gtdb/data/releases/)。根据提供的 [GTDB R09-RS220 发行说明文件](https://data.gtdb.ecogenomic.org/releases/release220/220.0/FILE_DESCRIPTIONS.txt)，以下是列出的各个文件及其作用的总结：
 
 1.  `METHODS.txt`
     -   描述了用于形成 GTDB 分类的方法。
@@ -56,7 +56,7 @@ GTDB 数据库提供了完整的数据文件下载。根据提供的 [GTDB R09-R
     -   `gtdb_proteins_nt_reps_r220.tar.gz`
         -   所有预测的蛋白质编码基因序列的核苷酸 FASTA 文件。
     -   `gtdb_genomes_reps_r220.tar.gz`
-        -   每个 GTDB 代表性基因组的 FASTA 文件。
+        -   **每个 GTDB 代表性基因组的 FASTA 文件**。
 9.  `genomic_files_all` 文件夹中的文件覆盖所有通过 GTDB 质量控制标准的基因组：
     -   `bac120_marker_genes_all_r220.tar.gz`
         -   所有 GTDB 基因组的未修剪和未对齐的标记基因。
