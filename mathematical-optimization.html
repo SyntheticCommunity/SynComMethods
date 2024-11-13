@@ -1,0 +1,2092 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>16&nbsp; 数学优化 – SynComMethods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./references.html" rel="next">
+<link href="./kmer-facilitated-primer-design.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<script src="site_libs/quarto-diagram/mermaid.min.js"></script>
+<script src="site_libs/quarto-diagram/mermaid-init.js"></script>
+<link href="site_libs/quarto-diagram/mermaid.css" rel="stylesheet">
+
+  <script src="https://cdnjs.cloudflare.com/polyfill/v3/polyfill.min.js?features=es6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js" type="text/javascript"></script>
+
+<script type="text/javascript">
+const typesetMath = (el) => {
+  if (window.MathJax) {
+    // MathJax Typeset
+    window.MathJax.typeset([el]);
+  } else if (window.katex) {
+    // KaTeX Render
+    var mathElements = el.getElementsByClassName("math");
+    var macros = [];
+    for (var i = 0; i < mathElements.length; i++) {
+      var texText = mathElements[i].firstChild;
+      if (mathElements[i].tagName == "SPAN") {
+        window.katex.render(texText.data, mathElements[i], {
+          displayMode: mathElements[i].classList.contains('display'),
+          throwOnError: false,
+          macros: macros,
+          fleqn: false
+        });
+      }
+    }
+  }
+}
+window.Quarto = {
+  typesetMath
+};
+</script>
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mathematical-optimization.html">数学基础</a></li><li class="breadcrumb-item"><a href="./mathematical-optimization.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">数学优化</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">SynComMethods</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">科学写作</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-math-equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">书写数学公式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-chemical-equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">书写化学反应式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./technical-writing-with-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Quarto 常用文档元素</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">微生物培养</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strain-and-combination.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">菌株和组合方式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./culture-method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">培养方法</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">代谢网络</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metabolic-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">代谢模型</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./learn-fba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">学习 FBA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MICOM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">MICOM</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">生态模型</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ecological-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">生态模型</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glv-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">gLV 模型</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">引物设计</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strain-specific-pcr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">菌株特异性 PCR</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-primer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">引物设计</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-specific-primer-with-cailab-utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Design specific primer with cailab.utils</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-primer-with-unikmer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Design specific primer with unikmer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./kmer-facilitated-primer-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Kmer Facilitated Primer Design</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">数学基础</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mathematical-optimization.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">数学优化</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#基础知识" id="toc-基础知识" class="nav-link active" data-scroll-target="#基础知识"><span class="header-section-number">16.1</span> 基础知识</a>
+  <ul class="collapse">
+  <li><a href="#基本概念和术语" id="toc-基本概念和术语" class="nav-link" data-scroll-target="#基本概念和术语"><span class="header-section-number">16.1.1</span> 基本概念和术语</a></li>
+  </ul></li>
+  <li><a href="#优化问题的类型" id="toc-优化问题的类型" class="nav-link" data-scroll-target="#优化问题的类型"><span class="header-section-number">16.2</span> 优化问题的类型</a>
+  <ul class="collapse">
+  <li><a href="#数学优化的应用领域" id="toc-数学优化的应用领域" class="nav-link" data-scroll-target="#数学优化的应用领域"><span class="header-section-number">16.2.1</span> 数学优化的应用领域</a></li>
+  <li><a href="#简单示例" id="toc-简单示例" class="nav-link" data-scroll-target="#简单示例"><span class="header-section-number">16.2.2</span> 简单示例</a></li>
+  </ul></li>
+  <li><a href="#数学优化的应用和初级方法" id="toc-数学优化的应用和初级方法" class="nav-link" data-scroll-target="#数学优化的应用和初级方法"><span class="header-section-number">16.3</span> 数学优化的应用和初级方法</a>
+  <ul class="collapse">
+  <li><a href="#数学优化的概念回顾" id="toc-数学优化的概念回顾" class="nav-link" data-scroll-target="#数学优化的概念回顾"><span class="header-section-number">16.3.1</span> 数学优化的概念回顾</a></li>
+  <li><a href="#交通流量优化问题实例" id="toc-交通流量优化问题实例" class="nav-link" data-scroll-target="#交通流量优化问题实例"><span class="header-section-number">16.3.2</span> 交通流量优化问题实例</a></li>
+  <li><a href="#数学优化与机器学习" id="toc-数学优化与机器学习" class="nav-link" data-scroll-target="#数学优化与机器学习"><span class="header-section-number">16.3.3</span> 数学优化与机器学习</a></li>
+  <li><a href="#数学优化的方法" id="toc-数学优化的方法" class="nav-link" data-scroll-target="#数学优化的方法"><span class="header-section-number">16.3.4</span> 数学优化的方法</a></li>
+  <li><a href="#使用-gurobipy-进行中级建模" id="toc-使用-gurobipy-进行中级建模" class="nav-link" data-scroll-target="#使用-gurobipy-进行中级建模"><span class="header-section-number">16.3.5</span> 使用 Gurobipy 进行中级建模</a></li>
+  <li><a href="#实践建模和编码部分1" id="toc-实践建模和编码部分1" class="nav-link" data-scroll-target="#实践建模和编码部分1"><span class="header-section-number">16.3.6</span> 实践建模和编码：部分1</a></li>
+  </ul></li>
+  <li><a href="#数学优化的技巧和高阶方法" id="toc-数学优化的技巧和高阶方法" class="nav-link" data-scroll-target="#数学优化的技巧和高阶方法"><span class="header-section-number">16.4</span> 数学优化的技巧和高阶方法</a>
+  <ul class="collapse">
+  <li><a href="#提升模型性能" id="toc-提升模型性能" class="nav-link" data-scroll-target="#提升模型性能"><span class="header-section-number">16.4.1</span> 提升模型性能</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./mathematical-optimization.html">数学基础</a></li><li class="breadcrumb-item"><a href="./mathematical-optimization.html"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">数学优化</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span id="sec-mathematical-optimization" class="quarto-section-identifier"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">数学优化</span></span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>数学优化（Mathematical Optimization），也称为数值优化或数理优化，是关于选择最优元素（通常是最大化或最小化某一特定函数的值）的一门数学学科。这些元素来自某个定义域，该定义域受到一系列约束条件的限制。数学优化在工程、经济学、运营管理、物流和医学等多个领域有广泛应用。</p>
+<section id="基础知识" class="level2" data-number="16.1">
+<h2 data-number="16.1" class="anchored" data-anchor-id="基础知识"><span class="header-section-number">16.1</span> 基础知识</h2>
+<section id="基本概念和术语" class="level3" data-number="16.1.1">
+<h3 data-number="16.1.1" class="anchored" data-anchor-id="基本概念和术语"><span class="header-section-number">16.1.1</span> 基本概念和术语</h3>
+<ol type="1">
+<li><p><strong>目标函数（Objective Function）</strong>：</p>
+<ul>
+<li>这是需要优化（最大化或最小化）的函数。目标函数根据不同场景可以是成本函数、收益函数、时间函数等。</li>
+<li>例如，在生产规划中，目标函数可能是总成本函数，目标是使其最小化。</li>
+</ul></li>
+<li><p><strong>决策变量（Decision Variables）</strong>：</p>
+<ul>
+<li>这些变量是需要确定的，它们的值直接影响目标函数的值。</li>
+<li>例如，一个生产公司可能需要决定多少产品应生产，这些数量就是决策变量。</li>
+</ul></li>
+<li><p><strong>约束条件（Constraints）</strong>：</p>
+<ul>
+<li>这是模型中的限制条件，定义了决策变量的可行范围。</li>
+<li>约束可以是等式或不等式，例如资源限制（原材料、时间、人力）等。</li>
+<li>例如，一天工作的时间上限、机器的最大操作能力都可以作为约束条件。</li>
+</ul></li>
+</ol>
+</section>
+</section>
+<section id="优化问题的类型" class="level2" data-number="16.2">
+<h2 data-number="16.2" class="anchored" data-anchor-id="优化问题的类型"><span class="header-section-number">16.2</span> 优化问题的类型</h2>
+<ol type="1">
+<li><p><strong>线性规划（Linear Programming, LP）</strong>：</p>
+<ul>
+<li>目标函数和约束条件都是线性的。</li>
+<li>例如：最大化 (3x + 4y)，约束条件是 (2x + y \leq 20)、(x \geq 0)、(y \geq 0)。</li>
+</ul></li>
+<li><p><strong>非线性规划（Non-linear Programming, NLP）</strong>：</p>
+<ul>
+<li>目标函数或约束条件中包含非线性项。</li>
+<li>例如：最大化 (x^2 + y^2)，约束条件是 (2x + y \leq 20)、(x \geq 0)、(y \geq 0)。</li>
+</ul></li>
+<li><p><strong>混合整数规划（Mixed-Integer Programming, MIP）</strong>：</p>
+<ul>
+<li>决策变量中既有连续变量（可以取任意实数值）也有离散变量（只能取整数值）。</li>
+<li>例如：一个配送问题，某些变量代表配送路径，必须是整数。</li>
+</ul></li>
+<li><p><strong>动态规划（Dynamic Programming, DP）</strong>：</p>
+<ul>
+<li>问题可以分解成子问题，并利用这些子问题的最优解进行递归式求解。</li>
+<li>常用于多阶段决策问题，如最短路径问题等。</li>
+</ul></li>
+</ol>
+<section id="数学优化的应用领域" class="level3" data-number="16.2.1">
+<h3 data-number="16.2.1" class="anchored" data-anchor-id="数学优化的应用领域"><span class="header-section-number">16.2.1</span> 数学优化的应用领域</h3>
+<ol type="1">
+<li><strong>供应链管理</strong>：
+<ul>
+<li>通过优化模型来确定最佳的库存水平、生产计划和配送路径。</li>
+</ul></li>
+<li><strong>金融工程</strong>：
+<ul>
+<li>用于投资组合优化、风险管理和期权定价。</li>
+</ul></li>
+<li><strong>工程设计</strong>：
+<ul>
+<li>优化设计参数以最小化成本、时间或材料使用，并满足功能和安全要求。</li>
+</ul></li>
+<li><strong>运营管理</strong>：
+<ul>
+<li>优化资源分配、工作调度、服务路线及排队系统等。</li>
+</ul></li>
+</ol>
+</section>
+<section id="简单示例" class="level3" data-number="16.2.2">
+<h3 data-number="16.2.2" class="anchored" data-anchor-id="简单示例"><span class="header-section-number">16.2.2</span> 简单示例</h3>
+<p>设想一个简单的问题，一个公司生产两种产品 (A) 和 (B)，利润分别是 (20) 和 (30) 元，每种产品需要的生产时间分别是 (1) 小时和 (2) 小时，而生产时间的总约束是 (8) 小时。公司希望最大化利润。</p>
+<div id="9041d7f7" class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义目标函数系数（利润）</span></span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="op">-</span><span class="dv">20</span>, <span class="op">-</span><span class="dv">30</span>]  <span class="co"># 因为 linprog 函数默认是最小化问题，所以这里用负数表示最大化</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义不等式约束，A_ub * x &lt;= b_ub</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> [[<span class="dv">1</span>, <span class="dv">2</span>]]  <span class="co"># 每种产品的时间约束</span></span>
+<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="dv">8</span>]  <span class="co"># 总时间限制</span></span>
+<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义变量的非负约束</span></span>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a>x_bounds <span class="op">=</span> (<span class="dv">0</span>, <span class="va">None</span>)</span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a>y_bounds <span class="op">=</span> (<span class="dv">0</span>, <span class="va">None</span>)</span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 求解线性规划</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> linprog(c, A_ub<span class="op">=</span>A, b_ub<span class="op">=</span>b, bounds<span class="op">=</span>[x_bounds, y_bounds], method<span class="op">=</span><span class="st">'highs'</span>)</span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-17"><a href="#cb1-17" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Optimal value:'</span>, <span class="op">-</span>res.fun)  <span class="co"># 恢复成正数表示最大化</span></span>
+<span id="cb1-18"><a href="#cb1-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'X:'</span>, res.x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal value: 160.0
+X: [8. 0.]</code></pre>
+</div>
+</div>
+<p>在这个例子中，数学优化帮助我们确定了在生产时间有限的情况下，应该生产多少种产品来最大化总利润。这就是数学优化在实际应用中的一个经典示例。</p>
+<div id="8df56aee" class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取结果</span></span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>optimal_value <span class="op">=</span> <span class="op">-</span>res.fun  <span class="co"># 最优目标函数值（转正数）</span></span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>optimal_x <span class="op">=</span> res.x  <span class="co"># 最优变量值</span></span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置图表数据</span></span>
+<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> (<span class="dv">8</span> <span class="op">-</span> x) <span class="op">/</span> <span class="dv">2</span>  <span class="co"># 从约束方程 y = (8 - x) / 2 得到</span></span>
+<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制约束条件的可行域</span></span>
+<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a>plt.plot(x, y, label<span class="op">=</span><span class="vs">r'$x + 2y \leq 8$'</span>, color<span class="op">=</span><span class="st">'r'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a>plt.fill_between(x, <span class="dv">0</span>, y, where<span class="op">=</span>(y <span class="op">&gt;=</span> <span class="dv">0</span>), color<span class="op">=</span><span class="st">'gray'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb3-17"><a href="#cb3-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-18"><a href="#cb3-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制目标函数等高线（等价值线）</span></span>
+<span id="cb3-19"><a href="#cb3-19" aria-hidden="true" tabindex="-1"></a>contour_lines <span class="op">=</span> np.arange(<span class="dv">100</span>, <span class="dv">240</span>, <span class="dv">20</span>)</span>
+<span id="cb3-20"><a href="#cb3-20" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> value <span class="kw">in</span> contour_lines:</span>
+<span id="cb3-21"><a href="#cb3-21" aria-hidden="true" tabindex="-1"></a>    plt.plot(x, (value <span class="op">/</span> <span class="dv">30</span>) <span class="op">-</span> (<span class="dv">20</span> <span class="op">/</span> <span class="dv">30</span>) <span class="op">*</span> x, linestyle<span class="op">=</span><span class="st">'--'</span>, label<span class="op">=</span><span class="ss">f'$20x + 30y = </span><span class="sc">{</span>value<span class="sc">}</span><span class="ss">$'</span>)</span>
+<span id="cb3-22"><a href="#cb3-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-23"><a href="#cb3-23" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制最优点</span></span>
+<span id="cb3-24"><a href="#cb3-24" aria-hidden="true" tabindex="-1"></a>plt.plot(optimal_x[<span class="dv">0</span>], optimal_x[<span class="dv">1</span>], <span class="st">'bo'</span>)  <span class="co"># 最优点</span></span>
+<span id="cb3-25"><a href="#cb3-25" aria-hidden="true" tabindex="-1"></a>plt.text(optimal_x[<span class="dv">0</span>], optimal_x[<span class="dv">1</span>], <span class="ss">f' Optimal Point</span><span class="ch">\n</span><span class="ss">(</span><span class="sc">{</span>optimal_x[<span class="dv">0</span>]<span class="sc">:.2f}</span><span class="ss">, </span><span class="sc">{</span>optimal_x[<span class="dv">1</span>]<span class="sc">:.2f}</span><span class="ss">)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb3-26"><a href="#cb3-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-27"><a href="#cb3-27" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加图表元素</span></span>
+<span id="cb3-28"><a href="#cb3-28" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Product A'</span>)</span>
+<span id="cb3-29"><a href="#cb3-29" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Product B'</span>)</span>
+<span id="cb3-30"><a href="#cb3-30" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Linear Programming Optimization'</span>)</span>
+<span id="cb3-31"><a href="#cb3-31" aria-hidden="true" tabindex="-1"></a>plt.axhline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>,linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-32"><a href="#cb3-32" aria-hidden="true" tabindex="-1"></a>plt.axvline(<span class="dv">0</span>, color<span class="op">=</span><span class="st">'black'</span>,linewidth<span class="op">=</span><span class="fl">0.5</span>)</span>
+<span id="cb3-33"><a href="#cb3-33" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
+<span id="cb3-34"><a href="#cb3-34" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb3-35"><a href="#cb3-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb3-36"><a href="#cb3-36" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mathematical-optimization_files/figure-html/cell-3-output-1.png" width="811" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>之前的例子没有考虑到 <code>Product A</code> 和 <code>Product B</code> 的取值需要是非负整数。如果我们要在这个条件下进行优化，就需要进行整数规划。在这种情况下，我们需要使用混合整数线性规划（Mixed-Integer Linear Programming, MILP）来求解。</p>
+<p>使用 <code>Gurobipy</code> 库可以解决这个问题。</p>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Note
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>安装 Gurobipy</strong></p>
+<p><code>conda install -c gurobi gurobi</code></p>
+</div>
+</div>
+<div id="c65fe8b2" class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> Model, GRB</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建模型</span></span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model()</span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加变量</span></span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> model.addVar(vtype<span class="op">=</span>GRB.INTEGER, name<span class="op">=</span><span class="st">"x"</span>)  <span class="co"># Product A</span></span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> model.addVar(vtype<span class="op">=</span>GRB.INTEGER, name<span class="op">=</span><span class="st">"y"</span>)  <span class="co"># Product B</span></span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置目标函数：最大化利润</span></span>
+<span id="cb4-13"><a href="#cb4-13" aria-hidden="true" tabindex="-1"></a>model.setObjective(<span class="dv">20</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">30</span> <span class="op">*</span> y, GRB.MAXIMIZE)</span>
+<span id="cb4-14"><a href="#cb4-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-15"><a href="#cb4-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加约束：时间限制</span></span>
+<span id="cb4-16"><a href="#cb4-16" aria-hidden="true" tabindex="-1"></a>model.addConstr(x <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> y <span class="op">&lt;=</span> <span class="dv">8</span>, <span class="st">'time_limit'</span>)</span>
+<span id="cb4-17"><a href="#cb4-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-18"><a href="#cb4-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 优化模型</span></span>
+<span id="cb4-19"><a href="#cb4-19" aria-hidden="true" tabindex="-1"></a>model.optimize()</span>
+<span id="cb4-20"><a href="#cb4-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-21"><a href="#cb4-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取结果</span></span>
+<span id="cb4-22"><a href="#cb4-22" aria-hidden="true" tabindex="-1"></a>optimal_value <span class="op">=</span> model.objVal</span>
+<span id="cb4-23"><a href="#cb4-23" aria-hidden="true" tabindex="-1"></a>optimal_x <span class="op">=</span> [v.x <span class="cf">for</span> v <span class="kw">in</span> model.getVars()]</span>
+<span id="cb4-24"><a href="#cb4-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-25"><a href="#cb4-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印结果</span></span>
+<span id="cb4-26"><a href="#cb4-26" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> v <span class="kw">in</span> model.getVars():</span>
+<span id="cb4-27"><a href="#cb4-27" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>v<span class="sc">.</span>VarName<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">.</span>x<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-28"><a href="#cb4-28" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Optimal value: </span><span class="sc">{</span>optimal_value<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb4-29"><a href="#cb4-29" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-30"><a href="#cb4-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 画图</span></span>
+<span id="cb4-31"><a href="#cb4-31" aria-hidden="true" tabindex="-1"></a>x_vals <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">9</span>, <span class="dv">1</span>)  <span class="co"># Product A 的整数取值范围</span></span>
+<span id="cb4-32"><a href="#cb4-32" aria-hidden="true" tabindex="-1"></a>y_vals <span class="op">=</span> np.arange(<span class="dv">0</span>, <span class="dv">5</span>, <span class="dv">1</span>)  <span class="co"># Product B 的整数取值范围</span></span>
+<span id="cb4-33"><a href="#cb4-33" aria-hidden="true" tabindex="-1"></a>X, Y <span class="op">=</span> np.meshgrid(x_vals, y_vals)</span>
+<span id="cb4-34"><a href="#cb4-34" aria-hidden="true" tabindex="-1"></a>Z <span class="op">=</span> <span class="dv">20</span> <span class="op">*</span> X <span class="op">+</span> <span class="dv">30</span> <span class="op">*</span> Y  <span class="co"># 目标函数</span></span>
+<span id="cb4-35"><a href="#cb4-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-36"><a href="#cb4-36" aria-hidden="true" tabindex="-1"></a>plt.figure(figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">6</span>))</span>
+<span id="cb4-37"><a href="#cb4-37" aria-hidden="true" tabindex="-1"></a>contour <span class="op">=</span> plt.contourf(X, Y, Z, levels<span class="op">=</span><span class="dv">10</span>, cmap<span class="op">=</span><span class="st">'Blues'</span>)</span>
+<span id="cb4-38"><a href="#cb4-38" aria-hidden="true" tabindex="-1"></a>plt.colorbar(contour)</span>
+<span id="cb4-39"><a href="#cb4-39" aria-hidden="true" tabindex="-1"></a>plt.plot(optimal_x[<span class="dv">0</span>], optimal_x[<span class="dv">1</span>], <span class="st">'bo'</span>)  <span class="co"># 最优点</span></span>
+<span id="cb4-40"><a href="#cb4-40" aria-hidden="true" tabindex="-1"></a>plt.text(optimal_x[<span class="dv">0</span>], optimal_x[<span class="dv">1</span>], <span class="ss">f' Optimal Point</span><span class="ch">\n</span><span class="ss">(</span><span class="sc">{</span><span class="bu">int</span>(optimal_x[<span class="dv">0</span>])<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span><span class="bu">int</span>(optimal_x[<span class="dv">1</span>])<span class="sc">}</span><span class="ss">)'</span>, fontsize<span class="op">=</span><span class="dv">12</span>, color<span class="op">=</span><span class="st">'blue'</span>)</span>
+<span id="cb4-41"><a href="#cb4-41" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-42"><a href="#cb4-42" aria-hidden="true" tabindex="-1"></a><span class="co"># 绘制约束线和可行域</span></span>
+<span id="cb4-43"><a href="#cb4-43" aria-hidden="true" tabindex="-1"></a>plt.plot(x_vals, (<span class="dv">8</span> <span class="op">-</span> x_vals) <span class="op">/</span> <span class="dv">2</span>, label<span class="op">=</span><span class="vs">r'$x + 2y \leq 8$'</span>, color<span class="op">=</span><span class="st">'red'</span>, linestyle<span class="op">=</span><span class="st">'-'</span>)</span>
+<span id="cb4-44"><a href="#cb4-44" aria-hidden="true" tabindex="-1"></a>plt.fill_between(x_vals, <span class="dv">0</span>, (<span class="dv">8</span> <span class="op">-</span> x_vals) <span class="op">/</span> <span class="dv">2</span>, where<span class="op">=</span>(<span class="dv">8</span> <span class="op">-</span> x_vals) <span class="op">/</span> <span class="dv">2</span> <span class="op">&gt;=</span> <span class="dv">0</span>, color<span class="op">=</span><span class="st">'gray'</span>, alpha<span class="op">=</span><span class="fl">0.3</span>)</span>
+<span id="cb4-45"><a href="#cb4-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-46"><a href="#cb4-46" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置Y轴整数刻度</span></span>
+<span id="cb4-47"><a href="#cb4-47" aria-hidden="true" tabindex="-1"></a>plt.yticks(np.arange(<span class="dv">0</span>, <span class="bu">max</span>(y_vals)<span class="op">+</span><span class="dv">1</span>, <span class="dv">1</span>))  <span class="co"># 设置Y轴仅显示整数刻度</span></span>
+<span id="cb4-48"><a href="#cb4-48" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-49"><a href="#cb4-49" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加图表元素</span></span>
+<span id="cb4-50"><a href="#cb4-50" aria-hidden="true" tabindex="-1"></a>plt.xlabel(<span class="st">'Product A'</span>)</span>
+<span id="cb4-51"><a href="#cb4-51" aria-hidden="true" tabindex="-1"></a>plt.ylabel(<span class="st">'Product B'</span>)</span>
+<span id="cb4-52"><a href="#cb4-52" aria-hidden="true" tabindex="-1"></a>plt.title(<span class="st">'Integer Linear Programming Optimization'</span>)</span>
+<span id="cb4-53"><a href="#cb4-53" aria-hidden="true" tabindex="-1"></a>plt.legend(loc<span class="op">=</span><span class="st">'upper right'</span>)</span>
+<span id="cb4-54"><a href="#cb4-54" aria-hidden="true" tabindex="-1"></a>plt.grid(<span class="va">True</span>)</span>
+<span id="cb4-55"><a href="#cb4-55" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb4-56"><a href="#cb4-56" aria-hidden="true" tabindex="-1"></a>plt.show()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Set parameter Username
+Academic license - for non-commercial use only - expires 2025-04-02
+Gurobi Optimizer version 11.0.2 build v11.0.2rc0 (mac64[arm] - Darwin 24.1.0 24B83)
+
+CPU model: Apple M3 Pro
+Thread count: 12 physical cores, 12 logical processors, using up to 12 threads
+
+Optimize a model with 1 rows, 2 columns and 2 nonzeros
+Model fingerprint: 0xd214e7d0
+Variable types: 0 continuous, 2 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+00]
+  Objective range  [2e+01, 3e+01]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [8e+00, 8e+00]
+Found heuristic solution: objective 160.0000000
+Presolve removed 1 rows and 2 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)
+Thread count was 1 (of 12 available processors)
+
+Solution count 1: 160 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 1.600000000000e+02, best bound 1.600000000000e+02, gap 0.0000%
+x: 8.0
+y: -0.0
+Optimal value: 160.0</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mathematical-optimization_files/figure-html/cell-4-output-2.png" width="764" height="523" class="figure-img"></p>
+</figure>
+</div>
+</div>
+</div>
+<section id="图示的解释如下" class="level4" data-number="16.2.2.1">
+<h4 data-number="16.2.2.1" class="anchored" data-anchor-id="图示的解释如下"><span class="header-section-number">16.2.2.1</span> 图示的解释如下：</h4>
+<ol type="1">
+<li><p>约束条件的可行域</p>
+<ul>
+<li>图中的红色线表示约束条件 ( <span class="math inline">\(x + 2y \leq 8\)</span> )。</li>
+<li>阴影部分表示满足约束条件的可行解区域。在这一区域内的所有点都满足问题的约束条件。</li>
+</ul></li>
+<li><p>目标函数的等高线</p>
+<ul>
+<li>颜色填充表示不同目标函数值的区域。颜色越深，表示目标函数值越大。</li>
+</ul></li>
+<li><p>最优点</p>
+<ul>
+<li>图中的蓝色点标记的是最优点，该点满足所有约束条件且目标函数值最大。</li>
+<li>从图中可以看到，这个点位于阴影区域的边界线上（即 ( <span class="math inline">\(x + 2y \leq 8\)</span> ) 的交点之一），并且是可行解域中利润最大的位置。</li>
+</ul></li>
+</ol>
+</section>
+<section id="结果解释" class="level4" data-number="16.2.2.2">
+<h4 data-number="16.2.2.2" class="anchored" data-anchor-id="结果解释"><span class="header-section-number">16.2.2.2</span> 结果解释</h4>
+<ul>
+<li><p><strong>Optimal Value（最优值）</strong>：</p>
+<ul>
+<li>图中的利润最大值大约为 ( 160 )，该值表示在约束条件下所能达到的最大利润值。代码输出的 <code>optimal_value</code> 为 160，即表示在给定约束条件下所能达到的最大目标函数值（利润）。</li>
+</ul></li>
+<li><p><strong>Optimal X（最优解）</strong>：</p>
+<ul>
+<li>图中的最优解 ((x, y)) 的值为 (8, 0)，即生产 8 个产品 A 和 0 个产品 B，可以实现最大利润。代码输出 <code>optimal_x</code> 为 <code>[8., 0.]</code>，即为达到最优目标所需要的产品 A 和产品 B 的生产数量。</li>
+</ul></li>
+</ul>
+<p>通过上述图示和解释，我们可以清晰、准确地理解在整数规划条件下优化问题的求解过程及最优值和最优解的实际含义。</p>
+</section>
+</section>
+</section>
+<section id="数学优化的应用和初级方法" class="level2" data-number="16.3">
+<h2 data-number="16.3" class="anchored" data-anchor-id="数学优化的应用和初级方法"><span class="header-section-number">16.3</span> 数学优化的应用和初级方法</h2>
+<p>上面介绍了数学优化的好处，现在让我们看看它的实际应用，以及优化与机器学习如何协同工作</p>
+<section id="数学优化的概念回顾" class="level3" data-number="16.3.1">
+<h3 data-number="16.3.1" class="anchored" data-anchor-id="数学优化的概念回顾"><span class="header-section-number">16.3.1</span> 数学优化的概念回顾</h3>
+<ul>
+<li><strong>数学优化的概念回顾：</strong> 简单回顾初级课程中的概念，主要包括线性规划、混合整数规划、目标函数和约束条件的作用。</li>
+</ul>
+<p>线性回归模型中的参数求解过程——其实就在最小化损失函数。</p>
+<div id="d868e2bd" class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 线性回归示例</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 生成数据</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> np.array([[<span class="dv">1</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">2</span>], [<span class="dv">2</span>, <span class="dv">2</span>], [<span class="dv">2</span>, <span class="dv">3</span>]])</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> np.dot(X, np.array([<span class="dv">1</span>, <span class="dv">2</span>])) <span class="op">+</span> <span class="dv">3</span></span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建线性回归模型并训练</span></span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression().fit(X, y)</span>
+<span id="cb6-11"><a href="#cb6-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb6-12"><a href="#cb6-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 优化结果</span></span>
+<span id="cb6-13"><a href="#cb6-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(model.coef_, model.intercept_)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1. 2.] 3.0000000000000018</code></pre>
+</div>
+</div>
+<section id="混合整数规划" class="level4" data-number="16.3.1.1">
+<h4 data-number="16.3.1.1" class="anchored" data-anchor-id="混合整数规划"><span class="header-section-number">16.3.1.1</span> 混合整数规划</h4>
+<p>混合整数规划（Mixed-Integer Programming, MIP）是一种数学优化技术，包含二类变量：连续变量（可以取任意实数值）和离散变量（只能取整数值）。MIP在许多实际应用中都有广泛的应用，尤其在那些需要对决策变量进行整数限定的问题领域。以下是一些常见的应用领域和具体实例：</p>
+<p><strong>应用领域</strong></p>
+<ol type="1">
+<li><p><strong>生产与供应链管理</strong>：</p>
+<ul>
+<li><strong>生产计划</strong>：决定何时生产哪些产品，以满足需求并最小化成本。</li>
+<li><strong>库存管理</strong>：确定最佳的库存水平，以平衡库存成本和缺货成本。</li>
+<li><strong>运输与物流</strong>：优化车辆调度、配送路径和运输频率。</li>
+</ul></li>
+<li><p><strong>金融与投资</strong>：</p>
+<ul>
+<li><strong>投资组合优化</strong>：决定在不同资产之间的投资分配，以最大化回报率并控制风险。</li>
+<li><strong>项目选择</strong>：在预算约束下选择最优的项目组合，确保净现值最大化。</li>
+</ul></li>
+<li><p><strong>能源管理</strong>：</p>
+<ul>
+<li><strong>电力调度</strong>：决定哪种发电机在何时运行，以满足需求并最小化费用。</li>
+<li><strong>可再生能源优化</strong>：优化风能、太阳能等可再生能源的利用。</li>
+</ul></li>
+<li><p><strong>设施选址</strong>：</p>
+<ul>
+<li><strong>工厂选址</strong>：在多个候选地点选择最优的工厂或仓库位置，最大化覆盖范围且最小化物流成本。</li>
+<li><strong>灾害管理</strong>：在灾害发生时决定临时配置的救援设施的最佳位置。</li>
+</ul></li>
+<li><p><strong>健康管理</strong>：</p>
+<ul>
+<li><strong>手术排期</strong>：优化手术的排期安排，确保资源利用最大化且等待时间最小化。</li>
+</ul></li>
+</ol>
+<p><strong>具体实例：生产计划问题</strong></p>
+<p>假设一个工厂生产两种产品：产品 A 和产品 B。工厂有两个机器，分别用来生产这两种产品。每个产品的生产时间和利润如下表所示：</p>
+<table class="caption-top table">
+<thead>
+<tr class="header">
+<th>产品</th>
+<th>机器1时间（小时）</th>
+<th>机器2时间（小时）</th>
+<th>利润（美元）</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td>A</td>
+<td>2</td>
+<td>1</td>
+<td>30</td>
+</tr>
+<tr class="even">
+<td>B</td>
+<td>1</td>
+<td>2</td>
+<td>20</td>
+</tr>
+</tbody>
+</table>
+<p>机器 1 每周的总可用时间为 40 小时，机器 2 每周的总可用时间为 60 小时。目标是确定产品A和B的生产数量，使得总利润最大化。在这里，生产数量是整数变量。</p>
+<p>混合整数规划模型如下：</p>
+<div id="220e990b" class="cell" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> Model, GRB</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建模型</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model()</span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加变量</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> model.addVar(vtype<span class="op">=</span>GRB.INTEGER, name<span class="op">=</span><span class="st">"x"</span>)  <span class="co"># 产品A</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> model.addVar(vtype<span class="op">=</span>GRB.INTEGER, name<span class="op">=</span><span class="st">"y"</span>)  <span class="co"># 产品B</span></span>
+<span id="cb8-9"><a href="#cb8-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-10"><a href="#cb8-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置目标函数：最大化利润</span></span>
+<span id="cb8-11"><a href="#cb8-11" aria-hidden="true" tabindex="-1"></a>model.setObjective(<span class="dv">30</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">20</span> <span class="op">*</span> y, GRB.MAXIMIZE)</span>
+<span id="cb8-12"><a href="#cb8-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-13"><a href="#cb8-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加约束</span></span>
+<span id="cb8-14"><a href="#cb8-14" aria-hidden="true" tabindex="-1"></a>model.addConstr(<span class="dv">2</span> <span class="op">*</span> x <span class="op">+</span> y <span class="op">&lt;=</span> <span class="dv">40</span>)  <span class="co"># 机器1时间约束</span></span>
+<span id="cb8-15"><a href="#cb8-15" aria-hidden="true" tabindex="-1"></a>model.addConstr(x <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> y <span class="op">&lt;=</span> <span class="dv">60</span>)  <span class="co"># 机器2时间约束</span></span>
+<span id="cb8-16"><a href="#cb8-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-17"><a href="#cb8-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 优化模型</span></span>
+<span id="cb8-18"><a href="#cb8-18" aria-hidden="true" tabindex="-1"></a>model.optimize()</span>
+<span id="cb8-19"><a href="#cb8-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb8-20"><a href="#cb8-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 提取结果</span></span>
+<span id="cb8-21"><a href="#cb8-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> v <span class="kw">in</span> model.getVars():</span>
+<span id="cb8-22"><a href="#cb8-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>v<span class="sc">.</span>VarName<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">.</span>x<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb8-23"><a href="#cb8-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Optimal value: </span><span class="sc">{</span>model<span class="sc">.</span>objVal<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gurobi Optimizer version 11.0.2 build v11.0.2rc0 (mac64[arm] - Darwin 24.1.0 24B83)
+
+CPU model: Apple M3 Pro
+Thread count: 12 physical cores, 12 logical processors, using up to 12 threads
+
+Optimize a model with 2 rows, 2 columns and 4 nonzeros
+Model fingerprint: 0x8826119c
+Variable types: 0 continuous, 2 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 2e+00]
+  Objective range  [2e+01, 3e+01]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [4e+01, 6e+01]
+Found heuristic solution: objective 600.0000000
+Presolve time: 0.00s
+Presolved: 2 rows, 2 columns, 4 nonzeros
+Variable types: 0 continuous, 2 integer (0 binary)
+
+Root relaxation: objective 7.333333e+02, 2 iterations, 0.00 seconds (0.00 work units)
+
+    Nodes    |    Current Node    |     Objective Bounds      |     Work
+ Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time
+
+     0     0  733.33333    0    2  600.00000  733.33333  22.2%     -    0s
+H    0     0                     730.0000000  733.33333  0.46%     -    0s
+     0     0  733.33333    0    2  730.00000  733.33333  0.46%     -    0s
+
+Explored 1 nodes (2 simplex iterations) in 0.00 seconds (0.00 work units)
+Thread count was 12 (of 12 available processors)
+
+Solution count 2: 730 600 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 7.300000000000e+02, best bound 7.300000000000e+02, gap 0.0000%
+x: 7.0
+y: 26.0
+Optimal value: 730.0</code></pre>
+</div>
+</div>
+<p>在这个实例中，MIP 帮助我们找到最大化利润的最佳生产数量。</p>
+</section>
+</section>
+<section id="交通流量优化问题实例" class="level3" data-number="16.3.2">
+<h3 data-number="16.3.2" class="anchored" data-anchor-id="交通流量优化问题实例"><span class="header-section-number">16.3.2</span> 交通流量优化问题实例</h3>
+<p>假设一个城市的交通网络如下图所示，每条边（道路）上标出的是该路段的道路容量（即最多允许通过的车辆数）。我们的目标是从源节点 <code>S</code> 到目标节点 <code>T</code> 的流量最大化。</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    S --&gt;|4| A
+    S --&gt;|5| B
+    A --&gt;|3| C
+    A --&gt;|2| D
+    B --&gt;|3| D
+    B --&gt;|4| E
+    C ---&gt;|3| T
+    D ---&gt;|2| T
+    E --&gt;|2| F
+    F --&gt;|3| T
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>路径上的数值表示该路径的最大容量，例如 <code>S → A = 4</code> 指 <code>S</code> 点到 <code>A</code> 点最大流量为 4.</p>
+<p>下面是使用 Gurobi 进行交通流量优化建模和求解的代码。</p>
+<div id="84aa5046" class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> Model, GRB</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建模型</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model(<span class="st">"MaxFlow"</span>)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 边及其容量</span></span>
+<span id="cb10-7"><a href="#cb10-7" aria-hidden="true" tabindex="-1"></a>edges <span class="op">=</span> {<span class="st">'S'</span>: {<span class="st">'A'</span>: <span class="dv">4</span>, <span class="st">'B'</span>: <span class="dv">5</span>},</span>
+<span id="cb10-8"><a href="#cb10-8" aria-hidden="true" tabindex="-1"></a>         <span class="st">'A'</span>: {<span class="st">'C'</span>: <span class="dv">3</span>, <span class="st">'D'</span>: <span class="dv">2</span>},</span>
+<span id="cb10-9"><a href="#cb10-9" aria-hidden="true" tabindex="-1"></a>         <span class="st">'B'</span>: {<span class="st">'D'</span>: <span class="dv">3</span>, <span class="st">'E'</span>: <span class="dv">4</span>},</span>
+<span id="cb10-10"><a href="#cb10-10" aria-hidden="true" tabindex="-1"></a>         <span class="st">'C'</span>: {<span class="st">'T'</span>: <span class="dv">3</span>},</span>
+<span id="cb10-11"><a href="#cb10-11" aria-hidden="true" tabindex="-1"></a>         <span class="st">'D'</span>: {<span class="st">'T'</span>: <span class="dv">2</span>},</span>
+<span id="cb10-12"><a href="#cb10-12" aria-hidden="true" tabindex="-1"></a>         <span class="st">'E'</span>: {<span class="st">'F'</span>: <span class="dv">2</span>},</span>
+<span id="cb10-13"><a href="#cb10-13" aria-hidden="true" tabindex="-1"></a>         <span class="st">'F'</span>: {<span class="st">'T'</span>: <span class="dv">3</span>}}</span>
+<span id="cb10-14"><a href="#cb10-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-15"><a href="#cb10-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加变量</span></span>
+<span id="cb10-16"><a href="#cb10-16" aria-hidden="true" tabindex="-1"></a>flows <span class="op">=</span> {}</span>
+<span id="cb10-17"><a href="#cb10-17" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> u <span class="kw">in</span> edges:</span>
+<span id="cb10-18"><a href="#cb10-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> v <span class="kw">in</span> edges[u]:</span>
+<span id="cb10-19"><a href="#cb10-19" aria-hidden="true" tabindex="-1"></a>        flows[u, v] <span class="op">=</span> model.addVar(name<span class="op">=</span><span class="ss">f"flow_</span><span class="sc">{</span>u<span class="sc">}</span><span class="ss">_</span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">"</span>, ub<span class="op">=</span>edges[u][v])</span>
+<span id="cb10-20"><a href="#cb10-20" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-21"><a href="#cb10-21" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置目标函数：最大化从 S 到 T 的流量</span></span>
+<span id="cb10-22"><a href="#cb10-22" aria-hidden="true" tabindex="-1"></a>model.setObjective(<span class="bu">sum</span>(flows[<span class="st">'S'</span>, v] <span class="cf">for</span> v <span class="kw">in</span> edges[<span class="st">'S'</span>]), GRB.MAXIMIZE)</span>
+<span id="cb10-23"><a href="#cb10-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-24"><a href="#cb10-24" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加节点平衡约束</span></span>
+<span id="cb10-25"><a href="#cb10-25" aria-hidden="true" tabindex="-1"></a><span class="co"># 所有中间节点的流量平衡：输入等于输出</span></span>
+<span id="cb10-26"><a href="#cb10-26" aria-hidden="true" tabindex="-1"></a>nodes <span class="op">=</span> <span class="bu">set</span>(edges.keys()).union({v <span class="cf">for</span> u <span class="kw">in</span> edges <span class="cf">for</span> v <span class="kw">in</span> edges[u]})</span>
+<span id="cb10-27"><a href="#cb10-27" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> node <span class="kw">in</span> nodes:</span>
+<span id="cb10-28"><a href="#cb10-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> node <span class="kw">not</span> <span class="kw">in</span> [<span class="st">'S'</span>, <span class="st">'T'</span>]:</span>
+<span id="cb10-29"><a href="#cb10-29" aria-hidden="true" tabindex="-1"></a>        inflow <span class="op">=</span> <span class="bu">sum</span>(flows[u, node] <span class="cf">for</span> u <span class="kw">in</span> edges <span class="cf">if</span> (u, node) <span class="kw">in</span> flows)</span>
+<span id="cb10-30"><a href="#cb10-30" aria-hidden="true" tabindex="-1"></a>        outflow <span class="op">=</span> <span class="bu">sum</span>(flows[node, v] <span class="cf">for</span> v <span class="kw">in</span> edges[node]) <span class="cf">if</span> node <span class="kw">in</span> edges <span class="cf">else</span> <span class="dv">0</span></span>
+<span id="cb10-31"><a href="#cb10-31" aria-hidden="true" tabindex="-1"></a>        model.addConstr(inflow <span class="op">==</span> outflow, name<span class="op">=</span><span class="ss">f"node_</span><span class="sc">{</span>node<span class="sc">}</span><span class="ss">_balance"</span>)</span>
+<span id="cb10-32"><a href="#cb10-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-33"><a href="#cb10-33" aria-hidden="true" tabindex="-1"></a><span class="co"># 优化模型</span></span>
+<span id="cb10-34"><a href="#cb10-34" aria-hidden="true" tabindex="-1"></a>model.optimize()</span>
+<span id="cb10-35"><a href="#cb10-35" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-36"><a href="#cb10-36" aria-hidden="true" tabindex="-1"></a><span class="co"># 打印结果</span></span>
+<span id="cb10-37"><a href="#cb10-37" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> model.status <span class="op">==</span> GRB.OPTIMAL:</span>
+<span id="cb10-38"><a href="#cb10-38" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">'</span><span class="ch">\n</span><span class="st">Optimal flow value: '</span>, model.objVal)</span>
+<span id="cb10-39"><a href="#cb10-39" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> (u, v), flow_var <span class="kw">in</span> flows.items():</span>
+<span id="cb10-40"><a href="#cb10-40" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"</span><span class="sc">{</span>u<span class="sc">}</span><span class="ss"> -&gt; </span><span class="sc">{</span>v<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>flow_var<span class="sc">.</span>x<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gurobi Optimizer version 11.0.2 build v11.0.2rc0 (mac64[arm] - Darwin 24.1.0 24B83)
+
+CPU model: Apple M3 Pro
+Thread count: 12 physical cores, 12 logical processors, using up to 12 threads
+
+Optimize a model with 6 rows, 10 columns and 15 nonzeros
+Model fingerprint: 0xcaf27f06
+Coefficient statistics:
+  Matrix range     [1e+00, 1e+00]
+  Objective range  [1e+00, 1e+00]
+  Bounds range     [2e+00, 5e+00]
+  RHS range        [0e+00, 0e+00]
+Presolve removed 6 rows and 10 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+Iteration    Objective       Primal Inf.    Dual Inf.      Time
+       0    7.0000000e+00   0.000000e+00   0.000000e+00      0s
+
+Solved in 0 iterations and 0.00 seconds (0.00 work units)
+Optimal objective  7.000000000e+00
+
+Optimal flow value:  7.0
+S -&gt; A: 3.0
+S -&gt; B: 4.0
+A -&gt; C: 3.0
+A -&gt; D: 0.0
+B -&gt; D: 2.0
+B -&gt; E: 2.0
+C -&gt; T: 3.0
+D -&gt; T: 2.0
+E -&gt; F: 2.0
+F -&gt; T: 2.0</code></pre>
+</div>
+</div>
+<section id="模型和变量" class="level4" data-number="16.3.2.1">
+<h4 data-number="16.3.2.1" class="anchored" data-anchor-id="模型和变量"><span class="header-section-number">16.3.2.1</span> 模型和变量</h4>
+<ul>
+<li><strong>模型</strong>：创建一个名为 “MaxFlow” 的模型。</li>
+<li><strong>变量</strong>：定义每条边上的流量，变量的上限（<code>ub</code>）设为边的容量。例如 <code>flow_S_A</code> 表示从 <code>S</code> 到 <code>A</code> 的流量，它的上限为 <code>4</code>。</li>
+</ul>
+</section>
+<section id="目标函数" class="level4" data-number="16.3.2.2">
+<h4 data-number="16.3.2.2" class="anchored" data-anchor-id="目标函数"><span class="header-section-number">16.3.2.2</span> 目标函数</h4>
+<ul>
+<li><strong>目标函数</strong>：设置要最大化 <code>S</code> 的总出流量，即从 <code>S</code> 到所有邻接节点（即 <code>S → A</code> 和 <code>S → B</code>）的流量之和。</li>
+</ul>
+</section>
+<section id="约束条件" class="level4" data-number="16.3.2.3">
+<h4 data-number="16.3.2.3" class="anchored" data-anchor-id="约束条件"><span class="header-section-number">16.3.2.3</span> 约束条件</h4>
+<ul>
+<li><strong>节点平衡约束</strong>：对所有中间节点，流入流量等于流出流量。</li>
+<li>对于每个节点，除了源节点和目标节点之外，输入流量必须等于输出流量。例如，对节点 <code>A</code> 的约束是 <code>flow_S_A == flow_A_C + flow_A_D</code>。</li>
+<li>该约束条件确保流量在整个网络中保持平衡，没有无中生有的流量，也没有流量消失。</li>
+<li>节点 <code>S</code> 和 <code>T</code> 将没有这一平衡约束，因为 <code>S</code> 是源点，而 <code>T</code> 是目的点。</li>
+</ul>
+</section>
+<section id="结果" class="level4" data-number="16.3.2.4">
+<h4 data-number="16.3.2.4" class="anchored" data-anchor-id="结果"><span class="header-section-number">16.3.2.4</span> 结果</h4>
+<ul>
+<li><strong>求解模型</strong>：调用 <code>model.optimize()</code> 来求解最大流量问题。</li>
+<li><strong>输出结果</strong>：打印最优流量值和每条边上的流量值。</li>
+</ul>
+<p>各条路径上的流量如下图所示，最大的流量即为 7。</p>
+<div class="cell" data-layout-align="default">
+<div class="cell-output-display">
+<div>
+<p></p><figure class="figure"><p></p>
+<div>
+<pre class="mermaid mermaid-js">graph TD
+    S --&gt;|3| A
+    S --&gt;|4| B
+    A --&gt;|3| C
+    A .-&gt;|0| D
+    B --&gt;|2| D
+    B --&gt;|2| E
+    C ---&gt;|3| T
+    D ---&gt;|2| T
+    E --&gt;|2| F
+    F --&gt;|2| T
+</pre>
+</div>
+<p></p></figure><p></p>
+</div>
+</div>
+</div>
+<p>这个实例展示了如何使用混合整数规划方法处理最大流问题，确定从源节点到目标节点的最大流量，同时满足所有边的容量约束。</p>
+</section>
+</section>
+<section id="数学优化与机器学习" class="level3" data-number="16.3.3">
+<h3 data-number="16.3.3" class="anchored" data-anchor-id="数学优化与机器学习"><span class="header-section-number">16.3.3</span> 数学优化与机器学习</h3>
+<ul>
+<li><strong>优化与机器学习的协同作用：</strong> 理解优化如何帮助改进机器学习模型，如超参数调优、特征选择和构建更稳健的预测模型。</li>
+</ul>
+<p>数学优化在改进机器学习模型的各个方面起着至关重要的作用，包括超参数调优、特征选择和构建更稳健的预测模型。以下是这些方面的详细解释以及如何使用数学优化来实现它们的改进。</p>
+<p><code>X_train</code> 和 <code>y_train</code> 被假定是已经分割好的训练数据集。为了完整地说明这些概念，我们将使用一个流行的内置数据集，并展示如何加载、预处理和分割数据集。在这次演示中，我们将使用 <code>scikit-learn</code> 中的 <code>iris</code> 数据集。</p>
+<p>我们将首先展示如何从 <code>scikit-learn</code> 加载数据集，并进行数据预处理和分割。例如，对于 <code>iris</code> 数据集，以下是代码示例：</p>
+<div id="799085dd" class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_iris</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 加载 iris 数据集</span></span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a>iris <span class="op">=</span> load_iris()</span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> iris.data  <span class="co"># 特征矩阵</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> iris.target  <span class="co"># 目标变量</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 数据标准化</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>scaler <span class="op">=</span> StandardScaler()</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a>X <span class="op">=</span> scaler.fit_transform(X)</span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-15"><a href="#cb12-15" aria-hidden="true" tabindex="-1"></a><span class="co"># 分割数据集为训练集和测试集</span></span>
+<span id="cb12-16"><a href="#cb12-16" aria-hidden="true" tabindex="-1"></a>X_train, X_test, y_train, y_test <span class="op">=</span> train_test_split(X, y, test_size<span class="op">=</span><span class="fl">0.3</span>, random_state<span class="op">=</span><span class="dv">42</span>)</span>
+<span id="cb12-17"><a href="#cb12-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-18"><a href="#cb12-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 将数据转换为 pandas DataFrame 以便后续使用</span></span>
+<span id="cb12-19"><a href="#cb12-19" aria-hidden="true" tabindex="-1"></a>X_train <span class="op">=</span> pd.DataFrame(X_train, columns<span class="op">=</span>iris.feature_names)</span>
+<span id="cb12-20"><a href="#cb12-20" aria-hidden="true" tabindex="-1"></a>X_test <span class="op">=</span> pd.DataFrame(X_test, columns<span class="op">=</span>iris.feature_names)</span>
+<span id="cb12-21"><a href="#cb12-21" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> pd.Series(y_train)</span>
+<span id="cb12-22"><a href="#cb12-22" aria-hidden="true" tabindex="-1"></a>y_test <span class="op">=</span> pd.Series(y_test)</span>
+<span id="cb12-23"><a href="#cb12-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb12-24"><a href="#cb12-24" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"训练集特征维度:"</span>, X_train.shape)</span>
+<span id="cb12-25"><a href="#cb12-25" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"训练集标签维度:"</span>, y_train.shape)</span>
+<span id="cb12-26"><a href="#cb12-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"测试集特征维度:"</span>, X_test.shape)</span>
+<span id="cb12-27"><a href="#cb12-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"测试集标签维度:"</span>, y_test.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>训练集特征维度: (105, 4)
+训练集标签维度: (105,)
+测试集特征维度: (45, 4)
+测试集标签维度: (45,)</code></pre>
+</div>
+</div>
+<section id="超参数调优" class="level4" data-number="16.3.3.1">
+<h4 data-number="16.3.3.1" class="anchored" data-anchor-id="超参数调优"><span class="header-section-number">16.3.3.1</span> 1. 超参数调优</h4>
+<p>超参数调优是优化机器学习模型性能的关键部分，因为超参数对模型的训练过程和最终性能有重大影响。</p>
+<ul>
+<li><strong>网格搜索（Grid Search）</strong>：这种方法通过系统地遍历指定的超参数值组合来找到最优的一组超参数。它的局限性在于对高维度超参数空间可能会非常耗时。</li>
+</ul>
+<div id="d770832d" class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> GridSearchCV</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义参数网格</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a>param_grid <span class="op">=</span> {</span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span>: [<span class="dv">100</span>, <span class="dv">200</span>, <span class="dv">300</span>],</span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span>: [<span class="dv">10</span>, <span class="dv">20</span>, <span class="dv">30</span>]</span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建模型</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier()</span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建网格搜索实例</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a>grid_search <span class="op">=</span> GridSearchCV(estimator<span class="op">=</span>model, param_grid<span class="op">=</span>param_grid, cv<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a>grid_search.fit(X_train, y_train)</span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 最优参数</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Best Parameters: </span><span class="sc">{</span>grid_search<span class="sc">.</span>best_params_<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best Parameters: {'max_depth': 10, 'n_estimators': 100}</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>随机搜索（Random Search）</strong>：与网格搜索不同，随机搜索通过对超参数空间进行随机采样来寻找最优参数。它对高维度空间更有效。</li>
+</ul>
+<div id="342e515b" class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> RandomizedSearchCV</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> randint</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义参数分布</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>param_dist <span class="op">=</span> {</span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">'n_estimators'</span>: randint(<span class="dv">100</span>, <span class="dv">500</span>),</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">'max_depth'</span>: randint(<span class="dv">10</span>, <span class="dv">50</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>}</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建模型</span></span>
+<span id="cb16-12"><a href="#cb16-12" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier()</span>
+<span id="cb16-13"><a href="#cb16-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-14"><a href="#cb16-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建随机搜索实例</span></span>
+<span id="cb16-15"><a href="#cb16-15" aria-hidden="true" tabindex="-1"></a>random_search <span class="op">=</span> RandomizedSearchCV(estimator<span class="op">=</span>model, param_distributions<span class="op">=</span>param_dist, n_iter<span class="op">=</span><span class="dv">50</span>, cv<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb16-16"><a href="#cb16-16" aria-hidden="true" tabindex="-1"></a>random_search.fit(X_train, y_train)</span>
+<span id="cb16-17"><a href="#cb16-17" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb16-18"><a href="#cb16-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 最优参数</span></span>
+<span id="cb16-19"><a href="#cb16-19" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Best Parameters: </span><span class="sc">{</span>random_search<span class="sc">.</span>best_params_<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best Parameters: {'max_depth': 41, 'n_estimators': 208}</code></pre>
+</div>
+</div>
+</section>
+<section id="特征选择" class="level4" data-number="16.3.3.2">
+<h4 data-number="16.3.3.2" class="anchored" data-anchor-id="特征选择"><span class="header-section-number">16.3.3.2</span> 2. 特征选择</h4>
+<p>特征选择有助于减少模型的复杂性，提高模型的泛化能力和性能。</p>
+<ul>
+<li><strong>L1正则化（Lasso回归）</strong>：L1正则化可以通过强制一些权重变为零来进行特征选择。</li>
+</ul>
+<div id="4dacf18f" class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> Lasso</span>
+<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建Lasso模型</span></span>
+<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Lasso(alpha<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb18-6"><a href="#cb18-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb18-7"><a href="#cb18-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择非零特征</span></span>
+<span id="cb18-8"><a href="#cb18-8" aria-hidden="true" tabindex="-1"></a>selected_features <span class="op">=</span> X_train.columns[model.coef_ <span class="op">!=</span> <span class="dv">0</span>]</span>
+<span id="cb18-9"><a href="#cb18-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Selected Features: </span><span class="sc">{</span>selected_features<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Selected Features: Index(['petal length (cm)', 'petal width (cm)'], dtype='object')</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>递归特征消除（Recursive Feature Elimination, RFE）</strong>：RFE是一个递归特征选择过程，将特征逐一移除，并基于模型性能选择最佳特征子集。</li>
+</ul>
+<div id="29beb179" class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.feature_selection <span class="im">import</span> RFE</span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestClassifier</span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建模型</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier()</span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建RFE实例</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a>selector <span class="op">=</span> RFE(estimator<span class="op">=</span>model, n_features_to_select<span class="op">=</span><span class="dv">5</span>, step<span class="op">=</span><span class="dv">1</span>)</span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a>selector <span class="op">=</span> selector.fit(X_train, y_train)</span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-11"><a href="#cb20-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 选择特征</span></span>
+<span id="cb20-12"><a href="#cb20-12" aria-hidden="true" tabindex="-1"></a>selected_features <span class="op">=</span> X_train.columns[selector.support_]</span>
+<span id="cb20-13"><a href="#cb20-13" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Selected Features: </span><span class="sc">{</span>selected_features<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Selected Features: Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)',
+       'petal width (cm)'],
+      dtype='object')</code></pre>
+</div>
+</div>
+</section>
+<section id="构建更稳健的预测模型" class="level4" data-number="16.3.3.3">
+<h4 data-number="16.3.3.3" class="anchored" data-anchor-id="构建更稳健的预测模型"><span class="header-section-number">16.3.3.3</span> 3. 构建更稳健的预测模型</h4>
+<p>数学优化有助于构建更稳健的预测模型，增强其泛化能力，处理数据噪声和异常值。</p>
+<ul>
+<li><strong>对抗训练（Adversarial Training）</strong>：对抗训练是通过向训练数据中添加对抗样本（小扰动的样本）来训练模型，从而增强模型的稳健性。</li>
+</ul>
+<div id="92fb3982" class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用随机森林模型</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier()</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a>model.fit(X_train, y_train)</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 使用梯度生成对抗样本（这里模拟一个简单的对抗样本生成过程，但实际效果存在局限）</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> adversarial_training(model, X_train, y_train, epsilon<span class="op">=</span><span class="fl">0.1</span>):</span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 模拟对抗样本生成（注意：深度模型通常用梯度生成对抗样本，这里简化处理）</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>    perturbation <span class="op">=</span> epsilon <span class="op">*</span> np.sign(np.random.randn(<span class="op">*</span>X_train.shape))</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>    X_adv <span class="op">=</span> X_train <span class="op">+</span> perturbation</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>    X_combined <span class="op">=</span> np.vstack([X_train, X_adv])</span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a>    y_combined <span class="op">=</span> np.hstack([y_train, y_train])</span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a>    <span class="co"># 合并对抗样本和原样本进行训练</span></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a>    model.fit(X_combined, y_combined)</span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> model</span>
+<span id="cb22-16"><a href="#cb22-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-17"><a href="#cb22-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 应用对抗训练</span></span>
+<span id="cb22-18"><a href="#cb22-18" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> adversarial_training(model, X_train.values, y_train.values)</span>
+<span id="cb22-19"><a href="#cb22-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-20"><a href="#cb22-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 验证模型</span></span>
+<span id="cb22-21"><a href="#cb22-21" aria-hidden="true" tabindex="-1"></a>acc <span class="op">=</span> model.score(X_test, y_test)</span>
+<span id="cb22-22"><a href="#cb22-22" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">"模型在测试集上的准确率: "</span>, acc)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>模型在测试集上的准确率:  1.0</code></pre>
+</div>
+</div>
+<ul>
+<li><strong>交叉验证（Cross-Validation）</strong>：使用交叉验证来评估模型性能，以增强模型的稳健性。</li>
+</ul>
+<div id="d8b059d5" class="cell" data-execution_count="13">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> cross_val_score</span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建模型</span></span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestClassifier()</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 交叉验证评估模型</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>scores <span class="op">=</span> cross_val_score(model, X, y, cv<span class="op">=</span><span class="dv">5</span>)</span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Cross-Validation Scores: </span><span class="sc">{</span>scores<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Mean Score: </span><span class="sc">{</span>scores<span class="sc">.</span>mean()<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Cross-Validation Scores: [0.96666667 0.96666667 0.93333333 0.96666667 1.        ]
+Mean Score: 0.9666666666666668</code></pre>
+</div>
+</div>
+<p>数学优化在机器学习模型的改进中扮演着重要角色，通过优化超参数、选择最佳特征和构建更稳健的模型，可以显著提升模型的性能和泛化能力。这些方法的具体实现通过示例代码得到了展示，帮助理解和应用数学优化技术来改进机器学习模型。</p>
+<ul>
+<li><strong>实际应用案例：</strong> 讨论一些优化和机器学习有效结合的实际案例，例如供应链管理、金融建模和预测性维护。</li>
+</ul>
+<p>我们可以使用不同的优化方法解决复杂的问题。比如在生产计划中，我们希望尽可能减少生产成本。我们可以使用线性规划来解决这个问题。</p>
+<div id="69b34b1a" class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> linprog</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义目标函数系数</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>c <span class="op">=</span> [<span class="dv">29</span>, <span class="dv">45</span>]</span>
+<span id="cb26-5"><a href="#cb26-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-6"><a href="#cb26-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 定义不等式约束，A_ub * x &lt;= b_ub</span></span>
+<span id="cb26-7"><a href="#cb26-7" aria-hidden="true" tabindex="-1"></a>A <span class="op">=</span> [[<span class="op">-</span><span class="dv">5</span>, <span class="dv">20</span>], [<span class="dv">10</span>, <span class="op">-</span><span class="dv">50</span>]]</span>
+<span id="cb26-8"><a href="#cb26-8" aria-hidden="true" tabindex="-1"></a>b <span class="op">=</span> [<span class="op">-</span><span class="dv">15</span>, <span class="op">-</span><span class="dv">30</span>]</span>
+<span id="cb26-9"><a href="#cb26-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb26-10"><a href="#cb26-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 求解线性规划</span></span>
+<span id="cb26-11"><a href="#cb26-11" aria-hidden="true" tabindex="-1"></a>res <span class="op">=</span> linprog(c, A_ub<span class="op">=</span>A, b_ub<span class="op">=</span>b)</span>
+<span id="cb26-12"><a href="#cb26-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="st">'Optimal value:'</span>, res.fun, <span class="st">'</span><span class="ch">\n</span><span class="st">X:'</span>, res.x)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal value: 1053.0 
+X: [27.  6.]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="数学优化的方法" class="level3" data-number="16.3.4">
+<h3 data-number="16.3.4" class="anchored" data-anchor-id="数学优化的方法"><span class="header-section-number">16.3.4</span> 数学优化的方法</h3>
+<blockquote class="blockquote">
+<p>哦，所以你认为你可以优化：不同的方法如何帮助你做出更好的决策</p>
+</blockquote>
+<ul>
+<li><strong>经典优化技术：</strong> 包括线性规划、混合整数规划、非线性规划的高级用法。</li>
+<li><strong>启发式和元启发式方法：</strong> 介绍遗传算法、模拟退火、粒子群优化等高级算法。</li>
+<li><strong>对比分析：</strong> 根据问题的复杂性、数据规模和性能指标选择合适的优化方法的决策标准。</li>
+</ul>
+<section id="非线性规划" class="level4" data-number="16.3.4.1">
+<h4 data-number="16.3.4.1" class="anchored" data-anchor-id="非线性规划"><span class="header-section-number">16.3.4.1</span> 非线性规划</h4>
+<p>非线性规划（Nonlinear Programming, NLP）是数学优化中的一类重要问题，其中目标函数或约束条件至少有一个是非线性的。解决非线性规划问题的经典方法有很多，以下是一些常用的方法及其简要介绍：</p>
+<ol type="1">
+<li>梯度下降法（Gradient Descent）</li>
+</ol>
+<p>梯度下降法是一种迭代优化算法，主要用于寻找连续可微函数的局部最小值。</p>
+<p><strong>基本步骤</strong></p>
+<ol type="1">
+<li>初始化一个起始点。</li>
+<li>计算该点的梯度（目标函数的导数）。</li>
+<li>沿梯度的反方向更新当前点的位置。</li>
+<li>重复上述步骤，直到满足终止条件（例如梯度的大小足够小或达到最大迭代次数）。</li>
+</ol>
+<p><strong>优缺点</strong></p>
+<ul>
+<li><strong>优点</strong>：简单易行，适合高维优化问题。</li>
+<li><strong>缺点</strong>：可能收敛到局部最优，收敛速度依赖于学习率的选择。</li>
+</ul>
+<div id="21139298" class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-3"><a href="#cb28-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> gradient_descent(f, grad_f, x0, lr<span class="op">=</span><span class="fl">0.01</span>, max_iter<span class="op">=</span><span class="dv">1000</span>, tol<span class="op">=</span><span class="fl">1e-6</span>):</span>
+<span id="cb28-4"><a href="#cb28-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x0</span>
+<span id="cb28-5"><a href="#cb28-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(max_iter):</span>
+<span id="cb28-6"><a href="#cb28-6" aria-hidden="true" tabindex="-1"></a>        grad <span class="op">=</span> grad_f(x)</span>
+<span id="cb28-7"><a href="#cb28-7" aria-hidden="true" tabindex="-1"></a>        x_new <span class="op">=</span> x <span class="op">-</span> lr <span class="op">*</span> grad</span>
+<span id="cb28-8"><a href="#cb28-8" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.linalg.norm(x_new <span class="op">-</span> x) <span class="op">&lt;</span> tol:</span>
+<span id="cb28-9"><a href="#cb28-9" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb28-10"><a href="#cb28-10" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x_new</span>
+<span id="cb28-11"><a href="#cb28-11" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
+<span id="cb28-12"><a href="#cb28-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb28-13"><a href="#cb28-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例</span></span>
+<span id="cb28-14"><a href="#cb28-14" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb28-15"><a href="#cb28-15" aria-hidden="true" tabindex="-1"></a>grad_f <span class="op">=</span> <span class="kw">lambda</span> x: np.array([<span class="dv">2</span><span class="op">*</span>x[<span class="dv">0</span>], <span class="dv">2</span><span class="op">*</span>x[<span class="dv">1</span>]])</span>
+<span id="cb28-16"><a href="#cb28-16" aria-hidden="true" tabindex="-1"></a>x0 <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb28-17"><a href="#cb28-17" aria-hidden="true" tabindex="-1"></a>opt_x <span class="op">=</span> gradient_descent(f, grad_f, x0)</span>
+<span id="cb28-18"><a href="#cb28-18" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Optimal x: </span><span class="sc">{</span>opt_x<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal x: [2.75597916e-05 4.13396874e-05]</code></pre>
+</div>
+</div>
+<ol type="1">
+<li>牛顿法（Newton’s Method）</li>
+</ol>
+<p>牛顿法是一种基于二阶导数（Hessian矩阵）的优化方法，用于寻找可微可导函数的极小值。</p>
+<p><strong>基本步骤</strong></p>
+<ol type="1">
+<li>初始化一个起始点。</li>
+<li>计算目标函数在当前点的梯度和Hessian矩阵。</li>
+<li>更新当前点的位置： ( <span class="math inline">\(x_{k+1} = x_k - H_f(x_k)^{-1} \nabla f(x_k)\)</span> )。</li>
+<li>重复上述步骤，直到满足终止条件。</li>
+</ol>
+<p><strong>优缺点</strong></p>
+<ul>
+<li><strong>优点</strong>：收敛速度快（通常为二次收敛）。</li>
+<li><strong>缺点</strong>：计算Hessian矩阵和其逆矩阵的成本高，不适用于高维问题。</li>
+</ul>
+<div id="5eff819a" class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> newton_method(f, grad_f, hessian_f, x0, max_iter<span class="op">=</span><span class="dv">100</span>, tol<span class="op">=</span><span class="fl">1e-6</span>):</span>
+<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>    x <span class="op">=</span> x0</span>
+<span id="cb30-5"><a href="#cb30-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(max_iter):</span>
+<span id="cb30-6"><a href="#cb30-6" aria-hidden="true" tabindex="-1"></a>        grad <span class="op">=</span> grad_f(x)</span>
+<span id="cb30-7"><a href="#cb30-7" aria-hidden="true" tabindex="-1"></a>        hessian <span class="op">=</span> hessian_f(x)</span>
+<span id="cb30-8"><a href="#cb30-8" aria-hidden="true" tabindex="-1"></a>        x_new <span class="op">=</span> x <span class="op">-</span> np.linalg.inv(hessian).dot(grad)</span>
+<span id="cb30-9"><a href="#cb30-9" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.linalg.norm(x_new <span class="op">-</span> x) <span class="op">&lt;</span> tol:</span>
+<span id="cb30-10"><a href="#cb30-10" aria-hidden="true" tabindex="-1"></a>            <span class="cf">break</span></span>
+<span id="cb30-11"><a href="#cb30-11" aria-hidden="true" tabindex="-1"></a>        x <span class="op">=</span> x_new</span>
+<span id="cb30-12"><a href="#cb30-12" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x</span>
+<span id="cb30-13"><a href="#cb30-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb30-14"><a href="#cb30-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 示例</span></span>
+<span id="cb30-15"><a href="#cb30-15" aria-hidden="true" tabindex="-1"></a>f <span class="op">=</span> <span class="kw">lambda</span> x: x[<span class="dv">0</span>]<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> x[<span class="dv">1</span>]<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb30-16"><a href="#cb30-16" aria-hidden="true" tabindex="-1"></a>grad_f <span class="op">=</span> <span class="kw">lambda</span> x: np.array([<span class="dv">2</span><span class="op">*</span>x[<span class="dv">0</span>], <span class="dv">2</span><span class="op">*</span>x[<span class="dv">1</span>]])</span>
+<span id="cb30-17"><a href="#cb30-17" aria-hidden="true" tabindex="-1"></a>hessian_f <span class="op">=</span> <span class="kw">lambda</span> x: np.array([[<span class="dv">2</span>, <span class="dv">0</span>], [<span class="dv">0</span>, <span class="dv">2</span>]])</span>
+<span id="cb30-18"><a href="#cb30-18" aria-hidden="true" tabindex="-1"></a>x0 <span class="op">=</span> np.array([<span class="dv">2</span>, <span class="dv">3</span>])</span>
+<span id="cb30-19"><a href="#cb30-19" aria-hidden="true" tabindex="-1"></a>opt_x <span class="op">=</span> newton_method(f, grad_f, hessian_f, x0)</span>
+<span id="cb30-20"><a href="#cb30-20" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Optimal x: </span><span class="sc">{</span>opt_x<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal x: [0. 0.]</code></pre>
+</div>
+</div>
+<ol type="1">
+<li>内点法（Interior-Point Method）</li>
+</ol>
+<p>内点法是一种用于处理具有约束条件的非线性规划问题的优化方法。内点法通过引入障碍函数来避免逐出可行域。</p>
+<p><strong>基本步骤</strong></p>
+<ol type="1">
+<li>初始化一个可行点。</li>
+<li>通过障碍函数调整目标函数，以确保可行性。</li>
+<li>应用优化算法（如牛顿法）进行每一步迭代。</li>
+<li>逐步减少障碍参数，继续优化，直到满足终止条件。</li>
+</ol>
+<p><strong>优缺点</strong></p>
+<ul>
+<li><strong>优点</strong>：适用于大型稀疏问题，可以处理不等式约束。</li>
+<li><strong>缺点</strong>：算法复杂性较高，对初始化和参数选择敏感。</li>
+</ul>
+<ol type="1">
+<li>信赖域法（Trust-Region Method）</li>
+</ol>
+<p>信赖域法是一类迭代优化算法，通过在每一步迭代中求解一个包含约束的小规模子问题来更新变量。</p>
+<p><strong>基本步骤</strong></p>
+<ol type="1">
+<li>初始化一个起始点和信赖域大小。</li>
+<li>在信赖域内建立二次近似模型并求解。</li>
+<li>根据近似模型的解更新当前点的位置。</li>
+<li>根据模型拟合的情况调整信赖域的大小。</li>
+<li>重复上述步骤，直到满足终止条件。</li>
+</ol>
+<p><strong>优缺点</strong></p>
+<ul>
+<li><strong>优点</strong>：收敛性好，适用于高维非线性问题。</li>
+<li><strong>缺点</strong>：每步迭代计算成本较高。</li>
+</ul>
+<div id="e581637f" class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.optimize <span class="im">import</span> minimize</span>
+<span id="cb32-3"><a href="#cb32-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-4"><a href="#cb32-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 目标函数</span></span>
+<span id="cb32-5"><a href="#cb32-5" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> rosenbrock(x):</span>
+<span id="cb32-6"><a href="#cb32-6" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(<span class="fl">100.0</span><span class="op">*</span>(x[<span class="dv">1</span>:]<span class="op">-</span>x[:<span class="op">-</span><span class="dv">1</span>]<span class="op">**</span><span class="fl">2.0</span>)<span class="op">**</span><span class="fl">2.0</span> <span class="op">+</span> (<span class="dv">1</span><span class="op">-</span>x[:<span class="op">-</span><span class="dv">1</span>])<span class="op">**</span><span class="fl">2.0</span>)</span>
+<span id="cb32-7"><a href="#cb32-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb32-8"><a href="#cb32-8" aria-hidden="true" tabindex="-1"></a>x0 <span class="op">=</span> np.array([<span class="fl">1.2</span>, <span class="fl">1.2</span>])</span>
+<span id="cb32-9"><a href="#cb32-9" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> minimize(rosenbrock, x0, method<span class="op">=</span><span class="st">'trust-constr'</span>)</span>
+<span id="cb32-10"><a href="#cb32-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Optimal x: </span><span class="sc">{</span>result<span class="sc">.</span>x<span class="sc">}</span><span class="ss">, Optimal value: </span><span class="sc">{</span>result<span class="sc">.</span>fun<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Optimal x: [0.99999552 0.99999104], Optimal value: 2.005102033632681e-11</code></pre>
+</div>
+</div>
+<p>以上是一些经典的非线性规划优化方法，每种方法都有其优缺点和适用范围。选择合适的优化方法需要根据具体问题的性质、规模和目标函数的特点来决定。通过这些优化技术，可以高效解决实际中的复杂非线性规划问题。</p>
+</section>
+<section id="高级优化算法" class="level4" data-number="16.3.4.2">
+<h4 data-number="16.3.4.2" class="anchored" data-anchor-id="高级优化算法"><span class="header-section-number">16.3.4.2</span> 高级优化算法</h4>
+<p>高级优化算法如遗传算法、模拟退火和粒子群优化等在处理复杂的非线性、多峰、多约束优化问题时非常有用。它们通常基于生物进化、物理退火或群体智能等自然现象的启发。</p>
+<ol type="1">
+<li>遗传算法（Genetic Algorithm, GA）</li>
+</ol>
+<p>遗传算法是一种基于自然选择和遗传机制的优化算法。它通过模拟生物进化过程中的选择、交叉和突变操作来发现最优解。</p>
+<p><strong>基本步骤</strong></p>
+<ol type="1">
+<li><strong>初始化</strong>：生成一个初始种群，种群中的每个个体都是一个潜在的解。</li>
+<li><strong>适应度评估</strong>：计算每个个体的适应度值（即目标函数值）。</li>
+<li><strong>选择</strong>：根据适应度值选择若干个体，较优的个体有更高的被选择概率。</li>
+<li><strong>交叉</strong>：对选中的个体对进行交叉操作，生成新的个体。</li>
+<li><strong>突变</strong>：对部分新个体进行突变操作，增加种群的多样性。</li>
+<li><strong>替换</strong>：用新生成的个体替换部分或全部旧个体。</li>
+<li><strong>迭代</strong>：重复步骤2~6，直到满足终止条件（如达到最大迭代次数或适应度满足阈值）。</li>
+</ol>
+<p><strong>示例代码</strong></p>
+<div id="98e01a2e" class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> deap <span class="im">import</span> base, creator, tools, algorithms</span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-4"><a href="#cb34-4" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> evaluate(individual):</span>
+<span id="cb34-5"><a href="#cb34-5" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">sum</span>(individual),</span>
+<span id="cb34-6"><a href="#cb34-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-7"><a href="#cb34-7" aria-hidden="true" tabindex="-1"></a>creator.create(<span class="st">"FitnessMax"</span>, base.Fitness, weights<span class="op">=</span>(<span class="fl">1.0</span>,))</span>
+<span id="cb34-8"><a href="#cb34-8" aria-hidden="true" tabindex="-1"></a>creator.create(<span class="st">"Individual"</span>, <span class="bu">list</span>, fitness<span class="op">=</span>creator.FitnessMax)</span>
+<span id="cb34-9"><a href="#cb34-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-10"><a href="#cb34-10" aria-hidden="true" tabindex="-1"></a>toolbox <span class="op">=</span> base.Toolbox()</span>
+<span id="cb34-11"><a href="#cb34-11" aria-hidden="true" tabindex="-1"></a>toolbox.register(<span class="st">"attr_float"</span>, np.random.uniform, <span class="op">-</span><span class="dv">10</span>, <span class="dv">10</span>)</span>
+<span id="cb34-12"><a href="#cb34-12" aria-hidden="true" tabindex="-1"></a>toolbox.register(<span class="st">"individual"</span>, tools.initRepeat, creator.Individual, toolbox.attr_float, n<span class="op">=</span><span class="dv">10</span>)</span>
+<span id="cb34-13"><a href="#cb34-13" aria-hidden="true" tabindex="-1"></a>toolbox.register(<span class="st">"population"</span>, tools.initRepeat, <span class="bu">list</span>, toolbox.individual)</span>
+<span id="cb34-14"><a href="#cb34-14" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-15"><a href="#cb34-15" aria-hidden="true" tabindex="-1"></a>toolbox.register(<span class="st">"mate"</span>, tools.cxTwoPoint)</span>
+<span id="cb34-16"><a href="#cb34-16" aria-hidden="true" tabindex="-1"></a>toolbox.register(<span class="st">"mutate"</span>, tools.mutGaussian, mu<span class="op">=</span><span class="dv">0</span>, sigma<span class="op">=</span><span class="dv">1</span>, indpb<span class="op">=</span><span class="fl">0.1</span>)</span>
+<span id="cb34-17"><a href="#cb34-17" aria-hidden="true" tabindex="-1"></a>toolbox.register(<span class="st">"select"</span>, tools.selTournament, tournsize<span class="op">=</span><span class="dv">3</span>)</span>
+<span id="cb34-18"><a href="#cb34-18" aria-hidden="true" tabindex="-1"></a>toolbox.register(<span class="st">"evaluate"</span>, evaluate)</span>
+<span id="cb34-19"><a href="#cb34-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-20"><a href="#cb34-20" aria-hidden="true" tabindex="-1"></a>population <span class="op">=</span> toolbox.population(n<span class="op">=</span><span class="dv">100</span>)</span>
+<span id="cb34-21"><a href="#cb34-21" aria-hidden="true" tabindex="-1"></a>NGEN <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb34-22"><a href="#cb34-22" aria-hidden="true" tabindex="-1"></a>CXPB, MUTPB <span class="op">=</span> <span class="fl">0.5</span>, <span class="fl">0.2</span></span>
+<span id="cb34-23"><a href="#cb34-23" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-24"><a href="#cb34-24" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> gen <span class="kw">in</span> <span class="bu">range</span>(NGEN):</span>
+<span id="cb34-25"><a href="#cb34-25" aria-hidden="true" tabindex="-1"></a>    offspring <span class="op">=</span> toolbox.select(population, <span class="bu">len</span>(population))</span>
+<span id="cb34-26"><a href="#cb34-26" aria-hidden="true" tabindex="-1"></a>    offspring <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(toolbox.clone, offspring))</span>
+<span id="cb34-27"><a href="#cb34-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-28"><a href="#cb34-28" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> child1, child2 <span class="kw">in</span> <span class="bu">zip</span>(offspring[::<span class="dv">2</span>], offspring[<span class="dv">1</span>::<span class="dv">2</span>]):</span>
+<span id="cb34-29"><a href="#cb34-29" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> CXPB:</span>
+<span id="cb34-30"><a href="#cb34-30" aria-hidden="true" tabindex="-1"></a>            toolbox.mate(child1, child2)</span>
+<span id="cb34-31"><a href="#cb34-31" aria-hidden="true" tabindex="-1"></a>            <span class="kw">del</span> child1.fitness.values</span>
+<span id="cb34-32"><a href="#cb34-32" aria-hidden="true" tabindex="-1"></a>            <span class="kw">del</span> child2.fitness.values</span>
+<span id="cb34-33"><a href="#cb34-33" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-34"><a href="#cb34-34" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> mutant <span class="kw">in</span> offspring:</span>
+<span id="cb34-35"><a href="#cb34-35" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> np.random.rand() <span class="op">&lt;</span> MUTPB:</span>
+<span id="cb34-36"><a href="#cb34-36" aria-hidden="true" tabindex="-1"></a>            toolbox.mutate(mutant)</span>
+<span id="cb34-37"><a href="#cb34-37" aria-hidden="true" tabindex="-1"></a>            <span class="kw">del</span> mutant.fitness.values</span>
+<span id="cb34-38"><a href="#cb34-38" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-39"><a href="#cb34-39" aria-hidden="true" tabindex="-1"></a>    invalid_ind <span class="op">=</span> [ind <span class="cf">for</span> ind <span class="kw">in</span> offspring <span class="cf">if</span> <span class="kw">not</span> ind.fitness.valid]</span>
+<span id="cb34-40"><a href="#cb34-40" aria-hidden="true" tabindex="-1"></a>    fitnesses <span class="op">=</span> <span class="bu">map</span>(toolbox.evaluate, invalid_ind)</span>
+<span id="cb34-41"><a href="#cb34-41" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> ind, fit <span class="kw">in</span> <span class="bu">zip</span>(invalid_ind, fitnesses):</span>
+<span id="cb34-42"><a href="#cb34-42" aria-hidden="true" tabindex="-1"></a>        ind.fitness.values <span class="op">=</span> fit</span>
+<span id="cb34-43"><a href="#cb34-43" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-44"><a href="#cb34-44" aria-hidden="true" tabindex="-1"></a>    population[:] <span class="op">=</span> offspring</span>
+<span id="cb34-45"><a href="#cb34-45" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb34-46"><a href="#cb34-46" aria-hidden="true" tabindex="-1"></a>best_ind <span class="op">=</span> tools.selBest(population, <span class="dv">1</span>)[<span class="dv">0</span>]</span>
+<span id="cb34-47"><a href="#cb34-47" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Best individual is </span><span class="sc">{</span>best_ind<span class="sc">}</span><span class="ss">, </span><span class="sc">{</span>best_ind<span class="sc">.</span>fitness<span class="sc">.</span>values<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best individual is [17.74946320369606, 12.628846568393326, 12.814644772889038, 11.284328141367586, 13.757849401094125, 11.719117378960084, 14.833331027352905, 13.90895408387577, 13.031288687132951, 9.973760189588456], (131.7015834543503,)</code></pre>
+</div>
+</div>
+<ol start="2" type="1">
+<li>模拟退火（Simulated Annealing, SA）</li>
+</ol>
+<p>模拟退火是一种基于物理退火过程的优化算法，通过逐步降低”温度”来寻找到函数的全局最优解。</p>
+<p><strong>基本步骤</strong></p>
+<ol type="1">
+<li><strong>初始化</strong>：从一个初始解出发，并设定初始温度。</li>
+<li><strong>邻域搜索</strong>：从当前解的邻域中随机选择一个新解。</li>
+<li><strong>接受概率</strong>：根据目标函数值变化以及当前温度计算接受新解的概率。如果新解比当前解更优，则总是接受；否则以一定概率接受（概率随温度降低）。</li>
+<li><strong>更新温度</strong>：降低温度，然后转到步骤2，直到满足终止条件。</li>
+</ol>
+<div id="93d8d54b" class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective_function(x):</span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> x<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> simulated_annealing(objective, bounds, n_iterations, step_size, temp):</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>    best <span class="op">=</span> bounds[:, <span class="dv">0</span>] <span class="op">+</span> (np.random.rand(<span class="bu">len</span>(bounds)) <span class="op">*</span> (bounds[:, <span class="dv">1</span>] <span class="op">-</span> bounds[:, <span class="dv">0</span>]))</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a>    best_eval <span class="op">=</span> objective(best)</span>
+<span id="cb36-9"><a href="#cb36-9" aria-hidden="true" tabindex="-1"></a>    curr, curr_eval <span class="op">=</span> best, best_eval</span>
+<span id="cb36-10"><a href="#cb36-10" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
+<span id="cb36-11"><a href="#cb36-11" aria-hidden="true" tabindex="-1"></a>        candidate <span class="op">=</span> curr <span class="op">+</span> np.random.randn(<span class="bu">len</span>(bounds)) <span class="op">*</span> step_size</span>
+<span id="cb36-12"><a href="#cb36-12" aria-hidden="true" tabindex="-1"></a>        candidate_eval <span class="op">=</span> objective(candidate)</span>
+<span id="cb36-13"><a href="#cb36-13" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> candidate_eval <span class="op">&lt;</span> best_eval <span class="kw">or</span> np.exp((curr_eval <span class="op">-</span> candidate_eval) <span class="op">/</span> temp) <span class="op">&gt;</span> np.random.rand():</span>
+<span id="cb36-14"><a href="#cb36-14" aria-hidden="true" tabindex="-1"></a>            curr, curr_eval <span class="op">=</span> candidate, candidate_eval</span>
+<span id="cb36-15"><a href="#cb36-15" aria-hidden="true" tabindex="-1"></a>        <span class="cf">if</span> candidate_eval <span class="op">&lt;</span> best_eval:</span>
+<span id="cb36-16"><a href="#cb36-16" aria-hidden="true" tabindex="-1"></a>            best, best_eval <span class="op">=</span> candidate, candidate_eval</span>
+<span id="cb36-17"><a href="#cb36-17" aria-hidden="true" tabindex="-1"></a>        temp <span class="op">*=</span> <span class="fl">0.99</span></span>
+<span id="cb36-18"><a href="#cb36-18" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> best, best_eval</span>
+<span id="cb36-19"><a href="#cb36-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-20"><a href="#cb36-20" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> np.array([[<span class="op">-</span><span class="fl">5.0</span>, <span class="fl">5.0</span>]])</span>
+<span id="cb36-21"><a href="#cb36-21" aria-hidden="true" tabindex="-1"></a>n_iterations <span class="op">=</span> <span class="dv">1000</span></span>
+<span id="cb36-22"><a href="#cb36-22" aria-hidden="true" tabindex="-1"></a>step_size <span class="op">=</span> <span class="fl">0.1</span></span>
+<span id="cb36-23"><a href="#cb36-23" aria-hidden="true" tabindex="-1"></a>temp <span class="op">=</span> <span class="dv">10</span></span>
+<span id="cb36-24"><a href="#cb36-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-25"><a href="#cb36-25" aria-hidden="true" tabindex="-1"></a>best, score <span class="op">=</span> simulated_annealing(objective_function, bounds, n_iterations, step_size, temp)</span>
+<span id="cb36-26"><a href="#cb36-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Best solution: </span><span class="sc">{</span>best<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb36-27"><a href="#cb36-27" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Objective function value: </span><span class="sc">{</span>score<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best solution: [-0.00021292]
+Objective function value: [4.53336993e-08]</code></pre>
+</div>
+</div>
+<ol start="3" type="1">
+<li>粒子群优化（Particle Swarm Optimization, PSO）</li>
+</ol>
+<p>粒子群优化是一种基于群体智能的优化算法，通过模拟鸟群觅食行为来寻找最优解。</p>
+<p><strong>基本步骤</strong></p>
+<ol type="1">
+<li><strong>初始化</strong>：生成初始粒子群，每个粒子表示一个潜在的解。</li>
+<li><strong>速度和位置更新</strong>：根据粒子的速度和位置更新规则，以及粒子自身和全局最优解的信息，分别更新每个粒子的速度和位置。</li>
+<li><strong>适应度评估</strong>：计算每个粒子的适应度值，并更新个体最佳和全局最佳位置。</li>
+<li><strong>迭代</strong>：重复步骤2和3，直到满足终止条件。</li>
+</ol>
+<div id="8892c820" class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> objective_function(x):</span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> np.<span class="bu">sum</span>(x<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb38-5"><a href="#cb38-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-6"><a href="#cb38-6" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> particle_swarm_optimization(objective, bounds, n_particles, n_iterations, w<span class="op">=</span><span class="fl">0.5</span>, c1<span class="op">=</span><span class="fl">1.0</span>, c2<span class="op">=</span><span class="fl">2.0</span>):</span>
+<span id="cb38-7"><a href="#cb38-7" aria-hidden="true" tabindex="-1"></a>    dim <span class="op">=</span> <span class="bu">len</span>(bounds)</span>
+<span id="cb38-8"><a href="#cb38-8" aria-hidden="true" tabindex="-1"></a>    swarm <span class="op">=</span> np.random.rand(n_particles, dim)</span>
+<span id="cb38-9"><a href="#cb38-9" aria-hidden="true" tabindex="-1"></a>    swarm <span class="op">=</span> bounds[:, <span class="dv">0</span>] <span class="op">+</span> swarm <span class="op">*</span> (bounds[:, <span class="dv">1</span>] <span class="op">-</span> bounds[:, <span class="dv">0</span>])</span>
+<span id="cb38-10"><a href="#cb38-10" aria-hidden="true" tabindex="-1"></a>    velocity <span class="op">=</span> np.zeros_like(swarm)</span>
+<span id="cb38-11"><a href="#cb38-11" aria-hidden="true" tabindex="-1"></a>    personal_best <span class="op">=</span> np.copy(swarm)</span>
+<span id="cb38-12"><a href="#cb38-12" aria-hidden="true" tabindex="-1"></a>    personal_best_scores <span class="op">=</span> np.array([objective(p) <span class="cf">for</span> p <span class="kw">in</span> personal_best])</span>
+<span id="cb38-13"><a href="#cb38-13" aria-hidden="true" tabindex="-1"></a>    global_best <span class="op">=</span> swarm[np.argmin(personal_best_scores)]</span>
+<span id="cb38-14"><a href="#cb38-14" aria-hidden="true" tabindex="-1"></a>    global_best_score <span class="op">=</span> np.<span class="bu">min</span>(personal_best_scores)</span>
+<span id="cb38-15"><a href="#cb38-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-16"><a href="#cb38-16" aria-hidden="true" tabindex="-1"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n_iterations):</span>
+<span id="cb38-17"><a href="#cb38-17" aria-hidden="true" tabindex="-1"></a>        <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n_particles):</span>
+<span id="cb38-18"><a href="#cb38-18" aria-hidden="true" tabindex="-1"></a>            r1, r2 <span class="op">=</span> np.random.rand(dim), np.random.rand(dim)</span>
+<span id="cb38-19"><a href="#cb38-19" aria-hidden="true" tabindex="-1"></a>            velocity[j] <span class="op">=</span> w <span class="op">*</span> velocity[j] <span class="op">+</span> c1 <span class="op">*</span> r1 <span class="op">*</span> (personal_best[j] <span class="op">-</span> swarm[j]) <span class="op">+</span> c2 <span class="op">*</span> r2 <span class="op">*</span> (global_best <span class="op">-</span> swarm[j])</span>
+<span id="cb38-20"><a href="#cb38-20" aria-hidden="true" tabindex="-1"></a>            swarm[j] <span class="op">+=</span> velocity[j]</span>
+<span id="cb38-21"><a href="#cb38-21" aria-hidden="true" tabindex="-1"></a>            score <span class="op">=</span> objective(swarm[j])</span>
+<span id="cb38-22"><a href="#cb38-22" aria-hidden="true" tabindex="-1"></a>            <span class="cf">if</span> score <span class="op">&lt;</span> personal_best_scores[j]:</span>
+<span id="cb38-23"><a href="#cb38-23" aria-hidden="true" tabindex="-1"></a>                personal_best[j], personal_best_scores[j] <span class="op">=</span> swarm[j], score</span>
+<span id="cb38-24"><a href="#cb38-24" aria-hidden="true" tabindex="-1"></a>        global_best <span class="op">=</span> personal_best[np.argmin(personal_best_scores)]</span>
+<span id="cb38-25"><a href="#cb38-25" aria-hidden="true" tabindex="-1"></a>        global_best_score <span class="op">=</span> np.<span class="bu">min</span>(personal_best_scores)</span>
+<span id="cb38-26"><a href="#cb38-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-27"><a href="#cb38-27" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> global_best, global_best_score</span>
+<span id="cb38-28"><a href="#cb38-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-29"><a href="#cb38-29" aria-hidden="true" tabindex="-1"></a>bounds <span class="op">=</span> np.array([[<span class="op">-</span><span class="fl">5.0</span>, <span class="fl">5.0</span>], [<span class="op">-</span><span class="fl">5.0</span>, <span class="fl">5.0</span>]])</span>
+<span id="cb38-30"><a href="#cb38-30" aria-hidden="true" tabindex="-1"></a>n_particles <span class="op">=</span> <span class="dv">30</span></span>
+<span id="cb38-31"><a href="#cb38-31" aria-hidden="true" tabindex="-1"></a>n_iterations <span class="op">=</span> <span class="dv">100</span></span>
+<span id="cb38-32"><a href="#cb38-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb38-33"><a href="#cb38-33" aria-hidden="true" tabindex="-1"></a>best, score <span class="op">=</span> particle_swarm_optimization(objective_function, bounds, n_particles, n_iterations)</span>
+<span id="cb38-34"><a href="#cb38-34" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Best solution: </span><span class="sc">{</span>best<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb38-35"><a href="#cb38-35" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Objective function value: </span><span class="sc">{</span>score<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Best solution: [-6.14061071e-12  5.39887490e-12]
+Objective function value: 6.68549500754692e-23</code></pre>
+</div>
+</div>
+<p>上述三种高级优化算法（遗传算法、模拟退火和粒子群优化）在处理复杂的非线性、多峰和多约束优化问题时非常有效。它们通过模拟生物进化、物理退火和群体智能等自然现象的过程，能够在全局范围内搜索最优解，是解决实际优化问题的重要工具。</p>
+</section>
+</section>
+<section id="使用-gurobipy-进行中级建模" class="level3" data-number="16.3.5">
+<h3 data-number="16.3.5" class="anchored" data-anchor-id="使用-gurobipy-进行中级建模"><span class="header-section-number">16.3.5</span> 使用 Gurobipy 进行中级建模</h3>
+<ul>
+<li><strong>Gurobipy的高级功能：</strong> 探索如参数调优、数据处理高效的方法以及使用 Gurobi 回调等高级功能。</li>
+<li><strong>管理模型复杂性：</strong> 简化复杂问题的技术，理解模型细节与计算性能之间的权衡。</li>
+</ul>
+<p>Gurobipy 是一个功能强大的库，能够处理更复杂的线性和非线性优化问题。我们将实现一个简单的混合整数线性规划问题。</p>
+<div id="36a84873" class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb40"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a href="#cb40-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> gurobipy <span class="im">import</span> Model, GRB</span>
+<span id="cb40-2"><a href="#cb40-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-3"><a href="#cb40-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 创建模型</span></span>
+<span id="cb40-4"><a href="#cb40-4" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> Model()</span>
+<span id="cb40-5"><a href="#cb40-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-6"><a href="#cb40-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加变量</span></span>
+<span id="cb40-7"><a href="#cb40-7" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> model.addVar(vtype<span class="op">=</span>GRB.CONTINUOUS, name<span class="op">=</span><span class="st">"x"</span>)</span>
+<span id="cb40-8"><a href="#cb40-8" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> model.addVar(vtype<span class="op">=</span>GRB.INTEGER, name<span class="op">=</span><span class="st">"y"</span>)</span>
+<span id="cb40-9"><a href="#cb40-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-10"><a href="#cb40-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 设置目标函数</span></span>
+<span id="cb40-11"><a href="#cb40-11" aria-hidden="true" tabindex="-1"></a>model.setObjective(<span class="dv">2</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">3</span> <span class="op">*</span> y, GRB.MINIMIZE)</span>
+<span id="cb40-12"><a href="#cb40-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-13"><a href="#cb40-13" aria-hidden="true" tabindex="-1"></a><span class="co"># 添加约束</span></span>
+<span id="cb40-14"><a href="#cb40-14" aria-hidden="true" tabindex="-1"></a>model.addConstr(x <span class="op">+</span> y <span class="op">&gt;=</span> <span class="dv">10</span>, <span class="st">"c0"</span>)</span>
+<span id="cb40-15"><a href="#cb40-15" aria-hidden="true" tabindex="-1"></a>model.addConstr(<span class="dv">3</span> <span class="op">*</span> x <span class="op">+</span> <span class="dv">2</span> <span class="op">*</span> y <span class="op">&lt;=</span> <span class="dv">25</span>, <span class="st">"c1"</span>)</span>
+<span id="cb40-16"><a href="#cb40-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-17"><a href="#cb40-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 优化模型</span></span>
+<span id="cb40-18"><a href="#cb40-18" aria-hidden="true" tabindex="-1"></a>model.optimize()</span>
+<span id="cb40-19"><a href="#cb40-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb40-20"><a href="#cb40-20" aria-hidden="true" tabindex="-1"></a><span class="co"># 输出结果</span></span>
+<span id="cb40-21"><a href="#cb40-21" aria-hidden="true" tabindex="-1"></a><span class="cf">for</span> v <span class="kw">in</span> model.getVars():</span>
+<span id="cb40-22"><a href="#cb40-22" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f'</span><span class="sc">{</span>v<span class="sc">.</span>varName<span class="sc">}</span><span class="ss">: </span><span class="sc">{</span>v<span class="sc">.</span>x<span class="sc">}</span><span class="ss">'</span>)</span>
+<span id="cb40-23"><a href="#cb40-23" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="ss">f'Objective: </span><span class="sc">{</span>model<span class="sc">.</span>objVal<span class="sc">}</span><span class="ss">'</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Gurobi Optimizer version 11.0.2 build v11.0.2rc0 (mac64[arm] - Darwin 24.1.0 24B83)
+
+CPU model: Apple M3 Pro
+Thread count: 12 physical cores, 12 logical processors, using up to 12 threads
+
+Optimize a model with 2 rows, 2 columns and 4 nonzeros
+Model fingerprint: 0x6e3d58b8
+Variable types: 1 continuous, 1 integer (0 binary)
+Coefficient statistics:
+  Matrix range     [1e+00, 3e+00]
+  Objective range  [2e+00, 3e+00]
+  Bounds range     [0e+00, 0e+00]
+  RHS range        [1e+01, 2e+01]
+Presolve removed 2 rows and 2 columns
+Presolve time: 0.00s
+Presolve: All rows and columns removed
+
+Explored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)
+Thread count was 1 (of 12 available processors)
+
+Solution count 1: 25 
+
+Optimal solution found (tolerance 1.00e-04)
+Best objective 2.500000000000e+01, best bound 2.500000000000e+01, gap 0.0000%
+x: 5.0
+y: 5.0
+Objective: 25.0</code></pre>
+</div>
+</div>
+</section>
+<section id="实践建模和编码部分1" class="level3" data-number="16.3.6">
+<h3 data-number="16.3.6" class="anchored" data-anchor-id="实践建模和编码部分1"><span class="header-section-number">16.3.6</span> 实践建模和编码：部分1</h3>
+<ul>
+<li><strong>动手实践：</strong> 结合前面学习的知识进行实际建模。</li>
+<li><strong>案例分析：</strong> 夜初步构建与优化。</li>
+</ul>
+</section>
+</section>
+<section id="数学优化的技巧和高阶方法" class="level2" data-number="16.4">
+<h2 data-number="16.4" class="anchored" data-anchor-id="数学优化的技巧和高阶方法"><span class="header-section-number">16.4</span> 数学优化的技巧和高阶方法</h2>
+<section id="提升模型性能" class="level3" data-number="16.4.1">
+<h3 data-number="16.4.1" class="anchored" data-anchor-id="提升模型性能"><span class="header-section-number">16.4.1</span> 提升模型性能</h3>
+<section id="隐藏的宝藏了解那些能够提升模型性能的特性" class="level4" data-number="16.4.1.1">
+<h4 data-number="16.4.1.1" class="anchored" data-anchor-id="隐藏的宝藏了解那些能够提升模型性能的特性"><span class="header-section-number">16.4.1.1</span> 隐藏的宝藏：了解那些能够提升模型性能的特性</h4>
+<ul>
+<li><strong>高级功能探索：</strong> 详细学习Gurobi支持的一些不为人知但非常有用的功能。</li>
+<li><strong>性能提升技巧：</strong> 探讨提高模型性能的技巧和窍门。</li>
+</ul>
+</section>
+<section id="实践建模和编码部分2" class="level4" data-number="16.4.1.2">
+<h4 data-number="16.4.1.2" class="anchored" data-anchor-id="实践建模和编码部分2"><span class="header-section-number">16.4.1.2</span> 实践建模和编码：部分2</h4>
+<ul>
+<li><strong>深入实践：</strong> 继续实际动手操作，更复杂的建模实例。</li>
+<li><strong>优化调试：</strong> 如何有效调试优化模型。</li>
+</ul>
+</section>
+<section id="综合应用介绍中级案例" class="level4" data-number="16.4.1.3">
+<h4 data-number="16.4.1.3" class="anchored" data-anchor-id="综合应用介绍中级案例"><span class="header-section-number">16.4.1.3</span> 综合应用：介绍中级案例</h4>
+<ul>
+<li><strong>案例介绍：</strong> 详细解析一个中级案例，包括问题定义、建模思路及优化策略。</li>
+<li><strong>问题求解：</strong> 实际动手解决该问题。</li>
+</ul>
+</section>
+<section id="在colab中进行案例建模" class="level4" data-number="16.4.1.4">
+<h4 data-number="16.4.1.4" class="anchored" data-anchor-id="在colab中进行案例建模"><span class="header-section-number">16.4.1.4</span> 在Colab中进行案例建模</h4>
+<ul>
+<li><strong>使用Colab：</strong> 学习如何在Colab环境中进行建模和运行优化模型。</li>
+<li><strong>协同操作：</strong> 如何利用Colab进行共享和协作。</li>
+</ul>
+</section>
+<section id="未来学习路径gurobi-ml-包与-optimods-示例可选" class="level4" data-number="16.4.1.5">
+<h4 data-number="16.4.1.5" class="anchored" data-anchor-id="未来学习路径gurobi-ml-包与-optimods-示例可选"><span class="header-section-number">16.4.1.5</span> 未来学习路径：Gurobi ML 包与 OptiMods 示例（可选）</h4>
+<ul>
+<li><strong>Gurobi ML包介绍：</strong> 深入了解Gurobi的机器学习包的功能和使用。</li>
+<li><strong>OptiMods示例：</strong> 通过具体示例学习如何将学到的知识应用于更加复杂的场景。</li>
+</ul>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./kmer-facilitated-primer-design.html" class="pagination-link" aria-label="Kmer Facilitated Primer Design">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Kmer Facilitated Primer Design</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./references.html" class="pagination-link" aria-label="参考文献">
+        <span class="nav-page-text">参考文献</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+</body></html>

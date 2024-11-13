@@ -1,0 +1,1476 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>14&nbsp; Design specific primer with unikmer – SynComMethods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for syntax highlighting */
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { display: inline-block; text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+  { counter-reset: source-line 0; }
+pre.numberSource code > span
+  { position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+  { content: counter(source-line);
+    position: relative; left: -1em; text-align: right; vertical-align: baseline;
+    border: none; display: inline-block;
+    -webkit-touch-callout: none; -webkit-user-select: none;
+    -khtml-user-select: none; -moz-user-select: none;
+    -ms-user-select: none; user-select: none;
+    padding: 0 4px; width: 4em;
+  }
+pre.numberSource { margin-left: 3em;  padding-left: 4px; }
+div.sourceCode
+  {   }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./kmer-facilitated-primer-design.html" rel="next">
+<link href="./design-specific-primer-with-cailab-utils.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./strain-specific-pcr.html">引物设计</a></li><li class="breadcrumb-item"><a href="./design-primer-with-unikmer.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Design specific primer with unikmer</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">SynComMethods</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">科学写作</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-math-equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">书写数学公式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-chemical-equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">书写化学反应式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./technical-writing-with-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Quarto 常用文档元素</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">微生物培养</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strain-and-combination.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">菌株和组合方式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./culture-method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">培养方法</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">代谢网络</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metabolic-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">代谢模型</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./learn-fba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">学习 FBA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MICOM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">MICOM</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">生态模型</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ecological-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">生态模型</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glv-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">gLV 模型</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">引物设计</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strain-specific-pcr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">菌株特异性 PCR</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-primer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">引物设计</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-specific-primer-with-cailab-utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Design specific primer with cailab.utils</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-primer-with-unikmer.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Design specific primer with unikmer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./kmer-facilitated-primer-design.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Kmer Facilitated Primer Design</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">数学基础</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mathematical-optimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">数学优化</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#aim" id="toc-aim" class="nav-link active" data-scroll-target="#aim"><span class="header-section-number">14.1</span> Aim</a></li>
+  <li><a href="#initializing-work-space" id="toc-initializing-work-space" class="nav-link" data-scroll-target="#initializing-work-space"><span class="header-section-number">14.2</span> Initializing work space</a></li>
+  <li><a href="#get-specific-dna" id="toc-get-specific-dna" class="nav-link" data-scroll-target="#get-specific-dna"><span class="header-section-number">14.3</span> Get Specific DNA</a>
+  <ul class="collapse">
+  <li><a href="#generation-of-kmer" id="toc-generation-of-kmer" class="nav-link" data-scroll-target="#generation-of-kmer"><span class="header-section-number">14.3.1</span> Generation of kmer</a></li>
+  <li><a href="#remove-common-kmers" id="toc-remove-common-kmers" class="nav-link" data-scroll-target="#remove-common-kmers"><span class="header-section-number">14.3.2</span> Remove common kmers</a></li>
+  <li><a href="#assemble-strain-specific-dna-fragments" id="toc-assemble-strain-specific-dna-fragments" class="nav-link" data-scroll-target="#assemble-strain-specific-dna-fragments"><span class="header-section-number">14.3.3</span> Assemble strain-specific DNA fragments</a></li>
+  </ul></li>
+  <li><a href="#designing-primers" id="toc-designing-primers" class="nav-link" data-scroll-target="#designing-primers"><span class="header-section-number">14.4</span> Designing primers</a>
+  <ul class="collapse">
+  <li><a href="#run-primer3" id="toc-run-primer3" class="nav-link" data-scroll-target="#run-primer3"><span class="header-section-number">14.4.1</span> Run Primer3</a></li>
+  </ul></li>
+  <li><a href="#verify-primer-specificity" id="toc-verify-primer-specificity" class="nav-link" data-scroll-target="#verify-primer-specificity"><span class="header-section-number">14.5</span> Verify Primer Specificity</a></li>
+  <li><a href="#流程存在的问题" id="toc-流程存在的问题" class="nav-link" data-scroll-target="#流程存在的问题"><span class="header-section-number">14.6</span> 流程存在的问题</a>
+  <ul class="collapse">
+  <li><a href="#得不到引物" id="toc-得不到引物" class="nav-link" data-scroll-target="#得不到引物"><span class="header-section-number">14.6.1</span> 得不到引物</a></li>
+  <li><a href="#特异性不好的引物" id="toc-特异性不好的引物" class="nav-link" data-scroll-target="#特异性不好的引物"><span class="header-section-number">14.6.2</span> 特异性不好的引物</a></li>
+  </ul></li>
+  <li><a href="#feature-request" id="toc-feature-request" class="nav-link" data-scroll-target="#feature-request"><span class="header-section-number">14.7</span> Feature request</a></li>
+  <li><a href="#supplementary-information" id="toc-supplementary-information" class="nav-link" data-scroll-target="#supplementary-information"><span class="header-section-number">14.8</span> Supplementary information</a>
+  <ul class="collapse">
+  <li><a href="#unikmer-工作原理" id="toc-unikmer-工作原理" class="nav-link" data-scroll-target="#unikmer-工作原理"><span class="header-section-number">14.8.1</span> Unikmer 工作原理</a></li>
+  <li><a href="#unikmer-version" id="toc-unikmer-version" class="nav-link" data-scroll-target="#unikmer-version"><span class="header-section-number">14.8.2</span> Unikmer version</a></li>
+  <li><a href="#session-info" id="toc-session-info" class="nav-link" data-scroll-target="#session-info"><span class="header-section-number">14.8.3</span> Session info</a></li>
+  </ul></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./strain-specific-pcr.html">引物设计</a></li><li class="breadcrumb-item"><a href="./design-primer-with-unikmer.html"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Design specific primer with unikmer</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Design specific primer with unikmer</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>这可以称为 <code>UniPrimer</code> workflow 吧。</p>
+<section id="aim" class="level2" data-number="14.1">
+<h2 data-number="14.1" class="anchored" data-anchor-id="aim"><span class="header-section-number">14.1</span> Aim</h2>
+<p>I have several gzipped fasta format genomes, and want to design specific primers for each of them.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a>gfiles <span class="ot">=</span> <span class="fu">list.files</span>(</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a>  <span class="at">path =</span> <span class="st">"./extdata/genomes"</span>,</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a>  <span class="at">pattern =</span> <span class="st">"*.fa.gz"</span>,</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">full.names =</span> <span class="cn">TRUE</span></span>
+<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a>)</span>
+<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="fu">print</span>(gfiles)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "./extdata/genomes/CK22.fa.gz" "./extdata/genomes/CK6.fa.gz" 
+[3] "./extdata/genomes/CK7.fa.gz" </code></pre>
+</div>
+</div>
+<p>Specific primer means a pair of primers that can amplify a DNA segment with the genomic DNA of strain 1 but not with all the DNA of the other 29 strains.</p>
+<p><strong>设计特异性引物总共分为 3 步</strong>：</p>
+<ol type="1">
+<li>获取基因组中特异性 DNA 序列，这一步使用 <code>unikmer</code>，<code>seqkit</code>，<code>rush</code> 等程序完成。</li>
+<li>依据特异性 DNA 序列设计扩增引物，这一步使用 <code>primer3</code> 和自己编写的 <code>rPrimer3</code> 软件包等完成。</li>
+<li>对设计得到的引物进行虚拟 PCR 验证，这一步使用 <code>DECIPHER</code> 软件包完成。</li>
+</ol>
+<p>上述软件及软件包的官方网站（文档）分别是：</p>
+<ul>
+<li>unikmer <a href="https://github.com/shenwei356/unikmer" class="uri">https://github.com/shenwei356/unikmer</a></li>
+<li>seqkit <a href="https://github.com/shenwei356/seqkit" class="uri">https://github.com/shenwei356/seqkit</a></li>
+<li>rush <a href="https://github.com/shenwei356/rush" class="uri">https://github.com/shenwei356/rush</a></li>
+<li>primer3 <a href="https://primer3.org/" class="uri">https://primer3.org/</a></li>
+<li>rPrimer3 <a href="https://github.com/gaospecial/rPrimer3" class="uri">https://github.com/gaospecial/rPrimer3</a></li>
+<li>DECIPHER <a href="https://bioconductor.org/packages/release/bioc/html/DECIPHER.html" class="uri">https://bioconductor.org/packages/release/bioc/html/DECIPHER.html</a></li>
+</ul>
+</section>
+<section id="initializing-work-space" class="level2" data-number="14.2">
+<h2 data-number="14.2" class="anchored" data-anchor-id="initializing-work-space"><span class="header-section-number">14.2</span> Initializing work space</h2>
+<p>创建工作区，就是新建一个子目录，把运行产生的文件放到一起，避免运行产生的文件与原始数据（这里是基因组序列）混在一起，清理文件时发生意外。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>ws <span class="ot">=</span> <span class="st">"ws"</span>           <span class="co"># working space</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a>outdir <span class="ot">=</span> <span class="fu">file.path</span>(<span class="st">"temp"</span>, ws) <span class="sc">|&gt;</span> R.utils<span class="sc">::</span><span class="fu">getAbsolutePath</span>()</span>
+<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="cf">if</span> (<span class="sc">!</span><span class="fu">dir.exists</span>(outdir)){</span>
+<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">dir.create</span>(outdir, <span class="at">recursive =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a>} <span class="cf">else</span> {</span>
+<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">warning</span>(<span class="fu">paste</span>(<span class="st">"The work space"</span>, outdir, <span class="st">"is existed, skipping..."</span>))</span>
+<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(dplyr)</span>
+<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a>strains <span class="ot">=</span> gfiles <span class="sc">|&gt;</span> <span class="fu">basename</span>() <span class="sc">|&gt;</span> stringr<span class="sc">::</span><span class="fu">str_remove</span>(<span class="st">".fa.gz"</span>)</span>
+<span id="cb4-3"><a href="#cb4-3" aria-hidden="true" tabindex="-1"></a>all_files <span class="ot">=</span> dplyr<span class="sc">::</span><span class="fu">tibble</span>(</span>
+<span id="cb4-4"><a href="#cb4-4" aria-hidden="true" tabindex="-1"></a>  <span class="at">strain =</span> strains,</span>
+<span id="cb4-5"><a href="#cb4-5" aria-hidden="true" tabindex="-1"></a>  <span class="at">genome =</span> gfiles,</span>
+<span id="cb4-6"><a href="#cb4-6" aria-hidden="true" tabindex="-1"></a>  <span class="at">kmer_all =</span> xfun<span class="sc">::</span><span class="fu">with_ext</span>(strains, <span class="st">"all"</span>, <span class="at">extra =</span> <span class="st">"."</span>),  <span class="co"># only prefix needed</span></span>
+<span id="cb4-7"><a href="#cb4-7" aria-hidden="true" tabindex="-1"></a>  <span class="at">kmer_uniq =</span> xfun<span class="sc">::</span><span class="fu">with_ext</span>(strains, <span class="st">"uniq"</span>, <span class="at">extra =</span> <span class="st">"."</span>), <span class="co"># only prefix needed</span></span>
+<span id="cb4-8"><a href="#cb4-8" aria-hidden="true" tabindex="-1"></a>  <span class="at">fasta_all =</span> xfun<span class="sc">::</span><span class="fu">with_ext</span>(strains, <span class="st">"uniq.fa"</span>, <span class="at">extra =</span> <span class="st">"."</span>),</span>
+<span id="cb4-9"><a href="#cb4-9" aria-hidden="true" tabindex="-1"></a>  <span class="at">fasta_one =</span> xfun<span class="sc">::</span><span class="fu">with_ext</span>(strains, <span class="st">"one.fa"</span>, <span class="at">extra =</span> <span class="st">"."</span>)</span>
+<span id="cb4-10"><a href="#cb4-10" aria-hidden="true" tabindex="-1"></a>) <span class="sc">|&gt;</span> </span>
+<span id="cb4-11"><a href="#cb4-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="fu">across</span>(kmer_all<span class="sc">:</span>fasta_one, <span class="sc">~</span><span class="fu">file.path</span>(outdir, .x)))</span>
+<span id="cb4-12"><a href="#cb4-12" aria-hidden="true" tabindex="-1"></a>all_files</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 6
+  strain genome                       kmer_all     kmer_uniq fasta_all fasta_one
+  &lt;chr&gt;  &lt;chr&gt;                        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    
+1 CK22   ./extdata/genomes/CK22.fa.gz /Users/gaoc… /Users/g… /Users/g… /Users/g…
+2 CK6    ./extdata/genomes/CK6.fa.gz  /Users/gaoc… /Users/g… /Users/g… /Users/g…
+3 CK7    ./extdata/genomes/CK7.fa.gz  /Users/gaoc… /Users/g… /Users/g… /Users/g…</code></pre>
+</div>
+</div>
+</section>
+<section id="get-specific-dna" class="level2" data-number="14.3">
+<h2 data-number="14.3" class="anchored" data-anchor-id="get-specific-dna"><span class="header-section-number">14.3</span> Get Specific DNA</h2>
+<div class="callout callout-style-default callout-important callout-titled">
+<div class="callout-header d-flex align-content-center">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+Important
+</div>
+</div>
+<div class="callout-body-container callout-body">
+<p><strong>Note</strong>: 下面的脚本已更新，在 R 环境中可以执行<a href="#fn1" class="footnote-ref" id="fnref1" role="doc-noteref"><sup>1</sup></a>。</p>
+</div>
+</div>
+<p>这一步主要使用了 kmer 筛选和组装获得基因组片段。我自己先写了一个流程，然后发给 <code>unikmer</code> 的作者沈伟<a href="#fn2" class="footnote-ref" id="fnref2" role="doc-noteref"><sup>2</sup></a>征求意见，他随后给出了下列的代码。主要改进有：</p>
+<ul>
+<li><p>用了干净的工作区（Work Space - ws）</p></li>
+<li><p>更好的 <code>unikmer</code> 设置</p>
+<p>在生成 kmer 的时候，允许重复 kmer 的产生（去掉了 <code>--unique</code> 参数）；在“组装”（<code>uniqs/map</code>）时允许 kmer 多次使用（增加了 <code>-M</code> 参数）。这有利于在最后的组装时获得更长的特异性序列。</p>
+<p>在使用基因组时对序列进行过滤（如 <code># sequences with name containing "plasmid" is removed ('-B/--seq-name-filter plasmid')</code>）。</p></li>
+<li><p>使用 <code>rush</code> 实现了并行计算<a href="#fn3" class="footnote-ref" id="fnref3" role="doc-noteref"><sup>3</sup></a>。</p></li>
+</ul>
+<p>直接进化到 <code>rush</code>，非常好用！<code>rush</code> 一下真的快很多，而且执行进度提醒非常友好！在沈教授的启发下，我也对 R 语言的代码进行了并行计算的修改。</p>
+<section id="generation-of-kmer" class="level3" data-number="14.3.1">
+<h3 data-number="14.3.1" class="anchored" data-anchor-id="generation-of-kmer"><span class="header-section-number">14.3.1</span> Generation of kmer</h3>
+<p>Since 31 nt is enough for a primer, so we start with <code>k = 31</code>.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="do">## generating k-mers from each genome</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="co"># only kepp the caninical k-mers ('-K/--canonical')</span></span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="co"># sequences with name containing "plasmid" are removed ('-B/--seq-name-filter plasmid')</span></span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="co"># sort output (-s/--sort)</span></span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a>k <span class="ot">=</span> <span class="dv">31</span></span>
+<span id="cb6-6"><a href="#cb6-6" aria-hidden="true" tabindex="-1"></a>cmd <span class="ot">=</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(gfiles), <span class="cf">function</span>(i){</span>
+<span id="cb6-7"><a href="#cb6-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">"unikmer count --canonical --circular --seq-name-filter plasmid --sort -k"</span>, k, <span class="st">"-o"</span>, </span>
+<span id="cb6-8"><a href="#cb6-8" aria-hidden="true" tabindex="-1"></a>        all_files<span class="sc">$</span>kmer_all[[i]],</span>
+<span id="cb6-9"><a href="#cb6-9" aria-hidden="true" tabindex="-1"></a>        all_files<span class="sc">$</span>genome[[i]])</span>
+<span id="cb6-10"><a href="#cb6-10" aria-hidden="true" tabindex="-1"></a>})</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Run command in parallel using <code>libray(parallel)</code>.</p>
+<p>这里构建了一个运行系统命令的函数。可以将多个命令传给这个函数，然后进行并行计算。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co">#' Run command in parallel</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a><span class="co">#' </span></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="co">#' check the running result and send message or warnings.</span></span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a>run_cmd <span class="ot">=</span> <span class="cf">function</span>(cmd, <span class="at">description =</span> <span class="fu">paste</span>(<span class="fu">length</span>(cmd), <span class="st">"commands"</span>), <span class="at">intern =</span> <span class="cn">FALSE</span>){</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">message</span>(<span class="st">"Run commands in parallel: "</span>, description)</span>
+<span id="cb7-6"><a href="#cb7-6" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-7"><a href="#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="co"># run cmd in parallel</span></span>
+<span id="cb7-8"><a href="#cb7-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">library</span>(parallel)</span>
+<span id="cb7-9"><a href="#cb7-9" aria-hidden="true" tabindex="-1"></a>  n <span class="ot">=</span> <span class="fu">round</span>(<span class="fu">detectCores</span>() <span class="sc">*</span> <span class="fl">0.75</span>) <span class="co"># use 75% of all the cores</span></span>
+<span id="cb7-10"><a href="#cb7-10" aria-hidden="true" tabindex="-1"></a>  res <span class="ot">=</span> <span class="fu">mclapply</span>(cmd, system, <span class="at">intern =</span> intern, <span class="at">mc.cores =</span> n)</span>
+<span id="cb7-11"><a href="#cb7-11" aria-hidden="true" tabindex="-1"></a>  </span>
+<span id="cb7-12"><a href="#cb7-12" aria-hidden="true" tabindex="-1"></a>  <span class="co"># failed command</span></span>
+<span id="cb7-13"><a href="#cb7-13" aria-hidden="true" tabindex="-1"></a>  cmd_failed <span class="ot">=</span> cmd[<span class="fu">unlist</span>(res) <span class="sc">!=</span> <span class="dv">0</span>]</span>
+<span id="cb7-14"><a href="#cb7-14" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">length</span>(cmd_failed) <span class="sc">==</span> <span class="dv">0</span>){</span>
+<span id="cb7-15"><a href="#cb7-15" aria-hidden="true" tabindex="-1"></a>    <span class="fu">message</span>(<span class="st">"All commands run successfully."</span>)</span>
+<span id="cb7-16"><a href="#cb7-16" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb7-17"><a href="#cb7-17" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="st">"There are "</span>, <span class="fu">length</span>(cmd_failed), <span class="st">" command(s) failed."</span>)</span>
+<span id="cb7-18"><a href="#cb7-18" aria-hidden="true" tabindex="-1"></a>    <span class="fu">warning</span>(<span class="fu">paste</span>(<span class="st">"  "</span>,cmd_failed))</span>
+<span id="cb7-19"><a href="#cb7-19" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb7-20"><a href="#cb7-20" aria-hidden="true" tabindex="-1"></a>  <span class="fu">invisible</span>(res)</span>
+<span id="cb7-21"><a href="#cb7-21" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">run_cmd</span>(cmd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="remove-common-kmers" class="level3" data-number="14.3.2">
+<h3 data-number="14.3.2" class="anchored" data-anchor-id="remove-common-kmers"><span class="header-section-number">14.3.2</span> Remove common kmers</h3>
+<p>Common kmers shared by &gt;2 genomes will be removed. After that, unique sub-sequences are assembled by the resting kmers.</p>
+<p>Firstly, find the shared kmers of two or more genomes.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="do">## computing k-mers shared by &gt;= 2 files</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>cmd <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">"unikmer common -n 2 -o shared --verbose"</span>, <span class="fu">paste0</span>(all_files<span class="sc">$</span>kmer_all, <span class="st">".unik"</span>, <span class="at">collapse =</span> <span class="st">" "</span>))</span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="fu">run_cmd</span>(cmd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Second, remove shared kmers from the genome kmers.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="do">## remove common k-mers</span></span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>cmd <span class="ot">=</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(gfiles), <span class="cf">function</span>(i){</span>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">'unikmer diff -s -o {all_files$kmer_uniq[[i]]} {all_files$kmer_all[[i]]}.unik shared.unik'</span>)</span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb10-6"><a href="#cb10-6" aria-hidden="true" tabindex="-1"></a><span class="fu">run_cmd</span>(cmd, <span class="st">"Remove common k-mers"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>Show the info of shared and genome-specific kmers, indicating how many kmers in different strains?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>cmd <span class="ot">=</span> glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">'unikmer stats -a {all_files$kmer_uniq}.unik'</span>)</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a><span class="fu">run_cmd</span>(cmd)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="assemble-strain-specific-dna-fragments" class="level3" data-number="14.3.3">
+<h3 data-number="14.3.3" class="anchored" data-anchor-id="assemble-strain-specific-dna-fragments"><span class="header-section-number">14.3.3</span> Assemble strain-specific DNA fragments</h3>
+<p>Mapping specific k-mers to each input genome.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># allow multiple mapped k-mers (-M/--allow-multiple-mapped-kmer)</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="co"># ouput fasta (-a/--output-fasta)</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="co"># filter genome sequence by string (-B/--seq-name-filter)</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>cmd <span class="ot">=</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(gfiles), <span class="cf">function</span>(i){</span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>  glue<span class="sc">::</span><span class="fu">glue</span>(<span class="st">'unikmer map -m 31 -M -a -g {all_files$genome[[i]]} {all_files$kmer_uniq[[i]]}.unik | seqkit sort -l -r -o {all_files$fasta_all[[i]]}'</span>)</span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="fu">run_cmd</span>(cmd, <span class="st">"constructing strain-specific DNA fragements"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>What are the sizes of those fasta output files? Please note some of the fasta file can be empty if no enough available kmers.</p>
+<p>How many sequences in different strains?</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="do">## summary genome/strain specific sequences</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a>cmd <span class="ot">=</span> <span class="fu">paste</span>(<span class="st">'seqkit stats -T'</span>, <span class="fu">paste</span>(all_files<span class="sc">$</span>fasta_all, <span class="at">collapse =</span> <span class="st">" "</span>))</span>
+<span id="cb13-3"><a href="#cb13-3" aria-hidden="true" tabindex="-1"></a>out <span class="ot">=</span> <span class="fu">system</span>(cmd, <span class="at">intern =</span> <span class="cn">TRUE</span>)</span>
+<span id="cb13-4"><a href="#cb13-4" aria-hidden="true" tabindex="-1"></a><span class="fu">read.delim</span>(<span class="at">text =</span> out) <span class="sc">|&gt;</span> <span class="fu">as_tibble</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 3 × 8
+  file                     format type  num_seqs sum_len min_len avg_len max_len
+  &lt;chr&gt;                    &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;
+1 /Users/gaoch/GitHub/Syn… FASTA  DNA       1066 5519220      31   5178.  279884
+2 /Users/gaoch/GitHub/Syn… FASTA  DNA       1184 6101182      31   5153   216372
+3 /Users/gaoch/GitHub/Syn… FASTA  DNA       1375 5120607      31   3724.  365894</code></pre>
+</div>
+</div>
+<p>Some of the genome may contain several thousand of specific regions/DNA fragments. Only one is needed for the following primer design. So I just keep one.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="do">## find longest specific sequence</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="co"># only keep one sequence for a strain，保留最长的一条</span></span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>cmd <span class="ot">=</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(gfiles), <span class="cf">function</span>(i){</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">paste</span>(<span class="st">'seqkit head -n 1 --quiet'</span>, all_files<span class="sc">$</span>fasta_all[[i]], <span class="st">'-o'</span>, all_files<span class="sc">$</span>fasta_one[[i]])</span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb15-6"><a href="#cb15-6" aria-hidden="true" tabindex="-1"></a><span class="fu">run_cmd</span>(cmd, <span class="st">"find longest specific sequence"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="designing-primers" class="level2" data-number="14.4">
+<h2 data-number="14.4" class="anchored" data-anchor-id="designing-primers"><span class="header-section-number">14.4</span> Designing primers</h2>
+<section id="run-primer3" class="level3" data-number="14.4.1">
+<h3 data-number="14.4.1" class="anchored" data-anchor-id="run-primer3"><span class="header-section-number">14.4.1</span> Run Primer3</h3>
+<p>Using <strong>rPrimer3</strong> to design primer with <code>*.one.fa</code> sequences.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(rPrimer3)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a>dir <span class="ot">=</span> rprojroot<span class="sc">::</span><span class="fu">find_rstudio_root_file</span>()</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="co"># set the path to the primer3 parameters</span></span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(<span class="st">"/opt/homebrew/Cellar/primer3/2.4.0/share/primer3"</span>)</span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>primers <span class="ot">=</span> <span class="fu">lapply</span>(<span class="fu">seq_along</span>(gfiles), <span class="cf">function</span>(i){</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">design_primer_from_file</span>(all_files<span class="sc">$</span>fasta_one[[i]], </span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>                          <span class="at">parts =</span> <span class="dv">1</span>,</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>                          <span class="at">PRIMER_PRODUCT_SIZE_RANGE =</span> <span class="st">"75-100"</span>)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>})</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a><span class="fu">setwd</span>(dir)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+</section>
+<section id="verify-primer-specificity" class="level2" data-number="14.5">
+<h2 data-number="14.5" class="anchored" data-anchor-id="verify-primer-specificity"><span class="header-section-number">14.5</span> Verify Primer Specificity</h2>
+<p>Subsequently, we use <code>DECIPHER::AmplifyDNA()</code> to check primer specificity.</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="fu">suppressPackageStartupMessages</span>(<span class="fu">library</span>(DECIPHER))</span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># read all genomes</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>genome <span class="ot">=</span> <span class="fu">readDNAStringSet</span>(gfiles)</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>n <span class="ot">=</span> <span class="fu">sapply</span>(gfiles, <span class="cf">function</span>(x) <span class="fu">system</span>(<span class="fu">paste</span>(<span class="st">"zgrep '&gt;' "</span>, x ,<span class="st">" | wc -l"</span>), <span class="at">intern=</span><span class="cn">TRUE</span>))</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a>source <span class="ot">=</span> <span class="fu">rep</span>(<span class="fu">basename</span>(gfiles), <span class="at">times =</span> n) <span class="sc">|&gt;</span> <span class="fu">gsub</span>(<span class="at">pattern=</span><span class="st">".fa.gz"</span>, <span class="at">replacement=</span><span class="st">""</span>)</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="fu">names</span>(genome) <span class="ot">=</span> source</span>
+<span id="cb17-8"><a href="#cb17-8" aria-hidden="true" tabindex="-1"></a>genome</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>DNAStringSet object of length 15:
+       width seq                                            names               
+ [1] 5510768 TTGGAAAACATTGCGGATCTTT...GATGGAAAAGGAGGGATATCA CK22
+ [2]  377383 ATGGAGGTATGTGTATGCATAA...ATATCTAAGTAAAGTTATCTT CK22
+ [3] 6078688 TTGGATAACATCGATAGCCTCT...TTTTGCAAAGGAGGGATAAGT CK6
+ [4]  216280 ATGTCAGAAGAAACCTTTTGGA...ATAAATTTAGGGGGTTCAATA CK6
+ [5] 5100579 TTGGAAAACATTCATGATTTAT...AGAAAAAGGAGGGATTGCTCG CK7
+ ...     ... ...
+[11]  115146 ATGAAACCAACTATATATGACG...GATGAGGAAAGAGGAGGAAAA CK7
+[12]  102333 ATGTCTGAAAAAGTATTAGAAA...AAAAAATAGGAGGTTGTTTCA CK7
+[13]   48257 ATGAAAAAAATTGTTTTAGTTA...TAAAAAATGCGAGGAAATGTA CK7
+[14]   13676 ATGAACAAGATATTGACTTGCT...CTTAAAGGAGAAGATGAACAG CK7
+[15]   10216 GTGGCTAAAATATCAAAAGTGG...AAAATGATAGAGGTGGACAAT CK7</code></pre>
+</div>
+</div>
+<p>扩增产物的 <code>names</code> 列由 3 部分组成，第一个是扩增效率，第二个是所用的引物编号，第三个是模板的 ID。</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a>products <span class="ot">=</span> <span class="fu">mclapply</span>(<span class="fu">seq_along</span>(gfiles), <span class="cf">function</span>(i){</span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a>  primer <span class="ot">=</span> primers[[i]]</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a>  <span class="cf">if</span> (<span class="fu">inherits</span>(primer, <span class="st">"data.frame"</span>)){</span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>    product <span class="ot">=</span> <span class="fu">AmplifyDNA</span>(primer<span class="sc">$</span>sequence, </span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>                       genome, </span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a>                       <span class="at">annealingTemp =</span> <span class="dv">55</span>, </span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>                       <span class="at">P =</span> <span class="fl">4e-7</span>, </span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a>                       <span class="at">maxProductSize =</span> <span class="dv">1000</span>, </span>
+<span id="cb19-9"><a href="#cb19-9" aria-hidden="true" tabindex="-1"></a>                       <span class="at">minEfficiency =</span> <span class="fl">0.2</span>)</span>
+<span id="cb19-10"><a href="#cb19-10" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(product)</span>
+<span id="cb19-11"><a href="#cb19-11" aria-hidden="true" tabindex="-1"></a>  } <span class="cf">else</span> {</span>
+<span id="cb19-12"><a href="#cb19-12" aria-hidden="true" tabindex="-1"></a>    <span class="fu">return</span>(<span class="cn">NULL</span>)</span>
+<span id="cb19-13"><a href="#cb19-13" aria-hidden="true" tabindex="-1"></a>  }</span>
+<span id="cb19-14"><a href="#cb19-14" aria-hidden="true" tabindex="-1"></a>}, <span class="at">mc.cores =</span> <span class="dv">16</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="tabset-margin-container"></div><div class="panel-tabset">
+<ul class="nav nav-tabs" role="tablist"><li class="nav-item" role="presentation"><a class="nav-link active" id="tabset-1-1-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-1" role="tab" aria-controls="tabset-1-1" aria-selected="true" aria-current="page">CK22</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-2-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-2" role="tab" aria-controls="tabset-1-2" aria-selected="false">CK6</a></li><li class="nav-item" role="presentation"><a class="nav-link" id="tabset-1-3-tab" data-bs-toggle="tab" data-bs-target="#tabset-1-3" role="tab" aria-controls="tabset-1-3" aria-selected="false">CK7</a></li></ul>
+<div class="tab-content">
+<div id="tabset-1-1" class="tab-pane active" role="tabpanel" aria-labelledby="tabset-1-1-tab">
+<p><strong>Primer</strong></p>
+<pre><code># A tibble: 2 × 3
+  name                      sequence             product_size
+  &lt;chr&gt;                     &lt;chr&gt;                &lt;chr&gt;       
+1 tig00001:4963923-5243806f tgagttgcgctgctgttttc 81          
+2 tig00001:4963923-5243806r tatcagcgcgccgaaaaatg 81          </code></pre>
+<p><strong>Product</strong></p>
+<pre><code>DNAStringSet object of length 1:
+    width seq                                               names               
+[1]    81 TGAGTTGCGCTGCTGTTTTCCTG...CCACATTTTTCGGCGCGCTGATA 100% (1 x 2) CK22</code></pre>
+</div>
+<div id="tabset-1-2" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-2-tab">
+<p><strong>Primer</strong></p>
+<pre><code># A tibble: 2 × 3
+  name                      sequence             product_size
+  &lt;chr&gt;                     &lt;chr&gt;                &lt;chr&gt;       
+1 tig00001:1326286-1542657f ttttacgaccggattggcca 98          
+2 tig00001:1326286-1542657r gtccgatgttcgattgctgc 98          </code></pre>
+<p><strong>Product</strong></p>
+<pre><code>DNAStringSet object of length 1:
+    width seq                                               names               
+[1]    98 TTTTACGACCGGATTGGCCAGTT...TCGGCAGCAATCGAACATCGGAC 99.9% (1 x 2) CK6</code></pre>
+</div>
+<div id="tabset-1-3" class="tab-pane" role="tabpanel" aria-labelledby="tabset-1-3-tab">
+<p><strong>Primer</strong></p>
+<pre><code># A tibble: 2 × 3
+  name                     sequence             product_size
+  &lt;chr&gt;                    &lt;chr&gt;                &lt;chr&gt;       
+1 tig00001:988080-1353973f aacgaaaaacagcagccgac 98          
+2 tig00001:988080-1353973r cgcttcgccaaaaccaaaga 98          </code></pre>
+<p><strong>Product</strong></p>
+<pre><code>DNAStringSet object of length 1:
+    width seq                                               names               
+[1]    98 AACGAAAAACAGCAGCCGACGTA...ATATCTTTGGTTTTGGCGAAGCG 99.9% (1 x 2) CK7</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="流程存在的问题" class="level2" data-number="14.6">
+<h2 data-number="14.6" class="anchored" data-anchor-id="流程存在的问题"><span class="header-section-number">14.6</span> 流程存在的问题</h2>
+<section id="得不到引物" class="level3" data-number="14.6.1">
+<h3 data-number="14.6.1" class="anchored" data-anchor-id="得不到引物"><span class="header-section-number">14.6.1</span> 得不到引物</h3>
+<p>虽然该途径可以找到一些比较长的特异性序列，但是在引物设计方面的性能仍然不能令人满意。在这里，我们测试了 32 个基因组，其中就有 3 - 5 个基因组没有找到合适的引物。</p>
+<p>没有得到引物的原因，主要是这样一个流程的参数设置过于严格了。如果那些共有的 kmer 处在两个小片段之间，那么缺失这些 kmer 会造成组装失败，从而无法得到足够长的模板。</p>
+<p>实际上，特异性的引物不需要要求扩增的序列本身是特异性的。哪怕是一段比较保守的序列，只要引物本身存在差异，是不影响对片段进行特异性扩增的。</p>
+</section>
+<section id="特异性不好的引物" class="level3" data-number="14.6.2">
+<h3 data-number="14.6.2" class="anchored" data-anchor-id="特异性不好的引物"><span class="header-section-number">14.6.2</span> 特异性不好的引物</h3>
+<p>如果使用的基因组数量很少，那么设计引物的时候又会面临新的问题。那就是引物的特异性可能会比较差。为了解决这一问题，应当尝试在软件流程中加入一个最常见的 kmer 矩阵，能够在基因组数量比较少的时候对 kmer 进行过滤，使得设计的引物仍然具有较高的特异性。</p>
+<p>这样的 kmer 矩阵可以有多个，分别对应着不同的过滤强度。</p>
+</section>
+</section>
+<section id="feature-request" class="level2" data-number="14.7">
+<h2 data-number="14.7" class="anchored" data-anchor-id="feature-request"><span class="header-section-number">14.7</span> Feature request</h2>
+<ul>
+<li><p><a href="https://github.com/shenwei356/unikmer/issues/30">能不能针对含有多个序列的 FASTA 文件，分别生成 kmer？</a></p></li>
+<li><p><a href="https://github.com/shenwei356/unikmer/issues/29">Gzipped output of fasta file in uniqs/map</a></p></li>
+<li><p>Pick primer with <code>unikmer</code></p>
+<p>虽然 kmer 与平常设计的 primer 之间有一些不同，但是应该差不多。如果能用 unikmer 设计引物，那可以大大提高引物设计速度。希望能够实现。</p>
+<p>一个可行的思路是，得到每个物种特异的 kmer 之后，不用于组装成长片段，而是比较两两 kmer 之间的距离，计算 kmer 与模板结合的亲和力（决定扩增效率），然后根据设定的参数选取距离合适（相当于产物长度）的 kmer 作为引物。</p></li>
+<li><p>虚拟 PCR</p>
+<p>给定一个引物，输入一个基因组，能够计算扩增效率，得到扩增的结果。这方面在 <code>DECIPHER::AmplifyDNA()</code> 中有涉及。不过它也是通过一个 <code>hybrid-min</code> 程序获取的。我看了计算的源代码，扩增效率的计算好像也不是很复杂，能不能一并实现了。</p></li>
+</ul>
+</section>
+<section id="supplementary-information" class="level2" data-number="14.8">
+<h2 data-number="14.8" class="anchored" data-anchor-id="supplementary-information"><span class="header-section-number">14.8</span> Supplementary information</h2>
+<section id="unikmer-工作原理" class="level3" data-number="14.8.1">
+<h3 data-number="14.8.1" class="anchored" data-anchor-id="unikmer-工作原理"><span class="header-section-number">14.8.1</span> Unikmer 工作原理</h3>
+<p>Unikmer 中，“K-mers are either encoded (k&lt;=32) or hashed (k&lt;=64, using ntHash v1) into <code>uint64</code>, and serialized in binary file with extension <code>.unik</code>”。如何理解这句话呢？</p>
+<p>这句话描述了 K-mers（一种生物信息学中的DNA序列片段）是如何处理和存储的。具体来说：</p>
+<ul>
+<li><p><strong>K-mers</strong>：这是指长度为 k 的 DNA 序列片段。例如，对于一个长度为 k 的 K-mer，可能是像“ATCGGTA”这样的 DNA 序列。</p></li>
+<li><p><strong>encoded (k&lt;=32)</strong>：当 k 的值小于等于 32 时，K-mers 被“编码”。编码通常意味着将DNA序列转换为一种紧凑的二进制表示形式。</p></li>
+<li><p><strong>hashed (k&lt;=64, using ntHash v1)</strong>：当k的值小于等于 64 时，K-mers 被“哈希”。哈希是将DNA序列通过一个哈希函数（在这里是 ntHash v1）转换为一个固定长度的数值（通常是一个 64 位的整数）。</p></li>
+<li><p><strong>into uint64</strong>：无论是编码还是哈希，最终都将 K-mers 转换为一个 64 位的无符号整数（<code>uint64</code>）。</p></li>
+<li><p><strong>serialized in binary file with extension .unik</strong>：最后，这些64位的无符号整数将被序列化，存储在一个扩展名为 <code>.unik</code> 的二进制文件中。序列化是指将数据结构转换为可以存储或传输的格式。</p></li>
+</ul>
+<p>总结来说，这句话描述了一个处理和存储 K-mers 的方法，根据 K-mers 的长度选择不同的转换方式（编码或哈希），并最终将其以 64 位无符号整数的形式存储在二进制文件中。</p>
+<p>编码、哈希和序列化的原理，可以通过以下示例进一步了解。</p>
+<section id="编码" class="level4" data-number="14.8.1.1">
+<h4 data-number="14.8.1.1" class="anchored" data-anchor-id="编码"><span class="header-section-number">14.8.1.1</span> 1. 编码</h4>
+<p>编码是将数据转换成另一种格式，以便进行高效存储或处理。在处理DNA序列时，常见的编码方法是将每个碱基（A、C、G、T）转换为一个二进制码。</p>
+<p>DNA序列：<code>ATCG</code></p>
+<p>编码方式： - A -&gt; 00 - T -&gt; 11 - C -&gt; 01 - G -&gt; 10</p>
+<p><code>ATCG</code> 编码为：<code>00110110</code></p>
+</section>
+<section id="哈希" class="level4" data-number="14.8.1.2">
+<h4 data-number="14.8.1.2" class="anchored" data-anchor-id="哈希"><span class="header-section-number">14.8.1.2</span> 2. 哈希</h4>
+<p>哈希是一种将任意长度的数据映射到固定长度的数值的方法。哈希函数会将输入数据转换为一个唯一的哈希值。</p>
+<p>假设我们使用一个简单的哈希函数，将字符的ASCII值相加并取模10。</p>
+<p>DNA序列：<code>ATCG</code></p>
+<p>ASCII值： - A -&gt; 65 - T -&gt; 84 - C -&gt; 67 - G -&gt; 71</p>
+<p>哈希值计算： [ (65 + 84 + 67 + 71) % 10 = 287 % 10 = 7 ]</p>
+<p>所以，<code>ATCG</code> 的哈希值为 <code>7</code>。</p>
+</section>
+<section id="序列化" class="level4" data-number="14.8.1.3">
+<h4 data-number="14.8.1.3" class="anchored" data-anchor-id="序列化"><span class="header-section-number">14.8.1.3</span> 3. 序列化</h4>
+<p>序列化是将数据结构或对象转换为一种可以存储或传输的格式（如二进制或文本）。反序列化则是将这种格式恢复为原始数据结构或对象。</p>
+<p>假设我们有一个包含若干DNA序列信息的结构：</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a>data <span class="op">=</span> {</span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a>    <span class="st">'sequence1'</span>: <span class="st">'ATCG'</span>,</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">'sequence2'</span>: <span class="st">'GGTA'</span></span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>}</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<p>我们可以使用Python的<code>pickle</code>模块进行序列化：</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> os</span>
+<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 序列化</span></span>
+<span id="cb27-5"><a href="#cb27-5" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb27-6"><a href="#cb27-6" aria-hidden="true" tabindex="-1"></a>    serialized_data <span class="op">=</span> pickle.dumps(data)</span>
+<span id="cb27-7"><a href="#cb27-7" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="st">"序列化成功"</span>)</span>
+<span id="cb27-8"><a href="#cb27-8" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb27-9"><a href="#cb27-9" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"序列化失败: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>序列化成功</code></pre>
+</div>
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存到文件</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>file_path <span class="op">=</span> <span class="st">"temp/ws/data.pkl"</span> <span class="co"># 使用与 R 项目路径一致的 workspace</span></span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a><span class="cf">try</span>:</span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>    <span class="cf">if</span> <span class="kw">not</span> os.path.exists(os.path.dirname(file_path)):</span>
+<span id="cb29-5"><a href="#cb29-5" aria-hidden="true" tabindex="-1"></a>        os.makedirs(os.path.dirname(file_path), exist_ok<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb29-6"><a href="#cb29-6" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"目录 </span><span class="sc">{</span>os<span class="sc">.</span>path<span class="sc">.</span>dirname(file_path)<span class="sc">}</span><span class="ss"> 创建成功"</span>)</span>
+<span id="cb29-7"><a href="#cb29-7" aria-hidden="true" tabindex="-1"></a>    <span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'wb'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb29-8"><a href="#cb29-8" aria-hidden="true" tabindex="-1"></a>        <span class="bu">file</span>.write(serialized_data)</span>
+<span id="cb29-9"><a href="#cb29-9" aria-hidden="true" tabindex="-1"></a>        <span class="bu">print</span>(<span class="ss">f"数据已成功保存到 </span><span class="sc">{</span>file_path<span class="sc">}</span><span class="ss">"</span>)</span>
+<span id="cb29-10"><a href="#cb29-10" aria-hidden="true" tabindex="-1"></a><span class="cf">except</span> <span class="pp">Exception</span> <span class="im">as</span> e:</span>
+<span id="cb29-11"><a href="#cb29-11" aria-hidden="true" tabindex="-1"></a>    <span class="bu">print</span>(<span class="ss">f"保存数据失败: </span><span class="sc">{</span>e<span class="sc">}</span><span class="ss">"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>54
+数据已成功保存到 temp/ws/data.pkl</code></pre>
+</div>
+</div>
+<p>保存后的二进制文件<code>data.pkl</code>可以传输或存储。</p>
+<p>反序列化：</p>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 从文件读取</span></span>
+<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(file_path, <span class="st">'rb'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb31-3"><a href="#cb31-3" aria-hidden="true" tabindex="-1"></a>    loaded_data <span class="op">=</span> pickle.loads(<span class="bu">file</span>.read())</span>
+<span id="cb31-4"><a href="#cb31-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb31-5"><a href="#cb31-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(loaded_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>{'sequence1': 'ATCG', 'sequence2': 'GGTA'}</code></pre>
+</div>
+</div>
+</section>
+<section id="综合示例" class="level4" data-number="14.8.1.4">
+<h4 data-number="14.8.1.4" class="anchored" data-anchor-id="综合示例"><span class="header-section-number">14.8.1.4</span> 综合示例</h4>
+<p>假设我们有一个K-mer：<code>ATCGTACG</code>，长度为8。</p>
+<ul>
+<li>编码</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> encode_kmer(kmer):</span>
+<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a>    encoding <span class="op">=</span> {<span class="st">'A'</span>: <span class="st">'00'</span>, <span class="st">'T'</span>: <span class="st">'11'</span>, <span class="st">'C'</span>: <span class="st">'01'</span>, <span class="st">'G'</span>: <span class="st">'10'</span>}</span>
+<span id="cb33-3"><a href="#cb33-3" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="st">''</span>.join([encoding[base] <span class="cf">for</span> base <span class="kw">in</span> kmer])</span>
+<span id="cb33-4"><a href="#cb33-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb33-5"><a href="#cb33-5" aria-hidden="true" tabindex="-1"></a>encoded_kmer <span class="op">=</span> encode_kmer(<span class="st">'ATCGTACG'</span>)</span>
+<span id="cb33-6"><a href="#cb33-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(encoded_kmer)  <span class="co"># 输出：00110111100001</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0011011011000110</code></pre>
+</div>
+</div>
+<ul>
+<li>哈希（使用Python内置的哈希函数）</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="kw">def</span> hash_kmer(kmer):</span>
+<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>    <span class="cf">return</span> <span class="bu">hash</span>(kmer) <span class="op">%</span> (<span class="dv">2</span><span class="op">**</span><span class="dv">64</span>)</span>
+<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a>hashed_kmer <span class="op">=</span> hash_kmer(<span class="st">'ATCGTACG'</span>)</span>
+<span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(hashed_kmer)  <span class="co"># 输出：一个64位无符号整数</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>5104474989518514624</code></pre>
+</div>
+</div>
+<ul>
+<li>序列化</li>
+</ul>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pickle</span>
+<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a>kmer_data <span class="op">=</span> {<span class="st">'kmer'</span>: <span class="st">'ATCGTACG'</span>, <span class="st">'encoded'</span>: encoded_kmer, <span class="st">'hashed'</span>: hashed_kmer}</span>
+<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 序列化</span></span>
+<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>serialized_kmer_data <span class="op">=</span> pickle.dumps(kmer_data)</span>
+<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="co"># 保存到文件</span></span>
+<span id="cb37-9"><a href="#cb37-9" aria-hidden="true" tabindex="-1"></a><span class="cf">with</span> <span class="bu">open</span>(<span class="st">'kmer_data.unik'</span>, <span class="st">'wb'</span>) <span class="im">as</span> <span class="bu">file</span>:</span>
+<span id="cb37-10"><a href="#cb37-10" aria-hidden="true" tabindex="-1"></a>    <span class="bu">file</span>.write(serialized_kmer_data)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>82</code></pre>
+</div>
+</div>
+<p>对K-mers进行编码、哈希处理和序列化存储的意义在于：</p>
+<ol type="1">
+<li><strong>提高存储效率</strong></li>
+</ol>
+<p>编码和哈希处理将K-mers从原本的字符序列转换为紧凑的二进制格式或固定长度的数值，这样可以显著减少存储空间。</p>
+<ul>
+<li><strong>编码</strong>：将字符序列转换为二进制格式，减少空间占用。</li>
+<li><strong>哈希</strong>：将K-mers转换为固定长度的数值（如64位无符号整数），使得存储和比较更加高效。</li>
+</ul>
+<ol type="1">
+<li><strong>提高计算效率</strong></li>
+</ol>
+<p>编码和哈希处理有助于提高计算效率，特别是在大规模数据处理和查询时。</p>
+<ul>
+<li><strong>快速比较</strong>：二进制格式和哈希值可以快速进行比较操作，而无需逐字符比较原始序列。</li>
+<li><strong>高效查询</strong>：哈希值使得在大数据集中的查找和匹配操作更高效。</li>
+</ul>
+<ol type="1">
+<li><strong>一致性和标准化</strong></li>
+</ol>
+<p>通过标准化的编码和哈希处理，确保所有K-mers以一致的格式存储和处理，便于数据共享和再现性。</p>
+<ul>
+<li><strong>标准化表示</strong>：编码和哈希使得不同数据来源或处理过程中的K-mers以一致的方式表示和存储，减少了数据处理中的不一致问题。</li>
+</ul>
+<ol type="1">
+<li><strong>数据压缩</strong></li>
+</ol>
+<p>编码和哈希可以将原本较长的DNA序列压缩成更短的表示形式，节省存储空间。</p>
+<ul>
+<li><strong>压缩存储</strong>：二进制编码和哈希值占用的存储空间比原始序列要小得多，特别是在处理大量K-mers时，压缩效果更加明显。</li>
+</ul>
+<ol type="1">
+<li><strong>便于传输和共享</strong></li>
+</ol>
+<p>序列化存储使得数据可以方便地传输和共享，并且可以在不同系统或平台之间进行数据交换。</p>
+<ul>
+<li><strong>跨平台传输</strong>：序列化后的二进制文件可以在不同计算环境中传输和加载，便于数据共享和协作。</li>
+</ul>
+<p>对 K-mers 进行编码、哈希处理和序列化存储，不仅可以提高存储和计算效率，还能确保数据的一致性和可移植性，这对于大规模生物信息学数据处理具有重要意义。</p>
+</section>
+</section>
+<section id="unikmer-version" class="level3" data-number="14.8.2">
+<h3 data-number="14.8.2" class="anchored" data-anchor-id="unikmer-version"><span class="header-section-number">14.8.2</span> Unikmer version</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode bash code-with-copy"><code class="sourceCode bash"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="ex">unikmer</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>unikmer - a versatile toolkit for k-mers with taxonomic information
+
+unikmer is a toolkit for nucleic acid k-mer analysis, providing functions
+including set operation on k-mers optional with TaxIds but without count
+information.
+
+K-mers are either encoded (k&lt;=32) or hashed (k&lt;=64) into 'uint64',
+and serialized in binary file with the extension '.unik'.
+
+TaxIds can be assigned when counting k-mers from genome sequences,
+and LCA (Lowest Common Ancestor) is computed during set opertions
+including computing union, intersection, set difference, unique and
+repeated k-mers.
+
+Version: v0.20.0
+
+Author: Wei Shen &lt;shenwei356@gmail.com&gt;
+
+Documents  : https://bioinf.shenwei.me/unikmer
+Source code: https://github.com/shenwei356/unikmer
+
+Dataset (optional):
+
+  Manipulating k-mers with TaxIds needs taxonomy file from e.g., 
+  NCBI Taxonomy database, please extract "nodes.dmp", "names.dmp",
+  "delnodes.dmp" and "merged.dmp" from link below into ~/.unikmer/ ,
+  ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz , 
+  or some other directory, and later you can refer to using flag
+  --data-dir or environment variable UNIKMER_DB.
+
+  For GTDB, use 'taxonkit create-taxdump' to create NCBI-style
+  taxonomy dump files, or download from:
+    https://github.com/shenwei356/gtdb-taxonomy
+
+  Note that TaxIds are represented using uint32 and stored in 4 or
+  less bytes, all TaxIds should be in the range of [1, 4294967295].
+
+Usage:
+  unikmer [command] 
+
+Available Commands:
+  autocompletion Generate shell autocompletion script (bash|zsh|fish|powershell)
+  common         Find k-mers shared by most of the binary files
+  concat         Concatenate multiple binary files without removing duplicates
+  count          Generate k-mers (sketch) from FASTA/Q sequences
+  decode         Decode encoded integer to k-mer text
+  diff           Set difference of k-mers in multiple binary files
+  dump           Convert plain k-mer text to binary format
+  encode         Encode plain k-mer texts to integers
+  filter         Filter out low-complexity k-mers (experimental)
+  grep           Search k-mers from binary files
+  head           Extract the first N k-mers
+  info           Information of binary files
+  inter          Intersection of k-mers in multiple binary files
+  locate         Locate k-mers in genome
+  map            Mapping k-mers back to the genome and extract successive regions/subsequences
+  merge          Merge k-mers from sorted chunk files
+  num            Quickly inspect the number of k-mers in binary files
+  rfilter        Filter k-mers by taxonomic rank
+  sample         Sample k-mers from binary files
+  sort           Sort k-mers to reduce the file size and accelerate downstream analysis
+  split          Split k-mers into sorted chunk files
+  tsplit         Split k-mers according to taxid
+  union          Union of k-mers in multiple binary files
+  version        Print version information and check for update
+  view           Read and output binary format to plain text
+
+Flags:
+  -c, --compact                 write compact binary file with little loss of speed
+      --compression-level int   compression level (default -1)
+      --data-dir string         directory containing NCBI Taxonomy files, including nodes.dmp,
+                                names.dmp, merged.dmp and delnodes.dmp (default "/Users/gaoch/.unikmer")
+  -h, --help                    help for unikmer
+  -I, --ignore-taxid            ignore taxonomy information
+  -i, --infile-list string      file of input files list (one file per line), if given, they are
+                                appended to files from cli arguments
+      --max-taxid uint32        for smaller TaxIds, we can use less space to store TaxIds. default value
+                                is 1&lt;&lt;32-1, that's enough for NCBI Taxonomy TaxIds (default 4294967295)
+  -C, --no-compress             do not compress binary file (not recommended)
+      --nocheck-file            do not check binary file, when using process substitution or named pipe
+  -j, --threads int             number of CPUs to use (default 4)
+      --verbose                 print verbose information
+
+Use "unikmer [command] --help" for more information about a command.</code></pre>
+</div>
+</div>
+</section>
+<section id="session-info" class="level3" data-number="14.8.3">
+<h3 data-number="14.8.3" class="anchored" data-anchor-id="session-info"><span class="header-section-number">14.8.3</span> Session info</h3>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb41"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb41-1"><a href="#cb41-1" aria-hidden="true" tabindex="-1"></a><span class="fu">sessionInfo</span>()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>R version 4.3.2 (2023-10-31)
+Platform: aarch64-apple-darwin20 (64-bit)
+Running under: macOS 15.1
+
+Matrix products: default
+BLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib 
+LAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0
+
+locale:
+[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8
+
+time zone: Asia/Singapore
+tzcode source: internal
+
+attached base packages:
+[1] stats4    parallel  stats     graphics  grDevices utils     datasets 
+[8] methods   base     
+
+other attached packages:
+ [1] DECIPHER_2.28.0     RSQLite_2.3.7       Biostrings_2.68.1  
+ [4] GenomeInfoDb_1.36.4 XVector_0.40.0      IRanges_2.34.1     
+ [7] S4Vectors_0.38.2    BiocGenerics_0.46.0 rPrimer3_0.3.2     
+[10] dplyr_1.1.4        
+
+loaded via a namespace (and not attached):
+ [1] utf8_1.2.4              generics_0.1.3          bitops_1.0-9           
+ [4] lattice_0.21-9          stringi_1.8.4           digest_0.6.37          
+ [7] magrittr_2.0.3          grid_4.3.2              evaluate_0.23          
+[10] blob_1.2.4              fastmap_1.2.0           seqinr_4.2-30          
+[13] Matrix_1.6-4            R.oo_1.25.0             rprojroot_2.0.4        
+[16] jsonlite_1.8.9          R.utils_2.12.3          DBI_1.2.3              
+[19] fansi_1.0.6             ade4_1.7-22             cli_3.6.3              
+[22] rlang_1.1.4             crayon_1.5.3            R.methodsS3_1.8.2      
+[25] bit64_4.5.2             cachem_1.1.0            withr_3.0.1            
+[28] tools_4.3.2             memoise_2.0.1           GenomeInfoDbData_1.2.10
+[31] here_1.0.1              reticulate_1.39.0       png_0.1-8              
+[34] vctrs_0.6.5             R6_2.5.1                lifecycle_1.0.4        
+[37] zlibbioc_1.46.0         stringr_1.5.1           bit_4.5.0              
+[40] htmlwidgets_1.6.4       MASS_7.3-60             pkgconfig_2.0.3        
+[43] pillar_1.9.0            glue_1.8.0              Rcpp_1.0.13            
+[46] xfun_0.48               tibble_3.2.1            tidyselect_1.2.1       
+[49] knitr_1.48.6            htmltools_0.5.8.1       rmarkdown_2.27         
+[52] compiler_4.3.2          RCurl_1.98-1.16        </code></pre>
+</div>
+</div>
+
+
+</section>
+</section>
+<section id="footnotes" class="footnotes footnotes-end-of-document" role="doc-endnotes">
+<hr>
+<ol>
+<li id="fn1"><p>含有 <code>rush</code> 的命令在 R Markdown 编译的时候好像会出问题。<a href="#fnref1" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn2"><p><a href="http://shenwei.me/">SHEN Wei(沈伟)</a>, Associate Professor in Bioinformatics, Institute for Viral Hepatitis, The Second Affiliated Hospital of Chongqing Medical University, China.<a href="#fnref2" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+<li id="fn3"><p>在 R 语言也支持并行计算，相关的方法参见 <code>parallel</code> 包的文档。<a href="#fnref3" class="footnote-back" role="doc-backlink">↩︎</a></p></li>
+</ol>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./design-specific-primer-with-cailab-utils.html" class="pagination-link" aria-label="Design specific primer with cailab.utils">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Design specific primer with cailab.utils</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./kmer-facilitated-primer-design.html" class="pagination-link" aria-label="Kmer Facilitated Primer Design">
+        <span class="nav-page-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Kmer Facilitated Primer Design</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+</body></html>

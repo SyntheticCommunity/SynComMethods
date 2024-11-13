@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.5.57">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+
+<title>15&nbsp; Kmer Facilitated Primer Design – SynComMethods</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<link href="./mathematical-optimization.html" rel="next">
+<link href="./design-primer-with-unikmer.html" rel="prev">
+<script src="site_libs/quarto-html/quarto.js"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap.min.css" rel="stylesheet" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "sidebar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "start",
+  "type": "textbox",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+
+
+</head>
+
+<body class="nav-sidebar floating">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+  <nav class="quarto-secondary-nav">
+    <div class="container-fluid d-flex">
+      <button type="button" class="quarto-btn-toggle btn" data-bs-toggle="collapse" role="button" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
+        <i class="bi bi-layout-text-sidebar-reverse"></i>
+      </button>
+        <nav class="quarto-page-breadcrumbs" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./strain-specific-pcr.html">引物设计</a></li><li class="breadcrumb-item"><a href="./kmer-facilitated-primer-design.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Kmer Facilitated Primer Design</span></a></li></ol></nav>
+        <a class="flex-grow-1" role="navigation" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">      
+        </a>
+      <button type="button" class="btn quarto-search-button" aria-label="Search" onclick="window.quartoOpenSearch();">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article">
+<!-- sidebar -->
+  <nav id="quarto-sidebar" class="sidebar collapse collapse-horizontal quarto-sidebar-collapse-item sidebar-navigation floating overflow-auto">
+    <div class="pt-lg-2 mt-2 text-left sidebar-header">
+    <div class="sidebar-title mb-0 py-0">
+      <a href="./">SynComMethods</a> 
+    </div>
+      </div>
+        <div class="mt-2 flex-shrink-0 align-items-center">
+        <div class="sidebar-search">
+        <div id="quarto-search" class="" title="Search"></div>
+        </div>
+        </div>
+    <div class="sidebar-menu-container"> 
+    <ul class="list-unstyled mt-1">
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./index.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">前言</span></a>
+  </div>
+</li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true">
+ <span class="menu-text">科学写作</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-1" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-math-equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">1</span>&nbsp; <span class="chapter-title">书写数学公式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./write-chemical-equation.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">2</span>&nbsp; <span class="chapter-title">书写化学反应式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./technical-writing-with-quarto.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">3</span>&nbsp; <span class="chapter-title">Quarto 常用文档元素</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true">
+ <span class="menu-text">微生物培养</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-2" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strain-and-combination.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">菌株和组合方式</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./culture-method.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">培养方法</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true">
+ <span class="menu-text">代谢网络</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-3" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-3" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./metabolic-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">代谢模型</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./learn-fba.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">7</span>&nbsp; <span class="chapter-title">学习 FBA</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./MICOM.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">8</span>&nbsp; <span class="chapter-title">MICOM</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true">
+ <span class="menu-text">生态模型</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-4" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-4" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./ecological-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">9</span>&nbsp; <span class="chapter-title">生态模型</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./glv-model.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">10</span>&nbsp; <span class="chapter-title">gLV 模型</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true">
+ <span class="menu-text">引物设计</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-5" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./strain-specific-pcr.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">11</span>&nbsp; <span class="chapter-title">菌株特异性 PCR</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-primer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">12</span>&nbsp; <span class="chapter-title">引物设计</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-specific-primer-with-cailab-utils.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">13</span>&nbsp; <span class="chapter-title">Design specific primer with cailab.utils</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./design-primer-with-unikmer.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Design specific primer with unikmer</span></span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./kmer-facilitated-primer-design.html" class="sidebar-item-text sidebar-link active">
+ <span class="menu-text"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Kmer Facilitated Primer Design</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item sidebar-item-section">
+      <div class="sidebar-item-container"> 
+            <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true">
+ <span class="menu-text">数学基础</span></a>
+          <a class="sidebar-item-toggle text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-6" role="navigation" aria-expanded="true" aria-label="Toggle section">
+            <i class="bi bi-chevron-right ms-2"></i>
+          </a> 
+      </div>
+      <ul id="quarto-sidebar-section-6" class="collapse list-unstyled sidebar-section depth1 show">  
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./mathematical-optimization.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">数学优化</span></span></a>
+  </div>
+</li>
+      </ul>
+  </li>
+        <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="./references.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">参考文献</span></a>
+  </div>
+</li>
+    </ul>
+    </div>
+</nav>
+<div id="quarto-sidebar-glass" class="quarto-sidebar-collapse-item" data-bs-toggle="collapse" data-bs-target=".quarto-sidebar-collapse-item"></div>
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">Table of contents</h2>
+   
+  <ul>
+  <li><a href="#认识-gtdb" id="toc-认识-gtdb" class="nav-link active" data-scroll-target="#认识-gtdb"><span class="header-section-number">15.1</span> 认识 GTDB</a>
+  <ul class="collapse">
+  <li><a href="#数据库结构" id="toc-数据库结构" class="nav-link" data-scroll-target="#数据库结构"><span class="header-section-number">15.1.1</span> 数据库结构</a></li>
+  <li><a href="#使用方法" id="toc-使用方法" class="nav-link" data-scroll-target="#使用方法"><span class="header-section-number">15.1.2</span> 使用方法</a></li>
+  </ul></li>
+  <li><a href="#认识-globdb" id="toc-认识-globdb" class="nav-link" data-scroll-target="#认识-globdb"><span class="header-section-number">15.2</span> 认识 GlobDB</a>
+  <ul class="collapse">
+  <li><a href="#anvio-是什么" id="toc-anvio-是什么" class="nav-link" data-scroll-target="#anvio-是什么"><span class="header-section-number">15.2.1</span> Anvi’o 是什么？</a></li>
+  </ul></li>
+  <li><a href="#section" id="toc-section" class="nav-link" data-scroll-target="#section"><span class="header-section-number">15.3</span> </a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="./strain-specific-pcr.html">引物设计</a></li><li class="breadcrumb-item"><a href="./kmer-facilitated-primer-design.html"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Kmer Facilitated Primer Design</span></a></li></ol></nav>
+<div class="quarto-title">
+<h1 class="title"><span class="chapter-number">15</span>&nbsp; <span class="chapter-title">Kmer Facilitated Primer Design</span></h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<p>针对大量的基因组设计特异性的、简并性的引物仍然存在挑战。在这个方面，使用核酸数据库（如 GTDB）和 Kmer 数据库相结合的方法或许有较大的应用潜力。</p>
+<section id="认识-gtdb" class="level2" data-number="15.1">
+<h2 data-number="15.1" class="anchored" data-anchor-id="认识-gtdb"><span class="header-section-number">15.1</span> 认识 GTDB</h2>
+<p>GTDB（Genome Taxonomy Database）<span class="citation" data-cites="parks2020">(<a href="references.html#ref-parks2020" role="doc-biblioref">Donovan H. Parks et al. 2020</a>)</span> 是一个基于基因组的<strong>微生物分类数据库</strong>，它使用一系列计算方法来构建和维护其分类体系。GTDB 数据库的分类方法主要基于以下几个步骤：</p>
+<ol type="1">
+<li><p><strong>基因组质量控制</strong>：首先，对所有提交的基因组进行质量控制，以确保数据的准确性和完整性。这包括评估基因组的完整性和污染程度。</p></li>
+<li><p><strong>基因预测和注释</strong>：使用如 Prodigal 这样的工具对基因组进行基因预测，识别出蛋白质编码基因。然后对这些基因进行注释，以确定它们的功能。</p></li>
+<li><p><strong>标记基因的选择和比对</strong>：从基因组中选择一组标记基因（通常是高度保守的单拷贝基因），这些基因在不同物种间具有足够的变异，可以用于物种间的区分。然后，对这些标记基因进行比对，以构建多序列比对（MSA）。</p></li>
+<li><p><strong>构建参考树</strong>：使用多序列比对结果，通过系统发育分析方法（如最大似然法或贝叶斯推断法）构建参考树。这个树反映了不同物种间的进化关系。</p></li>
+<li><p><strong>分类群的界定</strong>：基于参考树和基因组数据，使用如 ANI（平均核苷酸一致性）和 TETRA（四重基因组比较）等方法来界定不同的分类群，如物种、属、科等。</p></li>
+<li><p><strong>分类群的命名和排名</strong>：根据系统发育树和分类群的界定，对每个分类群进行命名和排名。GTDB尝试使用拉丁语命名法，并确保每个分类群的命名是唯一和一致的。</p></li>
+<li><p><strong>分类群的验证</strong>：通过与现有的分类数据库（如 NCBI Taxonomy）进行比较，验证 GTDB 分类的准确性。此外，GTDB 还通过社区反馈和专家审核来不断改进其分类体系。</p></li>
+<li><p><strong>数据库的更新和维护</strong>：随着新的基因组数据的不断加入和分类方法的改进，GTDB 定期更新其数据库，以反映最新的分类学研究成果。</p></li>
+</ol>
+<p>GTDB 的分类方法结合了基因组学、系统发育学和生物信息学的技术，旨在提供一个全面、准确和动态更新的微生物分类体系。通过这种方法，GTDB 能够为微生物学研究提供坚实的分类基础。</p>
+<section id="数据库结构" class="level3" data-number="15.1.1">
+<h3 data-number="15.1.1" class="anchored" data-anchor-id="数据库结构"><span class="header-section-number">15.1.1</span> 数据库结构</h3>
+<p>GTDB 数据库提供了完整的<a href="https://data.ace.uq.edu.au/public/gtdb/data/releases/">数据文件下载</a>。根据提供的 <a href="https://data.gtdb.ecogenomic.org/releases/release220/220.0/FILE_DESCRIPTIONS.txt">GTDB R09-RS220 发行说明文件</a>，以下是列出的各个文件及其作用的总结：</p>
+<ol type="1">
+<li><code>METHODS.txt</code>
+<ul>
+<li>描述了用于形成 GTDB 分类的方法。</li>
+</ul></li>
+<li><code>RELEASE_NOTES.txt</code>
+<ul>
+<li>概述了这个 GTDB 发行版本特有的变化。</li>
+</ul></li>
+<li><code>VERSION.txt</code>
+<ul>
+<li>这个 GTDB 发行版本的版本标识符。</li>
+</ul></li>
+<li><code>bac120_taxonomy_r220.tsv.gz</code>
+<ul>
+<li>所有被分配到GTDB物种群的细菌基因组的 GTDB 分类。</li>
+</ul></li>
+<li><code>bac120_r220.tree.gz</code>
+<ul>
+<li>通过连接 120 个蛋白质推断出的细菌参考树，覆盖每个细菌物种群的代表性基因组。这个树用于整理 GTDB 分类，以 Newick 格式提供，装饰有 GTDB 分类，并包含非参数引导支持值。</li>
+</ul></li>
+<li><code>bac120_metadata_r220.gz</code>
+<ul>
+<li>包括 GTDB 和 NCBI 分类、完整性和污染估计、组装统计和基因组属性的所有细菌基因组的元数据。</li>
+</ul></li>
+<li><code>ar53_taxonomy_r220.tsv.gz</code>，<code>ar53_r220.tree.gz</code>，<code>ar53_metadata_r220.gz</code>。
+<ul>
+<li>用于古菌的分类体系？</li>
+</ul></li>
+<li><code>genomic_files_reps</code> 文件夹中的文件特定于 GTDB 物种代表：
+<ul>
+<li><code>bac120_marker_genes_reps_r220.tar.gz</code>
+<ul>
+<li>用于推断细菌参考树的未修剪和未对齐的标记基因。基因以核苷酸和氨基酸序列的形式提供。</li>
+</ul></li>
+<li><code>bac120_msa_marker_genes_reps_r220.tar.gz</code>
+<ul>
+<li>每个 120 个细菌蛋白质的 GTDB 代表性基因组的修剪和对齐的标记基因。</li>
+</ul></li>
+<li><code>bac120_msa_reps_r220.faa.gz</code>
+<ul>
+<li>用于推断细菌参考树的多序列比对。</li>
+</ul></li>
+<li><code>bac120_ssu_reps_r220.tar.gz</code>
+<ul>
+<li>细菌代表性基因组中识别出的 16S rRNA 基因序列。</li>
+</ul></li>
+<li><code>gtdb_proteins_aa_reps_r220.tar.gz</code>
+<ul>
+<li>所有预测的蛋白质编码基因序列的氨基酸 FASTA 文件。</li>
+</ul></li>
+<li><code>gtdb_proteins_nt_reps_r220.tar.gz</code>
+<ul>
+<li>所有预测的蛋白质编码基因序列的核苷酸 FASTA 文件。</li>
+</ul></li>
+<li><code>gtdb_genomes_reps_r220.tar.gz</code>
+<ul>
+<li><strong>每个 GTDB 代表性基因组的 FASTA 文件</strong>。</li>
+</ul></li>
+</ul></li>
+<li><code>genomic_files_all</code> 文件夹中的文件覆盖所有通过 GTDB 质量控制标准的基因组：
+<ul>
+<li><code>bac120_marker_genes_all_r220.tar.gz</code>
+<ul>
+<li>所有 GTDB 基因组的未修剪和未对齐的标记基因。</li>
+</ul></li>
+<li><code>bac120_msa_marker_genes_all_r220.tar.gz</code>
+<ul>
+<li>所有 GTDB 基因组的修剪和对齐的标记基因。</li>
+</ul></li>
+<li><code>ar53_marker_genes_all_r220.tar.gz</code>,<code>ar53_msa_marker_genes_all_r220.tar.gz</code>。
+<ul>
+<li>用于古菌分类的基因。</li>
+</ul></li>
+<li><code>ssu_all_r220.fna.gz</code>
+<ul>
+<li>通过质量控制的 GTDB 基因组集合中识别的 16S rRNA 序列。</li>
+</ul></li>
+</ul></li>
+<li><code>auxillary_files</code> 文件夹中的文件：
+<ul>
+<li><code>bac120_r220.sp_labels.tree</code>
+<ul>
+<li>与 <code>bac120_r220.tree</code> 同义，除了每个基因组附加了物种标签。</li>
+</ul></li>
+<li><code>bac120_msa_mask_r220.txt</code>
+<ul>
+<li>指示从 120 个细菌蛋白质连接比对中修剪了哪些列的掩码。</li>
+</ul></li>
+<li><code>bac120_marker_info_r220.tsv</code>
+<ul>
+<li>用于推断细菌参考树的每个 120 个细菌蛋白质的信息。</li>
+</ul></li>
+<li><code>gtdb_r220.dic</code>
+<ul>
+<li>GTDB 中所有带和不带等级前缀的分类群的列表，可以作为文字处理程序中的字典使用。</li>
+</ul></li>
+<li><code>gtdb_vs_ncbi_r220_bacteria.xlsx</code>
+<ul>
+<li>GTDB 和 NCBI 分类之间的对应关系，按多态性程度排序。</li>
+</ul></li>
+<li><code>gtdbtk_package</code> 文件夹
+<ul>
+<li>包含 GTDB-Tk 工具所需的参考数据。</li>
+</ul></li>
+<li><code>hq_mimag_genomes_r220.tsv</code>
+<ul>
+<li>符合 MIMAG 高质量基因组标准的分离株、MAGs 和 SAGs 的列表。</li>
+</ul></li>
+<li><code>metadata_field_desc.tsv</code>
+<ul>
+<li>上述元数据文件中每个字段的描述和元数据来源的指示。</li>
+</ul></li>
+<li><code>ncbi_vs_gtdb_r220_bacteria.xlsx</code>
+<ul>
+<li>NCBI 和 GTDB 分类之间的对应关系，按多态性程度排序。</li>
+</ul></li>
+<li><code>sp_clusters_r220.tsv</code>
+<ul>
+<li>指示每个 GTDB 物种群的代表性基因组、分配给物种群的基因组集合和用于界定物种群的平均核苷酸身份半径的元数据文件。</li>
+</ul></li>
+<li><code>synonyms_r220.tsv</code>
+<ul>
+<li>GTDB 分类中被认为是同义词的物种列表。</li>
+</ul></li>
+<li><code>gtdb_taxa_not_in_lit_r220.xlsx</code>
+<ul>
+<li>GTDB 中引入的拉丁名称的家族至门级分类群列表，这些分类群没有先前的出版物，为了实现单系群和等级标准化而引入。</li>
+</ul></li>
+<li><code>qc_failed.tsv</code>
+<ul>
+<li>未通过内部 GTDB 质量控制标准的基因组组装列表。</li>
+</ul></li>
+</ul></li>
+</ol>
+<p>这些文件为研究人员提供了 GTDB 数据库的详细数据和元数据，包括分类、基因组数据、参考树和各种元数据信息。</p>
+</section>
+<section id="使用方法" class="level3" data-number="15.1.2">
+<h3 data-number="15.1.2" class="anchored" data-anchor-id="使用方法"><span class="header-section-number">15.1.2</span> 使用方法</h3>
+<p>使用 GTDB 数据库进行微生物基因组分析通常涉及以下步骤：</p>
+<ol type="1">
+<li><strong>获取数据</strong>：
+<ul>
+<li>首先，需要从 GTDB 网站下载所需的数据集，包括基因组序列、分类信息、标记基因等。</li>
+</ul></li>
+<li><strong>基因组质量控制</strong>：
+<ul>
+<li>使用质量控制工具（如 CheckM 或 QUAST）评估基因组的完整性和污染程度，确保分析的准确性。</li>
+</ul></li>
+<li><strong>基因预测和注释</strong>：
+<ul>
+<li>使用基因预测工具（如 Prodigal）来识别基因组中的蛋白质编码基因，并使用注释工具（如RAST或IMG/M）进行功能注释。</li>
+</ul></li>
+<li><strong>标记基因的提取和比对</strong>：
+<ul>
+<li>从基因组中提取GTDB使用的标记基因（如用于构建参考树的120个单拷贝核心基因）。</li>
+<li>使用多序列比对工具（如 MUSCLE 或 MAFFT）对提取的标记基因进行比对。</li>
+</ul></li>
+<li><strong>构建系统发育树</strong>：
+<ul>
+<li>使用比对结果构建系统发育树，可以使用最大似然法（如 RAxML）或贝叶斯推断法（如 MrBayes）等方法。</li>
+</ul></li>
+<li><strong>分类学分析</strong>：
+<ul>
+<li>根据系统发育树和 GTDB 提供的分类信息，对基因组进行分类学分析，确定其在 GTDB 分类体系中的位置。</li>
+</ul></li>
+<li><strong>基因组比较</strong>：
+<ul>
+<li>使用基因组比较工具（如 Roary 或 Panaroo）来识别基因组间的共有和特异性基因，这有助于理解微生物的进化和功能差异。</li>
+</ul></li>
+<li><strong>基因组可视化</strong>：
+<ul>
+<li>使用可视化工具（如 Circos 或 GTDBTk）来展示基因组数据和分类信息，这有助于更直观地理解基因组结构和功能。</li>
+</ul></li>
+<li><strong>基因组进化分析</strong>：
+<ul>
+<li>利用系统发育树和基因组数据，进行进化分析，如选择压力分析、基因流分析等。</li>
+</ul></li>
+<li><strong>结果解释和报告</strong>：
+<ul>
+<li>根据分析结果，撰写科学报告或文章，解释基因组分析的发现，并与现有的科学知识进行对比。</li>
+</ul></li>
+<li><strong>使用 GTDB-Tk 工具</strong>：
+<ul>
+<li>GTDB 提供了一个配套工具 GTDB-Tk，它可以帮助用户根据 GTDB 的分类体系自动对基因组进行分类和注释。</li>
+</ul></li>
+</ol>
+<p>进行这些分析时，可能需要一定的生物信息学背景和编程技能。此外，GTDB 数据库和相关工具的使用方法可能会随着版本更新而变化，因此建议查看最新的用户手册和在线文档以获取详细信息和指导。</p>
+</section>
+</section>
+<section id="认识-globdb" class="level2" data-number="15.2">
+<h2 data-number="15.2" class="anchored" data-anchor-id="认识-globdb"><span class="header-section-number">15.2</span> 认识 GlobDB</h2>
+<p><a href="https://globdb.org/home">GlobDB 基因组数据库</a> 是一个去重复的物种代表微生物基因组集。基因组时代为微生物基因组分析提供了巨大的机会，单个（元）基因组研究可以生成成千上万的微生物基因组。尽管有多个数据库可用于存储这些数据集，但有时整合大规模研究仍然存在挑战。GlobDB 旨在整合目前尚未（完全）整合的多种资源。</p>
+<p>截至版本 220，GlobDB 包含四个不同的数据库：</p>
+<ul>
+<li>基因组分类数据库（GTDB）的物种代表 <span class="citation" data-cites="parks2022">(<a href="references.html#ref-parks2022" role="doc-biblioref">Donovan H. Parks et al. 2022</a>)</span></li>
+<li>地球微生物基因组目录（GEM）的物种代表 <span class="citation" data-cites="nayfach2021">(<a href="references.html#ref-nayfach2021" role="doc-biblioref">Nayfach et al. 2021</a>)</span></li>
+<li>可搜索的全球规模微生物资源（SPIRE）的物种代表 <span class="citation" data-cites="schmidt2024">(<a href="references.html#ref-schmidt2024" role="doc-biblioref">Schmidt et al. 2024</a>)</span></li>
+<li>土壤微生物基因组目录（SMAG）的物种代表 <span class="citation" data-cites="ma2023">(<a href="references.html#ref-ma2023" role="doc-biblioref">Ma et al. 2023</a>)</span></li>
+</ul>
+<p>这些数据集按照上述顺序进一步去重复，并以标准化的方式处理，生成可以用于进一步分析的综合数据集。 目前，GlobDB 在对四个源数据集进行去重复后，包含 202,601 个（部分）微生物基因组。其中 GTDB 有 113,104 个基因组，GEM 有 10,662 个，SPIRE 有 66,971 个，SMAG 有 11,864 个基因组。 对于这 202,601 个基因组的全集，anvi’o 数据库、基因组 fasta、蛋白质（氨基酸）fasta 以及 KEGG/COG/Pfam 注释均可下载。</p>
+<section id="anvio-是什么" class="level3" data-number="15.2.1">
+<h3 data-number="15.2.1" class="anchored" data-anchor-id="anvio-是什么"><span class="header-section-number">15.2.1</span> Anvi’o 是什么？</h3>
+<p>Anvi’o 是一个不断发展的软件生态系统，其组件经常在多项研究中被描述 <span class="citation" data-cites="eren2021">(<a href="references.html#ref-eren2021" role="doc-biblioref">Eren et al. 2021</a>)</span>。包含 anvi’o 程序和工件（artifacts，在软件开发中，artifact 通常指的是开发过程中生成的文件或成果，如程序、文档等）。</p>
+<p>Anvi’o 使用工件和软件搭建分析流程，并通过它们的标准化来是分析结果可复现。</p>
+</section>
+</section>
+<section id="section" class="level2" data-number="15.3">
+<h2 data-number="15.3" class="anchored" data-anchor-id="section"><span class="header-section-number">15.3</span> </h2>
+
+
+<div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list" style="display: none">
+<div id="ref-eren2021" class="csl-entry" role="listitem">
+Eren, A. Murat, Evan Kiefl, Alon Shaiber, Iva Veseli, Samuel E. Miller, Matthew S. Schechter, Isaac Fink, et al. 2021. <span>“Community-Led, Integrated, Reproducible Multi-Omics with Anvi<span>’</span>o.”</span> <em>Nature Microbiology</em> 6 (1): 3–6. <a href="https://doi.org/10.1038/s41564-020-00834-3">https://doi.org/10.1038/s41564-020-00834-3</a>.
+</div>
+<div id="ref-ma2023" class="csl-entry" role="listitem">
+Ma, Bin, Caiyu Lu, Yiling Wang, Jingwen Yu, Kankan Zhao, Ran Xue, Hao Ren, et al. 2023. <span>“A Genomic Catalogue of Soil Microbiomes Boosts Mining of Biodiversity and Genetic Resources.”</span> <em>Nature Communications</em> 14 (1): 7318. <a href="https://doi.org/10.1038/s41467-023-43000-z">https://doi.org/10.1038/s41467-023-43000-z</a>.
+</div>
+<div id="ref-nayfach2021" class="csl-entry" role="listitem">
+Nayfach, Stephen, Simon Roux, Rekha Seshadri, Daniel Udwary, Neha Varghese, Frederik Schulz, Dongying Wu, et al. 2021. <span>“A Genomic Catalog of Earth<span>’</span>s Microbiomes.”</span> <em>Nature Biotechnology</em> 39 (4): 499–509. <a href="https://doi.org/10.1038/s41587-020-0718-6">https://doi.org/10.1038/s41587-020-0718-6</a>.
+</div>
+<div id="ref-parks2020" class="csl-entry" role="listitem">
+Parks, Donovan H., Maria Chuvochina, Pierre-Alain Chaumeil, Christian Rinke, Aaron J. Mussig, and Philip Hugenholtz. 2020. <span>“A Complete Domain-to-Species Taxonomy for Bacteria and Archaea.”</span> <em>Nature Biotechnology</em> 38 (9): 1079–86. <a href="https://doi.org/10.1038/s41587-020-0501-8">https://doi.org/10.1038/s41587-020-0501-8</a>.
+</div>
+<div id="ref-parks2022" class="csl-entry" role="listitem">
+Parks, Donovan H, Maria Chuvochina, Christian Rinke, Aaron J Mussig, Pierre-Alain Chaumeil, and Philip Hugenholtz. 2022. <span>“GTDB: An Ongoing Census of Bacterial and Archaeal Diversity Through a Phylogenetically Consistent, Rank Normalized&nbsp;and Complete Genome-Based Taxonomy.”</span> <em>Nucleic Acids Research</em> 50 (D1): D785–94. <a href="https://doi.org/10.1093/nar/gkab776">https://doi.org/10.1093/nar/gkab776</a>.
+</div>
+<div id="ref-schmidt2024" class="csl-entry" role="listitem">
+Schmidt, Thomas S B, Anthony Fullam, Pamela Ferretti, Askarbek Orakov, Oleksandr M Maistrenko, Hans-Joachim Ruscheweyh, Ivica Letunic, et al. 2024. <span>“SPIRE: A Searchable,&nbsp;Planetary-Scale mIcrobiome REsource.”</span> <em>Nucleic Acids Research</em> 52 (D1): D777–83. <a href="https://doi.org/10.1093/nar/gkad943">https://doi.org/10.1093/nar/gkad943</a>.
+</div>
+</div>
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+window.document.addEventListener("DOMContentLoaded", function (event) {
+  const toggleBodyColorMode = (bsSheetEl) => {
+    const mode = bsSheetEl.getAttribute("data-mode");
+    const bodyEl = window.document.querySelector("body");
+    if (mode === "dark") {
+      bodyEl.classList.add("quarto-dark");
+      bodyEl.classList.remove("quarto-light");
+    } else {
+      bodyEl.classList.add("quarto-light");
+      bodyEl.classList.remove("quarto-dark");
+    }
+  }
+  const toggleBodyColorPrimary = () => {
+    const bsSheetEl = window.document.querySelector("link#quarto-bootstrap");
+    if (bsSheetEl) {
+      toggleBodyColorMode(bsSheetEl);
+    }
+  }
+  toggleBodyColorPrimary();  
+  const icon = "";
+  const anchorJS = new window.AnchorJS();
+  anchorJS.options = {
+    placement: 'right',
+    icon: icon
+  };
+  anchorJS.add('.anchored');
+  const isCodeAnnotation = (el) => {
+    for (const clz of el.classList) {
+      if (clz.startsWith('code-annotation-')) {                     
+        return true;
+      }
+    }
+    return false;
+  }
+  const onCopySuccess = function(e) {
+    // button target
+    const button = e.trigger;
+    // don't keep focus
+    button.blur();
+    // flash "checked"
+    button.classList.add('code-copy-button-checked');
+    var currentTitle = button.getAttribute("title");
+    button.setAttribute("title", "Copied!");
+    let tooltip;
+    if (window.bootstrap) {
+      button.setAttribute("data-bs-toggle", "tooltip");
+      button.setAttribute("data-bs-placement", "left");
+      button.setAttribute("data-bs-title", "Copied!");
+      tooltip = new bootstrap.Tooltip(button, 
+        { trigger: "manual", 
+          customClass: "code-copy-button-tooltip",
+          offset: [0, -8]});
+      tooltip.show();    
+    }
+    setTimeout(function() {
+      if (tooltip) {
+        tooltip.hide();
+        button.removeAttribute("data-bs-title");
+        button.removeAttribute("data-bs-toggle");
+        button.removeAttribute("data-bs-placement");
+      }
+      button.setAttribute("title", currentTitle);
+      button.classList.remove('code-copy-button-checked');
+    }, 1000);
+    // clear code selection
+    e.clearSelection();
+  }
+  const getTextToCopy = function(trigger) {
+      const codeEl = trigger.previousElementSibling.cloneNode(true);
+      for (const childEl of codeEl.children) {
+        if (isCodeAnnotation(childEl)) {
+          childEl.remove();
+        }
+      }
+      return codeEl.innerText;
+  }
+  const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+    text: getTextToCopy
+  });
+  clipboard.on('success', onCopySuccess);
+  if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+    // For code content inside modals, clipBoardJS needs to be initialized with a container option
+    // TODO: Check when it could be a function (https://github.com/zenorocha/clipboard.js/issues/860)
+    const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+      text: getTextToCopy,
+      container: window.document.getElementById('quarto-embedded-source-code-modal')
+    });
+    clipboardModal.on('success', onCopySuccess);
+  }
+    var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+    var mailtoRegex = new RegExp(/^mailto:/);
+      var filterRegex = new RegExp('/' + window.location.host + '/');
+    var isInternal = (href) => {
+        return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+    }
+    // Inspect non-navigation links and adorn them if external
+ 	var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+    for (var i=0; i<links.length; i++) {
+      const link = links[i];
+      if (!isInternal(link.href)) {
+        // undo the damage that might have been done by quarto-nav.js in the case of
+        // links that we want to consider external
+        if (link.dataset.originalHref !== undefined) {
+          link.href = link.dataset.originalHref;
+        }
+      }
+    }
+  function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+    const config = {
+      allowHTML: true,
+      maxWidth: 500,
+      delay: 100,
+      arrow: false,
+      appendTo: function(el) {
+          return el.parentElement;
+      },
+      interactive: true,
+      interactiveBorder: 10,
+      theme: 'quarto',
+      placement: 'bottom-start',
+    };
+    if (contentFn) {
+      config.content = contentFn;
+    }
+    if (onTriggerFn) {
+      config.onTrigger = onTriggerFn;
+    }
+    if (onUntriggerFn) {
+      config.onUntrigger = onUntriggerFn;
+    }
+    window.tippy(el, config); 
+  }
+  const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+  for (var i=0; i<noterefs.length; i++) {
+    const ref = noterefs[i];
+    tippyHover(ref, function() {
+      // use id or data attribute instead here
+      let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+      try { href = new URL(href).hash; } catch {}
+      const id = href.replace(/^#\/?/, "");
+      const note = window.document.getElementById(id);
+      if (note) {
+        return note.innerHTML;
+      } else {
+        return "";
+      }
+    });
+  }
+  const xrefs = window.document.querySelectorAll('a.quarto-xref');
+  const processXRef = (id, note) => {
+    // Strip column container classes
+    const stripColumnClz = (el) => {
+      el.classList.remove("page-full", "page-columns");
+      if (el.children) {
+        for (const child of el.children) {
+          stripColumnClz(child);
+        }
+      }
+    }
+    stripColumnClz(note)
+    if (id === null || id.startsWith('sec-')) {
+      // Special case sections, only their first couple elements
+      const container = document.createElement("div");
+      if (note.children && note.children.length > 2) {
+        container.appendChild(note.children[0].cloneNode(true));
+        for (let i = 1; i < note.children.length; i++) {
+          const child = note.children[i];
+          if (child.tagName === "P" && child.innerText === "") {
+            continue;
+          } else {
+            container.appendChild(child.cloneNode(true));
+            break;
+          }
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(container);
+        }
+        return container.innerHTML
+      } else {
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        return note.innerHTML;
+      }
+    } else {
+      // Remove any anchor links if they are present
+      const anchorLink = note.querySelector('a.anchorjs-link');
+      if (anchorLink) {
+        anchorLink.remove();
+      }
+      if (window.Quarto?.typesetMath) {
+        window.Quarto.typesetMath(note);
+      }
+      // TODO in 1.5, we should make sure this works without a callout special case
+      if (note.classList.contains("callout")) {
+        return note.outerHTML;
+      } else {
+        return note.innerHTML;
+      }
+    }
+  }
+  for (var i=0; i<xrefs.length; i++) {
+    const xref = xrefs[i];
+    tippyHover(xref, undefined, function(instance) {
+      instance.disable();
+      let url = xref.getAttribute('href');
+      let hash = undefined; 
+      if (url.startsWith('#')) {
+        hash = url;
+      } else {
+        try { hash = new URL(url).hash; } catch {}
+      }
+      if (hash) {
+        const id = hash.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note !== null) {
+          try {
+            const html = processXRef(id, note.cloneNode(true));
+            instance.setContent(html);
+          } finally {
+            instance.enable();
+            instance.show();
+          }
+        } else {
+          // See if we can fetch this
+          fetch(url.split('#')[0])
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.getElementById(id);
+            if (note !== null) {
+              const html = processXRef(id, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      } else {
+        // See if we can fetch a full url (with no hash to target)
+        // This is a special case and we should probably do some content thinning / targeting
+        fetch(url)
+        .then(res => res.text())
+        .then(html => {
+          const parser = new DOMParser();
+          const htmlDoc = parser.parseFromString(html, "text/html");
+          const note = htmlDoc.querySelector('main.content');
+          if (note !== null) {
+            // This should only happen for chapter cross references
+            // (since there is no id in the URL)
+            // remove the first header
+            if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+              note.children[0].remove();
+            }
+            const html = processXRef(null, note);
+            instance.setContent(html);
+          } 
+        }).finally(() => {
+          instance.enable();
+          instance.show();
+        });
+      }
+    }, function(instance) {
+    });
+  }
+      let selectedAnnoteEl;
+      const selectorForAnnotation = ( cell, annotation) => {
+        let cellAttr = 'data-code-cell="' + cell + '"';
+        let lineAttr = 'data-code-annotation="' +  annotation + '"';
+        const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+        return selector;
+      }
+      const selectCodeLines = (annoteEl) => {
+        const doc = window.document;
+        const targetCell = annoteEl.getAttribute("data-target-cell");
+        const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+        const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+        const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+        const lineIds = lines.map((line) => {
+          return targetCell + "-" + line;
+        })
+        let top = null;
+        let height = null;
+        let parent = null;
+        if (lineIds.length > 0) {
+            //compute the position of the single el (top and bottom and make a div)
+            const el = window.document.getElementById(lineIds[0]);
+            top = el.offsetTop;
+            height = el.offsetHeight;
+            parent = el.parentElement.parentElement;
+          if (lineIds.length > 1) {
+            const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+            const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+            height = bottom - top;
+          }
+          if (top !== null && height !== null && parent !== null) {
+            // cook up a div (if necessary) and position it 
+            let div = window.document.getElementById("code-annotation-line-highlight");
+            if (div === null) {
+              div = window.document.createElement("div");
+              div.setAttribute("id", "code-annotation-line-highlight");
+              div.style.position = 'absolute';
+              parent.appendChild(div);
+            }
+            div.style.top = top - 2 + "px";
+            div.style.height = height + 4 + "px";
+            div.style.left = 0;
+            let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+            if (gutterDiv === null) {
+              gutterDiv = window.document.createElement("div");
+              gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+              gutterDiv.style.position = 'absolute';
+              const codeCell = window.document.getElementById(targetCell);
+              const gutter = codeCell.querySelector('.code-annotation-gutter');
+              gutter.appendChild(gutterDiv);
+            }
+            gutterDiv.style.top = top - 2 + "px";
+            gutterDiv.style.height = height + 4 + "px";
+          }
+          selectedAnnoteEl = annoteEl;
+        }
+      };
+      const unselectCodeLines = () => {
+        const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+        elementsIds.forEach((elId) => {
+          const div = window.document.getElementById(elId);
+          if (div) {
+            div.remove();
+          }
+        });
+        selectedAnnoteEl = undefined;
+      };
+        // Handle positioning of the toggle
+    window.addEventListener(
+      "resize",
+      throttle(() => {
+        elRect = undefined;
+        if (selectedAnnoteEl) {
+          selectCodeLines(selectedAnnoteEl);
+        }
+      }, 10)
+    );
+    function throttle(fn, ms) {
+    let throttle = false;
+    let timer;
+      return (...args) => {
+        if(!throttle) { // first call gets through
+            fn.apply(this, args);
+            throttle = true;
+        } else { // all the others get throttled
+            if(timer) clearTimeout(timer); // cancel #2
+            timer = setTimeout(() => {
+              fn.apply(this, args);
+              timer = throttle = false;
+            }, ms);
+        }
+      };
+    }
+      // Attach click handler to the DT
+      const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+      for (const annoteDlNode of annoteDls) {
+        annoteDlNode.addEventListener('click', (event) => {
+          const clickedEl = event.target;
+          if (clickedEl !== selectedAnnoteEl) {
+            unselectCodeLines();
+            const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+            if (activeEl) {
+              activeEl.classList.remove('code-annotation-active');
+            }
+            selectCodeLines(clickedEl);
+            clickedEl.classList.add('code-annotation-active');
+          } else {
+            // Unselect the line
+            unselectCodeLines();
+            clickedEl.classList.remove('code-annotation-active');
+          }
+        });
+      }
+  const findCites = (el) => {
+    const parentEl = el.parentElement;
+    if (parentEl) {
+      const cites = parentEl.dataset.cites;
+      if (cites) {
+        return {
+          el,
+          cites: cites.split(' ')
+        };
+      } else {
+        return findCites(el.parentElement)
+      }
+    } else {
+      return undefined;
+    }
+  };
+  var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+  for (var i=0; i<bibliorefs.length; i++) {
+    const ref = bibliorefs[i];
+    const citeInfo = findCites(ref);
+    if (citeInfo) {
+      tippyHover(citeInfo.el, function() {
+        var popup = window.document.createElement('div');
+        citeInfo.cites.forEach(function(cite) {
+          var citeDiv = window.document.createElement('div');
+          citeDiv.classList.add('hanging-indent');
+          citeDiv.classList.add('csl-entry');
+          var biblioDiv = window.document.getElementById('ref-' + cite);
+          if (biblioDiv) {
+            citeDiv.innerHTML = biblioDiv.innerHTML;
+          }
+          popup.appendChild(citeDiv);
+        });
+        return popup.innerHTML;
+      });
+    }
+  }
+});
+</script>
+<nav class="page-navigation">
+  <div class="nav-page nav-page-previous">
+      <a href="./design-primer-with-unikmer.html" class="pagination-link" aria-label="Design specific primer with unikmer">
+        <i class="bi bi-arrow-left-short"></i> <span class="nav-page-text"><span class="chapter-number">14</span>&nbsp; <span class="chapter-title">Design specific primer with unikmer</span></span>
+      </a>          
+  </div>
+  <div class="nav-page nav-page-next">
+      <a href="./mathematical-optimization.html" class="pagination-link" aria-label="数学优化">
+        <span class="nav-page-text"><span class="chapter-number">16</span>&nbsp; <span class="chapter-title">数学优化</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
+  </div>
+</nav>
+</div> <!-- /content -->
+<script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+
+
+
+
+</body></html>

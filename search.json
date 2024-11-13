@@ -1,0 +1,1230 @@
+[
+  {
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "SynComMethods",
+    "section": "",
+    "text": "前言\nThis is a Quarto book.\nTo learn more about Quarto books visit https://quarto.org/docs/books.\n本书收集整理”合成菌群”研究相关的理论和方法。\n理论部分\n实验部分",
+    "crumbs": [
+      "前言"
+    ]
+  },
+  {
+    "objectID": "index.html#sec-notation",
+    "href": "index.html#sec-notation",
+    "title": "SynComMethods",
+    "section": "符号定义",
+    "text": "符号定义\nUnless specified or for obvious exceptions, Greek letters stand for scalars (i.e., real or complex numbers), lower case Roman letters for vectors, and capital Roman letters for matrices (as such \\(a_i\\) or \\(A_{ij}\\) are scalars). We typically work in \\(\\mathbb{R}^n\\) (the \\(n\\)-dimensional Euclidean space), \\(\\mathbb{R}^n_+\\) (i.e., the positive orthant of \\(\\mathbb{R}^n\\)), or \\(\\mathbb{R}^n_{0+}\\) (non-negative orthant). \\(D(x)\\) is a diagonal matrix with \\(x\\) on the diagonal. The matrix \\(A^T\\) is the transpose of \\(A\\). Whenever it is clear what I mean, I will drop the dependency on time of certain variables.\n希腊字母表示标量(即实数或复数)，小写罗马字母表示向量，大写罗马字母表示矩阵（如 \\(a_i\\)，\\(A_{ij}\\) 是标量）。我们通常工作在 \\(n\\) 维欧几里得空间 \\(\\mathbb{R}^n\\)。\\(D(x)\\) 表示一个正交矩阵，其中 \\(x\\) 是对角线的元素。\\(A^T\\) 表示矩阵的转置。如果不会引起歧义的话，自变量 \\(t\\) 会被舍去。1\nThe Generalized Lotka-Volterra model:\n\\[\n\\dfrac{d x_i(t)}{d t} = x_i(t) \\left(a_i + \\sum_{j} B_{ij} x_j(t) \\right)\n\\]\ncan be written in compact form as:\n\\[\n\\dfrac{d x}{d t} = D(x) (a + B x)\n\\]",
+    "crumbs": [
+      "前言"
+    ]
+  },
+  {
+    "objectID": "index.html#footnotes",
+    "href": "index.html#footnotes",
+    "title": "SynComMethods",
+    "section": "",
+    "text": "这段定义在 Theoretical Community Ecology 书中定义。↩︎",
+    "crumbs": [
+      "前言"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html",
+    "href": "write-math-equation.html",
+    "title": "1  书写数学公式",
+    "section": "",
+    "text": "1.1 希腊字母",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#希腊字母",
+    "href": "write-math-equation.html#希腊字母",
+    "title": "1  书写数学公式",
+    "section": "",
+    "text": "序号\n标准符号\nLaTeX\n首字母大写\nLaTeX\n\n\n\n\n1\n\\(\\alpha\\)\n\\alpha\n\n\n\n\n2\n\\(\\beta\\)\n\\beta\n\n\n\n\n3\n\\(\\gamma\\)\n\\gamma\n\\(\\Gamma\\)\n\\Gamma\n\n\n4\n\\(\\delta\\)\n\\delta\n\\(\\Delta\\)\n\\Delta\n\n\n5\n\\(\\epsilon\\)\n\\epsilon\n\n\n\n\n6\n\\(\\zeta\\)\n\\zeta\n\n\n\n\n7\n\\(\\eta\\)\n\\eta\n\n\n\n\n8\n\\(\\theta\\)\n\\theta\n\\(\\Theta\\)\n\\Theta\n\n\n9\n\\(\\iota\\)\n\\iota\n\n\n\n\n10\n\\(\\kappa\\)\n\\kappa\n\n\n\n\n11\n\\(\\lambda\\)\n\\lambda\n\\(\\Lambda\\)\n\\Lambda\n\n\n12\n\\(\\mu\\)\n\\mu\n\n\n\n\n13\n\\(\\nu\\)\n\\nu\n\n\n\n\n14\n\\(\\xi\\)\n\\xi\n\\(\\Xi\\)\n\\Xi\n\n\n15\n\\(o\\)\no\n\\(O\\)\nO\n\n\n16\n\\(\\pi\\)\n\\pi\n\\(\\Pi\\)\n\\Pi\n\n\n17\n\\(\\rho\\)\n\\rho\n\n\n\n\n18\n\\(\\sigma\\)\n\\sigma\n\\(\\Sigma\\)\n\\Sigma\n\n\n19\n\\(\\tau\\)\n\\tau\n\n\n\n\n20\n\\(\\upsilon\\)\n\\upsilon\n\\(\\Upsilon\\)\n\\Upsilon\n\n\n21\n\\(\\phi\\)\n\\phi\n\\(\\Phi\\)\n\\Phi\n\n\n22\n\\(\\chi\\)\n\\chi\n\n\n\n\n23\n\\(\\psi\\)\n\\psi\n\\(\\Psi\\)\n\\Psi\n\n\n24\n\\(\\omega\\)\n\\omega\n\\(\\Omega\\)\n\\Omega\n\n\n25\n\\(\\digamma\\)\n\\digamma",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#二元运算符",
+    "href": "write-math-equation.html#二元运算符",
+    "title": "1  书写数学公式",
+    "section": "1.2 二元运算符",
+    "text": "1.2 二元运算符\n\n\n\n序号\n符号\nLaTeX\n\n\n\n\n1\n\\(+\\)\n+\n\n\n2\n\\(-\\)\n-\n\n\n3\n\\(\\times\\)\n\\times\n\n\n4\n\\(\\div\\)\n\\div\n\n\n5\n\\(\\pm\\)\n\\pm\n\n\n6\n\\(\\mp\\)\n\\mp\n\n\n7\n\\(\\triangleleft\\)\n\\triangleleft\n\n\n8\n\\(\\triangleright\\)\n\\triangleright\n\n\n9\n\\(\\cdot\\)\n\\cdot\n\n\n10\n\\(\\setminus\\)\n\\setminus\n\n\n11\n\\(\\star\\)\n\\star\n\n\n12\n\\(\\ast\\)\n\\ast\n\n\n13\n\\(\\cup\\)\n\\cup\n\n\n14\n\\(\\cap\\)\n\\cap\n\n\n15\n\\(\\sqcup\\)\n\\sqcup\n\n\n16\n\\(\\sqcap\\)\n\\sqcap\n\n\n17\n\\(\\vee\\)\n\\vee\n\n\n18\n\\(\\wedge\\)\n\\wedge\n\n\n19\n\\(\\circ\\)\n\\circ",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#二元关系符",
+    "href": "write-math-equation.html#二元关系符",
+    "title": "1  书写数学公式",
+    "section": "1.3 二元关系符",
+    "text": "1.3 二元关系符\n\n\n\n序号\n符号\nLaTeX\n\n\n\n\n1\n\\(=\\)\n=\n\n\n2\n\\(\\ne\\)\n\\ne\n\n\n3\n\\(\\neq\\)\n\\neq\n\n\n4\n\\(\\equiv\\)\n\\equiv\n\n\n5\n\\(\\not\\equiv\\)\n\\not\\equiv\n\n\n6\n\\(\\doteq\\)\n\\doteq\n\n\n7\n\\(\\doteqdot\\)\n\\doteqdot",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#逻辑符号",
+    "href": "write-math-equation.html#逻辑符号",
+    "title": "1  书写数学公式",
+    "section": "1.4 逻辑符号",
+    "text": "1.4 逻辑符号\n\n\n\n序号\n符号\nLaTeX\n\n\n\n\n1\n\\(\\forall\\)\n\\forall\n\n\n2\n\\(\\exists\\)\n\\exists\n\n\n3\n\\(\\nexists\\)\n\\nexists\n\n\n4\n\\(\\therefore\\)\n\\therefore\n\n\n5\n\\(\\because\\)\n\\because\n\n\n6\n\\(\\And\\)\n\\And\n\n\n7\n\\(\\lor\\)\n\\lor\n\n\n8\n\\(\\vee\\)\n\\vee",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#集合符号",
+    "href": "write-math-equation.html#集合符号",
+    "title": "1  书写数学公式",
+    "section": "1.5 集合符号",
+    "text": "1.5 集合符号\n\n\n\n序号\n符号\nLaTeX\n\n\n\n\n1\n\\(\\{ \\}\\)\n\\{ \\}\n\n\n2\n\\(\\emptyset\\)\n\\emptyset\n\n\n3\n\\(\\varnothing\\)\n\\varnothing\n\n\n4\n\\(\\in\\)\n\\in\n\n\n5\n\\(\\notin\\)\n\\notin\n\n\n6\n\\(\\ni\\)\n\\ni\n\n\n7\n\\(\\cap\\)\n\\cap\n\n\n8\n\\(\\Cap\\)\n\\Cap\n\n\n9\n\\(\\sqcap\\)\n\\sqcap\n\n\n10\n\\(\\bigcap\\)\n\\bigcap\n\n\n11\n\\(\\cup\\)\n\\cup\n\n\n12\n\\(\\Cup\\)\n\\Cup\n\n\n13\n\\(\\sqcup\\)\n\\sqcup\n\n\n14\n\\(\\bigcup\\)\n\\bigcup\n\n\n15\n\\(\\bigsqcup\\)\n\\bigsqcup",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#特殊符号",
+    "href": "write-math-equation.html#特殊符号",
+    "title": "1  书写数学公式",
+    "section": "1.6 特殊符号",
+    "text": "1.6 特殊符号\n\n\n\n序号\n符号\nLaTeX\n\n\n\n\n1\n\\(\\infty\\)\n\\infty",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#分数",
+    "href": "write-math-equation.html#分数",
+    "title": "1  书写数学公式",
+    "section": "1.7 分数",
+    "text": "1.7 分数\n\n\n\n类型\n符号\nLaTeX\n\n\n\n\n分数\n\\(\\frac{2}{4}x=0.5x\\)\n\\frac{2}{4}x=0.5x\n\n\n分数\n\\({2 \\over 4}x=0.5x\\)\n{2 \\over 4}x=0.5x",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#数值函数",
+    "href": "write-math-equation.html#数值函数",
+    "title": "1  书写数学公式",
+    "section": "1.8 数值函数",
+    "text": "1.8 数值函数\n\n\n\n\n\n\n\n符号\nLaTeX\n\n\n\n\n\\(\\exp_a b = a^b, \\exp b = e^b, 10^m\\)\n\\exp_a b = a^b, \\exp b = e^b, 10^m\n\n\n\\(\\ln c, \\lg d = \\log e, \\log_{10} f\\)\n\\ln c, \\lg d = \\log e, \\log_{10} f\n\n\n\\(\\sin a, \\cos b, \\tan c, \\cot d, \\sec e, \\csc f\\)\n\\sin a, \\cos b, \\tan c, \\cot d, \\sec e, \\csc f\n\n\n\\(\\min(x,y), \\max(x,y)\\)\n\\min(x,y), \\max(x,y)",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#根号",
+    "href": "write-math-equation.html#根号",
+    "title": "1  书写数学公式",
+    "section": "1.9 根号",
+    "text": "1.9 根号\n\n\n\n符号\nLaTeX\n\n\n\n\n\\(\\surd\\)\n\\surd\n\n\n\\(\\sqrt{\\pi}\\)\n\\sqrt{\\pi}\n\n\n\\(\\sqrt[n]{\\pi}\\)\n\\sqrt[n]{\\pi}\n\n\n\\(\\sqrt[3]{\\frac{x^3+y^3}{2}}*\\)\n\\sqrt[3]{\\frac{x^3+y^3}{2}}*",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#微分与导数",
+    "href": "write-math-equation.html#微分与导数",
+    "title": "1  书写数学公式",
+    "section": "1.10 微分与导数",
+    "text": "1.10 微分与导数\n\n\n\n\n\n\n\n符号\nLaTeX\n\n\n\n\n\\(dt, \\mathrm{d}t, \\partial t, \\nabla\\psi\\)\ndt, \\mathrm{d}t, \\partial t, \\nabla\\psi\n\n\n\\(dy/dx, \\mathrm{d}y/\\mathrm{d}x\\)\ndy/dx, \\mathrm{d}y/\\mathrm{d}x\n\n\n\\(\\frac{dy}{dx}, \\frac{\\mathrm{d}y}{\\mathrm{d}x}\\)\n\\frac{dy}{dx}, \\frac{\\mathrm{d}y}{\\mathrm{d}x}\n\n\n\\(\\prime, \\backprime, f^\\prime, f', f''\\)\n\\prime, \\backprime, f^\\prime, f', f''",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#极限",
+    "href": "write-math-equation.html#极限",
+    "title": "1  书写数学公式",
+    "section": "1.11 极限",
+    "text": "1.11 极限\n\n\n\n符号\nLaTeX\n\n\n\n\n\\(\\lim_{n \\to \\infty}x_n\\)\n\\lim_{n \\to \\infty}x_n",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#大型运算符",
+    "href": "write-math-equation.html#大型运算符",
+    "title": "1  书写数学公式",
+    "section": "1.12 大型运算符",
+    "text": "1.12 大型运算符\n\n\n\n分类\n符号\nLaTeX\n\n\n\n\n求和\n\\(\\sum_{a}^{b}\\)\n\\sum_{a}^{b}\n\n\n连乘积\n\\(\\prod_{a}^{b}\\)\n\\prod_{a}^{b}\n\n\n余积\n\\(\\coprod_{a}^{b}\\)\n\\coprod_{a}^{b}\n\n\n并集\n\\(\\bigcup_{a}^{b}\\)\n\\bigcup_{a}^{b}\n\n\n交集\n\\(\\bigcap_{a}^{b}\\)\n\\bigcap_{a}^{b}\n\n\n析取\n\\(\\bigvee_{a}^{b}\\)\n\\bigvee_{a}^{b}\n\n\n合取\n\\(\\bigwedge_{a}^{b}\\)\n\\bigwedge_{a}^{b}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#上下标",
+    "href": "write-math-equation.html#上下标",
+    "title": "1  书写数学公式",
+    "section": "1.13 上下标",
+    "text": "1.13 上下标\n\n\n\n\n\n\n\n\n类型\n符号\n代码\n\n\n\n\n上标\n\\(a^2\\) \\(a^{x+3}\\)\na^2 a^{x+3}\n\n\n下标\n\\(a_2\\)\na_2\n\n\n组合\n\\(10^{30} a^{2+2}\\) \\(a{i,j} b{f'}\\)\n10^{30} a^{2+2} a{i,j} b{f'}\n\n\n上下标混合\n\\(x_2^3\\) \\({x_2}^3\\)\nx_2^3 {x_2}^3\n\n\n上标的上标\n\\(10^{10^{8}}\\)\n10^{10^{8}}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#二项式系数",
+    "href": "write-math-equation.html#二项式系数",
+    "title": "1  书写数学公式",
+    "section": "1.14 二项式系数",
+    "text": "1.14 二项式系数\n\n\n\n类型\n符号\nLaTeX\n\n\n\n\n二项式系数\n\\(\\binom{n}{k}\\)\n\\binom{n}{k}\n\n\n小型二项式系数\n\\(\\tbinom{n}{k}\\)\n\\tbinom{n}{k}\n\n\n大型二项式系数\n\\(\\dbinom{n}{k}\\)\n\\dbinom{n}{k}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#矩阵",
+    "href": "write-math-equation.html#矩阵",
+    "title": "1  书写数学公式",
+    "section": "1.15 矩阵",
+    "text": "1.15 矩阵\n\\[\n\\begin{matrix}\nx & y \\\\\nz & v\n\\end{matrix}\n\\]\n\\begin{matrix}\nx & y \\\\\nz & v\n\\end{matrix}\n\\[\n\\begin{vmatrix}\nx & y \\\\\nz & v\n\\end{vmatrix}\n\\]\n\\begin{vmatrix}\nx & y \\\\\nz & v\n\\end{vmatrix}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#数组",
+    "href": "write-math-equation.html#数组",
+    "title": "1  书写数学公式",
+    "section": "1.16 数组",
+    "text": "1.16 数组\n\\[\n\\begin{array}{ | c | c | c | }\na & b & S \\\\\n\\hline\n0 & 0 & 1 \\\\\n0 & 1 & 1 \\\\\n1 & 0 & 1 \\\\\n1 & 1 & 0\n\\end{array}\n\\]\n\\begin{array}{ | c | c | c | }\na & b & S \\\\\n\\hline\n0 & 0 & 1 \\\\\n0 & 1 & 1 \\\\\n1 & 0 & 1 \\\\\n1 & 1 & 0\n\\end{array}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#方程组",
+    "href": "write-math-equation.html#方程组",
+    "title": "1  书写数学公式",
+    "section": "1.17 方程组",
+    "text": "1.17 方程组\n\\[\n\\begin{cases}\n3x + 5y + z \\\\\n7x - 2y + 4z \\\\\n-6x + 3y + 2z\n\\end{cases}\n\\]\n\\begin{cases}\n3x + 5y + z \\\\\n7x - 2y + 4z \\\\\n-6x + 3y + 2z\n\\end{cases}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#多行等式",
+    "href": "write-math-equation.html#多行等式",
+    "title": "1  书写数学公式",
+    "section": "1.18 多行等式",
+    "text": "1.18 多行等式\nMathJax 3.0 取消了单行公式环境下 \\\\ 的强制换行功能，因此强制换行命令 \\\\ 仅能用于 eqnarray、align、array、matrix 等多行环境当中。\n\\[\n\\begin{array}{rl}\nf(x) & = (a+b)^2 \\\\\n& = a^2+2ab+b^2\n\\end{array}\n\\]\n\\begin{array}{rl}\nf(x) & = (a+b)^2 \\\\\n& = a^2+2ab+b^2\n\\end{array}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#对齐",
+    "href": "write-math-equation.html#对齐",
+    "title": "1  书写数学公式",
+    "section": "1.19 对齐",
+    "text": "1.19 对齐\n使用对齐符号 & 和 array 可以将多个元素按照指定规则 lcl 对齐。\n\\[\n\\begin{array}{lcl}\nz & = & a \\\\\nf(x,y,z) & = & x + y + z\n\\end{array}\n\\]\n\\begin{array}{lcl}\nz & = & a \\\\\nf(x,y,z) & = & x + y + z\n\\end{array}\n改变对齐规则后：\n\\[\n\\begin{array}{rcl}\nz & = & a \\\\\nf(x,y,z) & = & x + y + z\n\\end{array}\n\\]\n\\begin{array}{rcl}\nz & = & a \\\\\nf(x,y,z) & = & x + y + z\n\\end{array}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#括号",
+    "href": "write-math-equation.html#括号",
+    "title": "1  书写数学公式",
+    "section": "1.20 括号",
+    "text": "1.20 括号\n常用的 ()、[]、{} 括号符号可以在 LaTeX 环境当中直接进行使用，但是如果处于较大的符号当中，就应该配合 \\left 与 \\right 命令来使用：\n\n\n\n\n\n\n\n\n类型\n符号\nLaTeX\n\n\n\n\n圆括号、小括号\n\\(\\left ( \\frac{a}{b} \\right )\\)\n\\left ( \\frac{a}{b} \\right )\n\n\n圆括号、小括号\n\\(( \\frac{a}{b} )\\)\n( \\frac{a}{b} )",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-math-equation.html#空格",
+    "href": "write-math-equation.html#空格",
+    "title": "1  书写数学公式",
+    "section": "1.21 空格",
+    "text": "1.21 空格\n\n\n\n序号\n符号\nLaTeX\n\n\n\n\n双空格\n\\(a \\qquad b\\)\na \\qquad b\n\n\n单空格\n\\(a \\quad b\\)\na \\quad b\n\n\n字符空格\n\\(a\\ b\\)\na\\ b\n\n\n文本模式中的字符空格\n\\(a \\text{ } b\\)\na \\text{ } b\n\n\n大空格\n\\(a\\;b\\)\na\\;b\n\n\n小空格\n\\(a\\,b\\)\na\\,b",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>1</span>  <span class='chapter-title'>书写数学公式</span>"
+    ]
+  },
+  {
+    "objectID": "write-chemical-equation.html",
+    "href": "write-chemical-equation.html",
+    "title": "2  书写化学反应式",
+    "section": "",
+    "text": "2.1 分子式\n参见下面的例子：\n\\(\\ce{H2O}\\)：$\\ce{H2O}$；\n\\(\\ce{Sb2O3}\\)：$\\ce{Sb2O3}$",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>书写化学反应式</span>"
+    ]
+  },
+  {
+    "objectID": "write-chemical-equation.html#电荷",
+    "href": "write-chemical-equation.html#电荷",
+    "title": "2  书写化学反应式",
+    "section": "2.2 电荷",
+    "text": "2.2 电荷\n\\(\\ce{H+}\\)\n\\(\\ce{CrO4^2-}\\)\n\\(\\ce{[AgCl2]-}\\)\n\\(\\ce{Y^99+}\\)\n\\(\\ce{Y^{99+}}\\)\n$\\ce{H+}$\n \n$\\ce{CrO4^2-}$\n \n$\\ce{[AgCl2]-}$\n \n$\\ce{Y^99+}$\n \n$\\ce{Y^{99+}}$",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>书写化学反应式</span>"
+    ]
+  },
+  {
+    "objectID": "write-chemical-equation.html#化学方程式",
+    "href": "write-chemical-equation.html#化学方程式",
+    "title": "2  书写化学反应式",
+    "section": "2.3 化学方程式",
+    "text": "2.3 化学方程式\n\\(\\ce{CO2 + C -&gt; 2 CO}\\)\n$\\ce{CO2 + C -&gt; 2 CO}$\n\\(\\ce{Hg^2+ -&gt;[I-] HgI2 -&gt;[I-] [Hg^{II}I4]^2-}\\)\n$\\ce{Hg^2+ -&gt;[I-] HgI2 -&gt;[I-] [Hg^{II}I4]^2-}$\n\\(C_p[\\ce{H2O(l)}] = \\pu{75.3 J // mol K}\\)\nC_p[\\ce{H2O(l)}] = \\pu{75.3 J // mol K}\nsee: https://tex.stackexchange.com/questions/405579/how-to-use-mathjax-mhchem-pu-command-in-latex",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>书写化学反应式</span>"
+    ]
+  },
+  {
+    "objectID": "write-chemical-equation.html#同位素",
+    "href": "write-chemical-equation.html#同位素",
+    "title": "2  书写化学反应式",
+    "section": "2.4 同位素",
+    "text": "2.4 同位素\n\\(\\ce{^{227}_{90}Th+}\\)\n\\(\\ce{^227_90Th+}\\)\n\\(\\ce{^{0}_{-1}n^{-}}\\)\n\\(\\ce{^0_-1n-}\\)\n$\\ce{^{227}_{90}Th+}$\n \n$\\ce{^227_90Th+}$\n \n$\\ce{^{0}_{-1}n^{-}}$\n \n$\\ce{^0_-1n-}$",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>书写化学反应式</span>"
+    ]
+  },
+  {
+    "objectID": "write-chemical-equation.html#反应箭头",
+    "href": "write-chemical-equation.html#反应箭头",
+    "title": "2  书写化学反应式",
+    "section": "2.5 反应箭头",
+    "text": "2.5 反应箭头\n\\(\\ce{A -&gt; B}\\)\n\\(\\ce{A &lt;- B}\\)\n\\(\\ce{A &lt;--&gt; B}\\)\n\\(\\ce{A &lt;=&gt; B}\\)\n$\\ce{A -&gt; B}$\n \n$\\ce{A &lt;- B}$\n \n$\\ce{A &lt;--&gt; B}$\n \n$\\ce{A &lt;=&gt; B}$\n\\(\\ce{A -&gt;[{text above}][{text below}] B}\\)\n$\\ce{A -&gt;[{text above}][{text below}] B}$",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>2</span>  <span class='chapter-title'>书写化学反应式</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html",
+    "href": "technical-writing-with-quarto.html",
+    "title": "3  Quarto 常用文档元素",
+    "section": "",
+    "text": "3.1 使用 Bootstrap 样式类\n作为表格标题旁边的属性给出的 Bootstrap 表格类会插入 &lt;table&gt; 元素。允许使用的类是那些明确适用于整个表格的类，它们是：\"primary\", \"secondary\", \"success\", \"danger\", \"warning\", \"info\", \"light\", \"dark\", \"striped\", \"hover\", \"active\", \"bordered\", \"borderless\", \"sm\", \"responsive\", \"responsive-sm\", \"responsive-md\", \"responsive-lg\", \"responsive-xl\", \"responsive-xxl\"。\n例如，下面的 Markdown 表格将以行条纹呈现，悬停时还会高亮显示行：",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#使用-bootstrap-样式类",
+    "href": "technical-writing-with-quarto.html#使用-bootstrap-样式类",
+    "title": "3  Quarto 常用文档元素",
+    "section": "",
+    "text": "| fruit  | price  |\n|--------|--------|\n| apple  | 2.05   |\n| pear   | 1.37   |\n| orange | 3.09   |\n\n: Fruit prices {.striped .hover}\n\nFruit prices\n\n\nfruit\nprice\n\n\n\n\napple\n2.05\n\n\npear\n1.37\n\n\norange\n3.09",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#小贴士",
+    "href": "technical-writing-with-quarto.html#小贴士",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.2 小贴士",
+    "text": "3.2 小贴士\n:::{.callout-note}\nNote that there are five types of callouts, including: \n`note`, `tip`, `warning`, `caution`, and `important`.\n:::\n\n\n\n\n\n\nNote\n\n\n\nNote that there are five types of callouts, including: note, tip, warning, caution, and important.",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#sec-quarto-page-break",
+    "href": "technical-writing-with-quarto.html#sec-quarto-page-break",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.3 分页符",
+    "text": "3.3 分页符\npage 1\n\n{{&lt; pagebreak &gt;}}\n\npage 2",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#视频",
+    "href": "technical-writing-with-quarto.html#视频",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.4 视频",
+    "text": "3.4 视频\n{{&lt; video local-video.mp4 &gt;}}\n\n{{&lt; video https://www.youtube.com/embed/wo9vZccmqwc &gt;}}\n\n{{&lt; video https://vimeo.com/548291297 &gt;}}\n\n{{&lt; video https://youtu.be/wo9vZccmqwc width=\"400\" height=\"300\" &gt;}}\n\n{{&lt; video https://www.youtube.com/embed/wo9vZccmqwc\n    title=\"What is the CERN?\"\n    start=\"116\"\n    aspect-ratio=\"21x9\" \n&gt;}}",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#div",
+    "href": "technical-writing-with-quarto.html#div",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.5 DIV",
+    "text": "3.5 DIV\nDIV 插入使用 3 个以上连续的英文分号（:::），并在对应数量的连续分号处结束。通过改变分号的数量，可以实现 DIV 的嵌套。\n::: {.border}\nThis content can be styled with a border\n:::\n::::: {#special .sidebar}\n\n::: {.warning}\nHere is a warning.\n:::\n\nMore content.\n:::::\n\n\nHere is a warning.\n\nMore content.",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#流程图",
+    "href": "technical-writing-with-quarto.html#流程图",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.6 流程图",
+    "text": "3.6 流程图\n```{mermaid}\nflowchart LR\n  A[Hard edge] --&gt; B(Round edge)\n  B --&gt; C{Decision}\n  C --&gt; D[Result one]\n  C --&gt; E[Result two]\n```\n效果如下：\n\n\n\n\n\nflowchart LR\n  A[Hard edge] --&gt; B(Round edge)\n  B --&gt; C{Decision}\n  C --&gt; D[Result one]\n  C --&gt; E[Result two]",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#键盘快捷键",
+    "href": "technical-writing-with-quarto.html#键盘快捷键",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.7 键盘快捷键",
+    "text": "3.7 键盘快捷键\nTo print, press {{&lt; kbd Shift-Ctrl-P &gt;}}. \n\nTo open an existing new project, press {{&lt; kbd mac=Shift-Command-O win=Shift-Control-O linux=Shift-Ctrl-L &gt;}}.\n在运行上面代码时，会根据操作系统显示相应的快捷键。",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#交叉引用",
+    "href": "technical-writing-with-quarto.html#交叉引用",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.8 交叉引用",
+    "text": "3.8 交叉引用\n交叉引用需要用到索引标签。\n\n\n\n\n\n\nNote\n\n\n\n\n\n\n类型\n标签前缀\n引用方法\n\n\n\n\n表格\ntbl-\n@tbl-id\n\n\n图片\nfig-\n\n\n\n代码块\n#tbl-，fig-\n\n\n\n公式\n#eq-\n\n\n\n章节\n#sec-\n\n\n\n代码列表\n#lst-customers\n@lst-customers\n\n\n定理与证明\n#thm-，#lem-\n\n\n\n\n\n\n\n3.8.1 引用格式\n\n\n\n类型\n语法\n\n\n\n\n默认\n@fig-elephant\n\n\n首字母大写\n@Fig-elephant\n\n\n自定义前缀\nFig @fig-elephant\n\n\n仅序号\n-@fig-elephant\n\n\n\n标签可以在代码块属性中设置：\n```{python}\n#| label: tbl-planets\n#| tbl-cap: Astronomical object\n\nfrom IPython.display import Markdown\nfrom tabulate import tabulate\ntable = [[\"Sun\",\"696,000\",1.989e30],\n         [\"Earth\",\"6,371\",5.972e24],\n         [\"Moon\",\"1,737\",7.34e22],\n         [\"Mars\",\"3,390\",6.39e23]]\nMarkdown(tabulate(\n  table, \n  headers=[\"Astronomical object\",\"R (km)\", \"mass (kg)\"]\n))\n```\n\n\n3.8.2 表格\n\n\n\n\n\n\nImportant\n\n\n\nIn order for a table to be cross-referenceable, its label must start with the tbl- prefix.\n\n\n对于 Markdown 表格来说，如此添加索引标签。\n| Col1 | Col2 | Col3 |\n|------|------|------|\n| A    | B    | C    |\n| E    | F    | G    |\n| A    | G    | G    |\n\n: My Caption {#tbl-letters}\n\nSee @tbl-letters.\n如果表格是由代码段生成的，则依据前缀规则指定代码段标签。\n```{r}\n#| label: tbl-tables\n#| tbl-cap: \"Tables\"\n#| tbl-subcap: true\n#| layout-ncol: 2\n\nlibrary(knitr)\nkable(head(cars))\nkable(head(pressure))\n```\n\n\n3.8.3 图片\n![Elephant](elephant.png){#fig-elephant}\n\nSee @fig-elephant for an illustration.\n如果图片是由代码段生成的，则依据前缀规则指定代码段标签。\n```{r}\n#| label: fig-plot\n#| fig-cap: \"Plot\"\n\nplot(cars)\n```\nFor example, see @fig-plot.\n\n\n3.8.4 公式\n$$\nE = m C^2\n$$ {#eq-mass-energy}\n\\[\nE = m C^2\n\\tag{3.1}\\]\n质能方程参见 Equation 3.1 。",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#代码",
+    "href": "technical-writing-with-quarto.html#代码",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.9 代码",
+    "text": "3.9 代码\n指定代码语言使用 ```&lt;lang&gt;，指定代码语言并运行使用 ```{lang}。",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#标签页",
+    "href": "technical-writing-with-quarto.html#标签页",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.10 标签页",
+    "text": "3.10 标签页\n\nJupyterKnitr\n\n\n```{python}\n#| label: fig-plot\n#| fig-cap: \"Plot\"\n\nimport matplotlib.pyplot as plt\nplt.plot([1,23,2,4])\nplt.show()\n```\n\nFor example, see @fig-plot.\n\n\n```{r}\n#| label: fig-plot\n#| fig-cap: \"Plot\"\n\nplot(cars)\n```\n\nFor example, see @fig-plot.",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "technical-writing-with-quarto.html#特殊符号",
+    "href": "technical-writing-with-quarto.html#特殊符号",
+    "title": "3  Quarto 常用文档元素",
+    "section": "3.11 特殊符号",
+    "text": "3.11 特殊符号\n\n如果想要插入 ```，则需要连续用 4 个反引号，将 3 个反引号包括起来。\n如果想要插入 ```{r}，需要使用两个大括号 {r}。\n如果想要插入一段代码却不执行，还可以增加缩进。",
+    "crumbs": [
+      "科学写作",
+      "<span class='chapter-number'>3</span>  <span class='chapter-title'>Quarto 常用文档元素</span>"
+    ]
+  },
+  {
+    "objectID": "strain-and-combination.html",
+    "href": "strain-and-combination.html",
+    "title": "4  菌株和组合方式",
+    "section": "",
+    "text": "4.1 Installation\nYou can install the development version of syncons like so:\nNow you can use this package.\nlibrary(\"syncons\")\nA shiny app ported with this package can be accessed through shiny.io.\nknitr::include_graphics(\"images/syncons-shiny-app-screenshot.png\")\n\n\n\n\n\n\n\nFigure 4.2: Screenshot of the shiny app",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>菌株和组合方式</span>"
+    ]
+  },
+  {
+    "objectID": "strain-and-combination.html#installation",
+    "href": "strain-and-combination.html#installation",
+    "title": "4  菌株和组合方式",
+    "section": "",
+    "text": "install.packages(\"pak\")\npak::pak(\"gaospecial/syncons\")",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>菌株和组合方式</span>"
+    ]
+  },
+  {
+    "objectID": "strain-and-combination.html#layout-of-syncoms-in-a-plate",
+    "href": "strain-and-combination.html#layout-of-syncoms-in-a-plate",
+    "title": "4  菌株和组合方式",
+    "section": "4.2 Layout of SynComs in a plate",
+    "text": "4.2 Layout of SynComs in a plate\nA 24-well plate can be used to construct 16 different SynComs with 4 strains.\n\none_plate(24, return_layout = TRUE)\n\n# A tibble: 4 × 5\n  row   `1`         `2`      `3`      `4`    \n  &lt;chr&gt; &lt;chr&gt;       &lt;chr&gt;    &lt;chr&gt;    &lt;chr&gt;  \n1 A     S1/S2/S3/S4 S1/S3/S4 S2/S3/S4 \"S3/S4\"\n2 B     S1/S2/S3    S1/S3    S2/S3    \"S3\"   \n3 C     S1/S2/S4    S1/S4    S2/S4    \"S4\"   \n4 D     S1/S2       S1       S2       \"\"     \n\n\nA 96-well plate can be used to construct 64 different SynComs with 6 strains.\n\none_plate(96, return_layout = TRUE)\n\n# A tibble: 8 × 9\n  row   `1`               `2`            `3`       `4`   `5`   `6`   `7`   `8`  \n  &lt;chr&gt; &lt;chr&gt;             &lt;chr&gt;          &lt;chr&gt;     &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;\n1 A     S1/S2/S3/S4/S5/S6 S1/S2/S4/S5/S6 S1/S3/S4… S1/S… S2/S… S2/S… S3/S… \"S4/…\n2 B     S1/S2/S3/S4/S5    S1/S2/S4/S5    S1/S3/S4… S1/S… S2/S… S2/S… S3/S… \"S4/…\n3 C     S1/S2/S3/S4/S6    S1/S2/S4/S6    S1/S3/S4… S1/S… S2/S… S2/S… S3/S… \"S4/…\n4 D     S1/S2/S3/S4       S1/S2/S4       S1/S3/S4  S1/S4 S2/S… S2/S4 S3/S4 \"S4\" \n5 E     S1/S2/S3/S5/S6    S1/S2/S5/S6    S1/S3/S5… S1/S… S2/S… S2/S… S3/S… \"S5/…\n6 F     S1/S2/S3/S5       S1/S2/S5       S1/S3/S5  S1/S5 S2/S… S2/S5 S3/S5 \"S5\" \n7 G     S1/S2/S3/S6       S1/S2/S6       S1/S3/S6  S1/S6 S2/S… S2/S6 S3/S6 \"S6\" \n8 H     S1/S2/S3          S1/S2          S1/S3     S1    S2/S3 S2    S3    \"\"   \n\n\nA 384-well plate can be used to construct 256 different SynComs with 8 strains.\n\none_plate(384, return_layout = TRUE)\n\n# A tibble: 16 × 17\n   row   `1`   `2`   `3`   `4`   `5`   `6`   `7`   `8`   `9`   `10`  `11`  `12` \n   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;\n 1 A     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n 2 B     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n 3 C     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n 4 D     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n 5 E     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n 6 F     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n 7 G     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n 8 H     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S5 S2/S… S2/S… S2/S… S2/S5\n 9 I     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n10 J     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n11 K     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n12 L     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S6 S2/S… S2/S… S2/S… S2/S6\n13 M     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S2/S… S2/S… S2/S… S2/S…\n14 N     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S7 S2/S… S2/S… S2/S… S2/S7\n15 O     S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S… S1/S8 S2/S… S2/S… S2/S… S2/S8\n16 P     S1/S… S1/S… S1/S… S1/S2 S1/S… S1/S3 S1/S4 S1    S2/S… S2/S3 S2/S4 S2   \n# ℹ 4 more variables: `13` &lt;chr&gt;, `14` &lt;chr&gt;, `15` &lt;chr&gt;, `16` &lt;chr&gt;",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>菌株和组合方式</span>"
+    ]
+  },
+  {
+    "objectID": "strain-and-combination.html#generation-of-sample-tables",
+    "href": "strain-and-combination.html#generation-of-sample-tables",
+    "title": "4  菌株和组合方式",
+    "section": "4.3 Generation of sample tables",
+    "text": "4.3 Generation of sample tables\nSupport we have eight strains and want to construct a series of SynComs with all the possible combinations.\n\nstrains = paste0(\"S\", 1:8)\nassign_plate(strains, plate_type = \"96\")\n\n# A tibble: 256 × 2\n   combination_id combination      \n   &lt;chr&gt;          &lt;chr&gt;            \n 1 P1A1           S1/S2/S3/S4/S5/S6\n 2 P1B1           S1/S2/S3/S4/S5   \n 3 P1C1           S1/S2/S3/S4/S6   \n 4 P1D1           S1/S2/S3/S4      \n 5 P1E1           S1/S2/S3/S5/S6   \n 6 P1F1           S1/S2/S3/S5      \n 7 P1G1           S1/S2/S3/S6      \n 8 P1H1           S1/S2/S3         \n 9 P1A2           S1/S2/S4/S5/S6   \n10 P1B2           S1/S2/S4/S5      \n# ℹ 246 more rows",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>4</span>  <span class='chapter-title'>菌株和组合方式</span>"
+    ]
+  },
+  {
+    "objectID": "culture-method.html",
+    "href": "culture-method.html",
+    "title": "5  培养方法",
+    "section": "",
+    "text": "5.1 选择什么样的培养基？",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>培养方法</span>"
+    ]
+  },
+  {
+    "objectID": "culture-method.html#选择什么样的培养基",
+    "href": "culture-method.html#选择什么样的培养基",
+    "title": "5  培养方法",
+    "section": "",
+    "text": "5.1.1 应该使用基本培养基还是富营养培养基？\n\n\n5.1.2 都有哪些常用的碳源类型？",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>培养方法</span>"
+    ]
+  },
+  {
+    "objectID": "culture-method.html#培养条件如何设置",
+    "href": "culture-method.html#培养条件如何设置",
+    "title": "5  培养方法",
+    "section": "5.2 培养条件如何设置？",
+    "text": "5.2 培养条件如何设置？\n\n5.2.1 静置还是振荡培养？\n\n\n5.2.2 培养温度如何设置？\n\n\n5.2.3 培养多长时间？",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>培养方法</span>"
+    ]
+  },
+  {
+    "objectID": "culture-method.html#有哪些常用的培养策略",
+    "href": "culture-method.html#有哪些常用的培养策略",
+    "title": "5  培养方法",
+    "section": "5.3 有哪些常用的培养策略？",
+    "text": "5.3 有哪些常用的培养策略？\n\n5.3.1 什么是连续梯度稀释培养？",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>培养方法</span>"
+    ]
+  },
+  {
+    "objectID": "culture-method.html#fba-分析中的培养基",
+    "href": "culture-method.html#fba-分析中的培养基",
+    "title": "5  培养方法",
+    "section": "5.4 FBA 分析中的培养基",
+    "text": "5.4 FBA 分析中的培养基\n(Harcombe et al. 2014)\nTable S1: Metabolite concentrations used to simulate minimal medium in COMETS. Lactose (lcts) was replaced with alternative carbon sources for individual E. coli colony simulations (glc = 3.5e-6, lac-L = 7.1e-6, or ac = 1.1e-5). Oxygen was lowered to maintain the same concentration with smaller pixel size (i.e. if box length (L)= 0.2 mm then o2 = 1e-5). For the 3-species consortium methylamine was added (mea = 2.0e-6).\n\n\n\nCompound\nmM per box\n\n\n\n\nca2[e]\n1000.0\n\n\ncl[e]\n1000.0\n\n\ncobalt2[e]\n1000.0\n\n\ncu2[e]\n1000.0\n\n\nfe2[e]\n1000.0\n\n\nfe3[e]\n1000.0\n\n\nk[e]\n1000.0\n\n\nlcts[e]\n1.2e-5\n\n\nmg2[e]\n1000.0\n\n\nmn2[e]\n1000.0\n\n\nmobd[e]\n1000.0\n\n\nnh4[e]\n1000.0\n\n\nni2[e]\n1000.0\n\n\no2[e]\n6.2e-5\n\n\npi[e]\n1000.0\n\n\nso4[e]\n1000.0\n\n\nzn2[e]\n1000.0\n\n\n\nTable S2: Metal Mix used in Hypho minimal media for lab experiments\n\n\n\nMetal\n1000x concentration (mM)\n\n\n\n\n\\(\\ce{ZnSO4}\\)\n0.60\n\n\n\\(\\ce{CaCl2}\\)\n9.98\n\n\n\\(\\ce{MnCl2}\\)\n0.51\n\n\n\\(\\ce{(NH4)6Mo7O24}\\)\n1.00\n\n\n\\(\\ce{CuSO4}\\)\n0.50\n\n\n\\(\\ce{CoCl2}\\)\n1.00\n\n\n\\(\\ce{Na2WO4}\\)\n0.17\n\n\n\\(\\ce{FeSO4}\\)\n8.88\n\n\n\n\n\n\n\nHarcombe, William R., William J. Riehl, Ilija Dukovski, Brian R. Granger, Alex Betts, Alex H. Lang, Gracia Bonilla, et al. 2014. “Metabolic Resource Allocation in Individual Microbes Determines Ecosystem Interactions and Spatial Dynamics.” Cell Reports 7 (4): 1104–15. https://doi.org/10.1016/j.celrep.2014.03.070.",
+    "crumbs": [
+      "微生物培养",
+      "<span class='chapter-number'>5</span>  <span class='chapter-title'>培养方法</span>"
+    ]
+  },
+  {
+    "objectID": "metabolic-model.html",
+    "href": "metabolic-model.html",
+    "title": "6  代谢模型",
+    "section": "",
+    "text": "6.1 Genome-scale Models\n大多数自然微生物系统都是在具有时空变化的环境中进化而来的。理解这种复杂系统的一个主要局限是缺乏数学建模框架，无法将单个物种的基因组和环境的时空变化与系统行为联系起来。时空通量平衡分析（SFBA）将通量平衡分析（FBA）扩展到考虑环境的时空变化，是微生物代谢基因组尺度重建的新兴领域。SFBA 预计是微生物代谢建模的下一个前沿领域，未来的方法开发和系统应用将迅速增加。",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>代谢模型</span>"
+    ]
+  },
+  {
+    "objectID": "metabolic-model.html#sec-genome-scale-models",
+    "href": "metabolic-model.html#sec-genome-scale-models",
+    "title": "6  代谢模型",
+    "section": "",
+    "text": "6.1.1 通量平衡分析及其动态扩展\n通量平衡分析法（FBA）是一种有限描述全细胞代谢的建模方法，该方法的基础是代谢物质量守恒和反应化学计量学。因为化学计量学模型描述了通过纳入基因组中注释的生化反应来构建的代谢通路，由此产生的模型通常被称为基因组尺度代谢（GSM）模型。\n给定化学计量矩阵和一组指定的可用养分吸收率，目标是求解未知细胞内反应速率（即细胞内通量）和代谢副产物分泌速率（即分泌通量）的 GSM。由于比起质量平衡方程，化学计量方程总是包含更多的未知通量，因此 GSM 有无限多的解，通量分布无法唯一确定。为了克服这一局限性，假定细胞新陈代谢受到调节，以实现某种细胞目标。最常见的目标是最大限度地生长，由此就将生物代谢物（如 RNA、DNA、蛋白质、碳水化合物等）的化学计量方程结合了起来，产生一个线性规划（LP）问题，通过有效求解，可预测细胞内通量分布、吸收和分泌（交换）通量以及生长率（ Figure 6.1 ）。\n\n\n\n\n\n\nFigure 6.1: 基因组尺度通量分析方法。GSM 构建了一个线性回归问题，利用化学计量矩阵 \\(A\\)、生物量组成权重 \\(w\\)、通量 \\(v_{min}\\) 和 \\(v_{max}\\) 边界以及养分吸收率的指定边界计算未知通量 \\(v\\)。在这个具体例子中，葡萄糖（\\(g\\)）和氧气（\\(o\\)）是限制生长的营养物质，乙醇（\\(e\\)）是主要的代谢副产品。根据指定的两种营养物质的通量界限（\\(v_{g,min}\\), \\(v_{o,min}\\)），计算出细胞生长率（\\(μ\\)）、实际营养物质吸收率（\\(v_g\\), \\(v_o\\)）和乙醇分泌率（ \\(v_e\\)）(Henson 2015)。\n\n\n\n\n\n6.1.2 SFBA 问题及最新进展\nFBA 所依据的假设是细胞内代谢和细胞外环境都是时间不变的。动态 FBA（DFBA）则通过扩展取消了细胞外环境的稳态假设1。DFBA 模型是在细胞迅速适应环境变化的假设条件下，将细胞内代谢的 GSM 与生长限制性营养物质吸收率的动力学表达式以及细胞生物量、限制性营养物质和分泌的代谢副产物的动态质量平衡方程相结合而形成的（ Figure 6.2 ）。DFBA 的一个主要优点是：模型输出包括生物量和细胞外代谢物浓度，而不像 FBA 那样只包括生长速率和交换通量。此外，对细胞外浓度和细胞内通量的预测具有时间分辨率。\n\n\n\n\n\n\nFigure 6.2: 基因组尺度 DFBA 在细胞内动力学比细胞外动力学快的假设条件下，使用 GSM 进行 FBA，以预测生长率、养分吸收率和副产物分泌率。FBA 通量可作为细胞外环境常微分方程（Ordinary Differential Equation，ODE）的输入，经整合后可对生物量、营养物质和副产物浓度进行时间分辨预测。这些浓度可作为养分吸收动力学的输入，用于计算 FBA 问题中养分吸收率的传输边界。本例中，葡萄糖（ \\(g\\)）和氧气（ \\(o\\)）是限制生长的养分，乙醇（ \\(e\\)）是主要代谢副产物，其中 \\(X\\)、\\(G\\)、\\(E\\) 和 \\(O\\) 分别为生物量、葡萄糖、乙醇和氧气浓度(Henson 2015)。\n\n\n\n尽管 DFBA 考虑了细胞外动态对细胞内代谢的影响，但该方法是基于细胞外环境混合良好且空间均匀的假设。同时考虑空间和时间变化的数学模型通常称为时空模型。我们把包括环境空间异质性的 DFBA 扩展称为时空 FBA（Spatiotemporal FBA，SFBA）。\nSFBA 中用随时间和空间坐标变化的偏微分方程（Partial Differential Equations，PDEs）取代了 DFBA 中的随时间变化的 ODEs2。偏微分方程表示生物量、代谢物和可能的其他化学物种浓度的细胞外质量平衡方程，并说明引起空间变化的传输机制，通常包括代谢物扩散和液相/气相对流。必须在空间域的边界施加边界条件，以确保 PDE 得到良好的拟合。与 DFBA 一样，GSM 和细胞外质量平衡方程通过养分吸收动力学联系在一起。\n营养物质和代谢产物在生物膜不同位置存在异质性。而且，由于细胞的生长和/或死亡，空间异质性可能会随着时间的变化。为便于说明，考虑厚度固定为 \\(L\\) 的单一物种生物膜中，底部（ \\(z=0\\) ）有单一限制生长的营养物质，顶部（ \\(z=L\\) ）有单一合成的副产品排出。假设空间变化只发生在生物膜的轴向 \\(z\\)，描述生物膜扩散过程的 PDE 可写成以下形式：\n\\[\n\\begin{array}{l l l l}\n\\frac {\\partial X(z,t)}{\\partial t} = \\mu X \\qquad &  X(z, 0) = X_I \\\\\n\\frac {\\partial S(z, t)}{\\partial t} = \\upsilon_S X + D_S \\frac {\\partial^2S}{\\partial z^2} \\qquad & S(0,t) = S_0 \\quad & \\frac {\\partial S(L,t)}{\\partial z} = 0 \\quad & S(z,0) = S_I \\\\\n\\frac {\\partial P(z,t)}{\\partial t} = v_P X + D_P \\frac {\\partial ^2 P}{\\partial z^2} \\qquad & \\frac{\\partial P(0,5)}{\\partial z}=0 \\quad & P(z,t)=0 \\quad & P(z,0)=P_I\n\\end{array}\n\\]\n这里的 \\(X(z,t)\\)、\\(S(z,t)\\) 和 \\(P(z,t)\\) 分别表示在 \\(z\\) 处和时间 \\(t\\) 的生物量、底物浓度和副产物浓度。通过求解 GSM 可以得到生长率 \\(μ\\)、底物吸收率 \\(v_S\\) 和副产物合成率 \\(v_P\\)。基质和副产物分别以高效扩散系数 \\(D_S\\) 和 \\(D_P\\) 在生物膜中扩散，而生物质被假定为无运动性。第二栏列出了生物膜底部的边界条件，其假设条件是：基质的浓度为 \\(S0\\)，生物质和副产物不会穿过该边界。第三列生物膜顶部的边界条件是基于以下假设：生物质和基质不会流过该边界，而副产品的去除率足够高，以至于边界浓度为零。最后，第四栏中的初始条件是基于生物膜在 \\(t=0\\) 时空间均匀的假设。\nSFBA 模型由描述细胞外环境的 PDE 和描述细胞内代谢的 LP 组成。纯物种系统只有一个 LP ，而多物种系统则需要求解每个物种的 LP。由于没有直接求解这种混合 PDE-LP 模型的计算方法，因此必须以某种方式近似 PDE 的传输行为，以生成可求解的模型。Figure 6.3\n\n\n\n\n\n\nFigure 6.3: 基因组尺度 SFBA。具有时空变化的微生物系统由一个时空模型来描述，该模型考虑了系统内的相关迁移过程。假定空间变化仅限于单一方向 \\(z\\)，则根据物种浓度（ \\(X_i\\)）、液相代谢物浓度（ \\(M_j\\)）和气相代谢物浓度（\\(Pj\\)）编写 PDEs。利用参与物种的 GSM 进行 FBA，以预测生长率、营养吸收率和副产物分泌率。通过对 PDEs 进行空间离散化处理，可以得到一大组带有嵌入式 LPs 的 ODEs，使用 MATLAB 软件包 DFBAlab 对这些 ODEs 进行求解，从而得出时间和空间分辨率预测结果。\n\n\n\n\n\n6.1.3 SFBA 案例研究\n\n\n6.1.4 COMETS 模拟合成群落演化\n2014 年发表在 Cell Reports 上的研究开发了 COMETS 的时空建模框架3，并将其用于研究二物种和三物种合成群落的涌现性行为(Harcombe et al. 2014)。COMETS 定义了一个二维网格（2D lattice），网格中的每个方格（box）代表一个不同的空间位置。假定每个物种都有可能根据相同的吸收动力学消耗可用碳源，则可使用参与物种的 GSM 解决每个方格的独立 DFBA 问题。采用了一种顺序求解策略，即先求解物种 LP，以生成本地生长速率和通量，然后在一个固定的时间步长内将细胞外 ODE 与这些恒定的 LP 求解进行整合，以生成本地生物量和代谢物浓度。在求解 LP 开始下一次迭代之前，在同一时间步长内求解二维扩散方程，以允许物种细胞质量和代谢物在方格之间扩散。\n\n研究使用 COMETS 模拟了由沙门氏菌和大肠杆菌组成的合成群落中的特定代谢物互养过程。该时空模型能够重现实验结果，即两种生物稳定共存，并收敛到大肠杆菌种群比例占 79% 的结局，且与初始比例无关。模拟由沙门氏菌、大肠杆菌和外生甲基杆菌组成的三物种合成群落也得到了类似的结果。双物种系统用于研究空间结构的影响。该模型正确地预测出，随着两个物种接种的距离越远，群落的生长速度就会越慢，这是由于交叉喂养的代谢物的扩散限制所致。此外，该模型还再现了实验结果，即在沙门氏菌和大肠杆菌种群之间放置第二个基因工程沙门氏菌菌落会促进群落生长，但放置不需要大肠杆菌交叉喂养代谢物的野生型沙门氏菌则会降低群落生长。\n\n\n6.1.5 DFBAlab 求解乙醇生物发酵问题\n\n来源：(Chen et al. 2015)\n\n预测了厌氧梭菌在垂直气泡塔反应器中将合成气（\\(\\ce{CO}\\)、\\(\\ce{H2}\\)）转化为乙醇的情况。合成气和液体介质进料流被引入气泡塔底部，并以不同的速度沿气泡塔向上流动，由于细胞生长和气体耗竭，产生了较大的空间梯度。代谢副产物乙醇和乙酸酯在从塔顶流出的液相流中回收。时空代谢模型由已发表的 C. ljungdahlii GSM [69]、\\(\\ce{CO}\\) 和 \\(\\ce{H2}\\) 的 Michaelis-Menten 吸收动力学以及 C. ljungdahlii 生物质、液相 \\(\\ce{CO}\\)、\\(\\ce{H2}\\)、乙醇和乙酸盐以及气相 \\(\\ce{CO}\\) 和 \\(\\ce{H2}\\) 的反应对流型 PDEs 组成。这些 PDE 被离散化为 100 个空间结点，并在每个结点使用六个 LP 进行词法优化，以确保交换通量的唯一性。由 900 个时间 ODE 和 600 个 LP 组成的大型离散模型在 MATLAB（MathWorks）中使用 DFBAlab（DFBA 实验室）工具进行了有效求解（ Figure 6.3 ）。\n针对各种色谱柱操作条件和养分吸收参数进行的动态模拟，得出了与现有实验一致的色谱柱行为和乙醇生产瓶颈预测，这些实验包括：（1）典型的富含 \\(\\ce{CO}\\) 的合成气会在塔的上部由于 \\(\\ce{H2}\\) 耗竭而产生大量醋酸盐，这表明增加合成气进料中的 \\(\\ce{H2}\\) 可能是有益的；（2）高效的气液传质是实现高乙醇产量和高转化率的关键，这表明需要继续开发先进的气泡塔设计，以实现极高的气液传质速率；以及 （3）提高 \\(\\ce{H2}\\) 的吸收率可大幅提高乙醇滴度和乙醇-醋酸盐比率，这表明通过改良 C. ljungdahlii 的工程设计提高 \\(\\ce{H2}\\) 的吸收率可实现高乙醇产量和高转化率。\n\n\n6.1.6 未来可能的研究方向\n基因组尺度模型是生物体已知或推断的代谢网络的数学表示[72]。利用基因组尺度模型进行模拟，可预测生物体如何利用环境中的特定资源进行生长，以及由于分泌、细胞外降解或泄漏而产生的任何新的代谢物（图 2）。因此，利用多个生物体的模型进行模拟（通过将数字生命体视为独立的组件来进行），可以对资源竞争、生态位划分或代谢交叉喂养进行定量预测，并已应用于多种系统，包括人类肠道微生物群73、74、75。(Pacheco and Vorholt 2023)\n在活体植物中，将基因组尺度模型的预测结果与合成群落实验相结合，为了解更复杂的代谢相互作用的复杂性提供了一条特别有前途的途径[27]。例如，这种综合方法最近揭示了从杨树根瘤中分离出来的细菌群落稳定性的代谢因素[76]。此外，在空间范围内模拟代谢相互作用的新方法 77、78 可以预测多物种在环境中的相互作用，这种环境近似于与植物相关的微环境 79、80、81 中与空间和时间相关的资源条件。高通量培养技术[82]、代谢组学技术[83]和可视化技术[84]的进步也有望提高更复杂群落尺度下相互作用预测的准确性。(Pacheco and Vorholt 2023)\n值得注意的是，Borer 等人最近利用了这一技术组合，他们使用经过实验验证的四种特征良好菌株的基因组尺度模型来预测土壤细菌之间的群落组装和代谢交换(Borer, Kleyer, and Or 2022)。这项研究进一步突出了基因组尺度模型描述空间分辨环境中相互作用机制的能力，表明预测复杂环境中群落生态学的潜力越来越大。",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>代谢模型</span>"
+    ]
+  },
+  {
+    "objectID": "metabolic-model.html#sec-comets",
+    "href": "metabolic-model.html#sec-comets",
+    "title": "6  代谢模型",
+    "section": "6.2 COMETS",
+    "text": "6.2 COMETS\nCOMETS(Computation Of Microbial Ecosystems in Time and Space) is a software platform for performing computer simulations of spatially structured microbial communities. It is based on stoichiometric modeling of the genome-scale metabolic network of individual microbial species using dynamic flux balance analysis, and on a discrete approximation of diffusion. For more information, see Harcombe et al., Metabolic Resource Allocation in Individual Microbes Determines Ecosystem Interactions and Spatial Dynamics, Cell Reports, 2014.\n\n6.2.1 COMETS 软件特性\nCOMETS 的核心是通过迭代方式最大化目标反应（通常是生物量生产）来模拟微生物种群的生长。一个或多个物种的初始生物量（由其代谢模型定义）被播种到含有一系列指定营养物质的环境中。在每次迭代中，生物量和环境都会根据 FBA 预测进行更新。\n\n6.2.1.1 空间能力\nCOMETS 能够模拟空间结构环境中的微生物生长。这是通过将模拟空间（“世界”）划分为由较小空间组成的 “网格”来实现的。在每个空间内，生长被认为是充分混合的。随着模拟的进行，营养物质和生物量都可以传播到连续的空间。\n\n模拟二维和三维 “世界”\n除了混合良好的条件外，COMETS 还能模拟二维和三维空间结构环境。例如，可以模拟培养皿等二维表面上的菌落生长，或肿瘤、三维基质中的细菌菌落等三维结构。\n生物质在空间的扩散和对流传播\n在具有空间结构的模拟中，可以实现不同的生物质传播模式。扩散模式模拟的是自由游动细菌的传播，而对流模式模拟的是细菌相互推动的传播。这两种传播模式可以结合使用。\n取决于基质的营养物质和生物量传播\n营养物质的扩散性和生物质的传播特性取决于琼脂密度、细胞基质摩擦系数等基质特性。\n边界条件\n有两种边界条件。固定值和固定源或汇速率。\n\n\n\n6.2.1.2 生物功能\nCOMETS 具有许多有趣的生物功能，可用于完善和改进化学计量模型的预测，以及模拟不同类型的生物现实条件。\n\n微生物生长的滞后期\n滞后期是模拟菌落生长激活的模型。\n连续（恒温箱）和批量生长模式\n在恒温箱模式下，用户可控制营养液的补充速度。在批处理模式下，用户可控制稀释和频率。\n多物种群落模拟\n可在物种空间分布重叠或不重叠的情况下，或在混合良好的条件下，对两个或多个物种（最多可达数百个）进行模拟。\n解析性 dFBA\n通常，任何代谢模型都有多个最优解。在这些方案中进行选择的一种方法是假设细胞将通过代谢网络的总通量最小化。为此，解析式 FBA 首先优化目标函数，如生长。然后进行第二次优化，将生长量固定在之前获得的最佳水平，并使通过网络的总通量最小化。\n细胞死亡\n我们采用了一个简单的细胞死亡模型，并为每个物种分配了死亡率。\n中性种群漂移\n人口噪声的存在会导致模拟中不同物种丰度的随机变化。这在批量增长模式中尤其有用，因为稀释瓶颈会对增长中的种群产生重大影响。\n进化过程\nComets 支持进化模拟，包括模拟过程中的随机变异和漂移。目前，唯一可用的突变是反应删除。\n\n\n\n6.2.1.3 计算能力\nCOMETS 软件使用 JAVA 语言实现。因此，它具有很强的可移植性，不受操作系统的影响。COMETS 具有以下模拟功能。\n\n图形用户界面 (GUI)\n除命令行外，COMETS 仿真还可通过图形用户界面（包括可视化工具）运行。\n并行 dFBA\n在多 CPU 系统中以多线程进程方式运行，可获得更高的计算性能。\nMATLAB 工具箱\nMATLAB 工具箱，用于以编程方式修改 COMETS 的输入文件。\nPython 工具箱\nPython 工具箱，用于以编程方式修改 COMETS 的输入文件。",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>代谢模型</span>"
+    ]
+  },
+  {
+    "objectID": "metabolic-model.html#sec-the-dfbalab-model",
+    "href": "metabolic-model.html#sec-the-dfbalab-model",
+    "title": "6  代谢模型",
+    "section": "6.3 使用 DFBAlab",
+    "text": "6.3 使用 DFBAlab\nWrite a dFBA model\nDynamic flux balance analysis is an extension of FBA that has the advantage that it enables analysis of interactions between the metabolism and the environment. The structure of the dFBA model that is assumed here has the following elements:\n\nA flux balance model of each of the microorganisms.\nA list of external metabolites.\nDescription of the interaction between FBA models through uptake and production of external metabolites.\nThe dynamic equations that are integrated by DFBAlab.\n\n\n\n\n\n\n\nFigure 6.4\n\n\n\nwhere \\(N\\) is the number of biological species and \\(M\\) is the number of extracellular chemical species. The variable \\(x_j\\) is the biomass concentration of the \\(j^{th}\\) metabolism, \\(s_i\\) is the extracellular concentration of the \\(i^{th}\\) chemical species, \\(F_{in} = \\sum_{i=1}^{M}F_{i} (t)\\) with \\(F_i\\) is the feed rate of chemical species \\(i\\), \\(D=\\sum_{i=1}^{M}F_i /V\\) is the dilution rate, \\(v_i^j\\) is the uptake or production rate of chemical species \\(i\\) due to species \\(j\\) and \\(V\\) is the volume of the bio-reactor. If the function \\(v_i^j\\) describes the production rate of the \\(i^{th}\\) external metabolite by the \\(j^{th}\\) metabolism, then its value can be determined by secondary optimization for the production rate.\nSetup the simulation\nThe simulation parameters are determined by the batch conditions of the experiments. A minimal set of parameter consists of\n\nThe (maximal) batch time.\nThe initial conditions for the biomass, substrates and total volume.\nDefinition of the external control inputs such as feed rate and composition and other environmental changes that are should be implemented during the batch.\nOptional definition of minimal growth conditions to determine when the simulation should stop prior to reaching the final batch time.",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>代谢模型</span>"
+    ]
+  },
+  {
+    "objectID": "metabolic-model.html#community-simulator",
+    "href": "metabolic-model.html#community-simulator",
+    "title": "6  代谢模型",
+    "section": "6.4 Community Simulator",
+    "text": "6.4 Community Simulator\n\nCitation: Marsland R, Cui W, Goldford J, Mehta P (2020) The Community Simulator: A Python package for microbial ecology. PLoS ONE 15(3): e0230430. https://doi.org/10.1371/journal.pone.0230430\n\nCommunity Simulator is a Python package called Community Simulator for simulating microbial population dynamics in a reproducible, transparent and scalable way.\nThe Community Simulator includes five major elements: tools for preparing the initial states and environmental conditions for a set of samples, automatic generation of dynamical equations based on a dictionary of modeling assumptions, random parameter sampling with tunable levels of metabolic and taxonomic structure, parallel integration of the dynamical equations, and support for metacommunity dynamics with migration between samples.\nThis package is designed for simulating batch culture experiments on complex microbial communities. The architecture is based on the standard protocol for these experiments:\n\nAdd media to each of the wells in a 96-well plate. It could be the same media for all wells, or different media for each well, depending on what the experimenter is trying to test.\nAdd a small sample of an existing bacterial culture to each of the wells. Again, these could be the same for all wells, or different initial conditions could be tested in parallel.\nLet the bacteria grow while stirring or shaking for some fixed time T.\nPipette a small fraction of each of the wells into a well on a new plate, with fresh media (added according to the same protocol as in step 1).\nRepeat the previous two steps as many times as desired.\n\nCommunities can also be run in chemostat mode, where nutrients are continually supplied and populations continuously diluted.\n\n\n\n\nBorer, Benedict, Hannah Kleyer, and Dani Or. 2022. “Primary Carbon Sources and Self-Induced Metabolic Landscapes Shape Community Structure in Soil Bacterial Hotspots.” Soil Biology and Biochemistry 168 (May): 108620. https://doi.org/10.1016/j.soilbio.2022.108620.\n\n\nChen, Jin, Jose A. Gomez, Kai Höffner, Paul I. Barton, and Michael A. Henson. 2015. “Metabolic Modeling of Synthesis Gas Fermentation in Bubble Column Reactors.” Biotechnology for Biofuels 8 (1). https://doi.org/10.1186/s13068-015-0272-5.\n\n\nHarcombe, William R., William J. Riehl, Ilija Dukovski, Brian R. Granger, Alex Betts, Alex H. Lang, Gracia Bonilla, et al. 2014. “Metabolic Resource Allocation in Individual Microbes Determines Ecosystem Interactions and Spatial Dynamics.” Cell Reports 7 (4): 1104–15. https://doi.org/10.1016/j.celrep.2014.03.070.\n\n\nHenson, Michael A. 2015. “Genome-scale modelling of microbial metabolism with temporal and spatial resolution.” Biochemical Society Transactions 43 (6): 1164–71. https://doi.org/10.1042/BST20150146.\n\n\nPacheco, Alan R., and Julia A. Vorholt. 2023. “Resolving Metabolic Interaction Mechanisms in Plant Microbiomes.” Current Opinion in Microbiology 74 (August): 102317. https://doi.org/10.1016/j.mib.2023.102317.",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>代谢模型</span>"
+    ]
+  },
+  {
+    "objectID": "metabolic-model.html#footnotes",
+    "href": "metabolic-model.html#footnotes",
+    "title": "6  代谢模型",
+    "section": "",
+    "text": "取消细胞内稳态假设需要结合酶动力学，更加困难。↩︎\n常微分方程与偏微分方程中独立变量的数量不同，ODEs（常微分方程）是描述一个独立变量的函数与其导数之间的关系的方程。这个独立变量通常是一维的，例如时间，因此ODEs描述的是一个变量随时间的变化。而 PDEs（偏微分方程）涉及多个独立变量。这些变量可以是多维空间中的位置坐标，因此PDEs描述的是多个变量在空间中的分布以及这些变量随时间的演化。↩︎\n该文章中详细描述了下载，仿真的过程。不过没有完整的代码，需要参考 COMETS 的手册自己编写。↩︎",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>6</span>  <span class='chapter-title'>代谢模型</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html",
+    "href": "learn-fba.html",
+    "title": "7  学习 FBA",
+    "section": "",
+    "text": "7.1 使用的库\n导入基本数值和图形库以及 scipy 优化库。\nimport numpy as np # 数值库\nimport seaborn as sns # 绘制热图\nimport matplotlib.pyplot as plt # 绘制图形\nfrom scipy.optimize import linprog # 线性规划函数\nfrom scipy.optimize import linprog_verbose_callback # 线性规划函数\nfrom IPython.display import IFrame # HTML 元素加载器",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#fba-基本公式的总结",
+    "href": "learn-fba.html#fba-基本公式的总结",
+    "title": "7  学习 FBA",
+    "section": "7.2 1. FBA 基本公式的总结",
+    "text": "7.2 1. FBA 基本公式的总结\n考虑一个由 \\(n\\) 个反应和 \\(m\\) 个代谢物组成的代谢网络。该网络可以用化学计量矩阵 \\(\\mathbf{S}\\) 表示，其元素 \\(S_{ij}\\) 表示参与反应 \\(j\\) 的代谢物 \\(i\\) 的摩尔数。注意，如果代谢物 \\(i\\) 是产物，则 \\(S_{ij}&gt;0\\)；如果代谢物 \\(i\\) 是反应物，则 \\(S_{ij}&lt;0\\)。\n给定一个通量向量 \\(V = (V_1,V_2,...V_n)\\)（其单位为 \\(mmol\\cdot grDW^{-1} \\cdot h^{-1}\\)），系统的稳态方程可以写为\n\\[\n\\mathbf{S}V=0\n\\]\n上述方程定义了通量之间的线性约束。此外，可以为每个通量设置不等式约束（下限 LB 和上限 UB）：\n\\[\nLB_j \\leq V_j \\leq UB_j\n\\]\n在由等式和不等式约束定义的可能状态空间内，可以搜索最大化给定目标函数的状态。目标函数可以通过一组系数定义\n\\[\nc = (c_1,c_2,...,c_n)\n\\]\n使得要最大化的目标函数定义为\n\\[\nZ = \\sum_{j=1}^{n} c_j V_j = c \\cdot V\n\\]\n然后 FBA 问题被公式化为：\n\\[\n\\begin{align}\n\\max \\quad & Z = c \\cdot V \\\\\n\\text{subject to} \\quad & \\mathbf{S}V=0 \\\\\n& LB_j \\leq V_j \\leq UB_j \\quad \\forall j\n\\end{align}\n\\]\n这个优化问题可以使用线性规划 (LP) 解决。",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#有用的参考文献和在线资源列表",
+    "href": "learn-fba.html#有用的参考文献和在线资源列表",
+    "title": "7  学习 FBA",
+    "section": "7.3 2. 有用的参考文献和在线资源列表",
+    "text": "7.3 2. 有用的参考文献和在线资源列表\n化学计量建模的早期概念： Papoutsakis ET., Butyric acid bacteria 发酵的方程和计算。Biotechnol Bioeng. 1984 Feb;26(2):174-87. 链接\n当前公式的第一篇论文： Varma 和 Palsson, Metabolic Flux Balancing: Basic Concepts, Scientific and Practical Use, Nature Biotech 1994, 链接\n一篇有用的教学论文： Rawls 等人，A simplified metabolic network reconstruction to promote understanding and development of flux balance analysis tools, Comput Biol Med. 2019 Feb;105:64-71. 链接\nMatlab 的 COBRA 工具箱： Becker 等人，Quantitative prediction of cellular metabolism with constraint-based models: the COBRA Toolbox, Nat Protoc 2007;2(3):727-38. 链接\nFBA 的测试和次优空间的探索： Segrè 等人，Analysis of optimality in natural and perturbed metabolic networks, PNAS 2020. 链接",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#超简单示例",
+    "href": "learn-fba.html#超简单示例",
+    "title": "7  学习 FBA",
+    "section": "7.4 3. 超简单示例",
+    "text": "7.4 3. 超简单示例\n为了形成对 FBA 数学过程的直观理解，我们将使用一个仅有三个反应的代谢网络的超简单示例。\n\n\\(v_C\\): 从环境中导入 1 个碳到细胞中\n\\(v_N\\): 从环境中导入 1 个氮到细胞中\n\\(v_b\\)（生物质反应）：结合 10 个碳和 1 个氮以生成一个新的生物质单元，并从细胞中移除。\n\n\nfrom IPython.display import Image\nImage(filename='./images/carbon-nitrogen-growth.png')\n\n\n\n\n\n\n\nFigure 7.1: 微生物利用碳源和氮源（C:N = 10:1）生长\n\n\n\n\n\n这个超简化的代谢网络让我们能够以图形方式可视化 FBA 过程，因为只有三个反应，每个反应都将是我们图表上的一个轴。下面显示的交互式图表中，\\(v_c\\) 对应 x 轴，\\(v_n\\) 对应 y 轴，\\(v_b\\) 对应 z 轴。\nFBA 的第一个关键假设是细胞处于”稳态”，即细胞中的代谢物(碳和氮)的浓度不会改变。要达到稳态，进入某个代谢物的通量必须等于流出该代谢物的通量。你可以使用质量平衡方程来表示这个要求。在我们的例子中，有两个质量平衡方程，一个是碳的平衡，另一个是氮的平衡。每个方程都表明代谢物的摄取通量等于生物量反应通量乘以该代谢物在生物量反应中的化学计量系数。\n这些质量平衡方程可以用平面来图形化表示。平面上的任何位置都代表满足该质量平衡方程的反应通量组合。\n要在下面的交互式图表中查看这些平面，请确保通过点击方程左侧的圆圈来打开前两个方程。\n为了使整个反应网络处于稳态，必须满足所有质量平衡约束。在这个例子中，所有质量平衡约束在两个平面的交线处得到满足，形成一条直线。这意味着这条线上的任何点都是满足稳态约束的可能通量组合。\n可行空间线在下面的方程 3 中以紫色绘制。\n为了缩小这个可行空间，我们可以设置反应通量的边界，使得数值被限制在由上限和下限定义的窗口内。对于我们的例子，我们知道碳摄取反应(\\(v_c\\))必须在 0 到 10 之间。下限 0 表示反应不能反向流动(释放碳)。上限 10 可能表明环境中只有 10 mmol 的碳，或者碳的转运蛋白每单位时间只能输入这么多。我们可以使用这些不等式来缩短我们的可行空间到一个线段，但它仍可能包含许多可能的解。\n\\(v_c\\) 的边界在下面的方程 4 的不等式中显示，该不等式绘制了 \\(v_c\\) 值有效的矩形空间。\n要找到新的较小的可行空间，需要绘制矩形空间与两个稳态平面的交集。在这里你可以想象，切掉可行空间。\n为了在这个新的较小可行空间内选择单一解，我们还需要对细胞做第二个假设 - 即细胞的代谢有某种目标。最常见的是，我们假设细胞会最大化其生长，但它也可能最大化高价值代谢物(如 ATP)的产生，或者可能最小化其能量使用。就我们的简单细胞而言，我们可以说细胞的目标是尽可能多地生长，或最大化生物量反应的通量。所以我们必须找到可行空间中 \\(v_b\\) 值最高的点。在我们受约束的可行空间中，\\(v_b\\) 的最高通量是 1，这在 \\(v_c\\) 等于 10 且 \\(v_n\\) 等于 1 时达到。\n\nfrom IPython.display import IFrame\n# @title\n# Display interactive graph of FBA constraints and solution\n# Note: May need to change width/height settings for best display on different monitors\n# To interact with the graph on the desmos website, follow the link in the following line of code\nIFrame(src=\"https://www.desmos.com/3d/a080fb997e\", width=700, height=375)",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#定义反应网络",
+    "href": "learn-fba.html#定义反应网络",
+    "title": "7  学习 FBA",
+    "section": "7.5 定义反应网络",
+    "text": "7.5 定义反应网络\n定义反应网络，即化学计量矩阵和代谢物及反应的标签。\n\n# Labels of reactions\nreacs = ['vc', 'vn', 'vb']\n# Labels of the metabolites\nmetabs = ['c', 'n']\n\n# 定义化学计量矩阵\n# 每一列对应 `reacs` 中出现顺序的反应\n# 每一行对应 `metabs` 中出现顺序的代谢物\nS = np.array([[  1.,   0.,   -10.],\n              [  0.,   1.,   -1]])\n\n\n# Visualize the S Matrix\ncolormap = sns.color_palette(\"Greens\")\nsns.heatmap(S, annot=True, linewidths=.5, xticklabels=reacs, yticklabels=metabs, cmap=\"PiYG\")\nplt.yticks(rotation=0)\nplt.show()\n\n\n\n\n\n\n\nFigure 7.2: 只有 3 个反应的化学计量矩阵",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#定义优化参数",
+    "href": "learn-fba.html#定义优化参数",
+    "title": "7  学习 FBA",
+    "section": "7.6 定义优化参数",
+    "text": "7.6 定义优化参数\n定义优化参数，即通量下界（LB）和上界（UB），以及目标函数。\n\n# Get the number of reactions and metabolites\nm = len(metabs)\nn = len(reacs)\n\nb=np.zeros(m) # Right-hand side of SV=0\n     \n\nLARGE = 1000 # Large number to be used as \"Infinite\" for flux bounds\nLB = np.zeros(n) # Set of lower bounds, initialize to zero # FIXME: Change to np.zeros\nUB = LARGE*np.ones(n) # Set of upper bounds, initialize to LARGE\n\n# Change flow through individual reaction\nUB[reacs.index('vc')] = 10\n\nLBUB = np.transpose(np.stack((LB,UB), axis=0)) # Combine LB, UB into set of pairs [LB,UB]\n     \n\nobj = np.zeros(n) # Initialize Objective function vector to zero\nobj[reacs.index('vb')] = -1 # Define objective function. Default of optimizer is \"minimize\", so a -1 will lead to maximization",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#运行-lp-求解-fba",
+    "href": "learn-fba.html#运行-lp-求解-fba",
+    "title": "7  学习 FBA",
+    "section": "7.7 运行 LP 求解 FBA",
+    "text": "7.7 运行 LP 求解 FBA\nPerform Linear Programming (LP) calculation to solve FBA\n\noptions = {\"disp\": False}\n# Call linprog function to solve LP problem\nsolution = linprog(c=obj, A_eq=S, b_eq=b, bounds=LBUB, options=options) # max c*v, given Sv=b, LB &lt; v  SV=0\n\nprint(\"Optimization status (0:successful; 1:Iteration limit reached; 2:Infeasible; 3:Unbounded; 4:Numerical difficulties): \",solution.status)\nprint(\"Optimal value: \",solution.fun)\nprint(\"Solution vector: \", solution.x)\n\nOptimization status (0:successful; 1:Iteration limit reached; 2:Infeasible; 3:Unbounded; 4:Numerical difficulties):  0\nOptimal value:  -1.0\nSolution vector:  [10.  1.  1.]",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#显示解",
+    "href": "learn-fba.html#显示解",
+    "title": "7  学习 FBA",
+    "section": "7.8 显示解",
+    "text": "7.8 显示解\n可视化解向量\n\nv_pos = np.arange(n)\nplt.bar(v_pos, solution.x, align='center')\nplt.xticks(v_pos, reacs, rotation='vertical')\nplt.ylabel('Flux Value')\nplt.title('Solution Vector')\nplt.show()\n\n\n\n\n\n\n\nFigure 7.3: 运行 LP 求解只有 3 个反应的 FBA",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#fba-from-scratch-slightly-less-trivial-example",
+    "href": "learn-fba.html#fba-from-scratch-slightly-less-trivial-example",
+    "title": "7  学习 FBA",
+    "section": "7.9 4. FBA from scratch, slightly less trivial example",
+    "text": "7.9 4. FBA from scratch, slightly less trivial example\n这是一个稍微更现实的网络，捕捉了一些真实核心代谢网络的关键特征，包括能量生成（发酵和呼吸）、生物量生产以及非生长相关的维护。（模型由 Daniel Segrè 为教学目的而制作）\n\nImage(filename='./images/metabolic-teaching-model.png')\n\n\n\n\n\n\n\nFigure 7.4: 一个稍微更现实的代谢网络",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#定义反应网络-1",
+    "href": "learn-fba.html#定义反应网络-1",
+    "title": "7  学习 FBA",
+    "section": "7.10 定义反应网络",
+    "text": "7.10 定义反应网络\n\n# Define the reaction IDs\nreacs = ['EX_GLC', 'EX_PYR', 'EX_O2', 'EX_CO2', 'EX_A', 'EX_B', 'EX_BIOMASS',\n         'V_GLC', 'V_PYR', 'V_O2', 'V_CO2', 'V_A', 'V_B', 'V_GLC-to-A',\n         'V_GLC-to-PYR', 'V_PYR-to-CO2', 'V_PYR-to-B', 'V_m', 'V_BIOMASS']\n# Define the metabolite names\nmetabs = ['GLC', 'GLC_e', 'PYR', 'PYR_e', 'CO2', 'CO2_e', 'O2', 'O2_e', 'ATP',\n          'ADP', 'A', 'A_e', 'B', 'B_e', 'BIOMASS']\n\n# Define the stoichiometric matrix\n# Each column corresponds to the reactions in the order they appear in `reacs`\n# and each row correspond to the metabolites in the order they appear in `metabs`\nS = np.array([[  0.,   0.,   0.,   0.,   0.,   0.,   0.,   1.,   0.,   0.,   0.,   0.,   0.,  -1.,  -1.,   0.,   0.,   0.,   0.],\n              [ -1.,   0.,   0.,   0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.],\n              [  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.,   0.,   0.,   2.,  -1.,  -1.,   0.,   0.],\n              [  0.,  -1.,   0.,   0.,   0.,   0.,   0.,   0.,   1.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.],\n              [  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.,   0.,   3.,   0.,   0.,   0.],\n              [  0.,   0.,   0.,  -1.,   0.,   0.,   0.,   0.,   0.,   0.,   1.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.],\n              [  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   1.,   0.,   0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.],\n              [  0.,   0.,  -1.,   0.,   0.,   0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.],\n              [  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,  -3.,   2.,  10.,  -6.,  -1.,   0.],\n              [  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   3.,  -2., -10.,   6.,   1.,   0.],\n              [  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,  -1.,   0.,   1.,   0.,   0.,   0.,   0.,  -1.],\n              [  0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.,   0.,   0.,   0.,   1.,   0.,   0.,   0.,   0.,   0.,   0.,   0.],\n              [  0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.,   1.,   0.,  -1.],\n              [  0.,   0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.,   0.,   0.,   0.,   1.,   0.,   0.,   0.,   0.,   0.,   0.],\n              [  0.,   0.,   0.,   0.,   0.,   0.,  -1.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   0.,   1.]])\n\n# Note that in this model (as is the convention) exchange reactions are defined\n# with the substrate being eschanges as a reactant in the reaction, and\n# with nothing as the product, i.e.\n# glucose &lt;=&gt;\n# This means that for the metabolite to enter the extracellular space, the flux\n# of the reaction is negative, and a more negative flux means that more of the\n# metabolite is entering the space. The lower bound of the reaction sets the\n# minimum flux of the reaction (and thus the maxiumum flux of the metabolite\n# entering the extracellular space).\n\n\n# Visualize the S Matrix\ncolormap = sns.color_palette(\"Greens\")\nsns.heatmap(S, annot=True,  linewidths=.5, xticklabels=reacs,yticklabels=metabs,cmap=\"PiYG\")\nplt.yticks(rotation=0)\nplt.show()\n\n\n\n\n\n\n\nFigure 7.5: 一个简单的代谢网络的化学计量矩阵",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#定义优化参数-1",
+    "href": "learn-fba.html#定义优化参数-1",
+    "title": "7  学习 FBA",
+    "section": "7.11 定义优化参数",
+    "text": "7.11 定义优化参数\n\n# Get the number of reactions and metabolites\nm = len(metabs)\nn = len(reacs)\n\nb=np.zeros(m) # Right-hand side of SV=0\n     \n\n# Define the lower and upper bounds\nLARGE = 1000 # Large number to be used as \"Infinite\" for flux bounds\nLB = np.zeros(n) # Set of lower bounds, initialize to zero\nUB = LARGE*np.ones(n) # Set of upper bounds, initialize to LARGE\n\n# Change the bounds for specific reactions\nLB[reacs.index('EX_GLC')] = -10 # Reflects glucose limitation in the environment\nLB[reacs.index('EX_O2')] = -20 # Reflects a typical maximum oxygen import flux in aerobic conditions\nLB[reacs.index('V_m')] = 1 # Reflects ATP requirements to maintain the cell\n\n# Combine LB, UB into set of pairs [LB,UB]\nLBUB = np.transpose(np.stack((LB,UB), axis=0))\n     \n\n# Initialize Objective function vector to all zeros\nobj = np.zeros(n)\n# Change only the coefficient of the biomass reaction\n# Default of optimizer is \"minimize\", so a -1 will lead to maximization\nobj[reacs.index('V_BIOMASS')] = -1\n# Print the objective function vector\nprint(\"Objective function:\", obj)\n\nObjective function: [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.\n -1.]",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#运行-lp-求解-fba-1",
+    "href": "learn-fba.html#运行-lp-求解-fba-1",
+    "title": "7  学习 FBA",
+    "section": "7.12 运行 LP 求解 FBA",
+    "text": "7.12 运行 LP 求解 FBA\n\nsolution = linprog(c=obj, A_eq=S, b_eq=b, bounds=LBUB, options={\"disp\": False}) # max c*v, given Sv=b, LB &lt; v \n\nprint(\"Optimization status (0:successful; 1:Iteration limit reached; 2:Infeasible; 3:Unbounded; 4:Numerical difficulties): \",solution.status)\nprint(\"Optimal value: \",solution.fun)\nprint(\"Solution vector: \", solution.x)\n\nOptimization status (0:successful; 1:Iteration limit reached; 2:Infeasible; 3:Unbounded; 4:Numerical difficulties):  0\nOptimal value:  -5.341463414634147\nSolution vector:  [-10.          -0.          -3.97560976  11.92682927  -0.\n  -0.           5.34146341  10.           0.           3.97560976\n  11.92682927   0.           0.           5.34146341   4.65853659\n   3.97560976   5.34146341   1.           5.34146341]",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#显示解-1",
+    "href": "learn-fba.html#显示解-1",
+    "title": "7  学习 FBA",
+    "section": "7.13 显示解",
+    "text": "7.13 显示解\n可视化解向量\n\nv_pos = np.arange(n)\nplt.bar(v_pos, solution.x, align='center')\nplt.xticks(v_pos, reacs, rotation='vertical')\nplt.ylabel('Flux Value')\nplt.title('Solution Vector')\nplt.show()\n\n\n\n\n\n\n\nFigure 7.6: 运行 LP 求解一个简单的代谢网络的 FBA\n\n\n\n\n\n\n# 定义下限和上限\nLARGE = 1000 # 用作通量边界的“无限大”数\nLB = np.zeros(n) # 下限集合，初始化为零\nUB = LARGE*np.ones(n) # 上限集合，初始化为 LARGE\n\n# 更改特定反应的边界\nLB[reacs.index('EX_GLC')] = -10 # 反映环境中的葡萄糖限制\nLB[reacs.index('EX_O2')] = -20 # 反映有氧条件下的典型最大氧气进口通量\nLB[reacs.index('V_m')] = 1 # 反映维持细胞的 ATP 需求\n\n# 将 LB, UB 组合成 [LB,UB] 对的集合\nLBUB = np.transpose(np.stack((LB,UB), axis=0))\n\n\n# 初始化目标函数向量为全零\nobj = np.zeros(n)\n# 仅更改生物量反应的系数\n# 优化器的默认设置是“最小化”，因此 -1 将导致最大化\nobj[reacs.index('V_BIOMASS')] = -1\n# 打印目标函数向量\nprint(\"Objective function:\", obj)\n\nObjective function: [ 0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.  0.\n -1.]",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#运行-lp-以解决-fba",
+    "href": "learn-fba.html#运行-lp-以解决-fba",
+    "title": "7  学习 FBA",
+    "section": "7.14 运行 LP 以解决 FBA",
+    "text": "7.14 运行 LP 以解决 FBA\n\nsolution = linprog(c=obj, A_eq=S, b_eq=b, bounds=LBUB, options={\"disp\": False}) # max c*v, given Sv=b, LB &lt; v &lt;UB\n\n\nprint(\"Optimization status (0: Success; 1: Iteration limit reached; 2: Infeasible; 3: Unbounded; 4: Numerical difficulties): \",solution.status)\nprint(\"Optimal value: \",solution.fun)\nprint(\"Solution vector: \", solution.x)\n\nOptimization status (0: Success; 1: Iteration limit reached; 2: Infeasible; 3: Unbounded; 4: Numerical difficulties):  0\nOptimal value:  -5.341463414634147\nSolution vector:  [-10.          -0.          -3.97560976  11.92682927  -0.\n  -0.           5.34146341  10.           0.           3.97560976\n  11.92682927   0.           0.           5.34146341   4.65853659\n   3.97560976   5.34146341   1.           5.34146341]",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#显示解-2",
+    "href": "learn-fba.html#显示解-2",
+    "title": "7  学习 FBA",
+    "section": "7.15 显示解",
+    "text": "7.15 显示解\n可视化解向量\n\nv_pos = np.arange(n)\nplt.bar(v_pos, solution.x, align='center')\nplt.xticks(v_pos, reacs, rotation='vertical')\nplt.ylabel('Flux Value')\nplt.title('Solution Vector')\nplt.show()",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "learn-fba.html#使用-cobrapy-求解-fba",
+    "href": "learn-fba.html#使用-cobrapy-求解-fba",
+    "title": "7  学习 FBA",
+    "section": "7.16 使用 cobrapy 求解 FBA",
+    "text": "7.16 使用 cobrapy 求解 FBA\n在实际应用中，模型、反应、代谢物的操作都是用过 cobrapy 包来完成的。\n\n7.16.1 生成 3 个反应的模型\n\nimport cobra\n\n# Make a new model\nmodel = cobra.Model(\"three_reaction_model\")\n\n# Create internal (c compartment) metabolites\nc_met = cobra.Metabolite(\"C_c\", name=\"C\", compartment=\"c\")\nn_met = cobra.Metabolite(\"N_c\", name=\"N\", compartment=\"c\")\nbiomass_met = cobra.Metabolite(\"BIOMASS\", name=\"BIOMASS\", compartment=\"c\")\n\n# Create external metabolites (e compartment)\nc_met_e = cobra.Metabolite(\"C_e\", name=\"C_e\", compartment=\"e\")\nn_met_e = cobra.Metabolite(\"N_e\", name=\"N_e\", compartment=\"e\")\n\n# Add metabolites to model\nmodel.add_metabolites(\n    [\n        c_met,\n        c_met_e,\n        n_met,\n        n_met_e,\n        biomass_met,\n    ]\n)\n\n# Add boundary reactions\nmodel.add_boundary(c_met_e, type=\"exchange\", reaction_id=\"EX_C\", lb=-10, ub=0)\nmodel.add_boundary(n_met_e, type=\"exchange\", reaction_id=\"EX_N\", lb=-1000, ub=1000)\nmodel.add_boundary(biomass_met, type=\"demand\", reaction_id=\"EX_BIOMASS\", lb=0, ub=1000)\n\n# Create internal reactions\n# Glucose transport\nv_c = cobra.Reaction(\"V_C\", name=\"C uptake\", lower_bound=0, upper_bound=10)\nv_c.add_metabolites({c_met_e: -1, c_met: 1})\n\n# Nitrogen transport\nv_n = cobra.Reaction(\"V_N\", name=\"N uptake\", lower_bound=0, upper_bound=1000)\nv_n.add_metabolites({n_met_e: -1, n_met: 1})\n\n# Biomass production\nv_biomass = cobra.Reaction(\"V_BIOMASS\", name=\"Biomass production\", lower_bound=0, upper_bound=1000)\nv_biomass.add_metabolites({c_met: -10, n_met: -1, biomass_met: 1})\n\n# Add reactions to model\nmodel.add_reactions([v_c, v_n, v_biomass])\n\n# Set the objective\nmodel.objective = v_biomass\n\n# 查看模型\nmodel.summary()\n\n# 求解模型\nmodel.optimize()\nmodel.summary()\n\nSet parameter Username\nAcademic license - for non-commercial use only - expires 2025-04-02\n\n\nObjective1.0 V_BIOMASS = 1.0Uptake\n\n\n\nMetabolite\nReaction\nFlux\nC-Number\nC-Flux\n\n\n\n\nC_e\nEX_C\n10\n0\n0.00%\n\n\nN_e\nEX_N\n1\n0\n0.00%\n\n\n\nSecretion\n\n\n\nMetabolite\nReaction\nFlux\nC-Number\nC-Flux\n\n\n\n\nBIOMASS\nEX_BIOMASS\n-1\n0\n0.00%\n\n\n\n\n\n可以将模型保存为 SBML 和 JSON 格式。\n\nimport os\n# Save model\nos.makedirs(\"example/learn-fba/3rxn-model\", exist_ok=True)\ncobra.io.write_sbml_model(model, \"example/learn-fba/3rxn-model/3rxn-model.xml\")\ncobra.io.save_json_model(model, \"example/learn-fba/3rxn-model/3rxn-model.json\")\n\n\n\n7.16.2 生成简单的模型\n下面使用 cobra 定义一个真实的简单模型。\n这个代谢网络包含一些真实的代谢产物（例如，葡萄糖：GLC 和丙酮酸：PYR）以及一些虚构的代谢产物（A 和 B），旨在代表用于生物质（其通量为增长率）生产的构件（例如，氨基酸）。网络中的一些反应是实际代谢途径的粗粒化表征（例如，V_GLC-to-PYR为糖酵解过程，V_PYR-to-CO2 为柠檬酸循环）。EX_GLC 是交换反应，通过定义和使用交换反应来实现细胞边界处代谢物吸收/分泌的平衡。该反应的方向定义为代谢物的分泌，这意味着代谢物的摄取与负通量相关。V_PYR-to-CO2 反应被突出显示，以例证基因-蛋白质-反应规则。例如，这一虚构的反应可以由蛋白质复合体 X1 和 X2 催化，也可以由单一酶 Y 催化，基因-蛋白质规则将是布尔表达式 (G[X1] AND G[X2]) OR G[Y]，其中 G[P] 是一个布尔变量，指示编码蛋白质P的基因的存在。\n\nimport cobra\n\n# Make a new model\nmodel = cobra.Model(\"segre_minimal_model\")\n\n# Create internal (c compartment) metabolites\nglc = cobra.Metabolite(\"GLC\", name=\"GLC\", compartment=\"c\")\npyr = cobra.Metabolite(\"PYR\", name=\"PYR\", compartment=\"c\")\nco2 = cobra.Metabolite(\"CO2\", name=\"CO2\", compartment=\"c\")\no2 = cobra.Metabolite(\"O2\", name=\"O2\", compartment=\"c\")\natp = cobra.Metabolite(\"ATP\", name=\"ATP\", compartment=\"c\")\nadp = cobra.Metabolite(\"ADP\", name=\"ADP\", compartment=\"c\")\nmet_a = cobra.Metabolite(\"A\", name=\"A\", compartment=\"c\")\nmet_b = cobra.Metabolite(\"B\", name=\"B\", compartment=\"c\")\nmet_biomass = cobra.Metabolite(\"BIOMASS\", name=\"BIOMASS\", compartment=\"c\")\n\n# Create external metabolites (e compartment)\nglc_e = cobra.Metabolite(\"GLC_e\", name=\"GLC_e\", compartment=\"e\")\npyr_e = cobra.Metabolite(\"PYR_e\", name=\"PYR_e\", compartment=\"e\")\nco2_e = cobra.Metabolite(\"CO2_e\", name=\"CO2_e\", compartment=\"e\")\no2_e = cobra.Metabolite(\"O2_e\", name=\"O2_e\", compartment=\"e\")\nmet_a_e = cobra.Metabolite(\"A_e\", name=\"A_e\", compartment=\"e\")\nmet_b_e = cobra.Metabolite(\"B_e\", name=\"B_e\", compartment=\"e\")\n\n# Add metabolites to model\nmodel.add_metabolites(\n    [\n        glc,\n        glc_e,\n        pyr,\n        pyr_e,\n        co2,\n        co2_e,\n        o2,\n        o2_e,\n        atp,\n        adp,\n        met_a,\n        met_a_e,\n        met_b,\n        met_b_e,\n        met_biomass,\n    ]\n)\n\n# Add boundary reactions\n# TODO: Constrain uptakes\nmodel.add_boundary(glc_e, type=\"exchange\", reaction_id=\"EX_GLC\", lb=-10, ub=1000)\nmodel.add_boundary(pyr_e, type=\"exchange\", reaction_id=\"EX_PYR\", lb=0, ub=1000)\nmodel.add_boundary(o2_e, type=\"exchange\", reaction_id=\"EX_O2\", lb=-1000, ub=1000)\nmodel.add_boundary(co2_e, type=\"exchange\", reaction_id=\"EX_CO2\", lb=-0, ub=1000)\nmodel.add_boundary(met_a_e, type=\"exchange\", reaction_id=\"EX_A\", lb=0, ub=1000)\nmodel.add_boundary(met_b_e, type=\"exchange\", reaction_id=\"EX_B\", lb=0, ub=1000)\nmodel.add_boundary(met_biomass, type=\"demand\", reaction_id=\"EX_BIOMASS\", lb=0, ub=1000)\n\n# Create internal reactions\n# Glucose transport\nv_glc = cobra.Reaction(\"V_GLC\", name=\"GLC uptake\", lower_bound=0, upper_bound=1000)\nv_glc.add_metabolites({glc_e: -1, glc: 1})\n\n# Pyruvate transport\nv_pyr = cobra.Reaction(\"V_PYR\", name=\"PYR release\", lower_bound=0, upper_bound=1000)\nv_pyr.add_metabolites({pyr: -1, pyr_e: 1})\n\n# Oxygen transport\nv_o2 = cobra.Reaction(\"V_O2\", name=\"O2 uptake\", lower_bound=0, upper_bound=1000)\nv_o2.add_metabolites({o2_e: -1, o2: 1})\n\n# Carbon dioxide transport\nv_co2 = cobra.Reaction(\"V_CO2\", name=\"CO2 release\", lower_bound=0, upper_bound=1000)\nv_co2.add_metabolites({co2: -1, co2_e: 1})\n\n# Metabolite A transport\nv_a = cobra.Reaction(\"V_A\", name=\"A release\", lower_bound=0, upper_bound=1000)\nv_a.add_metabolites({met_a: -1, met_a_e: 1})\n\n# Metabolite B transport\nv_b = cobra.Reaction(\"V_B\", name=\"B release\", lower_bound=0, upper_bound=1000)\nv_b.add_metabolites({met_b: -1, met_b_e: 1})\n\n# V1 (GLC --&gt; A)\nv1 = cobra.Reaction(\"V_GLC-to-A\", name=\"GLC to A\", lower_bound=0, upper_bound=1000)\nv1.add_metabolites({glc: -1, met_a: 1, atp: -3, adp: 3})\n\n# V2 (GLC --&gt; PYR)\nv2 = cobra.Reaction(\"V_GLC-to-PYR\", name=\"GLC to PYR\", lower_bound=0, upper_bound=1000)\nv2.add_metabolites({glc: -1, pyr: 2, atp: 2, adp: -2})\n\n# V3 (PYR --&gt; CO2)\nv3 = cobra.Reaction(\"V_PYR-to-CO2\", name=\"PYR to CO2\", lower_bound=0, upper_bound=1000)\nv3.add_metabolites({pyr: -1, co2: 3, adp: -10, atp: 10, o2: -1})\n\n# V4 (PYR --&gt; B)\nv4 = cobra.Reaction(\"V_PYR-to-B\", name=\"PYR to B\", lower_bound=0, upper_bound=1000)\nv4.add_metabolites({pyr: -1, met_b: 1, atp: -6, adp: 6})\n\n# Vm (ATP Maintenance)\nvm = cobra.Reaction(\"V_m\", name=\"ATP Maintenance\", lower_bound=1, upper_bound=1000)\nvm.add_metabolites({atp: -1, adp: 1})\n\n# Vgro (Growth)\nvgro = cobra.Reaction(\"V_BIOMASS\", name=\"Growth\", lower_bound=-1000, upper_bound=1000)\nvgro.add_metabolites({met_a: -1, met_b: -1, met_biomass: 1})\n\n# Add reactions to model\nmodel.add_reactions([v_glc, v_pyr, v_o2, v_co2, v_a, v_b, v1, v2, v3, v4, vm, vgro])\n\n# Set the objective\nmodel.objective = vgro\n\n# 查看模型\nmodel.summary()\n\nObjective1.0 V_BIOMASS = 5.341463414634146Uptake\n\n\n\nMetabolite\nReaction\nFlux\nC-Number\nC-Flux\n\n\n\n\nGLC_e\nEX_GLC\n10\n0\n0.00%\n\n\nO2_e\nEX_O2\n3.976\n0\n0.00%\n\n\n\nSecretion\n\n\n\nMetabolite\nReaction\nFlux\nC-Number\nC-Flux\n\n\n\n\nBIOMASS\nEX_BIOMASS\n-5.341\n0\n0.00%\n\n\nCO2_e\nEX_CO2\n-11.93\n0\n0.00%\n\n\n\n\n\n\n\n7.16.3 求解模型\n\nmodel.optimize()\nmodel.summary()\n\nObjective1.0 V_BIOMASS = 5.341463414634146Uptake\n\n\n\nMetabolite\nReaction\nFlux\nC-Number\nC-Flux\n\n\n\n\nGLC_e\nEX_GLC\n10\n0\n0.00%\n\n\nO2_e\nEX_O2\n3.976\n0\n0.00%\n\n\n\nSecretion\n\n\n\nMetabolite\nReaction\nFlux\nC-Number\nC-Flux\n\n\n\n\nBIOMASS\nEX_BIOMASS\n-5.341\n0\n0.00%\n\n\nCO2_e\nEX_CO2\n-11.93\n0\n0.00%\n\n\n\n\n\n\n\n7.16.4 保存模型\n\n# Save model\nimport os\n\n# 创建目录（如果不存在）\nos.makedirs(\"example/learn-fba/minimal-model\", exist_ok=True)\n\ncobra.io.write_sbml_model(model, \"example/learn-fba/minimal-model/segre_minimal_model.xml\")\ncobra.io.save_json_model(model, \"example/learn-fba/minimal-model/segre_minimal_model.json\")\n\n\n\n\n\nScott, Helen, and Daniel Segrè. 2024. “Metabolic Flux Modeling in Marine Ecosystems.” Annual Review of Marine Science, September. https://doi.org/10.1146/annurev-marine-032123-033718.",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>7</span>  <span class='chapter-title'>学习 FBA</span>"
+    ]
+  },
+  {
+    "objectID": "MICOM.html",
+    "href": "MICOM.html",
+    "title": "8  MICOM",
+    "section": "",
+    "text": "8.1 输入数据\n要开始为所有样本构建群落模型，你需要向 MICOM 提供数据。MICOM 倾向于将所有样本的分类和丰度数据存储在单个 tidy DataFrame 中。在这里，每个样本中的每个物种都是一行，提供其分类和丰度信息。这听起来可能有点令人困惑，但通过查看示例就会变得非常清晰。MICOM 可以生成一个简单的示例 DataFrame 供我们参考。\nTo start building community models for all your samples you will need to provide your data to MICOM. MICOM prefers to have the taxonomy and abundances for all samples in a single tidy DataFrame. Here each taxon in each sample is a row which provides its taxonomy and abundance. This may sound a bit confusing but should become pretty clear when looking at an example. MICOM can generate a simple example DataFrame which we can use as guidance.\nfrom micom.data import test_data\n\ndata = test_data()\ndata\n\n\n\n\n\n\n\n\nid\ngenus\nspecies\nreactions\nmetabolites\nsample_id\nabundance\n\n\n\n\n0\nEscherichia_coli_1\nEscherichia\nEscherichia coli 0\n95\n72\nsample_1\n12\n\n\n1\nEscherichia_coli_2\nEscherichia\nEscherichia coli 1\n95\n72\nsample_1\n754\n\n\n2\nEscherichia_coli_3\nEscherichia\nEscherichia coli 2\n95\n72\nsample_1\n822\n\n\n3\nEscherichia_coli_4\nEscherichia\nEscherichia coli 3\n95\n72\nsample_1\n109\n\n\n0\nEscherichia_coli_1\nEscherichia\nEscherichia coli 0\n95\n72\nsample_2\n600\n\n\n1\nEscherichia_coli_2\nEscherichia\nEscherichia coli 1\n95\n72\nsample_2\n141\n\n\n2\nEscherichia_coli_3\nEscherichia\nEscherichia coli 2\n95\n72\nsample_2\n827\n\n\n3\nEscherichia_coli_4\nEscherichia\nEscherichia coli 3\n95\n72\nsample_2\n729\n\n\n0\nEscherichia_coli_1\nEscherichia\nEscherichia coli 0\n95\n72\nsample_3\n944\n\n\n1\nEscherichia_coli_2\nEscherichia\nEscherichia coli 1\n95\n72\nsample_3\n429\n\n\n2\nEscherichia_coli_3\nEscherichia\nEscherichia coli 2\n95\n72\nsample_3\n201\n\n\n3\nEscherichia_coli_4\nEscherichia\nEscherichia coli 3\n95\n72\nsample_3\n373\n\n\n0\nEscherichia_coli_1\nEscherichia\nEscherichia coli 0\n95\n72\nsample_4\n688\n\n\n1\nEscherichia_coli_2\nEscherichia\nEscherichia coli 1\n95\n72\nsample_4\n68\n\n\n2\nEscherichia_coli_3\nEscherichia\nEscherichia coli 2\n95\n72\nsample_4\n474\n\n\n3\nEscherichia_coli_4\nEscherichia\nEscherichia coli 3\n95\n72\nsample_4\n190\n这是一个非常简单的示例，其中每个样本包含 4 种不同的 E. coli 物种，随机丰度。因此，每个样本在这个 DataFrame 中有 4 行。DataFrame 还包含其他列，唯一需要提供的列是 “id”、“sample_id”、“abundance” 和提供摘要分类的一列，这里为 “species”。\n请注意，这里我们还有一个额外的列“genus”。你需要提供的最小分类信息仅仅是与你使用的数据库匹配的分类等级名称。因此，如果你使用的是属级数据库，你就需要一个”genus”列。在本例中，我们将使用物种级数据库，所以必须提供”species”列。如果有来自集合{\"kingdom\", \"phylum\", \"class\", \"order\", \"family\", \"genus\", \"species\"}的任何额外列，这些列将用于使数据库映射更加严格。例如，在这里我们提供了一个“genus”列，这意味着只有当数据和模型数据库中的分类单元具有相同的属和种时，模型才会被视为”匹配”。\n因此，在传递给 MICOM 的数据中包含的分类等级列越多，MICOM 匹配到参考数据库的严格性就越高。这可以用来规避匹配不良的分类等级。",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>MICOM</span>"
+    ]
+  },
+  {
+    "objectID": "MICOM.html#输入数据",
+    "href": "MICOM.html#输入数据",
+    "title": "8  MICOM",
+    "section": "",
+    "text": "8.1.1 Building community models\n要为每个样本构建一个群落模型，你需要提供上述的丰度表和模型数据库。通常我们推荐使用一个预构建的 MICOM 数据库，可以从 https://doi.org/10.5281/zenodo.3755182 获取。此外，你也可以 创建你自己的数据库。\n对于我们的示例，我们有一个与 MICOM 捆绑在一起的定制物种级数据库。有了丰度表和数据库，你现在可以开始构建你的模型，提供一个文件夹，用于存储组装的群落模型。\n\nfrom micom.data import test_db\nfrom micom.workflows import build\n\nmanifest = build(data, out_folder=\"models\", model_db=test_db, cutoff=0.0001, threads=2)\n\n这将还允许你使用 cutoff 参数指定一个相对丰度截止值，以包括在模型中的分类单元。默认情况下，只包括丰度至少为样本的 0.01% 的分类单元。模型构建将自动并行化到多个 CPU 上，并且应该使用 threads 参数设置的 CPU 核心数。如果任何样本的丰度小于 50%，工作流将警告你。由于我们的数据是随机的，这里可能发生了这种情况。\nbuild 工作流将返回一个模型清单:\n\nmanifest\n\n\n\n\n\nDiener, Christian, Sean M. Gibbons, and Osbaldo Resendis-Antonio. 2020. “MICOM: Metagenome-Scale Modeling to Infer Metabolic Interactions in the Gut Microbiota.” mSystems 5 (1): 10.1128/msystems.00606–19. https://doi.org/10.1128/msystems.00606-19.",
+    "crumbs": [
+      "代谢网络",
+      "<span class='chapter-number'>8</span>  <span class='chapter-title'>MICOM</span>"
+    ]
+  },
+  {
+    "objectID": "ecological-model.html",
+    "href": "ecological-model.html",
+    "title": "9  生态模型",
+    "section": "",
+    "text": "9.1 微分方程模型\n基于微分方程的生态模型可以预测基于物种共现或资源偏好和代谢交换的相互作用。与基于相关性的技术相比，这些模型可以提供强大的预测能力，因为它们可用于推断因果间关系和未来的群落动态。\nBansept 等人应用了微分方程模型，该模型考虑了微生物物种的双相生活方式，该模型由宿主相关相和环境相组成[62]。将这种建模框架扩展到群落环境中可能特别能提供与植物相关的微生物在其整个生命周期中经历不同的环境或时间定义的选择压力的信息。",
+    "crumbs": [
+      "生态模型",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>生态模型</span>"
+    ]
+  },
+  {
+    "objectID": "ecological-model.html#generalized-lotka-volterra-model",
+    "href": "ecological-model.html#generalized-lotka-volterra-model",
+    "title": "9  生态模型",
+    "section": "9.2 Generalized Lotka-Volterra Model",
+    "text": "9.2 Generalized Lotka-Volterra Model\n\n参考资料：\n\nhttps://github.com/yuhao-yang-cy/sci-simulations/blob/main/lotka-volterra-predator-prey-model.ipynb\n知乎专栏\nA Tour of the Generalized Lotka-Volterra Model：四个讲座半严谨地介绍了 gLV 模型及其在群落生态学中的应用。在这本电子书中，作者都加入了可用于模拟从数学角度介绍的过程的代码。source code。\nTheoretical Community Ecology：本资料是芝加哥大学 2020/2021 学年的理论群落生态学（ECEV 43900）研究生课程准备的（主讲人：Stefano Allesina ）。学习本教材需要熟悉微积分（多元积分、导数、链式法则）和线性代数（向量空间、特征值、特征向量）。此外，还需要具备良好的 R 工作知识（编写函数、使用 deSolve 和 tidyverse 软件包）。该课程以种群、群落和理论生态学课程中通常介绍的材料为基础，主要目标是建立一个解决理论群落生态学问题的工具箱，在入门课程和主要文献之间架起一座桥梁。source code\nMIT opencourse: Systems biologly - Interspecies interaction：本讲座由 Jeff Gore 教授主讲，内容涉及捕食者-猎物相互作用和振荡的模型和实验。他从 Lokta-Volterra 模型开始，该模型既被称为 “糟糕的”（从数学角度讲），又被称为 “意义深远的”。\n\n\n\n\n\nStefano Allesina\n\n\n洛特卡-沃尔泰拉模型（Lotka-Volterra 模型）是一种著名的描述捕食者和猎物之间相互作用的数学模型1，用于研究生态系统中的种群动态。它由意大利数学家洛特卡（Alfred Lotka）和法国数学家沃尔泰拉（Vito Volterra）分别在20世纪初提出，并且被广泛应用于生态学和数学生物学领域。该模型基于两个基本假设：1）猎物的增长受到非捕食者相关因素的影响（如资源供应、自然死亡率等）；2）捕食者的增长受到猎物的存在和捕食率的影响。\n\n\n\n捕食者与猎物\n\n\n在洛特卡-沃尔泰拉模型中，假设存在两个种群：猎物（Prey）和捕食者（Predator）。它的数学描述通常由一组耦合的微分方程表示，其中包括猎物种群的变化和捕食者种群的变化。模型的一般形式如下：\n猎物的增长模型（Prey dynamics）：\n\\[\\frac{dP}{dt} = rP - aP\\cdot C\\]\n其中，\\(P\\) 表示猎物种群的数量，\\(r\\) 是猎物的内禀增长率2，\\(a\\) 是猎物受到捕食者影响的捕食率，\\(C\\) 表示捕食者种群的数量。\n捕食者的增长模型（Predator dynamics）：\n\\[\\frac{dC}{dt} = -sC + bP\\cdot C\\]\n其中，\\(C\\) 表示捕食者种群的数量，\\(s\\) 是捕食者的死亡率3，\\(b\\) 是捕食者每捕食一单位猎物能够获得的增长量。\n洛特卡-沃尔泰拉模型可以产生一系列有趣的动态行为，包括周期性波动、稳定的周期、混沌等，取决于参数的设定。这个模型在理论上和定量分析上都提供了一种理解捕食和被捕食者之间相互作用的方式，但也有一些局限性，例如未考虑环境因素的变化和其他种群互动方式。\ngLV 模型（Generalized Lotka-Volterra Model）是对传统洛特卡-沃尔泰拉模型的扩展和泛化，用于描述多物种相互作用的复杂生态系统。与传统的捕食者-猎物模型不同，gLV 模型考虑了多个物种之间的相互关系，包括竞争、捕食、共生等各种相互作用。\ngLV 模型的数学描述可以根据涉及的物种数量和相互作用的类型而有所不同。这些模型通常使用耦合的微分方程来表示不同物种的种群动态。例如，假设我们有 \\(n\\) 个物种，可以表示如下：\n\\(\\frac{dN_i}{dt} = r_i N_i \\left(1 - \\sum_{j=1}^n a_{ij} N_j\\right)\\)\n其中，\\(N_i\\) 表示第 \\(i\\) 个物种的种群数量，\\(r_i\\) 是内禀增长率，\\(a_{ij}\\) 是描述物种 \\(i\\) 对物种 \\(j\\) 的影响系数。这些系数可以表示为竞争系数、捕食率、共生关系等等，取决于实际的生态系统研究。\ngLV 模型的一个重要应用是在生态系统的稳定性和动态行为分析。通过调整不同物种之间的相互作用系数，可以模拟和预测多种物种在生态系统中的相互作用和种群动态，以及可能出现的周期性波动、稳定状态、混沌等。\n这种模型在生态学和生物学的研究中具有重要意义，可以帮助我们更好地理解自然界中物种之间的复杂关系，同时也有助于环境保护和资源管理等领域的决策。然而，需要指出的是，由于现实生态系统的复杂性，gLV 模型通常是一种理想化简化，实际中的生态系统往往受到更多因素的影响。",
+    "crumbs": [
+      "生态模型",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>生态模型</span>"
+    ]
+  },
+  {
+    "objectID": "ecological-model.html#consumer-resource-model",
+    "href": "ecological-model.html#consumer-resource-model",
+    "title": "9  生态模型",
+    "section": "9.3 Consumer Resource Model",
+    "text": "9.3 Consumer Resource Model\n消费者资源模型根据已知或估计的资源吸收和转化率来预测生物体特定的增长率。这些可用于预测特定营养环境中的物种丰度、代谢相互作用和分类多样性。\n消费者资源模型[68]明确考虑了不同生物体如何响应特定环境营养物质而生长（图 ）。因此，它可以通过描述消耗、转化和交换特定资源的生态后果，为代谢相互作用提供额外的预测能力。消费者资源模型已经生成了不同生态尺度的代谢相互作用机制和群落多样性的预测[69 , 70]，并且最近已应用于理解植物微生物组中的跨界相互作用[26]。此外，消费者资源建模框架可以与体外培养实验探索微生物组如何响应环境扰动的代谢基础，正如最近对土壤分离物集合的描述[71]。\nLotka-Volterra 模型和 Consumer-resource 模型都是生态学中的经典模型，用于描述种群之间的相互作用。尽管它们在某些方面类似，但它们的侧重点和建模方式有所不同。\n\n9.3.1 Lotka-Volterra 模型\n1. 基本概念： - Lotka-Volterra 模型是最早提出的用于描述物种之间相互作用的数学模型。它主要用于描述两个种群之间的捕食-被捕食关系（Predator-Prey Model）。 - 该模型由两个一阶微分方程组成，分别描述捕食者和被捕食者种群的动态变化。\n2. 方程形式： - 被捕食者（如兔子）种群增长率方程： \\(\\frac{dN}{dt} = rN - aNP\\) 其中： - (N) 是被捕食者种群大小。 - (r) 是被捕食者的自然增长率。 - (a) 是捕食者捕食被捕食者的效率。 - (P) 是捕食者种群大小。\n\n捕食者（如狼）种群增长率方程： \\(\\frac{dP}{dt} = baNP - mP\\)\n其中：\n\n\\(b\\) 是捕食者通过捕食获得能量转化为后代的效率。\n\\(m\\) 是捕食者的死亡率。\n\n\n3. 假设： - 捕食者的种群变化完全依赖于被捕食者的数量。 - 被捕食者的增长受到捕食者的捕食压力影响。 - 没有考虑环境资源的有限性和竞争。\n\n\n9.3.2 Consumer-Resource 模型\n1. 基本概念： - Consumer-resource 模型扩展了 Lotka-Volterra 模型，特别关注资源（例如食物、栖息地）与消费者（例如动物、植物）的相互作用。 - 该模型更为通用，适用于描述任何生物与其所消耗资源之间的关系，而不仅限于捕食-被捕食关系。\n2. 模型形式： - 基本形式可以表示为： \\(\\frac{dR}{dt} = f(R) - g(R, C)C\\)\n\\[\n\\frac{dC}{dt} = e g(R, C)C - dC\n\\]\n其中： - \\(R\\) 是资源的数量。 - \\(C\\) 是消费者的数量。 - \\(f(R)\\) 是资源的增长函数，可以是常数（非再生资源）或依赖资源量的函数（再生资源）。 - \\(g(R, C)\\) 是消费者从资源中获得的摄食率，通常依赖于资源和消费者的数量。 - \\(e\\) 是消费者将摄食转化为自身增长的效率。 - \\(d\\) 是消费者的死亡率。\n3. 假设： - 资源可能是有限的，并且可以根据不同的增长模式（线性、饱和等）再生或消耗。 - 资源的消耗率可以依赖于资源和消费者的数量，允许建模更复杂的动态（例如，功能反应曲线）。 - 可以考虑资源竞争、消费者之间的相互作用等更复杂的生态过程。\n\n\n9.3.3 区别总结\n\n建模对象：\n\nLotka-Volterra 模型：主要用于描述捕食者和被捕食者之间的关系。\nConsumer-resource 模型：更广泛地适用于描述任何资源-消费者系统，包括但不限于捕食-被捕食关系。\n\n复杂性：\n\nLotka-Volterra 模型：相对简单，只考虑捕食和被捕食的直接交互作用。\nConsumer-resource 模型：可以描述更复杂的生态过程，例如资源再生、不同类型的摄食率和消费者之间的竞争。\n\n应用范围：\n\nLotka-Volterra 模型：通常应用于简单的两种群系统。\nConsumer-resource 模型：可以应用于更复杂的生态系统，适用于多种群、多资源的情境。\n\n\n下面是使用 R 和 Python 分别建立 Lotka-Volterra 模型和 Consumer-Resource 模型的示例代码，并包含动态变化过程的可视化。\n\n\n9.3.4 1. Lotka-Volterra 模型\n\n9.3.4.1 R 代码示例\n\n# 需要的包\nlibrary(deSolve)\nlibrary(ggplot2)\n\n# Lotka-Volterra 模型方程\nlv_model &lt;- function(t, state, parameters) {\n  with(as.list(c(state, parameters)), {\n    dPrey &lt;- r * Prey - a * Prey * Predator\n    dPredator &lt;- b * Prey * Predator - m * Predator\n    return(list(c(dPrey, dPredator)))\n  })\n}\n\n# 参数设置\nparameters &lt;- c(r = 0.1, a = 0.02, b = 0.01, m = 0.1)\n\n# 初始状态\nstate &lt;- c(Prey = 40, Predator = 9)\n\n# 时间序列\ntimes &lt;- seq(0, 200, by = 1)\n\n# 使用 ode 函数求解\nout &lt;- ode(y = state, times = times, func = lv_model, parms = parameters)\nout &lt;- as.data.frame(out)\n\n# 可视化\nggplot(out, aes(x = time)) +\n  geom_line(aes(y = Prey, color = \"Prey\")) +\n  geom_line(aes(y = Predator, color = \"Predator\")) +\n  labs(y = \"Population\", color = \"Species\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n9.3.4.2 Python 代码示例\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom scipy.integrate import odeint\n\n# Lotka-Volterra 模型方程\ndef lv_model(state, t, r, a, b, m):\n    Prey, Predator = state\n    dPrey = r * Prey - a * Prey * Predator\n    dPredator = b * Prey * Predator - m * Predator\n    return [dPrey, dPredator]\n\n# 参数设置\nr = 0.1  # 被捕食者的增长率\na = 0.02  # 捕食者捕食效率\nb = 0.01  # 捕食后生成捕食者的效率\nm = 0.1  # 捕食者的死亡率\n\n# 初始状态\nstate0 = [40, 9]\n\n# 时间序列\nt = np.linspace(0, 200, 1000)\n\n# 使用 odeint 求解\nsolution = odeint(lv_model, state0, t, args=(r, a, b, m))\nPrey, Predator = solution.T\n\n# 可视化\nplt.figure(figsize=(10, 5))\nplt.plot(t, Prey, label='Prey')\nplt.plot(t, Predator, label='Predator')\nplt.xlabel('Time')\nplt.ylabel('Population')\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n9.3.5 2. Consumer-Resource 模型\n\n9.3.5.1 R 代码示例\n\n# 需要的包\nlibrary(deSolve)\nlibrary(ggplot2)\n\n# Consumer-Resource 模型方程\ncr_model &lt;- function(t, state, parameters) {\n  with(as.list(c(state, parameters)), {\n    dResource &lt;- r * Resource - c * Resource * Consumer\n    dConsumer &lt;- e * c * Resource * Consumer - m * Consumer\n    return(list(c(dResource, dConsumer)))\n  })\n}\n\n# 参数设置\nparameters &lt;- c(r = 1.0, c = 0.01, e = 0.1, m = 0.1)\n\n# 初始状态\nstate &lt;- c(Resource = 100, Consumer = 10)\n\n# 时间序列\ntimes &lt;- seq(0, 200, by = 1)\n\n# 使用 ode 函数求解\nout &lt;- ode(y = state, times = times, func = cr_model, parms = parameters)\nout &lt;- as.data.frame(out)\n\n# 可视化\nggplot(out, aes(x = time)) +\n  geom_line(aes(y = Resource, color = \"Resource\")) +\n  geom_line(aes(y = Consumer, color = \"Consumer\")) +\n  labs(y = \"Population/Amount\", color = \"Type\") +\n  theme_minimal()\n\n\n\n\n\n\n\n\n\n\n9.3.5.2 Python 代码示例\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom scipy.integrate import odeint\n\n# Consumer-Resource 模型方程\ndef cr_model(state, t, r, c, e, m):\n    Resource, Consumer = state\n    dResource = r * Resource - c * Resource * Consumer\n    dConsumer = e * c * Resource * Consumer - m * Consumer\n    return [dResource, dConsumer]\n\n# 参数设置\nr = 1.0  # 资源的增长率\nc = 0.01  # 消费者消耗资源的效率\ne = 0.1  # 消费者将资源转化为自身的效率\nm = 0.1  # 消费者的死亡率\n\n# 初始状态\nstate0 = [100, 10]\n\n# 时间序列\nt = np.linspace(0, 200, 1000)\n\n# 使用 odeint 求解\nsolution = odeint(cr_model, state0, t, args=(r, c, e, m))\nResource, Consumer = solution.T\n\n# 可视化\nplt.figure(figsize=(10, 5))\nplt.plot(t, Resource, label='Resource')\nplt.plot(t, Consumer, label='Consumer')\nplt.xlabel('Time')\nplt.ylabel('Population/Amount')\nplt.legend()\nplt.show()\n\n\n\n\n\n\n\n\n\n\n\n9.3.6 总结\n\nLotka-Volterra 模型：通过描述捕食者和被捕食者的相互作用，展示了两者种群的动态变化。\nConsumer-Resource 模型：通过描述资源与消费者的相互作用，展示了资源和消费者数量的动态变化。\n\n通过这些代码，你可以看到不同模型的种群动态，了解它们在不同生态学情境下的应用。",
+    "crumbs": [
+      "生态模型",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>生态模型</span>"
+    ]
+  },
+  {
+    "objectID": "ecological-model.html#resource-competition-model",
+    "href": "ecological-model.html#resource-competition-model",
+    "title": "9  生态模型",
+    "section": "9.4 Resource Competition Model",
+    "text": "9.4 Resource Competition Model\n\n\n\n\nPacheco, Alan R., and Julia A. Vorholt. 2023. “Resolving Metabolic Interaction Mechanisms in Plant Microbiomes.” Current Opinion in Microbiology 74 (August): 102317. https://doi.org/10.1016/j.mib.2023.102317.",
+    "crumbs": [
+      "生态模型",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>生态模型</span>"
+    ]
+  },
+  {
+    "objectID": "ecological-model.html#footnotes",
+    "href": "ecological-model.html#footnotes",
+    "title": "9  生态模型",
+    "section": "",
+    "text": "因此也叫做”捕食者-猎物模型”。↩︎\n猎物在没有捕食者存在的情况下，会指数增长。↩︎\n捕食者没有猎物吃会死亡。↩︎",
+    "crumbs": [
+      "生态模型",
+      "<span class='chapter-number'>9</span>  <span class='chapter-title'>生态模型</span>"
+    ]
+  },
+  {
+    "objectID": "glv-model.html",
+    "href": "glv-model.html",
+    "title": "10  gLV 模型",
+    "section": "",
+    "text": "10.1 单物种群体\nThe simplest case to study is that of a single population, in which case the equation becomes that of the logistic growth:\n\\[\n\\dfrac{dx(t)}{dt} = x(t)(r + a x(t))\n\\]\nThis is a separable ODE, with solution:\n\\[\nx(t) = \\frac{r}{e^{-r \\left(k+t\\right)}-a}\n\\]\nwhere \\(k\\) is a constant. Setting \\(x(0) = x_0\\) (i.e., providing an initial condition), solving for the constant and substituting, we obtain:\n\\[\nx(t) = \\frac{r {x_0} e^{r t}}{r-a {x_0} \\left(e^{r t}-1\\right)}\n\\] As such, provided with the parameters \\(r\\) and \\(a\\), as well as an initial condition, we can determine the population size for any time \\(t\\). For example, in R:\npacman::p_load(\"deSolve\") # integrate ODEs\npacman::p_load(\"tidyverse\") # plotting and wrangling\n# define the differential equation\nlogistic_growth &lt;- function(t, x, parameters){\n  with(as.list(c(x, parameters)), {\n    dxdt &lt;- x * (r + a * x)\n    list(dxdt)\n  })\n}\n# define parameters, integration time, initial conditions\ntimes &lt;- seq(0, 100, by = 5)\nx0 &lt;- 0.05\nr &lt;- 0.1\na &lt;- -0.05\nparameters &lt;- list(r = r, a = a)\n# solve numerically\nout &lt;- ode(y = x0, times = times, \n           func = logistic_growth, parms = parameters, \n           method = \"ode45\")\n# now compute analytically\nsolution &lt;- r * x0 * exp(r * times) / (r - a * x0 * (exp(r * times) - 1))\n# use ggplot to plot\nres &lt;- tibble(time = out[,1], x_t = out[,2], x_sol = solution)\nggplot(data = res) + aes(x = time, y = x_t) + \n  geom_line() + \n  geom_point(aes(x = time, y = x_sol), colour = \"red\", shape = 2) + \n  ylab(expression(\"x(t)\")) + xlab(expression(\"t\"))\nIf \\(a &lt; 0\\) and \\(r &gt; 0\\), the population started at any positive value eventually reaches an equilibrium, which we can find by setting \\(dx(t)/dt = 0\\) and considering \\(x \\neq 0\\):\n\\[\n(r + a x) = 0 \\to x = -\\frac{r}{a}\n\\]",
+    "crumbs": [
+      "生态模型",
+      "<span class='chapter-number'>10</span>  <span class='chapter-title'>gLV 模型</span>"
+    ]
+  },
+  {
+    "objectID": "strain-specific-pcr.html",
+    "href": "strain-specific-pcr.html",
+    "title": "11  菌株特异性 PCR",
+    "section": "",
+    "text": "11.1 DECIPHER 包引物设计\nOligo Design\n这是一个被名字耽误了的好软件。如果在 R 环境中用于基因组分析将非常合适。软件采用了 SQLite 数据库和大量的 C 语言代码，并实现了多线程，使得具有非常好的性能。可能是因为其文档不甚友好，导致圈内关注的似乎不多。",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>菌株特异性 PCR</span>"
+    ]
+  },
+  {
+    "objectID": "strain-specific-pcr.html#decipher-包引物设计",
+    "href": "strain-specific-pcr.html#decipher-包引物设计",
+    "title": "11  菌株特异性 PCR",
+    "section": "",
+    "text": "DECIPHER is a software toolset that can be used for deciphering and managing biological sequences efficiently using the R programming language.\n\n\n\n\n11.1.1 Features of DECIPHER\n\nSequence databases: import, maintain, view, and export a massive number of sequences.\nSequence alignment: accurately align thousands of DNA, RNA, or amino acid sequences. Quickly find and align the syntenic regions of multiple genomes.\nOligo design: test oligos in silico, or create new primer and probe sequences optimized for a variety of objectives.\nManipulate sequences: trim low quality regions, correct frameshifts, reorient nucleotides, determine consensus, or digest with restriction enzymes.\nAnalyze sequences: find chimeras, classify into a taxonomy of organisms or functions, detect repeats, predict secondary structure, create phylogenetic trees, and reconstruct ancestral states.\nGene finding: predict coding and non-coding genes in a genome, extract them from the genome, and export them to a file.\n\n\n\n11.1.2 设计步骤\n\nif (!require(\"DECIPHER\")){\n    pak::pak(\"DECIPHER\")\n}\nlibrary(DECIPHER)\n\n\n11.1.2.1 读取 FASTA 文件\n\nfasta_file = xfun::magic_path(\"extdata/example-16S-rRNA-gene.fasta\")\nrRNA_gene = readDNAStringSet(fasta_file)\nrRNA_gene\n\nDNAStringSet object of length 11:\n     width seq                                              names               \n [1]  1449 GATGGGGTCTGTCATGCAGTCGA...CCGCCTAAGGATGAGGACTTAA CK1\n [2]  1389 GAGCGGACAGATGGGAGCTTGCT...GTAACACCCGAAGTCGGTGGGG CK22\n [3]  1445 CATGCGGTCTATCATGCAGTCGA...GCCAGCCTCTAAGTGACAGAAG CMF9\n [4]  1446 GTGCGGCTGCTATACTGCAGTCG...CCAGCCCCGAAGTGACGAGCCC CMF18\n [5]  1395 CATGCAGTCGAACGGTGAAGCCA...CCCTTGTGGAGGGAGCCGTCGA D12\n ...   ... ...\n [7]  1365 TACACATGCAGTCGAACGAAGCC...ACCCGCAAGGGAGGCAGGCGAC G5\n [8]  1411 ACACATGCAGTCGAGCGGATGAG...CTAACCTTCGGGAGGACGGTAC G7\n [9]  1411 ACACATGCAGTCGAGCGGAGAGA...CTAACTGCAAAGAGGGCGGTAC G18\n[10]  1486 GAATGCGGTCCTATAATGCAGTC...TAACAAAGGGGGAACCAAAACG KF11\n[11]  1547 TCGGAGAGTTTGATCCTGGCTCA...GTGCGGCTGGATCACCTCCTTT D2022 Bacillus ve...\n\n\n\n\n11.1.2.2 运行多序列比对\n\nrRNA_gene_aln = AlignSeqs(rRNA_gene, verbose = FALSE)\nrRNA_gene_aln\n\nDNAStringSet object of length 11:\n     width seq                                              names               \n [1]  1567 -----------------------...---------------------- CK1\n [2]  1567 -----------------------...---------------------- CK22\n [3]  1567 -----------------------...---------------------- CMF9\n [4]  1567 -----------------------...---------------------- CMF18\n [5]  1567 -----------------------...---------------------- D12\n ...   ... ...\n [7]  1567 -----------------------...---------------------- G5\n [8]  1567 -----------------------...---------------------- G7\n [9]  1567 -----------------------...---------------------- G18\n[10]  1567 -----------------------...---------------------- KF11\n[11]  1567 TCGGAGAGTTTGATCCTGGCTCA...GTGCGGCTGGATCACCTCCTTT D2022 Bacillus ve...\n\n# write alignment to file\n# writeXStringSet(rRNA_gene_aln, xfun::with_ext(fasta_file, \"aln\"))\n\n\n\n11.1.2.3 导入数据库\n\n\n\n\n\n\nImportant\n\n\n\n需要将序列保存在数据库中才能进行下一步。\n\n\n\n# initialize a in-memory database\ndb_conn = dbConnect(SQLite(), \":memory:\")\n\n# save to Seqs table by default\nN = Seqs2DB(rRNA_gene_aln, \n            type = \"XStringSet\", \n            dbFile = db_conn, \n            identifier = \"community\")\n\nAdding 11 sequences to the database.\n\n11 total sequences in table Seqs.\nTime difference of 0.02 secs\n\n\n\n\n11.1.2.4 设置序列的 ID\n默认情况下，可以使用 BrowseDB() 来查看数据库中的表格。\n\nBrowseDB(db_conn,\n         tblName = \"Seqs\")\n\n这里结合使用 dbplyr (Wickham, Girlich, and Ruiz 2023) 软件包，将数据库表格链接绑定到一个变量上去2。然后就可以以 tidy 方式查询。\n\nlibrary(dbplyr)\nlibrary(dplyr)\nseq_aln = dplyr::tbl(db_conn, \"Seqs\")\n\n# process species identifier\nid = seq_aln |&gt; \n    pull(description) |&gt; \n    gsub(pattern = \"\\\\s.+$\", replacement = \"\")\n\n# update table\nAdd2DB(data.frame(identifier = id), db_conn)\n\nExpression:\nupdate Seqs set identifier = :identifier where row_names = :row_names\n\nAdded to table Seqs:  \"identifier\".\n\nTime difference of 0 secs\n\n\n\n\n11.1.2.5 序列瓦片化\nTileSeqs() 将创建一组重叠的 k-mers，称为 “瓦片”，代表序列排列中的每个目标位点。最常见的瓦片排列会被添加，直到获得所需的最小组覆盖率。默认设置是创建长度为 26-27 个核苷酸、最多有 10 种排列方式的片段，这些排列方式至少代表了每个目标位点中 90% 的排列方式。\n如果目标位点有一个或多个瓦片不符合一组要求，则标记为 misprime 等于 TRUE。要求包括最小群组覆盖率、最小长度和最大长度。此外，瓦片还要求不包含超过四个单碱基运行或四个二核苷酸重复。我们将把生成的瓦片保存回数据库，作为一个名为 “Tiles”的新表，以备将来访问。\n\ntiles = TileSeqs(db_conn, \n                 add2tbl = \"tiles\",\n                 minCoverage = 1,\n                 verbose = FALSE)\ntbl(db_conn, \"tiles\")\n\n# Source:   table&lt;tiles&gt; [?? x 11]\n# Database: sqlite 3.43.2 [:memory:]\n   row_names start   end start_aligned end_aligned misprime width id    coverage\n       &lt;int&gt; &lt;int&gt; &lt;dbl&gt;         &lt;int&gt;       &lt;int&gt;    &lt;int&gt; &lt;int&gt; &lt;chr&gt;    &lt;dbl&gt;\n 1         1     1    27            40          67        0  1567 CK1          1\n 2         2     2    28            41          68        0  1567 CK1          1\n 3         3     3    29            42          69        0  1567 CK1          1\n 4         4     4    30            43          70        0  1567 CK1          1\n 5         5     5    31            44          71        0  1567 CK1          1\n 6         6     6    32            45          72        0  1567 CK1          1\n 7         7     7    33            46          73        0  1567 CK1          1\n 8         8     8    34            47          74        0  1567 CK1          1\n 9         9     9    35            48          75        0  1567 CK1          1\n10        10    10    36            49          77        0  1567 CK1          1\n# ℹ more rows\n# ℹ 2 more variables: groupCoverage &lt;dbl&gt;, target_site &lt;chr&gt;\n\n\n\n配置运行参数\n\n\n# Designing primers for sequencing experiments:\nTYPE &lt;- \"sequence\"\nMIN_SIZE &lt;- 300 # base pairs\nMAX_SIZE &lt;- 700\nRESOLUTION &lt;- 5 # k-mer signature\nLEVELS &lt;- 5 # max number of each k-mer\n\n\n\n11.1.2.6 获取引物序列\n因为我们需要引物具有物种特异性，所以这里使用 minCoverage = 1 和 minGroupCoverage = 1，而不是分别使用默认的 90% 和 20%。\n其它默认的引物设计参数包括引物长度 17 - 26 bp，扩增产物长度 75 - 1200 bp，退火温度 64 度等。\n\nprimers = DesignPrimers(tiles, identifier = \"CK1\",\n                        minCoverage = 1,\n                        minGroupCoverage = 1, \n                        numPrimerSets = 1,\n                        minProductSize = 200,\n                        maxProductSize = 300,\n                        maxSearchSize = 20,\n                        verbose = FALSE)\n\n引物是根据一组瓦片设计的，以每个标识物为目标，同时尽量减少与所有其他瓦片组的亲和性。参数提供的约束条件可确保设计的引物集符合指定的标准，并针对特定的实验条件进行优化。\n如果 numPrimerSets 大于或等于 1，则会返回一组能最大限度减少潜在假阳性重叠的正向和反向引物。这也将启动对预期结合位点上游和下游所有目标位点的彻底搜索，以确保引物不会结合到附近的位置。降低 maxSearchSize 会加快彻底搜索的速度，但代价是可能会遗漏意外的目标位点。随着 numPrimers 大小的增加，可能评估的引物集数量也会增加。\n值得一提的是，DesignPrimers() 返回的引物与常规引物不同之处是它是一个 Primer Set。不仅包含上游和下游引物，每个上游引物或下游引物还可能有多于 1 条的序列。\n\n\n\n11.1.3 结果分析\n\nunAsIs &lt;- function(X) {\n    if(\"AsIs\" %in% class(X)) {\n        class(X) &lt;- class(X)[-match(\"AsIs\", class(X))]\n    }\n    X\n}\n\nprimers = primers |&gt; as_tibble() |&gt; mutate(across(everything(), unAsIs))\n\n\nprimers |&gt; select(identifier, product_size, ends_with(\"primer\")) \n\n# A tibble: 1 × 4\n  identifier product_size forward_primer[,1]      [,2]  [,3]  reverse_primer[,1]\n  &lt;chr&gt;             &lt;dbl&gt; &lt;chr&gt;                   &lt;chr&gt; &lt;chr&gt; &lt;chr&gt;             \n1 CK1                 264 AATACCGGATAGTTTCTTTTCT… &lt;NA&gt;  &lt;NA&gt;  CCCGAAGGCCTTCTTCG…\n# ℹ 2 more variables: forward_primer[4] &lt;chr&gt;, reverse_primer[2:4] &lt;chr&gt;\n\n\nDesignPrimers() 输出的结果中，列的定义如下：\n\n标识符（identifier）：\n与用户设置的目标组相匹配。\nstart_forward，start_reverse：\n正向/反向引物在代表目标组的共识序列中的大致起始位置。共识序列位置不包括间隙位置。\nproduct_size（产物大小）：\n根据正向引物和反向引物起始位置之间的距离确定的 PCR 产物中预期碱基对的大致数量。\nstart_aligned_forward，start_aligned_reverse：\n正向/反向引物序列在比对中的大致位置，包括间隙位置。\npermutations_forward，permutations_reverse：\n达到目标组所需覆盖率所需的正向或反向引物排列次数。\nscore_forward、score_reverse、score_set：\n衡量正向、反向或一组引物对目标基团的特异性。0 分表示特异性最高，负分表示特异性较低。正向和反向引物的得分是根据所有预测的非目标扩增效率的负和计算得出的。组得分是按每组正向和反向引物扩增效率几何平均数的负和计算的。\nforward_primer.x，reverse_primer.x：\n每个正向和反向引物的序列，其中 “x”的范围从 1 到排列总数。“NA”表示不需要额外的引物排列来达到目标组的预期覆盖率。\n正向效率（forward_efficiency.x）、反向效率（reverse_efficiency.x）：\n每个正向和反向引物各自的效率，要求在指定退火温度下至少达到 80%。\nforward_coverage.x，reverse_coverage.x：\n与正向和反向引物完全匹配的目标组比例。\nmismatches_forward, mismatches_reverse, mismatches_set：\n列出正向和反向引物的预测特异性，mismatches_set 列显示任何潜在的交叉扩增。每一列都列出了与非目标组的任何大于 0.1%的预测效率，以及对齐的引物/模板结合情况。Mismatches_set 列出了与同一非目标基团匹配的正向和反向效率的乘积，但只有在 mismatches_forward 和 mismatches_reverse 列表中都存在非目标基团时才会列出。\nforward_MM.x，reverse_MM.x：\n如果选择了在引物 3’-end 的第 6 位诱导错配（MM），则这两列将提供目标组的引物/模板错配类型。\n\n\n\n11.1.4 验证引物特异性\n\nprimers &lt;- c(\"AAAAACGGGGAGCGGGGGG\", \"AAAAACTCAACCCGAGGAGCGCGT\")\ntargets &lt;- reverseComplement(DNAStringSet(primers))\nCalculateEfficiencyPCR(primers, targets, temp = 60, P = 4e-7, ions = 0.225)\n\n[1] 0.9998118 0.9999850\n\n\n最后，我们可以订购引物，并在 PCR 反应中测试！\n\n\n\n\n\n\nWarning\n\n\n\n合成引物时，正向和反向引物的方向和 DNA 链应与输出（引物）中列出的方向和 DNA 链相同。\n\n\n\n\n\n\n\n\nNote\n\n\n\n最初可能需要对目标 DNA 进行温度梯度 PCR 反应，以便通过实验确定熔点。例如，在这种情况下，我们可以用目标物种在升高的温度下进行几次反应，从大约 56 - 72 度。随着退火温度的升高，杂交效率最终会降低，直至观察不到扩增。在随后的实验中，退火温度应刚好低于观察到强扩增的最高温度。\n\n\n\n\n\n\nWickham, Hadley, Maximilian Girlich, and Edgar Ruiz. 2023. “Dbplyr: A ’Dplyr’ Back End for Databases.” https://CRAN.R-project.org/package=dbplyr.",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>菌株特异性 PCR</span>"
+    ]
+  },
+  {
+    "objectID": "strain-specific-pcr.html#footnotes",
+    "href": "strain-specific-pcr.html#footnotes",
+    "title": "11  菌株特异性 PCR",
+    "section": "",
+    "text": "定量丰度时需要结合采用实时定量 PCR 的方法。↩︎\n数据库使用时不方便的地方是难以查看，现在有了 dbplyr 的帮助，这样的问题已经不复存在了。↩︎",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>11</span>  <span class='chapter-title'>菌株特异性 PCR</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer.html",
+    "href": "design-primer.html",
+    "title": "12  引物设计",
+    "section": "",
+    "text": "12.1 设计常规 PCR 引物\n使用 Primer3 设计常规引物。\nlibrary(rPrimer3)\nfas = system.file(\"sequence.fa\", package = \"rPrimer3\")\n# config_path = file.path(system(\"brew --prefix primer3\", intern = TRUE), \"share/primer3/primer3_config\")\n# Sys.setenv(\"PRIMER_THERMODYNAMIC_PARAMETERS_PATH\" = config_path)\n# design_primer_from_file(fas, parts = 1)",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>引物设计</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer.html#设计菌株特异性引物",
+    "href": "design-primer.html#设计菌株特异性引物",
+    "title": "12  引物设计",
+    "section": "12.2 设计菌株特异性引物",
+    "text": "12.2 设计菌株特异性引物\n\nlibrary(cailab.utils)\n# design_specific_primer(fas)",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>引物设计</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer.html#使用-unikmer",
+    "href": "design-primer.html#使用-unikmer",
+    "title": "12  引物设计",
+    "section": "12.3 使用 unikmer",
+    "text": "12.3 使用 unikmer\n\nSys.setenv(UNIKMER=\"/home/gaoch/anaconda3/envs/kprimer/bin/unikmer\")",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>引物设计</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer.html#设计克隆引物",
+    "href": "design-primer.html#设计克隆引物",
+    "title": "12  引物设计",
+    "section": "12.4 设计克隆引物",
+    "text": "12.4 设计克隆引物\n获取匹配序列\n添加酶切位点\n调优引物性能",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>引物设计</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer.html#验证引物扩增",
+    "href": "design-primer.html#验证引物扩增",
+    "title": "12  引物设计",
+    "section": "12.5 验证引物扩增",
+    "text": "12.5 验证引物扩增",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>12</span>  <span class='chapter-title'>引物设计</span>"
+    ]
+  },
+  {
+    "objectID": "design-specific-primer-with-cailab-utils.html",
+    "href": "design-specific-primer-with-cailab-utils.html",
+    "title": "13  Design specific primer with cailab.utils",
+    "section": "",
+    "text": "13.1 安装软件包及 R 包的依赖\n因为这是一个开发版本，所以需要通过 remotes::install_github(\"gaospecial/cailab.utils\") 安装。\nremotes::install_github(\"gaospecial/cailab.utils\")",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Design specific primer with cailab.utils</span>"
+    ]
+  },
+  {
+    "objectID": "design-specific-primer-with-cailab-utils.html#安装-decipher-的系统依赖",
+    "href": "design-specific-primer-with-cailab-utils.html#安装-decipher-的系统依赖",
+    "title": "13  Design specific primer with cailab.utils",
+    "section": "13.2 安装 DECIPHER 的系统依赖",
+    "text": "13.2 安装 DECIPHER 的系统依赖\ndesign_specific_primer() 的功能主要通过 DECIPHER 包来实现。它将 DECIPHER 中引物设计的流程打包成了一个函数，方便傻瓜式的调用。如果你了解 DECIPHER 的原理，那么可以不用这个函数。\n需要注意的时，DECIPHER 运行时需要有一个来自于 oligoarrayaux 软件的系统可执行程序 hybrid-min，这个软件需要自己安装好。\n\nThe program OligoArrayAux (http://www.unafold.org/Dinamelt/software/oligoarrayaux.php) must be installed in a location accessible by the system. For example, the following code should print the installed OligoArrayAux version when executed from the R console:\n\n对于 Windows 用户，需要下载软件的可执行程序，并将其放在环境变量 PATH 包含的路径下。\n对于 Linux/MacOS 用户则需要自己编译源代码安装。\nTo install OligoArrayAux from the downloaded source folder on Unix-like platforms, open the shell (or Terminal on Mac OS) and type:\ncd oligoarrayaux # change directory to the correct folder name\n./configure\nmake\nsudo make install\n安装成功后，在 R 终端中运行 system(\"hybrid-min -V\") 应该会出现类似地结果。\n\nsystem(\"hybrid-min -V\")\n\n\n\nhybrid-min (OligoArrayAux) 3.8.1\nBy Nicholas R. Markham and Michael Zuker\nCopyright (C) 2006\nRensselaer Polytechnic Institute\nTroy, NY 12810-3590 USA",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Design specific primer with cailab.utils</span>"
+    ]
+  },
+  {
+    "objectID": "design-specific-primer-with-cailab-utils.html#引物设计",
+    "href": "design-specific-primer-with-cailab-utils.html#引物设计",
+    "title": "13  Design specific primer with cailab.utils",
+    "section": "13.3 引物设计",
+    "text": "13.3 引物设计\ndesign_specific_primer() 函数的用法很简单。给它一个包含多个序列的 FASTA 格式文件，它就会返回特异性的引物。这里的特异性引物指的是仅能与 FASTA 文件中一条序列特异性扩增，而同时不能与另外所有序列特异性扩增的 DNA 片段。\n\nlibrary(cailab.utils)\nfasta_file = system.file(\"sequence.fa\", package = \"rPrimer3\")\ndesign_specific_primer(fasta_file, 20, 20, 100, 1500, TRUE)\n\nAdding 3 sequences to the database.\n\n3 total sequences in table Seqs.\nTime difference of 0.03 secs\n\n================================================================================\n\nTime difference of 2.86 secs\n\n\nseqA (655 candidate primers):\n================================================================================\nDetermining Best Primer Pair:\n================================================================================\n\nTime difference of 0.61 secs\n\n\nseqB (777 candidate primers):\n================================================================================\nDetermining Best Primer Pair:\n================================================================================\n\nTime difference of 0.6 secs\n\n\nseqC (879 candidate primers):\n================================================================================\nDetermining Best Primer Pair:\n================================================================================\n\nTime difference of 0.74 secs\n\n\n# A tibble: 3 × 4\n  identifier forward_primer       reverse_primer       product_size\n  &lt;I&lt;chr&gt;&gt;   &lt;I&lt;chr&gt;&gt;             &lt;I&lt;chr&gt;&gt;                 &lt;I&lt;dbl&gt;&gt;\n1 seqA       TCATTCTGACTGCAACGGGC TGTCTGTGCGCTATGCCTAT          155\n2 seqB       GAGCAGTAAAATGGCGGTCA GGTCATCGGCGGCACCTTGC          103\n3 seqC       ATCATTGCCGCTATCCTGGC GTGAACCAACCCGGAGCTGA          103\n\n\n需要注意的是，该函数并不总是能设计出来特异性引物。如果长时间没有反应，那么请强制结束它的运行，调整参数后再试。它可用的参数参见函数的帮助文档。\n\n?design_specific_primer\n\n\n\n\n\n\n\ndesign_specific_primer\nR Documentation\n\n\n\n\n\nDesign specific primer\n\nDescription\n\nDesign specific primer\n\n\n\nUsage\n\ndesign_specific_primer(\n  fasta_file,\n  minLength = 20,\n  maxLength = 25,\n  minProductSize = 150,\n  maxProductSize = 500,\n  verbose = FALSE\n)\n\n\n\nArguments\n\n\n\n\n\nfasta_file\nfasta format\n\n\nminLength\nprimer min length\n\n\nmaxLength\nprimer max length\n\n\nminProductSize\nproduct min length\n\n\nmaxProductSize\nproduct max length\n\n\nverbose\nif TRUE, will print progress during the run\n\n\n\n\n\n\nValue\n\nprimers",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>13</span>  <span class='chapter-title'>Design specific primer with cailab.utils</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html",
+    "href": "design-primer-with-unikmer.html",
+    "title": "14  Design specific primer with unikmer",
+    "section": "",
+    "text": "14.1 Aim\nI have several gzipped fasta format genomes, and want to design specific primers for each of them.\ngfiles = list.files(\n  path = \"./extdata/genomes\",\n  pattern = \"*.fa.gz\",\n  full.names = TRUE\n)\n\nprint(gfiles)\n\n[1] \"./extdata/genomes/CK22.fa.gz\" \"./extdata/genomes/CK6.fa.gz\" \n[3] \"./extdata/genomes/CK7.fa.gz\"\nSpecific primer means a pair of primers that can amplify a DNA segment with the genomic DNA of strain 1 but not with all the DNA of the other 29 strains.\n设计特异性引物总共分为 3 步：\n上述软件及软件包的官方网站（文档）分别是：",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#aim",
+    "href": "design-primer-with-unikmer.html#aim",
+    "title": "14  Design specific primer with unikmer",
+    "section": "",
+    "text": "获取基因组中特异性 DNA 序列，这一步使用 unikmer，seqkit，rush 等程序完成。\n依据特异性 DNA 序列设计扩增引物，这一步使用 primer3 和自己编写的 rPrimer3 软件包等完成。\n对设计得到的引物进行虚拟 PCR 验证，这一步使用 DECIPHER 软件包完成。\n\n\n\nunikmer https://github.com/shenwei356/unikmer\nseqkit https://github.com/shenwei356/seqkit\nrush https://github.com/shenwei356/rush\nprimer3 https://primer3.org/\nrPrimer3 https://github.com/gaospecial/rPrimer3\nDECIPHER https://bioconductor.org/packages/release/bioc/html/DECIPHER.html",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#initializing-work-space",
+    "href": "design-primer-with-unikmer.html#initializing-work-space",
+    "title": "14  Design specific primer with unikmer",
+    "section": "14.2 Initializing work space",
+    "text": "14.2 Initializing work space\n创建工作区，就是新建一个子目录，把运行产生的文件放到一起，避免运行产生的文件与原始数据（这里是基因组序列）混在一起，清理文件时发生意外。\n\nws = \"ws\"           # working space\noutdir = file.path(\"temp\", ws) |&gt; R.utils::getAbsolutePath()\nif (!dir.exists(outdir)){\n  dir.create(outdir, recursive = TRUE)\n} else {\n  warning(paste(\"The work space\", outdir, \"is existed, skipping...\"))\n}\n\n\nlibrary(dplyr)\nstrains = gfiles |&gt; basename() |&gt; stringr::str_remove(\".fa.gz\")\nall_files = dplyr::tibble(\n  strain = strains,\n  genome = gfiles,\n  kmer_all = xfun::with_ext(strains, \"all\", extra = \".\"),  # only prefix needed\n  kmer_uniq = xfun::with_ext(strains, \"uniq\", extra = \".\"), # only prefix needed\n  fasta_all = xfun::with_ext(strains, \"uniq.fa\", extra = \".\"),\n  fasta_one = xfun::with_ext(strains, \"one.fa\", extra = \".\")\n) |&gt; \n  mutate(across(kmer_all:fasta_one, ~file.path(outdir, .x)))\nall_files\n\n# A tibble: 3 × 6\n  strain genome                       kmer_all     kmer_uniq fasta_all fasta_one\n  &lt;chr&gt;  &lt;chr&gt;                        &lt;chr&gt;        &lt;chr&gt;     &lt;chr&gt;     &lt;chr&gt;    \n1 CK22   ./extdata/genomes/CK22.fa.gz /Users/gaoc… /Users/g… /Users/g… /Users/g…\n2 CK6    ./extdata/genomes/CK6.fa.gz  /Users/gaoc… /Users/g… /Users/g… /Users/g…\n3 CK7    ./extdata/genomes/CK7.fa.gz  /Users/gaoc… /Users/g… /Users/g… /Users/g…",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#get-specific-dna",
+    "href": "design-primer-with-unikmer.html#get-specific-dna",
+    "title": "14  Design specific primer with unikmer",
+    "section": "14.3 Get Specific DNA",
+    "text": "14.3 Get Specific DNA\n\n\n\n\n\n\nImportant\n\n\n\nNote: 下面的脚本已更新，在 R 环境中可以执行1。\n\n\n这一步主要使用了 kmer 筛选和组装获得基因组片段。我自己先写了一个流程，然后发给 unikmer 的作者沈伟2征求意见，他随后给出了下列的代码。主要改进有：\n\n用了干净的工作区（Work Space - ws）\n更好的 unikmer 设置\n在生成 kmer 的时候，允许重复 kmer 的产生（去掉了 --unique 参数）；在“组装”（uniqs/map）时允许 kmer 多次使用（增加了 -M 参数）。这有利于在最后的组装时获得更长的特异性序列。\n在使用基因组时对序列进行过滤（如 # sequences with name containing \"plasmid\" is removed ('-B/--seq-name-filter plasmid')）。\n使用 rush 实现了并行计算3。\n\n直接进化到 rush，非常好用！rush 一下真的快很多，而且执行进度提醒非常友好！在沈教授的启发下，我也对 R 语言的代码进行了并行计算的修改。\n\n14.3.1 Generation of kmer\nSince 31 nt is enough for a primer, so we start with k = 31.\n\n## generating k-mers from each genome\n# only kepp the caninical k-mers ('-K/--canonical')\n# sequences with name containing \"plasmid\" are removed ('-B/--seq-name-filter plasmid')\n# sort output (-s/--sort)\nk = 31\ncmd = lapply(seq_along(gfiles), function(i){\n  paste(\"unikmer count --canonical --circular --seq-name-filter plasmid --sort -k\", k, \"-o\", \n        all_files$kmer_all[[i]],\n        all_files$genome[[i]])\n})\n\nRun command in parallel using libray(parallel).\n这里构建了一个运行系统命令的函数。可以将多个命令传给这个函数，然后进行并行计算。\n\n#' Run command in parallel\n#' \n#' check the running result and send message or warnings.\nrun_cmd = function(cmd, description = paste(length(cmd), \"commands\"), intern = FALSE){\n  message(\"Run commands in parallel: \", description)\n  \n  # run cmd in parallel\n  library(parallel)\n  n = round(detectCores() * 0.75) # use 75% of all the cores\n  res = mclapply(cmd, system, intern = intern, mc.cores = n)\n  \n  # failed command\n  cmd_failed = cmd[unlist(res) != 0]\n  if (length(cmd_failed) == 0){\n    message(\"All commands run successfully.\")\n  } else {\n    warning(\"There are \", length(cmd_failed), \" command(s) failed.\")\n    warning(paste(\"  \",cmd_failed))\n  }\n  invisible(res)\n}\n\n\nrun_cmd(cmd)\n\n\n\n14.3.2 Remove common kmers\nCommon kmers shared by &gt;2 genomes will be removed. After that, unique sub-sequences are assembled by the resting kmers.\nFirstly, find the shared kmers of two or more genomes.\n\n## computing k-mers shared by &gt;= 2 files\ncmd = paste(\"unikmer common -n 2 -o shared --verbose\", paste0(all_files$kmer_all, \".unik\", collapse = \" \"))\nrun_cmd(cmd)\n\nSecond, remove shared kmers from the genome kmers.\n\n## remove common k-mers\ncmd = lapply(seq_along(gfiles), function(i){\n  glue::glue('unikmer diff -s -o {all_files$kmer_uniq[[i]]} {all_files$kmer_all[[i]]}.unik shared.unik')\n})\n\nrun_cmd(cmd, \"Remove common k-mers\")\n\nShow the info of shared and genome-specific kmers, indicating how many kmers in different strains?\n\ncmd = glue::glue('unikmer stats -a {all_files$kmer_uniq}.unik')\nrun_cmd(cmd)\n\n\n\n14.3.3 Assemble strain-specific DNA fragments\nMapping specific k-mers to each input genome.\n\n# allow multiple mapped k-mers (-M/--allow-multiple-mapped-kmer)\n# ouput fasta (-a/--output-fasta)\n# filter genome sequence by string (-B/--seq-name-filter)\ncmd = lapply(seq_along(gfiles), function(i){\n  glue::glue('unikmer map -m 31 -M -a -g {all_files$genome[[i]]} {all_files$kmer_uniq[[i]]}.unik | seqkit sort -l -r -o {all_files$fasta_all[[i]]}')\n})\nrun_cmd(cmd, \"constructing strain-specific DNA fragements\")\n\nWhat are the sizes of those fasta output files? Please note some of the fasta file can be empty if no enough available kmers.\nHow many sequences in different strains?\n\n## summary genome/strain specific sequences\ncmd = paste('seqkit stats -T', paste(all_files$fasta_all, collapse = \" \"))\nout = system(cmd, intern = TRUE)\nread.delim(text = out) |&gt; as_tibble()\n\n# A tibble: 3 × 8\n  file                     format type  num_seqs sum_len min_len avg_len max_len\n  &lt;chr&gt;                    &lt;chr&gt;  &lt;chr&gt;    &lt;int&gt;   &lt;int&gt;   &lt;int&gt;   &lt;dbl&gt;   &lt;int&gt;\n1 /Users/gaoch/GitHub/Syn… FASTA  DNA       1066 5519220      31   5178.  279884\n2 /Users/gaoch/GitHub/Syn… FASTA  DNA       1184 6101182      31   5153   216372\n3 /Users/gaoch/GitHub/Syn… FASTA  DNA       1375 5120607      31   3724.  365894\n\n\nSome of the genome may contain several thousand of specific regions/DNA fragments. Only one is needed for the following primer design. So I just keep one.\n\n## find longest specific sequence\n# only keep one sequence for a strain，保留最长的一条\ncmd = lapply(seq_along(gfiles), function(i){\n  paste('seqkit head -n 1 --quiet', all_files$fasta_all[[i]], '-o', all_files$fasta_one[[i]])\n})\nrun_cmd(cmd, \"find longest specific sequence\")",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#designing-primers",
+    "href": "design-primer-with-unikmer.html#designing-primers",
+    "title": "14  Design specific primer with unikmer",
+    "section": "14.4 Designing primers",
+    "text": "14.4 Designing primers\n\n14.4.1 Run Primer3\nUsing rPrimer3 to design primer with *.one.fa sequences.\n\nlibrary(rPrimer3)\ndir = rprojroot::find_rstudio_root_file()\n# set the path to the primer3 parameters\nsetwd(\"/opt/homebrew/Cellar/primer3/2.4.0/share/primer3\")\nprimers = lapply(seq_along(gfiles), function(i){\n  design_primer_from_file(all_files$fasta_one[[i]], \n                          parts = 1,\n                          PRIMER_PRODUCT_SIZE_RANGE = \"75-100\")\n})\nsetwd(dir)",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#verify-primer-specificity",
+    "href": "design-primer-with-unikmer.html#verify-primer-specificity",
+    "title": "14  Design specific primer with unikmer",
+    "section": "14.5 Verify Primer Specificity",
+    "text": "14.5 Verify Primer Specificity\nSubsequently, we use DECIPHER::AmplifyDNA() to check primer specificity.\n\nsuppressPackageStartupMessages(library(DECIPHER))\n\n# read all genomes\ngenome = readDNAStringSet(gfiles)\nn = sapply(gfiles, function(x) system(paste(\"zgrep '&gt;' \", x ,\" | wc -l\"), intern=TRUE))\nsource = rep(basename(gfiles), times = n) |&gt; gsub(pattern=\".fa.gz\", replacement=\"\")\nnames(genome) = source\ngenome\n\nDNAStringSet object of length 15:\n       width seq                                            names               \n [1] 5510768 TTGGAAAACATTGCGGATCTTT...GATGGAAAAGGAGGGATATCA CK22\n [2]  377383 ATGGAGGTATGTGTATGCATAA...ATATCTAAGTAAAGTTATCTT CK22\n [3] 6078688 TTGGATAACATCGATAGCCTCT...TTTTGCAAAGGAGGGATAAGT CK6\n [4]  216280 ATGTCAGAAGAAACCTTTTGGA...ATAAATTTAGGGGGTTCAATA CK6\n [5] 5100579 TTGGAAAACATTCATGATTTAT...AGAAAAAGGAGGGATTGCTCG CK7\n ...     ... ...\n[11]  115146 ATGAAACCAACTATATATGACG...GATGAGGAAAGAGGAGGAAAA CK7\n[12]  102333 ATGTCTGAAAAAGTATTAGAAA...AAAAAATAGGAGGTTGTTTCA CK7\n[13]   48257 ATGAAAAAAATTGTTTTAGTTA...TAAAAAATGCGAGGAAATGTA CK7\n[14]   13676 ATGAACAAGATATTGACTTGCT...CTTAAAGGAGAAGATGAACAG CK7\n[15]   10216 GTGGCTAAAATATCAAAAGTGG...AAAATGATAGAGGTGGACAAT CK7\n\n\n扩增产物的 names 列由 3 部分组成，第一个是扩增效率，第二个是所用的引物编号，第三个是模板的 ID。\n\nproducts = mclapply(seq_along(gfiles), function(i){\n  primer = primers[[i]]\n  if (inherits(primer, \"data.frame\")){\n    product = AmplifyDNA(primer$sequence, \n                       genome, \n                       annealingTemp = 55, \n                       P = 4e-7, \n                       maxProductSize = 1000, \n                       minEfficiency = 0.2)\n    return(product)\n  } else {\n    return(NULL)\n  }\n}, mc.cores = 16)\n\n\nCK22CK6CK7\n\n\nPrimer\n# A tibble: 2 × 3\n  name                      sequence             product_size\n  &lt;chr&gt;                     &lt;chr&gt;                &lt;chr&gt;       \n1 tig00001:4963923-5243806f tgagttgcgctgctgttttc 81          \n2 tig00001:4963923-5243806r tatcagcgcgccgaaaaatg 81          \nProduct\nDNAStringSet object of length 1:\n    width seq                                               names               \n[1]    81 TGAGTTGCGCTGCTGTTTTCCTG...CCACATTTTTCGGCGCGCTGATA 100% (1 x 2) CK22\n\n\nPrimer\n# A tibble: 2 × 3\n  name                      sequence             product_size\n  &lt;chr&gt;                     &lt;chr&gt;                &lt;chr&gt;       \n1 tig00001:1326286-1542657f ttttacgaccggattggcca 98          \n2 tig00001:1326286-1542657r gtccgatgttcgattgctgc 98          \nProduct\nDNAStringSet object of length 1:\n    width seq                                               names               \n[1]    98 TTTTACGACCGGATTGGCCAGTT...TCGGCAGCAATCGAACATCGGAC 99.9% (1 x 2) CK6\n\n\nPrimer\n# A tibble: 2 × 3\n  name                     sequence             product_size\n  &lt;chr&gt;                    &lt;chr&gt;                &lt;chr&gt;       \n1 tig00001:988080-1353973f aacgaaaaacagcagccgac 98          \n2 tig00001:988080-1353973r cgcttcgccaaaaccaaaga 98          \nProduct\nDNAStringSet object of length 1:\n    width seq                                               names               \n[1]    98 AACGAAAAACAGCAGCCGACGTA...ATATCTTTGGTTTTGGCGAAGCG 99.9% (1 x 2) CK7",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#流程存在的问题",
+    "href": "design-primer-with-unikmer.html#流程存在的问题",
+    "title": "14  Design specific primer with unikmer",
+    "section": "14.6 流程存在的问题",
+    "text": "14.6 流程存在的问题\n\n14.6.1 得不到引物\n虽然该途径可以找到一些比较长的特异性序列，但是在引物设计方面的性能仍然不能令人满意。在这里，我们测试了 32 个基因组，其中就有 3 - 5 个基因组没有找到合适的引物。\n没有得到引物的原因，主要是这样一个流程的参数设置过于严格了。如果那些共有的 kmer 处在两个小片段之间，那么缺失这些 kmer 会造成组装失败，从而无法得到足够长的模板。\n实际上，特异性的引物不需要要求扩增的序列本身是特异性的。哪怕是一段比较保守的序列，只要引物本身存在差异，是不影响对片段进行特异性扩增的。\n\n\n14.6.2 特异性不好的引物\n如果使用的基因组数量很少，那么设计引物的时候又会面临新的问题。那就是引物的特异性可能会比较差。为了解决这一问题，应当尝试在软件流程中加入一个最常见的 kmer 矩阵，能够在基因组数量比较少的时候对 kmer 进行过滤，使得设计的引物仍然具有较高的特异性。\n这样的 kmer 矩阵可以有多个，分别对应着不同的过滤强度。",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#feature-request",
+    "href": "design-primer-with-unikmer.html#feature-request",
+    "title": "14  Design specific primer with unikmer",
+    "section": "14.7 Feature request",
+    "text": "14.7 Feature request\n\n能不能针对含有多个序列的 FASTA 文件，分别生成 kmer？\nGzipped output of fasta file in uniqs/map\nPick primer with unikmer\n虽然 kmer 与平常设计的 primer 之间有一些不同，但是应该差不多。如果能用 unikmer 设计引物，那可以大大提高引物设计速度。希望能够实现。\n一个可行的思路是，得到每个物种特异的 kmer 之后，不用于组装成长片段，而是比较两两 kmer 之间的距离，计算 kmer 与模板结合的亲和力（决定扩增效率），然后根据设定的参数选取距离合适（相当于产物长度）的 kmer 作为引物。\n虚拟 PCR\n给定一个引物，输入一个基因组，能够计算扩增效率，得到扩增的结果。这方面在 DECIPHER::AmplifyDNA() 中有涉及。不过它也是通过一个 hybrid-min 程序获取的。我看了计算的源代码，扩增效率的计算好像也不是很复杂，能不能一并实现了。",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#supplementary-information",
+    "href": "design-primer-with-unikmer.html#supplementary-information",
+    "title": "14  Design specific primer with unikmer",
+    "section": "14.8 Supplementary information",
+    "text": "14.8 Supplementary information\n\n14.8.1 Unikmer 工作原理\nUnikmer 中，“K-mers are either encoded (k&lt;=32) or hashed (k&lt;=64, using ntHash v1) into uint64, and serialized in binary file with extension .unik”。如何理解这句话呢？\n这句话描述了 K-mers（一种生物信息学中的DNA序列片段）是如何处理和存储的。具体来说：\n\nK-mers：这是指长度为 k 的 DNA 序列片段。例如，对于一个长度为 k 的 K-mer，可能是像“ATCGGTA”这样的 DNA 序列。\nencoded (k&lt;=32)：当 k 的值小于等于 32 时，K-mers 被“编码”。编码通常意味着将DNA序列转换为一种紧凑的二进制表示形式。\nhashed (k&lt;=64, using ntHash v1)：当k的值小于等于 64 时，K-mers 被“哈希”。哈希是将DNA序列通过一个哈希函数（在这里是 ntHash v1）转换为一个固定长度的数值（通常是一个 64 位的整数）。\ninto uint64：无论是编码还是哈希，最终都将 K-mers 转换为一个 64 位的无符号整数（uint64）。\nserialized in binary file with extension .unik：最后，这些64位的无符号整数将被序列化，存储在一个扩展名为 .unik 的二进制文件中。序列化是指将数据结构转换为可以存储或传输的格式。\n\n总结来说，这句话描述了一个处理和存储 K-mers 的方法，根据 K-mers 的长度选择不同的转换方式（编码或哈希），并最终将其以 64 位无符号整数的形式存储在二进制文件中。\n编码、哈希和序列化的原理，可以通过以下示例进一步了解。\n\n14.8.1.1 1. 编码\n编码是将数据转换成另一种格式，以便进行高效存储或处理。在处理DNA序列时，常见的编码方法是将每个碱基（A、C、G、T）转换为一个二进制码。\nDNA序列：ATCG\n编码方式： - A -&gt; 00 - T -&gt; 11 - C -&gt; 01 - G -&gt; 10\nATCG 编码为：00110110\n\n\n14.8.1.2 2. 哈希\n哈希是一种将任意长度的数据映射到固定长度的数值的方法。哈希函数会将输入数据转换为一个唯一的哈希值。\n假设我们使用一个简单的哈希函数，将字符的ASCII值相加并取模10。\nDNA序列：ATCG\nASCII值： - A -&gt; 65 - T -&gt; 84 - C -&gt; 67 - G -&gt; 71\n哈希值计算： [ (65 + 84 + 67 + 71) % 10 = 287 % 10 = 7 ]\n所以，ATCG 的哈希值为 7。\n\n\n14.8.1.3 3. 序列化\n序列化是将数据结构或对象转换为一种可以存储或传输的格式（如二进制或文本）。反序列化则是将这种格式恢复为原始数据结构或对象。\n假设我们有一个包含若干DNA序列信息的结构：\n\ndata = {\n    'sequence1': 'ATCG',\n    'sequence2': 'GGTA'\n}\n\n我们可以使用Python的pickle模块进行序列化：\n\nimport pickle\nimport os\n\n# 序列化\ntry:\n    serialized_data = pickle.dumps(data)\n    print(\"序列化成功\")\nexcept Exception as e:\n    print(f\"序列化失败: {e}\")\n\n序列化成功\n\n# 保存到文件\nfile_path = \"temp/ws/data.pkl\" # 使用与 R 项目路径一致的 workspace\ntry:\n    if not os.path.exists(os.path.dirname(file_path)):\n        os.makedirs(os.path.dirname(file_path), exist_ok=True)\n        print(f\"目录 {os.path.dirname(file_path)} 创建成功\")\n    with open(file_path, 'wb') as file:\n        file.write(serialized_data)\n        print(f\"数据已成功保存到 {file_path}\")\nexcept Exception as e:\n    print(f\"保存数据失败: {e}\")\n\n54\n数据已成功保存到 temp/ws/data.pkl\n\n\n保存后的二进制文件data.pkl可以传输或存储。\n反序列化：\n\n# 从文件读取\nwith open(file_path, 'rb') as file:\n    loaded_data = pickle.loads(file.read())\n\nprint(loaded_data)\n\n{'sequence1': 'ATCG', 'sequence2': 'GGTA'}\n\n\n\n\n14.8.1.4 综合示例\n假设我们有一个K-mer：ATCGTACG，长度为8。\n\n编码\n\n\ndef encode_kmer(kmer):\n    encoding = {'A': '00', 'T': '11', 'C': '01', 'G': '10'}\n    return ''.join([encoding[base] for base in kmer])\n\nencoded_kmer = encode_kmer('ATCGTACG')\nprint(encoded_kmer)  # 输出：00110111100001\n\n0011011011000110\n\n\n\n哈希（使用Python内置的哈希函数）\n\n\ndef hash_kmer(kmer):\n    return hash(kmer) % (2**64)\n\nhashed_kmer = hash_kmer('ATCGTACG')\nprint(hashed_kmer)  # 输出：一个64位无符号整数\n\n5104474989518514624\n\n\n\n序列化\n\n\nimport pickle\n\nkmer_data = {'kmer': 'ATCGTACG', 'encoded': encoded_kmer, 'hashed': hashed_kmer}\n\n# 序列化\nserialized_kmer_data = pickle.dumps(kmer_data)\n\n# 保存到文件\nwith open('kmer_data.unik', 'wb') as file:\n    file.write(serialized_kmer_data)\n\n82\n\n\n对K-mers进行编码、哈希处理和序列化存储的意义在于：\n\n提高存储效率\n\n编码和哈希处理将K-mers从原本的字符序列转换为紧凑的二进制格式或固定长度的数值，这样可以显著减少存储空间。\n\n编码：将字符序列转换为二进制格式，减少空间占用。\n哈希：将K-mers转换为固定长度的数值（如64位无符号整数），使得存储和比较更加高效。\n\n\n提高计算效率\n\n编码和哈希处理有助于提高计算效率，特别是在大规模数据处理和查询时。\n\n快速比较：二进制格式和哈希值可以快速进行比较操作，而无需逐字符比较原始序列。\n高效查询：哈希值使得在大数据集中的查找和匹配操作更高效。\n\n\n一致性和标准化\n\n通过标准化的编码和哈希处理，确保所有K-mers以一致的格式存储和处理，便于数据共享和再现性。\n\n标准化表示：编码和哈希使得不同数据来源或处理过程中的K-mers以一致的方式表示和存储，减少了数据处理中的不一致问题。\n\n\n数据压缩\n\n编码和哈希可以将原本较长的DNA序列压缩成更短的表示形式，节省存储空间。\n\n压缩存储：二进制编码和哈希值占用的存储空间比原始序列要小得多，特别是在处理大量K-mers时，压缩效果更加明显。\n\n\n便于传输和共享\n\n序列化存储使得数据可以方便地传输和共享，并且可以在不同系统或平台之间进行数据交换。\n\n跨平台传输：序列化后的二进制文件可以在不同计算环境中传输和加载，便于数据共享和协作。\n\n对 K-mers 进行编码、哈希处理和序列化存储，不仅可以提高存储和计算效率，还能确保数据的一致性和可移植性，这对于大规模生物信息学数据处理具有重要意义。\n\n\n\n14.8.2 Unikmer version\n\nunikmer\n\nunikmer - a versatile toolkit for k-mers with taxonomic information\n\nunikmer is a toolkit for nucleic acid k-mer analysis, providing functions\nincluding set operation on k-mers optional with TaxIds but without count\ninformation.\n\nK-mers are either encoded (k&lt;=32) or hashed (k&lt;=64) into 'uint64',\nand serialized in binary file with the extension '.unik'.\n\nTaxIds can be assigned when counting k-mers from genome sequences,\nand LCA (Lowest Common Ancestor) is computed during set opertions\nincluding computing union, intersection, set difference, unique and\nrepeated k-mers.\n\nVersion: v0.20.0\n\nAuthor: Wei Shen &lt;shenwei356@gmail.com&gt;\n\nDocuments  : https://bioinf.shenwei.me/unikmer\nSource code: https://github.com/shenwei356/unikmer\n\nDataset (optional):\n\n  Manipulating k-mers with TaxIds needs taxonomy file from e.g., \n  NCBI Taxonomy database, please extract \"nodes.dmp\", \"names.dmp\",\n  \"delnodes.dmp\" and \"merged.dmp\" from link below into ~/.unikmer/ ,\n  ftp://ftp.ncbi.nih.gov/pub/taxonomy/taxdump.tar.gz , \n  or some other directory, and later you can refer to using flag\n  --data-dir or environment variable UNIKMER_DB.\n\n  For GTDB, use 'taxonkit create-taxdump' to create NCBI-style\n  taxonomy dump files, or download from:\n    https://github.com/shenwei356/gtdb-taxonomy\n\n  Note that TaxIds are represented using uint32 and stored in 4 or\n  less bytes, all TaxIds should be in the range of [1, 4294967295].\n\nUsage:\n  unikmer [command] \n\nAvailable Commands:\n  autocompletion Generate shell autocompletion script (bash|zsh|fish|powershell)\n  common         Find k-mers shared by most of the binary files\n  concat         Concatenate multiple binary files without removing duplicates\n  count          Generate k-mers (sketch) from FASTA/Q sequences\n  decode         Decode encoded integer to k-mer text\n  diff           Set difference of k-mers in multiple binary files\n  dump           Convert plain k-mer text to binary format\n  encode         Encode plain k-mer texts to integers\n  filter         Filter out low-complexity k-mers (experimental)\n  grep           Search k-mers from binary files\n  head           Extract the first N k-mers\n  info           Information of binary files\n  inter          Intersection of k-mers in multiple binary files\n  locate         Locate k-mers in genome\n  map            Mapping k-mers back to the genome and extract successive regions/subsequences\n  merge          Merge k-mers from sorted chunk files\n  num            Quickly inspect the number of k-mers in binary files\n  rfilter        Filter k-mers by taxonomic rank\n  sample         Sample k-mers from binary files\n  sort           Sort k-mers to reduce the file size and accelerate downstream analysis\n  split          Split k-mers into sorted chunk files\n  tsplit         Split k-mers according to taxid\n  union          Union of k-mers in multiple binary files\n  version        Print version information and check for update\n  view           Read and output binary format to plain text\n\nFlags:\n  -c, --compact                 write compact binary file with little loss of speed\n      --compression-level int   compression level (default -1)\n      --data-dir string         directory containing NCBI Taxonomy files, including nodes.dmp,\n                                names.dmp, merged.dmp and delnodes.dmp (default \"/Users/gaoch/.unikmer\")\n  -h, --help                    help for unikmer\n  -I, --ignore-taxid            ignore taxonomy information\n  -i, --infile-list string      file of input files list (one file per line), if given, they are\n                                appended to files from cli arguments\n      --max-taxid uint32        for smaller TaxIds, we can use less space to store TaxIds. default value\n                                is 1&lt;&lt;32-1, that's enough for NCBI Taxonomy TaxIds (default 4294967295)\n  -C, --no-compress             do not compress binary file (not recommended)\n      --nocheck-file            do not check binary file, when using process substitution or named pipe\n  -j, --threads int             number of CPUs to use (default 4)\n      --verbose                 print verbose information\n\nUse \"unikmer [command] --help\" for more information about a command.\n\n\n\n\n14.8.3 Session info\n\nsessionInfo()\n\nR version 4.3.2 (2023-10-31)\nPlatform: aarch64-apple-darwin20 (64-bit)\nRunning under: macOS 15.1\n\nMatrix products: default\nBLAS:   /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRblas.0.dylib \nLAPACK: /Library/Frameworks/R.framework/Versions/4.3-arm64/Resources/lib/libRlapack.dylib;  LAPACK version 3.11.0\n\nlocale:\n[1] en_US.UTF-8/en_US.UTF-8/en_US.UTF-8/C/en_US.UTF-8/en_US.UTF-8\n\ntime zone: Asia/Singapore\ntzcode source: internal\n\nattached base packages:\n[1] stats4    parallel  stats     graphics  grDevices utils     datasets \n[8] methods   base     \n\nother attached packages:\n [1] DECIPHER_2.28.0     RSQLite_2.3.7       Biostrings_2.68.1  \n [4] GenomeInfoDb_1.36.4 XVector_0.40.0      IRanges_2.34.1     \n [7] S4Vectors_0.38.2    BiocGenerics_0.46.0 rPrimer3_0.3.2     \n[10] dplyr_1.1.4        \n\nloaded via a namespace (and not attached):\n [1] utf8_1.2.4              generics_0.1.3          bitops_1.0-9           \n [4] lattice_0.21-9          stringi_1.8.4           digest_0.6.37          \n [7] magrittr_2.0.3          grid_4.3.2              evaluate_0.23          \n[10] blob_1.2.4              fastmap_1.2.0           seqinr_4.2-30          \n[13] Matrix_1.6-4            R.oo_1.25.0             rprojroot_2.0.4        \n[16] jsonlite_1.8.9          R.utils_2.12.3          DBI_1.2.3              \n[19] fansi_1.0.6             ade4_1.7-22             cli_3.6.3              \n[22] rlang_1.1.4             crayon_1.5.3            R.methodsS3_1.8.2      \n[25] bit64_4.5.2             cachem_1.1.0            withr_3.0.1            \n[28] tools_4.3.2             memoise_2.0.1           GenomeInfoDbData_1.2.10\n[31] here_1.0.1              reticulate_1.39.0       png_0.1-8              \n[34] vctrs_0.6.5             R6_2.5.1                lifecycle_1.0.4        \n[37] zlibbioc_1.46.0         stringr_1.5.1           bit_4.5.0              \n[40] htmlwidgets_1.6.4       MASS_7.3-60             pkgconfig_2.0.3        \n[43] pillar_1.9.0            glue_1.8.0              Rcpp_1.0.13            \n[46] xfun_0.48               tibble_3.2.1            tidyselect_1.2.1       \n[49] knitr_1.48.6            htmltools_0.5.8.1       rmarkdown_2.27         \n[52] compiler_4.3.2          RCurl_1.98-1.16",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "design-primer-with-unikmer.html#footnotes",
+    "href": "design-primer-with-unikmer.html#footnotes",
+    "title": "14  Design specific primer with unikmer",
+    "section": "",
+    "text": "含有 rush 的命令在 R Markdown 编译的时候好像会出问题。↩︎\nSHEN Wei(沈伟), Associate Professor in Bioinformatics, Institute for Viral Hepatitis, The Second Affiliated Hospital of Chongqing Medical University, China.↩︎\n在 R 语言也支持并行计算，相关的方法参见 parallel 包的文档。↩︎",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>14</span>  <span class='chapter-title'>Design specific primer with unikmer</span>"
+    ]
+  },
+  {
+    "objectID": "kmer-facilitated-primer-design.html",
+    "href": "kmer-facilitated-primer-design.html",
+    "title": "15  Kmer Facilitated Primer Design",
+    "section": "",
+    "text": "15.1 认识 GTDB\nGTDB（Genome Taxonomy Database）(Donovan H. Parks et al. 2020) 是一个基于基因组的微生物分类数据库，它使用一系列计算方法来构建和维护其分类体系。GTDB 数据库的分类方法主要基于以下几个步骤：\nGTDB 的分类方法结合了基因组学、系统发育学和生物信息学的技术，旨在提供一个全面、准确和动态更新的微生物分类体系。通过这种方法，GTDB 能够为微生物学研究提供坚实的分类基础。",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Kmer Facilitated Primer Design</span>"
+    ]
+  },
+  {
+    "objectID": "kmer-facilitated-primer-design.html#认识-gtdb",
+    "href": "kmer-facilitated-primer-design.html#认识-gtdb",
+    "title": "15  Kmer Facilitated Primer Design",
+    "section": "",
+    "text": "基因组质量控制：首先，对所有提交的基因组进行质量控制，以确保数据的准确性和完整性。这包括评估基因组的完整性和污染程度。\n基因预测和注释：使用如 Prodigal 这样的工具对基因组进行基因预测，识别出蛋白质编码基因。然后对这些基因进行注释，以确定它们的功能。\n标记基因的选择和比对：从基因组中选择一组标记基因（通常是高度保守的单拷贝基因），这些基因在不同物种间具有足够的变异，可以用于物种间的区分。然后，对这些标记基因进行比对，以构建多序列比对（MSA）。\n构建参考树：使用多序列比对结果，通过系统发育分析方法（如最大似然法或贝叶斯推断法）构建参考树。这个树反映了不同物种间的进化关系。\n分类群的界定：基于参考树和基因组数据，使用如 ANI（平均核苷酸一致性）和 TETRA（四重基因组比较）等方法来界定不同的分类群，如物种、属、科等。\n分类群的命名和排名：根据系统发育树和分类群的界定，对每个分类群进行命名和排名。GTDB尝试使用拉丁语命名法，并确保每个分类群的命名是唯一和一致的。\n分类群的验证：通过与现有的分类数据库（如 NCBI Taxonomy）进行比较，验证 GTDB 分类的准确性。此外，GTDB 还通过社区反馈和专家审核来不断改进其分类体系。\n数据库的更新和维护：随着新的基因组数据的不断加入和分类方法的改进，GTDB 定期更新其数据库，以反映最新的分类学研究成果。\n\n\n\n15.1.1 数据库结构\nGTDB 数据库提供了完整的数据文件下载。根据提供的 GTDB R09-RS220 发行说明文件，以下是列出的各个文件及其作用的总结：\n\nMETHODS.txt\n\n描述了用于形成 GTDB 分类的方法。\n\nRELEASE_NOTES.txt\n\n概述了这个 GTDB 发行版本特有的变化。\n\nVERSION.txt\n\n这个 GTDB 发行版本的版本标识符。\n\nbac120_taxonomy_r220.tsv.gz\n\n所有被分配到GTDB物种群的细菌基因组的 GTDB 分类。\n\nbac120_r220.tree.gz\n\n通过连接 120 个蛋白质推断出的细菌参考树，覆盖每个细菌物种群的代表性基因组。这个树用于整理 GTDB 分类，以 Newick 格式提供，装饰有 GTDB 分类，并包含非参数引导支持值。\n\nbac120_metadata_r220.gz\n\n包括 GTDB 和 NCBI 分类、完整性和污染估计、组装统计和基因组属性的所有细菌基因组的元数据。\n\nar53_taxonomy_r220.tsv.gz，ar53_r220.tree.gz，ar53_metadata_r220.gz。\n\n用于古菌的分类体系？\n\ngenomic_files_reps 文件夹中的文件特定于 GTDB 物种代表：\n\nbac120_marker_genes_reps_r220.tar.gz\n\n用于推断细菌参考树的未修剪和未对齐的标记基因。基因以核苷酸和氨基酸序列的形式提供。\n\nbac120_msa_marker_genes_reps_r220.tar.gz\n\n每个 120 个细菌蛋白质的 GTDB 代表性基因组的修剪和对齐的标记基因。\n\nbac120_msa_reps_r220.faa.gz\n\n用于推断细菌参考树的多序列比对。\n\nbac120_ssu_reps_r220.tar.gz\n\n细菌代表性基因组中识别出的 16S rRNA 基因序列。\n\ngtdb_proteins_aa_reps_r220.tar.gz\n\n所有预测的蛋白质编码基因序列的氨基酸 FASTA 文件。\n\ngtdb_proteins_nt_reps_r220.tar.gz\n\n所有预测的蛋白质编码基因序列的核苷酸 FASTA 文件。\n\ngtdb_genomes_reps_r220.tar.gz\n\n每个 GTDB 代表性基因组的 FASTA 文件。\n\n\ngenomic_files_all 文件夹中的文件覆盖所有通过 GTDB 质量控制标准的基因组：\n\nbac120_marker_genes_all_r220.tar.gz\n\n所有 GTDB 基因组的未修剪和未对齐的标记基因。\n\nbac120_msa_marker_genes_all_r220.tar.gz\n\n所有 GTDB 基因组的修剪和对齐的标记基因。\n\nar53_marker_genes_all_r220.tar.gz,ar53_msa_marker_genes_all_r220.tar.gz。\n\n用于古菌分类的基因。\n\nssu_all_r220.fna.gz\n\n通过质量控制的 GTDB 基因组集合中识别的 16S rRNA 序列。\n\n\nauxillary_files 文件夹中的文件：\n\nbac120_r220.sp_labels.tree\n\n与 bac120_r220.tree 同义，除了每个基因组附加了物种标签。\n\nbac120_msa_mask_r220.txt\n\n指示从 120 个细菌蛋白质连接比对中修剪了哪些列的掩码。\n\nbac120_marker_info_r220.tsv\n\n用于推断细菌参考树的每个 120 个细菌蛋白质的信息。\n\ngtdb_r220.dic\n\nGTDB 中所有带和不带等级前缀的分类群的列表，可以作为文字处理程序中的字典使用。\n\ngtdb_vs_ncbi_r220_bacteria.xlsx\n\nGTDB 和 NCBI 分类之间的对应关系，按多态性程度排序。\n\ngtdbtk_package 文件夹\n\n包含 GTDB-Tk 工具所需的参考数据。\n\nhq_mimag_genomes_r220.tsv\n\n符合 MIMAG 高质量基因组标准的分离株、MAGs 和 SAGs 的列表。\n\nmetadata_field_desc.tsv\n\n上述元数据文件中每个字段的描述和元数据来源的指示。\n\nncbi_vs_gtdb_r220_bacteria.xlsx\n\nNCBI 和 GTDB 分类之间的对应关系，按多态性程度排序。\n\nsp_clusters_r220.tsv\n\n指示每个 GTDB 物种群的代表性基因组、分配给物种群的基因组集合和用于界定物种群的平均核苷酸身份半径的元数据文件。\n\nsynonyms_r220.tsv\n\nGTDB 分类中被认为是同义词的物种列表。\n\ngtdb_taxa_not_in_lit_r220.xlsx\n\nGTDB 中引入的拉丁名称的家族至门级分类群列表，这些分类群没有先前的出版物，为了实现单系群和等级标准化而引入。\n\nqc_failed.tsv\n\n未通过内部 GTDB 质量控制标准的基因组组装列表。\n\n\n\n这些文件为研究人员提供了 GTDB 数据库的详细数据和元数据，包括分类、基因组数据、参考树和各种元数据信息。\n\n\n15.1.2 使用方法\n使用 GTDB 数据库进行微生物基因组分析通常涉及以下步骤：\n\n获取数据：\n\n首先，需要从 GTDB 网站下载所需的数据集，包括基因组序列、分类信息、标记基因等。\n\n基因组质量控制：\n\n使用质量控制工具（如 CheckM 或 QUAST）评估基因组的完整性和污染程度，确保分析的准确性。\n\n基因预测和注释：\n\n使用基因预测工具（如 Prodigal）来识别基因组中的蛋白质编码基因，并使用注释工具（如RAST或IMG/M）进行功能注释。\n\n标记基因的提取和比对：\n\n从基因组中提取GTDB使用的标记基因（如用于构建参考树的120个单拷贝核心基因）。\n使用多序列比对工具（如 MUSCLE 或 MAFFT）对提取的标记基因进行比对。\n\n构建系统发育树：\n\n使用比对结果构建系统发育树，可以使用最大似然法（如 RAxML）或贝叶斯推断法（如 MrBayes）等方法。\n\n分类学分析：\n\n根据系统发育树和 GTDB 提供的分类信息，对基因组进行分类学分析，确定其在 GTDB 分类体系中的位置。\n\n基因组比较：\n\n使用基因组比较工具（如 Roary 或 Panaroo）来识别基因组间的共有和特异性基因，这有助于理解微生物的进化和功能差异。\n\n基因组可视化：\n\n使用可视化工具（如 Circos 或 GTDBTk）来展示基因组数据和分类信息，这有助于更直观地理解基因组结构和功能。\n\n基因组进化分析：\n\n利用系统发育树和基因组数据，进行进化分析，如选择压力分析、基因流分析等。\n\n结果解释和报告：\n\n根据分析结果，撰写科学报告或文章，解释基因组分析的发现，并与现有的科学知识进行对比。\n\n使用 GTDB-Tk 工具：\n\nGTDB 提供了一个配套工具 GTDB-Tk，它可以帮助用户根据 GTDB 的分类体系自动对基因组进行分类和注释。\n\n\n进行这些分析时，可能需要一定的生物信息学背景和编程技能。此外，GTDB 数据库和相关工具的使用方法可能会随着版本更新而变化，因此建议查看最新的用户手册和在线文档以获取详细信息和指导。",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Kmer Facilitated Primer Design</span>"
+    ]
+  },
+  {
+    "objectID": "kmer-facilitated-primer-design.html#认识-globdb",
+    "href": "kmer-facilitated-primer-design.html#认识-globdb",
+    "title": "15  Kmer Facilitated Primer Design",
+    "section": "15.2 认识 GlobDB",
+    "text": "15.2 认识 GlobDB\nGlobDB 基因组数据库 是一个去重复的物种代表微生物基因组集。基因组时代为微生物基因组分析提供了巨大的机会，单个（元）基因组研究可以生成成千上万的微生物基因组。尽管有多个数据库可用于存储这些数据集，但有时整合大规模研究仍然存在挑战。GlobDB 旨在整合目前尚未（完全）整合的多种资源。\n截至版本 220，GlobDB 包含四个不同的数据库：\n\n基因组分类数据库（GTDB）的物种代表 (Donovan H. Parks et al. 2022)\n地球微生物基因组目录（GEM）的物种代表 (Nayfach et al. 2021)\n可搜索的全球规模微生物资源（SPIRE）的物种代表 (Schmidt et al. 2024)\n土壤微生物基因组目录（SMAG）的物种代表 (Ma et al. 2023)\n\n这些数据集按照上述顺序进一步去重复，并以标准化的方式处理，生成可以用于进一步分析的综合数据集。 目前，GlobDB 在对四个源数据集进行去重复后，包含 202,601 个（部分）微生物基因组。其中 GTDB 有 113,104 个基因组，GEM 有 10,662 个，SPIRE 有 66,971 个，SMAG 有 11,864 个基因组。 对于这 202,601 个基因组的全集，anvi’o 数据库、基因组 fasta、蛋白质（氨基酸）fasta 以及 KEGG/COG/Pfam 注释均可下载。\n\n15.2.1 Anvi’o 是什么？\nAnvi’o 是一个不断发展的软件生态系统，其组件经常在多项研究中被描述 (Eren et al. 2021)。包含 anvi’o 程序和工件（artifacts，在软件开发中，artifact 通常指的是开发过程中生成的文件或成果，如程序、文档等）。\nAnvi’o 使用工件和软件搭建分析流程，并通过它们的标准化来是分析结果可复现。",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Kmer Facilitated Primer Design</span>"
+    ]
+  },
+  {
+    "objectID": "kmer-facilitated-primer-design.html#section",
+    "href": "kmer-facilitated-primer-design.html#section",
+    "title": "15  Kmer Facilitated Primer Design",
+    "section": "15.3 ",
+    "text": "15.3 \n\n\n\n\nEren, A. Murat, Evan Kiefl, Alon Shaiber, Iva Veseli, Samuel E. Miller, Matthew S. Schechter, Isaac Fink, et al. 2021. “Community-Led, Integrated, Reproducible Multi-Omics with Anvi’o.” Nature Microbiology 6 (1): 3–6. https://doi.org/10.1038/s41564-020-00834-3.\n\n\nMa, Bin, Caiyu Lu, Yiling Wang, Jingwen Yu, Kankan Zhao, Ran Xue, Hao Ren, et al. 2023. “A Genomic Catalogue of Soil Microbiomes Boosts Mining of Biodiversity and Genetic Resources.” Nature Communications 14 (1): 7318. https://doi.org/10.1038/s41467-023-43000-z.\n\n\nNayfach, Stephen, Simon Roux, Rekha Seshadri, Daniel Udwary, Neha Varghese, Frederik Schulz, Dongying Wu, et al. 2021. “A Genomic Catalog of Earth’s Microbiomes.” Nature Biotechnology 39 (4): 499–509. https://doi.org/10.1038/s41587-020-0718-6.\n\n\nParks, Donovan H., Maria Chuvochina, Pierre-Alain Chaumeil, Christian Rinke, Aaron J. Mussig, and Philip Hugenholtz. 2020. “A Complete Domain-to-Species Taxonomy for Bacteria and Archaea.” Nature Biotechnology 38 (9): 1079–86. https://doi.org/10.1038/s41587-020-0501-8.\n\n\nParks, Donovan H, Maria Chuvochina, Christian Rinke, Aaron J Mussig, Pierre-Alain Chaumeil, and Philip Hugenholtz. 2022. “GTDB: An Ongoing Census of Bacterial and Archaeal Diversity Through a Phylogenetically Consistent, Rank Normalized and Complete Genome-Based Taxonomy.” Nucleic Acids Research 50 (D1): D785–94. https://doi.org/10.1093/nar/gkab776.\n\n\nSchmidt, Thomas S B, Anthony Fullam, Pamela Ferretti, Askarbek Orakov, Oleksandr M Maistrenko, Hans-Joachim Ruscheweyh, Ivica Letunic, et al. 2024. “SPIRE: A Searchable, Planetary-Scale mIcrobiome REsource.” Nucleic Acids Research 52 (D1): D777–83. https://doi.org/10.1093/nar/gkad943.",
+    "crumbs": [
+      "引物设计",
+      "<span class='chapter-number'>15</span>  <span class='chapter-title'>Kmer Facilitated Primer Design</span>"
+    ]
+  },
+  {
+    "objectID": "mathematical-optimization.html",
+    "href": "mathematical-optimization.html",
+    "title": "16  数学优化",
+    "section": "",
+    "text": "16.1 基础知识",
+    "crumbs": [
+      "数学基础",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>数学优化</span>"
+    ]
+  },
+  {
+    "objectID": "mathematical-optimization.html#基础知识",
+    "href": "mathematical-optimization.html#基础知识",
+    "title": "16  数学优化",
+    "section": "",
+    "text": "16.1.1 基本概念和术语\n\n目标函数（Objective Function）：\n\n这是需要优化（最大化或最小化）的函数。目标函数根据不同场景可以是成本函数、收益函数、时间函数等。\n例如，在生产规划中，目标函数可能是总成本函数，目标是使其最小化。\n\n决策变量（Decision Variables）：\n\n这些变量是需要确定的，它们的值直接影响目标函数的值。\n例如，一个生产公司可能需要决定多少产品应生产，这些数量就是决策变量。\n\n约束条件（Constraints）：\n\n这是模型中的限制条件，定义了决策变量的可行范围。\n约束可以是等式或不等式，例如资源限制（原材料、时间、人力）等。\n例如，一天工作的时间上限、机器的最大操作能力都可以作为约束条件。",
+    "crumbs": [
+      "数学基础",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>数学优化</span>"
+    ]
+  },
+  {
+    "objectID": "mathematical-optimization.html#优化问题的类型",
+    "href": "mathematical-optimization.html#优化问题的类型",
+    "title": "16  数学优化",
+    "section": "16.2 优化问题的类型",
+    "text": "16.2 优化问题的类型\n\n线性规划（Linear Programming, LP）：\n\n目标函数和约束条件都是线性的。\n例如：最大化 (3x + 4y)，约束条件是 (2x + y \\leq 20)、(x \\geq 0)、(y \\geq 0)。\n\n非线性规划（Non-linear Programming, NLP）：\n\n目标函数或约束条件中包含非线性项。\n例如：最大化 (x^2 + y^2)，约束条件是 (2x + y \\leq 20)、(x \\geq 0)、(y \\geq 0)。\n\n混合整数规划（Mixed-Integer Programming, MIP）：\n\n决策变量中既有连续变量（可以取任意实数值）也有离散变量（只能取整数值）。\n例如：一个配送问题，某些变量代表配送路径，必须是整数。\n\n动态规划（Dynamic Programming, DP）：\n\n问题可以分解成子问题，并利用这些子问题的最优解进行递归式求解。\n常用于多阶段决策问题，如最短路径问题等。\n\n\n\n16.2.1 数学优化的应用领域\n\n供应链管理：\n\n通过优化模型来确定最佳的库存水平、生产计划和配送路径。\n\n金融工程：\n\n用于投资组合优化、风险管理和期权定价。\n\n工程设计：\n\n优化设计参数以最小化成本、时间或材料使用，并满足功能和安全要求。\n\n运营管理：\n\n优化资源分配、工作调度、服务路线及排队系统等。\n\n\n\n\n16.2.2 简单示例\n设想一个简单的问题，一个公司生产两种产品 (A) 和 (B)，利润分别是 (20) 和 (30) 元，每种产品需要的生产时间分别是 (1) 小时和 (2) 小时，而生产时间的总约束是 (8) 小时。公司希望最大化利润。\n\nfrom scipy.optimize import linprog\n\n# 定义目标函数系数（利润）\nc = [-20, -30]  # 因为 linprog 函数默认是最小化问题，所以这里用负数表示最大化\n\n# 定义不等式约束，A_ub * x &lt;= b_ub\nA = [[1, 2]]  # 每种产品的时间约束\nb = [8]  # 总时间限制\n\n# 定义变量的非负约束\nx_bounds = (0, None)\ny_bounds = (0, None)\n\n# 求解线性规划\nres = linprog(c, A_ub=A, b_ub=b, bounds=[x_bounds, y_bounds], method='highs')\n\nprint('Optimal value:', -res.fun)  # 恢复成正数表示最大化\nprint('X:', res.x)\n\nOptimal value: 160.0\nX: [8. 0.]\n\n\n在这个例子中，数学优化帮助我们确定了在生产时间有限的情况下，应该生产多少种产品来最大化总利润。这就是数学优化在实际应用中的一个经典示例。\n\nimport numpy as np\nimport matplotlib.pyplot as plt\n\n# 提取结果\noptimal_value = -res.fun  # 最优目标函数值（转正数）\noptimal_x = res.x  # 最优变量值\n\n# 设置图表数据\nx = np.linspace(0, 10, 10)\ny = (8 - x) / 2  # 从约束方程 y = (8 - x) / 2 得到\n\nplt.figure(figsize=(10, 6))\n\n# 绘制约束条件的可行域\nplt.plot(x, y, label=r'$x + 2y \\leq 8$', color='r', linestyle='-')\nplt.fill_between(x, 0, y, where=(y &gt;= 0), color='gray', alpha=0.3)\n\n# 绘制目标函数等高线（等价值线）\ncontour_lines = np.arange(100, 240, 20)\nfor value in contour_lines:\n    plt.plot(x, (value / 30) - (20 / 30) * x, linestyle='--', label=f'$20x + 30y = {value}$')\n\n# 绘制最优点\nplt.plot(optimal_x[0], optimal_x[1], 'bo')  # 最优点\nplt.text(optimal_x[0], optimal_x[1], f' Optimal Point\\n({optimal_x[0]:.2f}, {optimal_x[1]:.2f})', fontsize=12, color='blue')\n\n# 添加图表元素\nplt.xlabel('Product A')\nplt.ylabel('Product B')\nplt.title('Linear Programming Optimization')\nplt.axhline(0, color='black',linewidth=0.5)\nplt.axvline(0, color='black',linewidth=0.5)\nplt.legend(loc='upper right')\nplt.grid(True)\n\nplt.show()\n\n\n\n\n\n\n\n\n之前的例子没有考虑到 Product A 和 Product B 的取值需要是非负整数。如果我们要在这个条件下进行优化，就需要进行整数规划。在这种情况下，我们需要使用混合整数线性规划（Mixed-Integer Linear Programming, MILP）来求解。\n使用 Gurobipy 库可以解决这个问题。\n\n\n\n\n\n\nNote\n\n\n\n安装 Gurobipy\nconda install -c gurobi gurobi\n\n\n\nimport numpy as np\nimport matplotlib.pyplot as plt\nfrom gurobipy import Model, GRB\n\n# 创建模型\nmodel = Model()\n\n# 添加变量\nx = model.addVar(vtype=GRB.INTEGER, name=\"x\")  # Product A\ny = model.addVar(vtype=GRB.INTEGER, name=\"y\")  # Product B\n\n# 设置目标函数：最大化利润\nmodel.setObjective(20 * x + 30 * y, GRB.MAXIMIZE)\n\n# 添加约束：时间限制\nmodel.addConstr(x + 2 * y &lt;= 8, 'time_limit')\n\n# 优化模型\nmodel.optimize()\n\n# 提取结果\noptimal_value = model.objVal\noptimal_x = [v.x for v in model.getVars()]\n\n# 打印结果\nfor v in model.getVars():\n    print(f'{v.VarName}: {v.x}')\nprint(f'Optimal value: {optimal_value}')\n\n# 画图\nx_vals = np.arange(0, 9, 1)  # Product A 的整数取值范围\ny_vals = np.arange(0, 5, 1)  # Product B 的整数取值范围\nX, Y = np.meshgrid(x_vals, y_vals)\nZ = 20 * X + 30 * Y  # 目标函数\n\nplt.figure(figsize=(10, 6))\ncontour = plt.contourf(X, Y, Z, levels=10, cmap='Blues')\nplt.colorbar(contour)\nplt.plot(optimal_x[0], optimal_x[1], 'bo')  # 最优点\nplt.text(optimal_x[0], optimal_x[1], f' Optimal Point\\n({int(optimal_x[0])}, {int(optimal_x[1])})', fontsize=12, color='blue')\n\n# 绘制约束线和可行域\nplt.plot(x_vals, (8 - x_vals) / 2, label=r'$x + 2y \\leq 8$', color='red', linestyle='-')\nplt.fill_between(x_vals, 0, (8 - x_vals) / 2, where=(8 - x_vals) / 2 &gt;= 0, color='gray', alpha=0.3)\n\n# 设置Y轴整数刻度\nplt.yticks(np.arange(0, max(y_vals)+1, 1))  # 设置Y轴仅显示整数刻度\n\n# 添加图表元素\nplt.xlabel('Product A')\nplt.ylabel('Product B')\nplt.title('Integer Linear Programming Optimization')\nplt.legend(loc='upper right')\nplt.grid(True)\n\nplt.show()\n\nSet parameter Username\nAcademic license - for non-commercial use only - expires 2025-04-02\nGurobi Optimizer version 11.0.2 build v11.0.2rc0 (mac64[arm] - Darwin 24.1.0 24B83)\n\nCPU model: Apple M3 Pro\nThread count: 12 physical cores, 12 logical processors, using up to 12 threads\n\nOptimize a model with 1 rows, 2 columns and 2 nonzeros\nModel fingerprint: 0xd214e7d0\nVariable types: 0 continuous, 2 integer (0 binary)\nCoefficient statistics:\n  Matrix range     [1e+00, 2e+00]\n  Objective range  [2e+01, 3e+01]\n  Bounds range     [0e+00, 0e+00]\n  RHS range        [8e+00, 8e+00]\nFound heuristic solution: objective 160.0000000\nPresolve removed 1 rows and 2 columns\nPresolve time: 0.00s\nPresolve: All rows and columns removed\n\nExplored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)\nThread count was 1 (of 12 available processors)\n\nSolution count 1: 160 \n\nOptimal solution found (tolerance 1.00e-04)\nBest objective 1.600000000000e+02, best bound 1.600000000000e+02, gap 0.0000%\nx: 8.0\ny: -0.0\nOptimal value: 160.0\n\n\n\n\n\n\n\n\n\n\n16.2.2.1 图示的解释如下：\n\n约束条件的可行域\n\n图中的红色线表示约束条件 ( \\(x + 2y \\leq 8\\) )。\n阴影部分表示满足约束条件的可行解区域。在这一区域内的所有点都满足问题的约束条件。\n\n目标函数的等高线\n\n颜色填充表示不同目标函数值的区域。颜色越深，表示目标函数值越大。\n\n最优点\n\n图中的蓝色点标记的是最优点，该点满足所有约束条件且目标函数值最大。\n从图中可以看到，这个点位于阴影区域的边界线上（即 ( \\(x + 2y \\leq 8\\) ) 的交点之一），并且是可行解域中利润最大的位置。\n\n\n\n\n16.2.2.2 结果解释\n\nOptimal Value（最优值）：\n\n图中的利润最大值大约为 ( 160 )，该值表示在约束条件下所能达到的最大利润值。代码输出的 optimal_value 为 160，即表示在给定约束条件下所能达到的最大目标函数值（利润）。\n\nOptimal X（最优解）：\n\n图中的最优解 ((x, y)) 的值为 (8, 0)，即生产 8 个产品 A 和 0 个产品 B，可以实现最大利润。代码输出 optimal_x 为 [8., 0.]，即为达到最优目标所需要的产品 A 和产品 B 的生产数量。\n\n\n通过上述图示和解释，我们可以清晰、准确地理解在整数规划条件下优化问题的求解过程及最优值和最优解的实际含义。",
+    "crumbs": [
+      "数学基础",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>数学优化</span>"
+    ]
+  },
+  {
+    "objectID": "mathematical-optimization.html#数学优化的应用和初级方法",
+    "href": "mathematical-optimization.html#数学优化的应用和初级方法",
+    "title": "16  数学优化",
+    "section": "16.3 数学优化的应用和初级方法",
+    "text": "16.3 数学优化的应用和初级方法\n上面介绍了数学优化的好处，现在让我们看看它的实际应用，以及优化与机器学习如何协同工作\n\n16.3.1 数学优化的概念回顾\n\n数学优化的概念回顾： 简单回顾初级课程中的概念，主要包括线性规划、混合整数规划、目标函数和约束条件的作用。\n\n线性回归模型中的参数求解过程——其实就在最小化损失函数。\n\n# 线性回归示例\nimport numpy as np\nfrom sklearn.linear_model import LinearRegression\n\n# 生成数据\nX = np.array([[1, 1], [1, 2], [2, 2], [2, 3]])\ny = np.dot(X, np.array([1, 2])) + 3\n\n# 创建线性回归模型并训练\nmodel = LinearRegression().fit(X, y)\n\n# 优化结果\nprint(model.coef_, model.intercept_)\n\n[1. 2.] 3.0000000000000018\n\n\n\n16.3.1.1 混合整数规划\n混合整数规划（Mixed-Integer Programming, MIP）是一种数学优化技术，包含二类变量：连续变量（可以取任意实数值）和离散变量（只能取整数值）。MIP在许多实际应用中都有广泛的应用，尤其在那些需要对决策变量进行整数限定的问题领域。以下是一些常见的应用领域和具体实例：\n应用领域\n\n生产与供应链管理：\n\n生产计划：决定何时生产哪些产品，以满足需求并最小化成本。\n库存管理：确定最佳的库存水平，以平衡库存成本和缺货成本。\n运输与物流：优化车辆调度、配送路径和运输频率。\n\n金融与投资：\n\n投资组合优化：决定在不同资产之间的投资分配，以最大化回报率并控制风险。\n项目选择：在预算约束下选择最优的项目组合，确保净现值最大化。\n\n能源管理：\n\n电力调度：决定哪种发电机在何时运行，以满足需求并最小化费用。\n可再生能源优化：优化风能、太阳能等可再生能源的利用。\n\n设施选址：\n\n工厂选址：在多个候选地点选择最优的工厂或仓库位置，最大化覆盖范围且最小化物流成本。\n灾害管理：在灾害发生时决定临时配置的救援设施的最佳位置。\n\n健康管理：\n\n手术排期：优化手术的排期安排，确保资源利用最大化且等待时间最小化。\n\n\n具体实例：生产计划问题\n假设一个工厂生产两种产品：产品 A 和产品 B。工厂有两个机器，分别用来生产这两种产品。每个产品的生产时间和利润如下表所示：\n\n\n\n产品\n机器1时间（小时）\n机器2时间（小时）\n利润（美元）\n\n\n\n\nA\n2\n1\n30\n\n\nB\n1\n2\n20\n\n\n\n机器 1 每周的总可用时间为 40 小时，机器 2 每周的总可用时间为 60 小时。目标是确定产品A和B的生产数量，使得总利润最大化。在这里，生产数量是整数变量。\n混合整数规划模型如下：\n\nfrom gurobipy import Model, GRB\n\n# 创建模型\nmodel = Model()\n\n# 添加变量\nx = model.addVar(vtype=GRB.INTEGER, name=\"x\")  # 产品A\ny = model.addVar(vtype=GRB.INTEGER, name=\"y\")  # 产品B\n\n# 设置目标函数：最大化利润\nmodel.setObjective(30 * x + 20 * y, GRB.MAXIMIZE)\n\n# 添加约束\nmodel.addConstr(2 * x + y &lt;= 40)  # 机器1时间约束\nmodel.addConstr(x + 2 * y &lt;= 60)  # 机器2时间约束\n\n# 优化模型\nmodel.optimize()\n\n# 提取结果\nfor v in model.getVars():\n    print(f'{v.VarName}: {v.x}')\nprint(f'Optimal value: {model.objVal}')\n\nGurobi Optimizer version 11.0.2 build v11.0.2rc0 (mac64[arm] - Darwin 24.1.0 24B83)\n\nCPU model: Apple M3 Pro\nThread count: 12 physical cores, 12 logical processors, using up to 12 threads\n\nOptimize a model with 2 rows, 2 columns and 4 nonzeros\nModel fingerprint: 0x8826119c\nVariable types: 0 continuous, 2 integer (0 binary)\nCoefficient statistics:\n  Matrix range     [1e+00, 2e+00]\n  Objective range  [2e+01, 3e+01]\n  Bounds range     [0e+00, 0e+00]\n  RHS range        [4e+01, 6e+01]\nFound heuristic solution: objective 600.0000000\nPresolve time: 0.00s\nPresolved: 2 rows, 2 columns, 4 nonzeros\nVariable types: 0 continuous, 2 integer (0 binary)\n\nRoot relaxation: objective 7.333333e+02, 2 iterations, 0.00 seconds (0.00 work units)\n\n    Nodes    |    Current Node    |     Objective Bounds      |     Work\n Expl Unexpl |  Obj  Depth IntInf | Incumbent    BestBd   Gap | It/Node Time\n\n     0     0  733.33333    0    2  600.00000  733.33333  22.2%     -    0s\nH    0     0                     730.0000000  733.33333  0.46%     -    0s\n     0     0  733.33333    0    2  730.00000  733.33333  0.46%     -    0s\n\nExplored 1 nodes (2 simplex iterations) in 0.00 seconds (0.00 work units)\nThread count was 12 (of 12 available processors)\n\nSolution count 2: 730 600 \n\nOptimal solution found (tolerance 1.00e-04)\nBest objective 7.300000000000e+02, best bound 7.300000000000e+02, gap 0.0000%\nx: 7.0\ny: 26.0\nOptimal value: 730.0\n\n\n在这个实例中，MIP 帮助我们找到最大化利润的最佳生产数量。\n\n\n\n16.3.2 交通流量优化问题实例\n假设一个城市的交通网络如下图所示，每条边（道路）上标出的是该路段的道路容量（即最多允许通过的车辆数）。我们的目标是从源节点 S 到目标节点 T 的流量最大化。\n\n\n\n\n\ngraph TD\n    S --&gt;|4| A\n    S --&gt;|5| B\n    A --&gt;|3| C\n    A --&gt;|2| D\n    B --&gt;|3| D\n    B --&gt;|4| E\n    C ---&gt;|3| T\n    D ---&gt;|2| T\n    E --&gt;|2| F\n    F --&gt;|3| T\n\n\n\n\n\n\n路径上的数值表示该路径的最大容量，例如 S → A = 4 指 S 点到 A 点最大流量为 4.\n下面是使用 Gurobi 进行交通流量优化建模和求解的代码。\n\nfrom gurobipy import Model, GRB\n\n# 创建模型\nmodel = Model(\"MaxFlow\")\n\n# 边及其容量\nedges = {'S': {'A': 4, 'B': 5},\n         'A': {'C': 3, 'D': 2},\n         'B': {'D': 3, 'E': 4},\n         'C': {'T': 3},\n         'D': {'T': 2},\n         'E': {'F': 2},\n         'F': {'T': 3}}\n\n# 添加变量\nflows = {}\nfor u in edges:\n    for v in edges[u]:\n        flows[u, v] = model.addVar(name=f\"flow_{u}_{v}\", ub=edges[u][v])\n\n# 设置目标函数：最大化从 S 到 T 的流量\nmodel.setObjective(sum(flows['S', v] for v in edges['S']), GRB.MAXIMIZE)\n\n# 添加节点平衡约束\n# 所有中间节点的流量平衡：输入等于输出\nnodes = set(edges.keys()).union({v for u in edges for v in edges[u]})\nfor node in nodes:\n    if node not in ['S', 'T']:\n        inflow = sum(flows[u, node] for u in edges if (u, node) in flows)\n        outflow = sum(flows[node, v] for v in edges[node]) if node in edges else 0\n        model.addConstr(inflow == outflow, name=f\"node_{node}_balance\")\n\n# 优化模型\nmodel.optimize()\n\n# 打印结果\nif model.status == GRB.OPTIMAL:\n    print('\\nOptimal flow value: ', model.objVal)\n    for (u, v), flow_var in flows.items():\n        print(f\"{u} -&gt; {v}: {flow_var.x}\")\n\nGurobi Optimizer version 11.0.2 build v11.0.2rc0 (mac64[arm] - Darwin 24.1.0 24B83)\n\nCPU model: Apple M3 Pro\nThread count: 12 physical cores, 12 logical processors, using up to 12 threads\n\nOptimize a model with 6 rows, 10 columns and 15 nonzeros\nModel fingerprint: 0xcaf27f06\nCoefficient statistics:\n  Matrix range     [1e+00, 1e+00]\n  Objective range  [1e+00, 1e+00]\n  Bounds range     [2e+00, 5e+00]\n  RHS range        [0e+00, 0e+00]\nPresolve removed 6 rows and 10 columns\nPresolve time: 0.00s\nPresolve: All rows and columns removed\nIteration    Objective       Primal Inf.    Dual Inf.      Time\n       0    7.0000000e+00   0.000000e+00   0.000000e+00      0s\n\nSolved in 0 iterations and 0.00 seconds (0.00 work units)\nOptimal objective  7.000000000e+00\n\nOptimal flow value:  7.0\nS -&gt; A: 3.0\nS -&gt; B: 4.0\nA -&gt; C: 3.0\nA -&gt; D: 0.0\nB -&gt; D: 2.0\nB -&gt; E: 2.0\nC -&gt; T: 3.0\nD -&gt; T: 2.0\nE -&gt; F: 2.0\nF -&gt; T: 2.0\n\n\n\n16.3.2.1 模型和变量\n\n模型：创建一个名为 “MaxFlow” 的模型。\n变量：定义每条边上的流量，变量的上限（ub）设为边的容量。例如 flow_S_A 表示从 S 到 A 的流量，它的上限为 4。\n\n\n\n16.3.2.2 目标函数\n\n目标函数：设置要最大化 S 的总出流量，即从 S 到所有邻接节点（即 S → A 和 S → B）的流量之和。\n\n\n\n16.3.2.3 约束条件\n\n节点平衡约束：对所有中间节点，流入流量等于流出流量。\n对于每个节点，除了源节点和目标节点之外，输入流量必须等于输出流量。例如，对节点 A 的约束是 flow_S_A == flow_A_C + flow_A_D。\n该约束条件确保流量在整个网络中保持平衡，没有无中生有的流量，也没有流量消失。\n节点 S 和 T 将没有这一平衡约束，因为 S 是源点，而 T 是目的点。\n\n\n\n16.3.2.4 结果\n\n求解模型：调用 model.optimize() 来求解最大流量问题。\n输出结果：打印最优流量值和每条边上的流量值。\n\n各条路径上的流量如下图所示，最大的流量即为 7。\n\n\n\n\n\ngraph TD\n    S --&gt;|3| A\n    S --&gt;|4| B\n    A --&gt;|3| C\n    A .-&gt;|0| D\n    B --&gt;|2| D\n    B --&gt;|2| E\n    C ---&gt;|3| T\n    D ---&gt;|2| T\n    E --&gt;|2| F\n    F --&gt;|2| T\n\n\n\n\n\n\n这个实例展示了如何使用混合整数规划方法处理最大流问题，确定从源节点到目标节点的最大流量，同时满足所有边的容量约束。\n\n\n\n16.3.3 数学优化与机器学习\n\n优化与机器学习的协同作用： 理解优化如何帮助改进机器学习模型，如超参数调优、特征选择和构建更稳健的预测模型。\n\n数学优化在改进机器学习模型的各个方面起着至关重要的作用，包括超参数调优、特征选择和构建更稳健的预测模型。以下是这些方面的详细解释以及如何使用数学优化来实现它们的改进。\nX_train 和 y_train 被假定是已经分割好的训练数据集。为了完整地说明这些概念，我们将使用一个流行的内置数据集，并展示如何加载、预处理和分割数据集。在这次演示中，我们将使用 scikit-learn 中的 iris 数据集。\n我们将首先展示如何从 scikit-learn 加载数据集，并进行数据预处理和分割。例如，对于 iris 数据集，以下是代码示例：\n\nfrom sklearn.datasets import load_iris\nfrom sklearn.model_selection import train_test_split\nfrom sklearn.preprocessing import StandardScaler\nimport pandas as pd\n\n# 加载 iris 数据集\niris = load_iris()\nX = iris.data  # 特征矩阵\ny = iris.target  # 目标变量\n\n# 数据标准化\nscaler = StandardScaler()\nX = scaler.fit_transform(X)\n\n# 分割数据集为训练集和测试集\nX_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.3, random_state=42)\n\n# 将数据转换为 pandas DataFrame 以便后续使用\nX_train = pd.DataFrame(X_train, columns=iris.feature_names)\nX_test = pd.DataFrame(X_test, columns=iris.feature_names)\ny_train = pd.Series(y_train)\ny_test = pd.Series(y_test)\n\nprint(\"训练集特征维度:\", X_train.shape)\nprint(\"训练集标签维度:\", y_train.shape)\nprint(\"测试集特征维度:\", X_test.shape)\nprint(\"测试集标签维度:\", y_test.shape)\n\n训练集特征维度: (105, 4)\n训练集标签维度: (105,)\n测试集特征维度: (45, 4)\n测试集标签维度: (45,)\n\n\n\n16.3.3.1 1. 超参数调优\n超参数调优是优化机器学习模型性能的关键部分，因为超参数对模型的训练过程和最终性能有重大影响。\n\n网格搜索（Grid Search）：这种方法通过系统地遍历指定的超参数值组合来找到最优的一组超参数。它的局限性在于对高维度超参数空间可能会非常耗时。\n\n\nfrom sklearn.model_selection import GridSearchCV\nfrom sklearn.ensemble import RandomForestClassifier\n\n# 定义参数网格\nparam_grid = {\n    'n_estimators': [100, 200, 300],\n    'max_depth': [10, 20, 30]\n}\n\n# 创建模型\nmodel = RandomForestClassifier()\n\n# 创建网格搜索实例\ngrid_search = GridSearchCV(estimator=model, param_grid=param_grid, cv=5)\ngrid_search.fit(X_train, y_train)\n\n# 最优参数\nprint(f'Best Parameters: {grid_search.best_params_}')\n\nBest Parameters: {'max_depth': 10, 'n_estimators': 100}\n\n\n\n随机搜索（Random Search）：与网格搜索不同，随机搜索通过对超参数空间进行随机采样来寻找最优参数。它对高维度空间更有效。\n\n\nfrom sklearn.model_selection import RandomizedSearchCV\nfrom sklearn.ensemble import RandomForestClassifier\nfrom scipy.stats import randint\n\n# 定义参数分布\nparam_dist = {\n    'n_estimators': randint(100, 500),\n    'max_depth': randint(10, 50)\n}\n\n# 创建模型\nmodel = RandomForestClassifier()\n\n# 创建随机搜索实例\nrandom_search = RandomizedSearchCV(estimator=model, param_distributions=param_dist, n_iter=50, cv=5)\nrandom_search.fit(X_train, y_train)\n\n# 最优参数\nprint(f'Best Parameters: {random_search.best_params_}')\n\nBest Parameters: {'max_depth': 41, 'n_estimators': 208}\n\n\n\n\n16.3.3.2 2. 特征选择\n特征选择有助于减少模型的复杂性，提高模型的泛化能力和性能。\n\nL1正则化（Lasso回归）：L1正则化可以通过强制一些权重变为零来进行特征选择。\n\n\nfrom sklearn.linear_model import Lasso\n\n# 创建Lasso模型\nmodel = Lasso(alpha=0.1)\nmodel.fit(X_train, y_train)\n\n# 选择非零特征\nselected_features = X_train.columns[model.coef_ != 0]\nprint(f'Selected Features: {selected_features}')\n\nSelected Features: Index(['petal length (cm)', 'petal width (cm)'], dtype='object')\n\n\n\n递归特征消除（Recursive Feature Elimination, RFE）：RFE是一个递归特征选择过程，将特征逐一移除，并基于模型性能选择最佳特征子集。\n\n\nfrom sklearn.feature_selection import RFE\nfrom sklearn.ensemble import RandomForestClassifier\n\n# 创建模型\nmodel = RandomForestClassifier()\n\n# 创建RFE实例\nselector = RFE(estimator=model, n_features_to_select=5, step=1)\nselector = selector.fit(X_train, y_train)\n\n# 选择特征\nselected_features = X_train.columns[selector.support_]\nprint(f'Selected Features: {selected_features}')\n\nSelected Features: Index(['sepal length (cm)', 'sepal width (cm)', 'petal length (cm)',\n       'petal width (cm)'],\n      dtype='object')\n\n\n\n\n16.3.3.3 3. 构建更稳健的预测模型\n数学优化有助于构建更稳健的预测模型，增强其泛化能力，处理数据噪声和异常值。\n\n对抗训练（Adversarial Training）：对抗训练是通过向训练数据中添加对抗样本（小扰动的样本）来训练模型，从而增强模型的稳健性。\n\n\n# 使用随机森林模型\nmodel = RandomForestClassifier()\nmodel.fit(X_train, y_train)\n\n# 使用梯度生成对抗样本（这里模拟一个简单的对抗样本生成过程，但实际效果存在局限）\ndef adversarial_training(model, X_train, y_train, epsilon=0.1):\n    # 模拟对抗样本生成（注意：深度模型通常用梯度生成对抗样本，这里简化处理）\n    perturbation = epsilon * np.sign(np.random.randn(*X_train.shape))\n    X_adv = X_train + perturbation\n    X_combined = np.vstack([X_train, X_adv])\n    y_combined = np.hstack([y_train, y_train])\n\n    # 合并对抗样本和原样本进行训练\n    model.fit(X_combined, y_combined)\n    return model\n\n# 应用对抗训练\nmodel = adversarial_training(model, X_train.values, y_train.values)\n\n# 验证模型\nacc = model.score(X_test, y_test)\nprint(\"模型在测试集上的准确率: \", acc)\n\n模型在测试集上的准确率:  1.0\n\n\n\n交叉验证（Cross-Validation）：使用交叉验证来评估模型性能，以增强模型的稳健性。\n\n\nfrom sklearn.model_selection import cross_val_score\n\n# 创建模型\nmodel = RandomForestClassifier()\n\n# 交叉验证评估模型\nscores = cross_val_score(model, X, y, cv=5)\nprint(f'Cross-Validation Scores: {scores}')\nprint(f'Mean Score: {scores.mean()}')\n\nCross-Validation Scores: [0.96666667 0.96666667 0.93333333 0.96666667 1.        ]\nMean Score: 0.9666666666666668\n\n\n数学优化在机器学习模型的改进中扮演着重要角色，通过优化超参数、选择最佳特征和构建更稳健的模型，可以显著提升模型的性能和泛化能力。这些方法的具体实现通过示例代码得到了展示，帮助理解和应用数学优化技术来改进机器学习模型。\n\n实际应用案例： 讨论一些优化和机器学习有效结合的实际案例，例如供应链管理、金融建模和预测性维护。\n\n我们可以使用不同的优化方法解决复杂的问题。比如在生产计划中，我们希望尽可能减少生产成本。我们可以使用线性规划来解决这个问题。\n\nfrom scipy.optimize import linprog\n\n# 定义目标函数系数\nc = [29, 45]\n\n# 定义不等式约束，A_ub * x &lt;= b_ub\nA = [[-5, 20], [10, -50]]\nb = [-15, -30]\n\n# 求解线性规划\nres = linprog(c, A_ub=A, b_ub=b)\nprint('Optimal value:', res.fun, '\\nX:', res.x)\n\nOptimal value: 1053.0 \nX: [27.  6.]\n\n\n\n\n\n16.3.4 数学优化的方法\n\n哦，所以你认为你可以优化：不同的方法如何帮助你做出更好的决策\n\n\n经典优化技术： 包括线性规划、混合整数规划、非线性规划的高级用法。\n启发式和元启发式方法： 介绍遗传算法、模拟退火、粒子群优化等高级算法。\n对比分析： 根据问题的复杂性、数据规模和性能指标选择合适的优化方法的决策标准。\n\n\n16.3.4.1 非线性规划\n非线性规划（Nonlinear Programming, NLP）是数学优化中的一类重要问题，其中目标函数或约束条件至少有一个是非线性的。解决非线性规划问题的经典方法有很多，以下是一些常用的方法及其简要介绍：\n\n梯度下降法（Gradient Descent）\n\n梯度下降法是一种迭代优化算法，主要用于寻找连续可微函数的局部最小值。\n基本步骤\n\n初始化一个起始点。\n计算该点的梯度（目标函数的导数）。\n沿梯度的反方向更新当前点的位置。\n重复上述步骤，直到满足终止条件（例如梯度的大小足够小或达到最大迭代次数）。\n\n优缺点\n\n优点：简单易行，适合高维优化问题。\n缺点：可能收敛到局部最优，收敛速度依赖于学习率的选择。\n\n\nimport numpy as np\n\ndef gradient_descent(f, grad_f, x0, lr=0.01, max_iter=1000, tol=1e-6):\n    x = x0\n    for i in range(max_iter):\n        grad = grad_f(x)\n        x_new = x - lr * grad\n        if np.linalg.norm(x_new - x) &lt; tol:\n            break\n        x = x_new\n    return x\n\n# 示例\nf = lambda x: x[0]**2 + x[1]**2\ngrad_f = lambda x: np.array([2*x[0], 2*x[1]])\nx0 = np.array([2, 3])\nopt_x = gradient_descent(f, grad_f, x0)\nprint(f'Optimal x: {opt_x}')\n\nOptimal x: [2.75597916e-05 4.13396874e-05]\n\n\n\n牛顿法（Newton’s Method）\n\n牛顿法是一种基于二阶导数（Hessian矩阵）的优化方法，用于寻找可微可导函数的极小值。\n基本步骤\n\n初始化一个起始点。\n计算目标函数在当前点的梯度和Hessian矩阵。\n更新当前点的位置： ( \\(x_{k+1} = x_k - H_f(x_k)^{-1} \\nabla f(x_k)\\) )。\n重复上述步骤，直到满足终止条件。\n\n优缺点\n\n优点：收敛速度快（通常为二次收敛）。\n缺点：计算Hessian矩阵和其逆矩阵的成本高，不适用于高维问题。\n\n\nimport numpy as np\n\ndef newton_method(f, grad_f, hessian_f, x0, max_iter=100, tol=1e-6):\n    x = x0\n    for i in range(max_iter):\n        grad = grad_f(x)\n        hessian = hessian_f(x)\n        x_new = x - np.linalg.inv(hessian).dot(grad)\n        if np.linalg.norm(x_new - x) &lt; tol:\n            break\n        x = x_new\n    return x\n\n# 示例\nf = lambda x: x[0]**2 + x[1]**2\ngrad_f = lambda x: np.array([2*x[0], 2*x[1]])\nhessian_f = lambda x: np.array([[2, 0], [0, 2]])\nx0 = np.array([2, 3])\nopt_x = newton_method(f, grad_f, hessian_f, x0)\nprint(f'Optimal x: {opt_x}')\n\nOptimal x: [0. 0.]\n\n\n\n内点法（Interior-Point Method）\n\n内点法是一种用于处理具有约束条件的非线性规划问题的优化方法。内点法通过引入障碍函数来避免逐出可行域。\n基本步骤\n\n初始化一个可行点。\n通过障碍函数调整目标函数，以确保可行性。\n应用优化算法（如牛顿法）进行每一步迭代。\n逐步减少障碍参数，继续优化，直到满足终止条件。\n\n优缺点\n\n优点：适用于大型稀疏问题，可以处理不等式约束。\n缺点：算法复杂性较高，对初始化和参数选择敏感。\n\n\n信赖域法（Trust-Region Method）\n\n信赖域法是一类迭代优化算法，通过在每一步迭代中求解一个包含约束的小规模子问题来更新变量。\n基本步骤\n\n初始化一个起始点和信赖域大小。\n在信赖域内建立二次近似模型并求解。\n根据近似模型的解更新当前点的位置。\n根据模型拟合的情况调整信赖域的大小。\n重复上述步骤，直到满足终止条件。\n\n优缺点\n\n优点：收敛性好，适用于高维非线性问题。\n缺点：每步迭代计算成本较高。\n\n\nimport numpy as np\nfrom scipy.optimize import minimize\n\n# 目标函数\ndef rosenbrock(x):\n    return sum(100.0*(x[1:]-x[:-1]**2.0)**2.0 + (1-x[:-1])**2.0)\n\nx0 = np.array([1.2, 1.2])\nresult = minimize(rosenbrock, x0, method='trust-constr')\nprint(f'Optimal x: {result.x}, Optimal value: {result.fun}')\n\nOptimal x: [0.99999552 0.99999104], Optimal value: 2.005102033632681e-11\n\n\n以上是一些经典的非线性规划优化方法，每种方法都有其优缺点和适用范围。选择合适的优化方法需要根据具体问题的性质、规模和目标函数的特点来决定。通过这些优化技术，可以高效解决实际中的复杂非线性规划问题。\n\n\n16.3.4.2 高级优化算法\n高级优化算法如遗传算法、模拟退火和粒子群优化等在处理复杂的非线性、多峰、多约束优化问题时非常有用。它们通常基于生物进化、物理退火或群体智能等自然现象的启发。\n\n遗传算法（Genetic Algorithm, GA）\n\n遗传算法是一种基于自然选择和遗传机制的优化算法。它通过模拟生物进化过程中的选择、交叉和突变操作来发现最优解。\n基本步骤\n\n初始化：生成一个初始种群，种群中的每个个体都是一个潜在的解。\n适应度评估：计算每个个体的适应度值（即目标函数值）。\n选择：根据适应度值选择若干个体，较优的个体有更高的被选择概率。\n交叉：对选中的个体对进行交叉操作，生成新的个体。\n突变：对部分新个体进行突变操作，增加种群的多样性。\n替换：用新生成的个体替换部分或全部旧个体。\n迭代：重复步骤2~6，直到满足终止条件（如达到最大迭代次数或适应度满足阈值）。\n\n示例代码\n\nimport numpy as np\nfrom deap import base, creator, tools, algorithms\n\ndef evaluate(individual):\n    return sum(individual),\n\ncreator.create(\"FitnessMax\", base.Fitness, weights=(1.0,))\ncreator.create(\"Individual\", list, fitness=creator.FitnessMax)\n\ntoolbox = base.Toolbox()\ntoolbox.register(\"attr_float\", np.random.uniform, -10, 10)\ntoolbox.register(\"individual\", tools.initRepeat, creator.Individual, toolbox.attr_float, n=10)\ntoolbox.register(\"population\", tools.initRepeat, list, toolbox.individual)\n\ntoolbox.register(\"mate\", tools.cxTwoPoint)\ntoolbox.register(\"mutate\", tools.mutGaussian, mu=0, sigma=1, indpb=0.1)\ntoolbox.register(\"select\", tools.selTournament, tournsize=3)\ntoolbox.register(\"evaluate\", evaluate)\n\npopulation = toolbox.population(n=100)\nNGEN = 50\nCXPB, MUTPB = 0.5, 0.2\n\nfor gen in range(NGEN):\n    offspring = toolbox.select(population, len(population))\n    offspring = list(map(toolbox.clone, offspring))\n\n    for child1, child2 in zip(offspring[::2], offspring[1::2]):\n        if np.random.rand() &lt; CXPB:\n            toolbox.mate(child1, child2)\n            del child1.fitness.values\n            del child2.fitness.values\n\n    for mutant in offspring:\n        if np.random.rand() &lt; MUTPB:\n            toolbox.mutate(mutant)\n            del mutant.fitness.values\n\n    invalid_ind = [ind for ind in offspring if not ind.fitness.valid]\n    fitnesses = map(toolbox.evaluate, invalid_ind)\n    for ind, fit in zip(invalid_ind, fitnesses):\n        ind.fitness.values = fit\n\n    population[:] = offspring\n\nbest_ind = tools.selBest(population, 1)[0]\nprint(f'Best individual is {best_ind}, {best_ind.fitness.values}')\n\nBest individual is [17.74946320369606, 12.628846568393326, 12.814644772889038, 11.284328141367586, 13.757849401094125, 11.719117378960084, 14.833331027352905, 13.90895408387577, 13.031288687132951, 9.973760189588456], (131.7015834543503,)\n\n\n\n模拟退火（Simulated Annealing, SA）\n\n模拟退火是一种基于物理退火过程的优化算法，通过逐步降低”温度”来寻找到函数的全局最优解。\n基本步骤\n\n初始化：从一个初始解出发，并设定初始温度。\n邻域搜索：从当前解的邻域中随机选择一个新解。\n接受概率：根据目标函数值变化以及当前温度计算接受新解的概率。如果新解比当前解更优，则总是接受；否则以一定概率接受（概率随温度降低）。\n更新温度：降低温度，然后转到步骤2，直到满足终止条件。\n\n\nimport numpy as np\n\ndef objective_function(x):\n    return x**2\n\ndef simulated_annealing(objective, bounds, n_iterations, step_size, temp):\n    best = bounds[:, 0] + (np.random.rand(len(bounds)) * (bounds[:, 1] - bounds[:, 0]))\n    best_eval = objective(best)\n    curr, curr_eval = best, best_eval\n    for i in range(n_iterations):\n        candidate = curr + np.random.randn(len(bounds)) * step_size\n        candidate_eval = objective(candidate)\n        if candidate_eval &lt; best_eval or np.exp((curr_eval - candidate_eval) / temp) &gt; np.random.rand():\n            curr, curr_eval = candidate, candidate_eval\n        if candidate_eval &lt; best_eval:\n            best, best_eval = candidate, candidate_eval\n        temp *= 0.99\n    return best, best_eval\n\nbounds = np.array([[-5.0, 5.0]])\nn_iterations = 1000\nstep_size = 0.1\ntemp = 10\n\nbest, score = simulated_annealing(objective_function, bounds, n_iterations, step_size, temp)\nprint(f'Best solution: {best}')\nprint(f'Objective function value: {score}')\n\nBest solution: [-0.00021292]\nObjective function value: [4.53336993e-08]\n\n\n\n粒子群优化（Particle Swarm Optimization, PSO）\n\n粒子群优化是一种基于群体智能的优化算法，通过模拟鸟群觅食行为来寻找最优解。\n基本步骤\n\n初始化：生成初始粒子群，每个粒子表示一个潜在的解。\n速度和位置更新：根据粒子的速度和位置更新规则，以及粒子自身和全局最优解的信息，分别更新每个粒子的速度和位置。\n适应度评估：计算每个粒子的适应度值，并更新个体最佳和全局最佳位置。\n迭代：重复步骤2和3，直到满足终止条件。\n\n\nimport numpy as np\n\ndef objective_function(x):\n    return np.sum(x**2)\n\ndef particle_swarm_optimization(objective, bounds, n_particles, n_iterations, w=0.5, c1=1.0, c2=2.0):\n    dim = len(bounds)\n    swarm = np.random.rand(n_particles, dim)\n    swarm = bounds[:, 0] + swarm * (bounds[:, 1] - bounds[:, 0])\n    velocity = np.zeros_like(swarm)\n    personal_best = np.copy(swarm)\n    personal_best_scores = np.array([objective(p) for p in personal_best])\n    global_best = swarm[np.argmin(personal_best_scores)]\n    global_best_score = np.min(personal_best_scores)\n\n    for i in range(n_iterations):\n        for j in range(n_particles):\n            r1, r2 = np.random.rand(dim), np.random.rand(dim)\n            velocity[j] = w * velocity[j] + c1 * r1 * (personal_best[j] - swarm[j]) + c2 * r2 * (global_best - swarm[j])\n            swarm[j] += velocity[j]\n            score = objective(swarm[j])\n            if score &lt; personal_best_scores[j]:\n                personal_best[j], personal_best_scores[j] = swarm[j], score\n        global_best = personal_best[np.argmin(personal_best_scores)]\n        global_best_score = np.min(personal_best_scores)\n\n    return global_best, global_best_score\n\nbounds = np.array([[-5.0, 5.0], [-5.0, 5.0]])\nn_particles = 30\nn_iterations = 100\n\nbest, score = particle_swarm_optimization(objective_function, bounds, n_particles, n_iterations)\nprint(f'Best solution: {best}')\nprint(f'Objective function value: {score}')\n\nBest solution: [-6.14061071e-12  5.39887490e-12]\nObjective function value: 6.68549500754692e-23\n\n\n上述三种高级优化算法（遗传算法、模拟退火和粒子群优化）在处理复杂的非线性、多峰和多约束优化问题时非常有效。它们通过模拟生物进化、物理退火和群体智能等自然现象的过程，能够在全局范围内搜索最优解，是解决实际优化问题的重要工具。\n\n\n\n16.3.5 使用 Gurobipy 进行中级建模\n\nGurobipy的高级功能： 探索如参数调优、数据处理高效的方法以及使用 Gurobi 回调等高级功能。\n管理模型复杂性： 简化复杂问题的技术，理解模型细节与计算性能之间的权衡。\n\nGurobipy 是一个功能强大的库，能够处理更复杂的线性和非线性优化问题。我们将实现一个简单的混合整数线性规划问题。\n\nfrom gurobipy import Model, GRB\n\n# 创建模型\nmodel = Model()\n\n# 添加变量\nx = model.addVar(vtype=GRB.CONTINUOUS, name=\"x\")\ny = model.addVar(vtype=GRB.INTEGER, name=\"y\")\n\n# 设置目标函数\nmodel.setObjective(2 * x + 3 * y, GRB.MINIMIZE)\n\n# 添加约束\nmodel.addConstr(x + y &gt;= 10, \"c0\")\nmodel.addConstr(3 * x + 2 * y &lt;= 25, \"c1\")\n\n# 优化模型\nmodel.optimize()\n\n# 输出结果\nfor v in model.getVars():\n    print(f'{v.varName}: {v.x}')\nprint(f'Objective: {model.objVal}')\n\nGurobi Optimizer version 11.0.2 build v11.0.2rc0 (mac64[arm] - Darwin 24.1.0 24B83)\n\nCPU model: Apple M3 Pro\nThread count: 12 physical cores, 12 logical processors, using up to 12 threads\n\nOptimize a model with 2 rows, 2 columns and 4 nonzeros\nModel fingerprint: 0x6e3d58b8\nVariable types: 1 continuous, 1 integer (0 binary)\nCoefficient statistics:\n  Matrix range     [1e+00, 3e+00]\n  Objective range  [2e+00, 3e+00]\n  Bounds range     [0e+00, 0e+00]\n  RHS range        [1e+01, 2e+01]\nPresolve removed 2 rows and 2 columns\nPresolve time: 0.00s\nPresolve: All rows and columns removed\n\nExplored 0 nodes (0 simplex iterations) in 0.00 seconds (0.00 work units)\nThread count was 1 (of 12 available processors)\n\nSolution count 1: 25 \n\nOptimal solution found (tolerance 1.00e-04)\nBest objective 2.500000000000e+01, best bound 2.500000000000e+01, gap 0.0000%\nx: 5.0\ny: 5.0\nObjective: 25.0\n\n\n\n\n16.3.6 实践建模和编码：部分1\n\n动手实践： 结合前面学习的知识进行实际建模。\n案例分析： 夜初步构建与优化。",
+    "crumbs": [
+      "数学基础",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>数学优化</span>"
+    ]
+  },
+  {
+    "objectID": "mathematical-optimization.html#数学优化的技巧和高阶方法",
+    "href": "mathematical-optimization.html#数学优化的技巧和高阶方法",
+    "title": "16  数学优化",
+    "section": "16.4 数学优化的技巧和高阶方法",
+    "text": "16.4 数学优化的技巧和高阶方法\n\n16.4.1 提升模型性能\n\n16.4.1.1 隐藏的宝藏：了解那些能够提升模型性能的特性\n\n高级功能探索： 详细学习Gurobi支持的一些不为人知但非常有用的功能。\n性能提升技巧： 探讨提高模型性能的技巧和窍门。\n\n\n\n16.4.1.2 实践建模和编码：部分2\n\n深入实践： 继续实际动手操作，更复杂的建模实例。\n优化调试： 如何有效调试优化模型。\n\n\n\n16.4.1.3 综合应用：介绍中级案例\n\n案例介绍： 详细解析一个中级案例，包括问题定义、建模思路及优化策略。\n问题求解： 实际动手解决该问题。\n\n\n\n16.4.1.4 在Colab中进行案例建模\n\n使用Colab： 学习如何在Colab环境中进行建模和运行优化模型。\n协同操作： 如何利用Colab进行共享和协作。\n\n\n\n16.4.1.5 未来学习路径：Gurobi ML 包与 OptiMods 示例（可选）\n\nGurobi ML包介绍： 深入了解Gurobi的机器学习包的功能和使用。\nOptiMods示例： 通过具体示例学习如何将学到的知识应用于更加复杂的场景。",
+    "crumbs": [
+      "数学基础",
+      "<span class='chapter-number'>16</span>  <span class='chapter-title'>数学优化</span>"
+    ]
+  },
+  {
+    "objectID": "references.html",
+    "href": "references.html",
+    "title": "参考文献",
+    "section": "",
+    "text": "Borer, Benedict, Hannah Kleyer, and Dani Or. 2022. “Primary Carbon\nSources and Self-Induced Metabolic Landscapes Shape Community Structure\nin Soil Bacterial Hotspots.” Soil Biology and\nBiochemistry 168 (May): 108620. https://doi.org/10.1016/j.soilbio.2022.108620.\n\n\nChen, Jin, Jose A. Gomez, Kai Höffner, Paul I. Barton, and Michael A.\nHenson. 2015. “Metabolic Modeling of Synthesis Gas Fermentation in\nBubble Column Reactors.” Biotechnology for Biofuels 8\n(1). https://doi.org/10.1186/s13068-015-0272-5.\n\n\nDiener, Christian, Sean M. Gibbons, and Osbaldo Resendis-Antonio. 2020.\n“MICOM: Metagenome-Scale Modeling to Infer Metabolic Interactions\nin the Gut Microbiota.” mSystems 5 (1):\n10.1128/msystems.00606–19. https://doi.org/10.1128/msystems.00606-19.\n\n\nEren, A. Murat, Evan Kiefl, Alon Shaiber, Iva Veseli, Samuel E. Miller,\nMatthew S. Schechter, Isaac Fink, et al. 2021. “Community-Led,\nIntegrated, Reproducible Multi-Omics with Anvi’o.”\nNature Microbiology 6 (1): 3–6. https://doi.org/10.1038/s41564-020-00834-3.\n\n\nHarcombe, William R., William J. Riehl, Ilija Dukovski, Brian R.\nGranger, Alex Betts, Alex H. Lang, Gracia Bonilla, et al. 2014.\n“Metabolic Resource Allocation in Individual Microbes Determines\nEcosystem Interactions and Spatial Dynamics.” Cell\nReports 7 (4): 1104–15. https://doi.org/10.1016/j.celrep.2014.03.070.\n\n\nHenson, Michael A. 2015. “Genome-scale modelling of microbial\nmetabolism with temporal and spatial resolution.” Biochemical\nSociety Transactions 43 (6): 1164–71. https://doi.org/10.1042/BST20150146.\n\n\nMa, Bin, Caiyu Lu, Yiling Wang, Jingwen Yu, Kankan Zhao, Ran Xue, Hao\nRen, et al. 2023. “A Genomic Catalogue of Soil Microbiomes Boosts\nMining of Biodiversity and Genetic Resources.” Nature\nCommunications 14 (1): 7318. https://doi.org/10.1038/s41467-023-43000-z.\n\n\nNayfach, Stephen, Simon Roux, Rekha Seshadri, Daniel Udwary, Neha\nVarghese, Frederik Schulz, Dongying Wu, et al. 2021. “A Genomic\nCatalog of Earth’s Microbiomes.” Nature\nBiotechnology 39 (4): 499–509. https://doi.org/10.1038/s41587-020-0718-6.\n\n\nPacheco, Alan R., and Julia A. Vorholt. 2023. “Resolving Metabolic\nInteraction Mechanisms in Plant Microbiomes.” Current Opinion\nin Microbiology 74 (August): 102317. https://doi.org/10.1016/j.mib.2023.102317.\n\n\nParks, Donovan H., Maria Chuvochina, Pierre-Alain Chaumeil, Christian\nRinke, Aaron J. Mussig, and Philip Hugenholtz. 2020. “A Complete\nDomain-to-Species Taxonomy for Bacteria and Archaea.” Nature\nBiotechnology 38 (9): 1079–86. https://doi.org/10.1038/s41587-020-0501-8.\n\n\nParks, Donovan H, Maria Chuvochina, Christian Rinke, Aaron J Mussig,\nPierre-Alain Chaumeil, and Philip Hugenholtz. 2022. “GTDB: An\nOngoing Census of Bacterial and Archaeal Diversity Through a\nPhylogenetically Consistent, Rank Normalized and Complete Genome-Based\nTaxonomy.” Nucleic Acids Research 50 (D1): D785–94. https://doi.org/10.1093/nar/gkab776.\n\n\nSchmidt, Thomas S B, Anthony Fullam, Pamela Ferretti, Askarbek Orakov,\nOleksandr M Maistrenko, Hans-Joachim Ruscheweyh, Ivica Letunic, et al.\n2024. “SPIRE: A Searchable, Planetary-Scale mIcrobiome\nREsource.” Nucleic Acids Research 52 (D1): D777–83. https://doi.org/10.1093/nar/gkad943.\n\n\nScott, Helen, and Daniel Segrè. 2024. “Metabolic Flux Modeling in\nMarine Ecosystems.” Annual Review of Marine Science,\nSeptember. https://doi.org/10.1146/annurev-marine-032123-033718.\n\n\nWickham, Hadley, Maximilian Girlich, and Edgar Ruiz. 2023.\n“Dbplyr: A ’Dplyr’ Back End for Databases.” https://CRAN.R-project.org/package=dbplyr.",
+    "crumbs": [
+      "参考文献"
+    ]
+  }
+]
