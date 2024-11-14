@@ -1,0 +1,216 @@
+# 用 Kmer 设计通用引物
+
+- 生成 Kmer 序列
+- 筛选 Kmer 序列，
+  - 仅保留 GC 含量在 40% 到 60% 之间的序列
+  - 仅保留没有复杂二级结构的序列
+- 计算任意 2 个 Kmer 在基因组上的距离
+  - 根据距离筛选 Kmer 序列
+  - 根据筛选出的 Kmer 序列设计引物
+
+
+
+```{r}
+#' Run command in parallel
+#' 
+#' check the running result and send message or warnings.
+run_cmd = function(cmd, description = paste(length(cmd), "commands"), intern = FALSE){
+  message("Run commands in parallel: ", description)
+  
+  # run cmd in parallel
+  library(parallel)
+  n = round(detectCores() * 0.75) # use 75% of all the cores
+  res = mclapply(cmd, system, intern = intern, mc.cores = n)
+  
+  # failed command
+  cmd_failed = cmd[unlist(res) != 0]
+  if (length(cmd_failed) == 0){
+    message("All commands run successfully.")
+  } else {
+    warning("There are ", length(cmd_failed), " command(s) failed.")
+    warning(paste("  ",cmd_failed))
+  }
+  invisible(res)
+}
+```
+
+```{r}
+library(glue)
+
+ws = "ws"
+
+# clean workspace
+if (dir.exists(ws)) unlink(ws, recursive = TRUE)
+dir.create(ws)
+
+genome_files = list.files(pattern = "*.fa.gz", path = "extdata/genomes", full.names = TRUE)
+prefix = basename(genome_files) |> gsub(pattern = ".fa.gz", replacement = "")
+cmds = glue("unikmer count -k 17 --canonical {genome_files} | unikmer filter | unikmer sort -o {ws}/{prefix}")
+run_cmd(cmds)
+```
+
+查看生成的 Kmer 文件。
+
+用到了两个参数：
+
+```
+  -a, --all                   all information, including number of k-mers
+  -b, --basename              only output basename of files
+```
+
+```{r}
+kmer_files = list.files(path = ws, pattern = "*.unik", full.names = TRUE)
+cmds = glue("unikmer info -ab {paste(kmer_files, collapse = ' ')}")
+run_cmd(cmds)
+```
+
+查找共有的 Kmer 序列。
+
+```{r}
+inter_file_prefix = file.path(ws, "inter")
+cmds = glue("unikmer inter {paste(kmer_files, collapse = ' ')} -o {inter_file_prefix}")
+run_cmd(cmds)
+```
+
+共有的 Kmer 序列数量十分有限。
+
+```{r}
+kmer_files = list.files(path = ws, pattern = "*.unik", full.names = TRUE)
+cmds = glue("unikmer info -ab {paste(kmer_files, collapse = ' ')}")
+run_cmd(cmds)
+```
+
+将共有的 Kmer map 到基因组上。（`unikmer map` 命令是用来提取 Kmer 匹配的序列的，`locate` 则适用于这个场景）。
+
+```{r}
+inter_file = paste0(inter_file_prefix, ".unik")
+cmds = glue("unikmer locate {inter_file} -g {genome_files} -o {ws}/{prefix}.bed")
+run_cmd(cmds)
+```
+
+`locate` 命令输出的时候，会包含多重匹配的结果，我们进行筛选，只保留唯一匹配的结果。
+
+```{r}
+bed_files = list.files(path = ws, pattern = "*.bed", full.names = TRUE)
+
+uniq_location = function(bed_file){
+  content = vroom::vroom(bed_file, col_names = c("seq_id", "start", "end", "kmer", "score", "strand")) |> 
+    dplyr::mutate(n_match = dplyr::n(), .by = kmer)
+  content |> 
+    dplyr::filter(n_match == 1) |> 
+    dplyr::select(dplyr::all_of(c("seq_id", "start", "end", "kmer", "n_match")))
+}
+
+uniq_location(bed_files[1])
+```
+
+剩下的 Kmer 还需要在所有基因组中都存在。
+
+```{r}
+bed_uniq_results = lapply(bed_files, uniq_location)
+bed_uniq_kmer = lapply(bed_uniq_results, function(x) x$kmer)
+shared_kmer = Reduce(intersect, bed_uniq_kmer)
+```
+
+再将范围缩小到这些 Kmer 上。
+
+```{r}
+bed_uniq_shared = lapply(bed_uniq_results, function(bed_uniq_result) {
+  bed_uniq_result |> dplyr::filter(kmer %in% shared_kmer)
+})
+
+# check
+bed_uniq_shared[[1]]
+```
+
+计算任意 2 个 Kmer 在基因组上的距离。
+
+```{r}
+kmer_distance = function(bed_content){
+  kmers = bed_content$kmer
+  n = length(kmers)
+  distance_matrix = matrix(0, nrow = n, ncol = n)
+  for (i in 1:(n-1)){
+    for (j in (i+1):n){
+      distance_matrix[i, j] = abs(bed_content$start[i] - bed_content$end[j])
+      distance_matrix[j, i] = distance_matrix[i, j]
+    }
+  }
+  colnames(distance_matrix) = kmers
+  rownames(distance_matrix) = kmers
+  distance_matrix
+}
+
+# 测试
+kmer_distance(bed_uniq_shared[[1]]) |> head()
+
+kmer_distances = lapply(bed_uniq_shared, kmer_distance)
+```
+
+筛选距离介于 100 bp 到 200 bp 的 Kmer 对。
+
+```{r}
+kmer_distance_filter = function(distance_matrix, min_distance = 100, max_distance = 200){
+  filtered_indices = which(distance_matrix >= min_distance & distance_matrix <= max_distance, arr.ind = TRUE)
+  result = data.frame(
+    kmer1 = rownames(distance_matrix)[filtered_indices[, 1]],
+    kmer2 = colnames(distance_matrix)[filtered_indices[, 2]],
+    distance = distance_matrix[filtered_indices]
+  )
+  result
+}
+
+# 测试
+kmer_distance_matrix = kmer_distance(bed_uniq_shared[[1]])
+kmer_distance_filter(kmer_distance_matrix, min_distance = 100, max_distance = 200)
+
+kmer_filtered_distances = lapply(kmer_distances, kmer_distance_filter, min_distance = 100, max_distance = 2000)
+```
+
+再对剩下的 kmer 进行汇总，只保留那些在所有基因组中都存在的 Kmer 对。
+
+```{r}
+kmers = lapply(kmer_filtered_distances, function(x) union(x$kmer1, x$kmer2))
+shared_kmers = Reduce(intersect, kmers)
+
+# 过滤
+kmer_filtered_distances = lapply(kmer_filtered_distances, function(x) x |> dplyr::filter(kmer1 %in% shared_kmers & kmer2 %in% shared_kmers))
+```
+
+
+合并不同基因组的 Kmer 对。
+
+```{r}
+# 添加 key 列
+kmer_filtered_distances = lapply(kmer_filtered_distances, function(x){
+  x |> 
+    dplyr::rowwise() |> 
+    dplyr::mutate(key = paste(sort(c(kmer1, kmer2)), collapse = "_")) |> 
+    dplyr::select(key, distance) |> 
+    dplyr::distinct()
+})
+
+names(kmer_filtered_distances) = prefix
+kmer_filtered_distances_merged = dplyr::bind_rows(kmer_filtered_distances, .id = "genome") |> 
+  tidyr::pivot_wider(names_from = genome, values_from = distance)
+
+# check
+kmer_filtered_distances_merged
+```
+
+这种设计思路得到的引物都是保守序列，引物扩增的产物看起来应该都是一样的。
+
+```{r}
+# 筛选出所有基因组中距离都相同的 Kmer 对
+kmer_filtered_distances_merged |> 
+  dplyr::rowwise() |> 
+  dplyr::filter(sd(dplyr::c_across(-key)) == 0)
+
+# 筛选出所有基因组中距离不相同的 Kmer 对
+kmer_filtered_distances_merged |> 
+  dplyr::rowwise() |> 
+  dplyr::filter(sd(dplyr::c_across(-key)) > 1)
+```
+
+
+为了达到想要的效果，需要降低 kmer 的长度，增加引物的简并性。
