@@ -34,10 +34,12 @@ run_cmd = function(cmd, description = paste(length(cmd), "commands"), intern = F
 }
 ```
 
+如果使用 17 bp 的 kmer，那么最后得到的结果基本都是同源序列。 如果使用 8 bp 的 kmer，那么最后又无法找到唯一的 kmer。
+
 ```{r}
 library(glue)
 
-ws = "ws"
+ws = "temp/ws"
 
 # clean workspace
 if (dir.exists(ws)) unlink(ws, recursive = TRUE)
@@ -45,7 +47,7 @@ dir.create(ws)
 
 genome_files = list.files(pattern = "*.fa.gz", path = "extdata/genomes", full.names = TRUE)
 prefix = basename(genome_files) |> gsub(pattern = ".fa.gz", replacement = "")
-cmds = glue("unikmer count -k 17 --canonical {genome_files} | unikmer filter | unikmer sort -o {ws}/{prefix}")
+cmds = glue("unikmer count -k 15 --canonical {genome_files} | unikmer filter | unikmer sort -o {ws}/{prefix}")
 run_cmd(cmds)
 ```
 
@@ -164,7 +166,7 @@ kmer_distance_filter = function(distance_matrix, min_distance = 100, max_distanc
 kmer_distance_matrix = kmer_distance(bed_uniq_shared[[1]])
 kmer_distance_filter(kmer_distance_matrix, min_distance = 100, max_distance = 200)
 
-kmer_filtered_distances = lapply(kmer_distances, kmer_distance_filter, min_distance = 100, max_distance = 2000)
+kmer_filtered_distances = lapply(kmer_distances, kmer_distance_filter, min_distance = 100, max_distance = 200)
 ```
 
 再对剩下的 kmer 进行汇总，只保留那些在所有基因组中都存在的 Kmer 对。
@@ -209,8 +211,27 @@ kmer_filtered_distances_merged |>
 # 筛选出所有基因组中距离不相同的 Kmer 对
 kmer_filtered_distances_merged |> 
   dplyr::rowwise() |> 
-  dplyr::filter(sd(dplyr::c_across(-key)) > 1)
+  dplyr::mutate(sd = sd(dplyr::c_across(-key))) |> 
+  dplyr::arrange(desc(sd)) |> 
+  head()
 ```
 
+## 筛选出两两差距最大的一组
 
-为了达到想要的效果，需要降低 kmer 的长度，增加引物的简并性。
+以下是一个实现示例，用 R 语言生成一个包含 10 个变量的随机观测数据并筛选出符合条件的数据组。数据组中变量的数值两两之间差距均衡且较大。
+
+```{r}
+kmer_filtered_distances_merged |> 
+  dplyr::rowwise() |> 
+  dplyr::mutate(
+    sd = sd(dplyr::c_across(-key)),
+    min_dist = combn(dplyr::c_across(-key), 2, function(x) abs(diff(x))) |> min()) |> 
+  dplyr::arrange(desc(min_dist))
+```
+
+代码说明：
+
+1. 使用 `combn` 计算每个组合中两两差值的最小值。
+2. 筛选出使最小差距最大的组合。
+
+运行代码后，将得到一组两两差距最大的数值。
