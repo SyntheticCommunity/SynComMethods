@@ -1,0 +1,170 @@
+# 代谢组学分析
+
+## 使用 DESeq2 进行代谢物差异分析
+
+使用 DESeq2 分析代谢物差异的流程与基因表达数据分析类似，但需要对代谢物数据进行适当处理。以下是简要步骤：
+
+### 数据准备
+
+1. **输入数据格式**  
+
+   - **计数矩阵**：行是代谢物（或特征），列是样本，单元格是计数值。
+   - **样本信息表**：包括样本分组和其他元数据。
+
+   示例计数矩阵 (`counts.csv`)：
+
+   ```csv
+   Metabolite,S1,S2,S3,Ctrl1,Ctrl2
+   Met1,10,15,20,5,8
+   Met2,50,55,60,30,35
+   ...
+   ```
+
+   示例样本信息表 (`metadata.csv`)：
+
+   ```csv
+   Sample,Group
+   S1,Treatment
+   S2,Treatment
+   S3,Treatment
+   Ctrl1,Control
+   Ctrl2,Control
+   ```
+
+2. **导入数据到 R**
+
+   ```{r}
+   library(DESeq2)
+
+   count_file = xfun::magic_path("metabolic-counts.csv")
+   metadata_file = xfun::magic_path("metabolic-metadata.csv")
+   counts = read.csv(count_file, row.names = 1)
+   metadata = read.csv(metadata_file, row.names = 1)
+   ```
+
+   `counts` 和 `metadata` 是数据框，`counts` 的行名是代谢物名称，列名是样本名称���`metadata` 的行名是样本名称，列名是样本分组。它们的结构如下：
+
+   ```{r}
+   str(counts)
+   str(metadata)
+   ```
+
+   由于 `DESeq2` 要求 `counts` 的取值为整数，因此需要将 `counts` 转换为整数。如果代谢物的计数值不是整数（如质谱数据），需要将数据转换为伪计数，如四舍五入到整数。如果数据量级差异较大，可以考虑 `log2` 转换以减小高变异。
+
+   对于 `metadata`，需要确保样本信息表中包含所有样本，并且样本名称与 `counts` 中的列名一致。根据实验设计，调整 `design` 参数以适应不同对比。
+
+### 创建 DESeq 数据集
+
+```{r}
+dds = DESeqDataSetFromMatrix(countData = counts,
+                             colData = metadata,
+                             design = ~ condition)
+```
+
+- `countData`: 计数矩阵。
+- `colData`: 样本信息表。
+- `design`: 实验设计（如处理组和对照组）。
+
+### 差异分析
+
+1. **运行 DESeq 分析**
+
+   ```{r}
+   dds = DESeq(dds)
+   ```
+
+2. **提取结果**
+
+   ```{r}
+   results_table = results(dds, contrast = c("condition", "Treatment", "Control"))
+   ```
+
+   - `contrast` 参数定义比较组。
+
+3. **显著性筛选**
+
+   ```{r}
+   sig_results = subset(results_table, padj < 0.1 & abs(log2FoldChange) > 0.5)
+   ```
+
+   - 筛选显著性（调整后的 p 值）和生物学显著性（倍数变化）。
+
+### 数据可视化
+
+1. **火山图**
+
+   ```{r}
+   library(ggplot2)
+
+   results_table$Significant = results_table$padj < 0.05
+   ggplot(results_table, aes(x = log2FoldChange, y = -log10(padj), color = Significant)) +
+     geom_point() +
+     scale_color_manual(values = c("grey", "red")) +
+     theme_minimal()
+   ```
+
+2. **热图**
+
+   ```{r}
+   library(pheatmap)
+
+   normalized_counts = counts(dds, normalized = FALSE)
+   significant_metabolites = rownames(sig_results)
+   pheatmap(normalized_counts[significant_metabolites, ])
+   ```
+
+
+## 使用 KEGG 进行代谢通路分析
+
+代谢通路富集分析是为了了解差异代谢物（或所有代谢物）在生物通路中的分布或富集情况。以下分别介绍如何使用 **KEGG** 和 **MetaboAnalyst** 进行代谢通路富集分析。
+
+
+### 使用 KEGG 进行代谢通路富集分析
+
+1. **准备数据**
+
+   - 差异代谢物的 KEGG IDs 列表，例如：
+  
+     ```text
+     C00031
+     C00147
+     C00267
+     ...
+     ```
+
+   - KEGG IDs 可通过代谢物名称查找工具（如 [KEGG Compound](https://www.genome.jp/kegg/compound/)）获取，也可使用 R 包 `KEGGREST` 自动注释。
+
+2. **R 中基于 KEGGREST 进行分析**
+   
+   - 安装和加载必要的 R 包：
+  
+     ```{r}
+     library(KEGGREST)
+     ```
+
+   - 查询代谢物的 KEGG 通路：
+  
+     ```{r}
+     kegg_ids = c("C00031", "C00147", "C00267")  # 替换为你的代谢物 KEGG IDs
+
+     pathways = lapply(kegg_ids, function(id) keggLink("pathway", id))
+     pathways = unlist(pathways)
+     table_pathways = table(pathways)
+     enriched_pathways = names(table_pathways[table_pathways > 1])
+     ```
+
+   - 结果包括代谢物涉及的通路和富集情况。可以参考 `keggPathwayNames` 获取通路名称。
+
+    ```{r}
+    # 获取代谢通路的名称
+    pathway_names = keggGet(enriched_pathways)
+    pathway_info = data.frame(
+        pathway_id = enriched_pathways,
+        pathway_name = sapply(pathway_names, function(x) x$NAME),
+        stringsAsFactors = FALSE
+    )
+    
+    # 显示结果
+    print(pathway_info)
+    ```
+
