@@ -42,7 +42,7 @@
    metadata = read.csv(metadata_file, row.names = 1)
    ```
 
-   `counts` 和 `metadata` 是数据框，`counts` 的行名是代谢物名称，列名是样本名称���`metadata` 的行名是样本名称，列名是样本分组。它们的结构如下：
+   `counts` 和 `metadata` 是数据框，`counts` 的行名是代谢物名称，列名是样本名称，`metadata` 的行名是样本名称，列名是样本分组。它们的结构如下：
 
    ```{r}
    str(counts)

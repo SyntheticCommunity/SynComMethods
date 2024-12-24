@@ -39,6 +39,9 @@ book:
     - part: 数学基础
       chapters:
         - mathematical-optimization.qmd
+    - part: 组学分析
+      chapters:
+        - metabolic-analysis.qmd
     - references.qmd
 
 bibliography: references.bib
