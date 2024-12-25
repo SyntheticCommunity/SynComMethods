@@ -1,0 +1,336 @@
+# 假设检验
+
+## T 检验
+
+T 检验是一种用于比较两组数据均值差异的统计方法，广泛应用于生物学、医学等领域。其核心原理如下：
+
+### 基本原理
+
+- T 检验基于以下假设：
+  - 原假设 ($H_0$)：两组数据的均值无显著差异
+  - 备择假设 ($H_1$)：两组数据的均值存在显著差异
+
+T 统计量的计算公式为：
+
+$$
+t = \frac{\bar{X}_1 - \bar{X}_2}{s_p\sqrt{\frac{1}{n_1}+\frac{1}{n_2}}}
+$$
+
+其中：
+- $\bar{X}_1$, $\bar{X}_2$ 是两组数据的均值
+- $s_p$ 是合并标准差
+- $n_1$, $n_2$ 是两组数据的样本量
+
+### 检验类型
+
+1. **单样本 t 检验**：
+   - 比较一组数据的均值与已知值的差异
+   - 例如：比较实验组与已知标准值
+
+2. **独立样本 t 检验**：
+   - 比较两个独立组的均值差异
+   - 例如：对照组与处理组的比较
+
+3. **配对样本 t 检验**：
+   - 比较同一对象在不同条件下的测量值
+   - 例如：治疗前后的比较
+
+### 应用场景
+
+- **生物学**：比较不同处理组的生长指标
+- **医学研究**：评估治疗效果
+- **代谢组学**：比较不同条件下的代谢物水平
+
+### 优缺点
+
+- **优点**：
+  - 使用简单，结果易于理解
+  - 适用于小样本数据
+  - 统计效力较高
+
+- **缺点**：
+  - 要求数据符合正态分布
+  - 对异常值敏感
+  - 仅适用于两组比较
+
+### 示例：牙齿生长数据分析
+
+```{r}
+library(tidyverse)
+
+# 加载数据集
+data("ToothGrowth")
+
+# 进行 t 检验
+t_result = t.test(len ~ supp, data = ToothGrowth)
+
+# 显示结果
+print(t_result)
+
+# 可视化
+ggplot(ToothGrowth, aes(x = supp, y = len, fill = supp)) +
+    geom_boxplot() +
+    geom_jitter(width = 0.2, alpha = 0.5) +
+    labs(
+        title = "Tooth Growth Analysis",
+        subtitle = paste("t =", round(t_result$statistic, 3),
+                        ", p =", round(t_result$p.value, 3)),
+        x = "Supplement",
+        y = "Tooth Length"
+    ) +
+    theme_bw() +
+    theme(legend.position = "none")
+
+# 正态性检验
+shapiro_OJ = shapiro.test(ToothGrowth$len[ToothGrowth$supp == "OJ"])
+shapiro_VC = shapiro.test(ToothGrowth$len[ToothGrowth$supp == "VC"])
+
+# 方差齐性检验
+var_test = var.test(len ~ supp, data = ToothGrowth)
+
+# 显示检验结果
+cat("\nNormality Test Results:\n")
+cat("OJ group: W =", round(shapiro_OJ$statistic, 3), 
+    ", p =", round(shapiro_OJ$p.value, 3), "\n")
+cat("VC group: W =", round(shapiro_VC$statistic, 3),
+    ", p =", round(shapiro_VC$p.value, 3), "\n")
+cat("\nVariance Homogeneity Test Results:\n")
+print(var_test)
+```
+
+这个示例展示了：
+
+1. **数据准备**：
+   - 使用内置的牙齿生长数据集
+   - 数据包含补充剂类型和牙齿生长长度
+
+2. **分析步骤**：
+   - 进行独立样本 t 检验
+   - 检查数据的正态性
+   - 检验方差齐性假设
+
+3. **结果解读**：
+   - t 统计量和 p 值
+   - 均值差异的置信区间
+   - 正态性和方差齐性的检验结果
+
+4. **实际应用意义**：
+   - 评估处理效果
+   - 确定差异的统计显著性
+   - 量化效应大小
+
+## Mantel 检验
+
+Mantel 统计量是一种用于分析两个距离矩阵之间相关性的统计方法，主要应用于生态学、遗传学等领域，来研究空间或环境变量与生物群落数据之间的关系。其核心原理如下：
+
+
+### 距离矩阵的构建
+- Mantel 检验的输入是两个对称距离矩阵（或相似性矩阵），它们分别表示：
+  - 矩阵 $A$：变量之间的距离（如地理距离、环境差异）。
+  - 矩阵 $B$：响应变量之间的距离（如群落组成差异、遗传差异）。
+
+每个矩阵的元素 $a_{ij}$ 和 $b_{ij}$ 表示样本 $i$ 和 $j$ 之间的距离。
+
+
+### 计算观察相关性
+- Mantel 统计量通过以两个距离矩阵的**Pearson相关系数**表示，计算公式为：
+
+$$
+r = \frac{\sum_{i=1}^n \sum_{j=1}^n (a_{ij} - \bar{A})(b_{ij} - \bar{B})}{\sqrt{\sum_{i=1}^n \sum_{j=1}^n (a_{ij} - \bar{A})^2} \cdot \sqrt{\sum_{i=1}^n \sum_{j=1}^n (b_{ij} - \bar{B})^2}}
+$$
+
+其中：
+
+- $a_{ij}$ 和 $b_{ij}$ 是两个矩阵中对应位的距离值。
+- $\bar{A}$ 和 $\bar{B}$ 是矩阵的均值。
+
+
+
+### 置换检验
+
+为了评估相关性的显著性，Mantel 检验通过置换方法生成一个零分布：
+
+1. 随机打乱一个矩阵（如$B$）的行和列。
+2. 重新计算随机矩阵与未打乱矩阵之间的相关性。
+3. 重复此过程（通常1000次或更多），得到一组随机相关系数。
+4. 通过比较观察值 $r$ 与随机分布，计算P值，评估相关性的显著性。
+
+### 应用场景
+
+- **生态学**：分析环境因子（如气候、土壤性质）与生物群落组成的相关性。
+- **遗传学**：研究地理距离与遗传距离的关系。
+- **微生物组学**：评估环境变量对微生物群落结构的影响。
+
+### 优缺点
+
+- **优点**：
+  - 可以分析高维数据。
+  - 不要求数据符合正态分布。
+  - 适用于非线性关系。
+- **缺点**：
+  - 对距离矩阵的选择敏感（如欧几里得距离、Bray-Curtis距离）
+  - 对于复杂非线性关系，可能无法充分捕捉。
+
+
+
+### 示例：环境因子与微生物群落结构的关联分析
+
+首先，我们生成一些模拟数据。`otu_data` 是一个 30 行 50 列的矩阵，表示 30 个样本和 50 个物种的 OTU 表。`env_data` 是一个 30 行 3 列的数据框，表示 30 个样本和 3 个环境因子（pH、温度、盐度）。
+
+```{r}
+library(vegan)
+library(tidyverse)
+
+# 模拟微生物群落数据（OTU表）
+set.seed(123)
+n_samples = 30
+n_species = 50
+
+# 首先生成环境数据，这样可以基于环境数据来生成相关的群落数据
+env_data = data.frame(
+    pH = rnorm(n_samples, mean = 7, sd = 0.5),
+    temperature = rnorm(n_samples, mean = 25, sd = 2),
+    salinity = rnorm(n_samples, mean = 35, sd = 3),
+    row.names = paste0("Sample_", 1:n_samples)
+)
+
+# 基于环境因子生成物种数据，使其具有相关性
+otu_data = matrix(0, nrow = n_samples, ncol = n_species,
+                 dimnames = list(rownames(env_data),
+                               paste0("OTU_", 1:n_species)))
+
+# 为不同的物种设置不同的环境响应
+for(i in 1:n_species) {
+    # 使物种丰度与环境因子产生关联
+    env_effect = 0.7 * scale(env_data$pH) + 
+                 0.5 * scale(env_data$temperature) + 
+                 0.3 * scale(env_data$salinity)
+    
+    # 生成基础丰度
+    base_abundance = rpois(n_samples, lambda = 10)
+    
+    # 将环境效应添加到物种丰度中
+    otu_data[,i] = round(pmax(0, base_abundance + 5 * env_effect + rnorm(n_samples)))
+}
+
+# 查看数据
+otu_data
+env_data
+```
+
+
+其次，计算两个距离矩阵。`community_dist` 是群落距离矩阵，`env_dist` 是环境距离矩阵。计算群落距离矩阵使用 Bray-Curtis 距离，计算环境距离矩阵使用标准化的欧氏距离。
+
+```{r}
+# 计算群落距离矩阵（使用 Bray-Curtis 距离）
+community_dist = vegdist(otu_data, method = "bray")
+
+# 计算环境距离矩阵（使用标准化的欧氏距离）
+env_scaled = scale(env_data)  # 标准化环境变量
+env_dist = dist(env_scaled)
+
+# 查看数据
+community_dist
+env_dist
+```
+
+再次，进行 Mantel 检验。使用 Spearman 相关系数，并进行 999 次置换检验。
+
+```{r}
+# 进行 Mantel 检验
+mantel_result = mantel(community_dist, env_dist, 
+                      method = "spearman",   # 使用 Spearman 相关系数
+                      permutations = 999)    # 进行 999 次置换检验
+
+# 显示结果
+print(mantel_result)
+```
+
+再次，可视化距离矩阵关系。
+
+```{r}
+# 可视化距离矩阵关系
+dist_df = data.frame(
+    community_dist = as.vector(community_dist),
+    env_dist = as.vector(env_dist)
+)
+
+ggplot(dist_df, aes(x = env_dist, y = community_dist)) +
+    geom_point(alpha = 0.5) +
+    geom_smooth(method = "lm", color = "red") +
+    labs(
+        title = "Mantel Correlation: Environment vs. Community Structure",
+        x = "Environmental Distance",
+        y = "Community Composition Distance"
+    ) +
+    theme_bw()
+```
+
+最后，单个环境因子的 Mantel 检验。
+
+```{r}
+# 单个环境因子的 Mantel 检验
+env_vars = colnames(env_data)
+mantel_results = lapply(env_vars, function(var) {
+    var_dist = dist(scale(env_data[, var, drop = FALSE]))
+    mantel(community_dist, var_dist, method = "spearman", permutations = 999)
+})
+
+# 显示各环境因子的 Mantel 检验结果
+results_summary = data.frame(
+    Environmental_Factor = env_vars,
+    Mantel_r = sapply(mantel_results, function(x) round(x$statistic, 3)),
+    P_value = sapply(mantel_results, function(x) round(x$signif, 3))
+)
+print(results_summary)
+```
+
+在 `results_summary` 中，`Mantel_r` 表示 Spearman 相关系数，`P_value` 表示显著性水平。`Mantel_r` 相关系数越大，表示环境因子与群落结构的关系越强。这里，`pH` 与群落结构的关系显著正相关（`Mantel_r = 0.395`， `P = 0.001`），而 `temperature` 和 `salinity` 与群落结构的关系不显著（`P > 0.05`）。
+
+针对 `pH` 因子，我们可以进一步可视化其与群落结构的关系。
+
+```{r}
+# 确保 pH 和 community_dist 的长度相同
+pH_vector = as.vector(env_data$pH)
+community_dist_vector = as.vector(community_dist[upper.tri(community_dist)])  # 只取上三角部分
+
+# 创建数据框
+df = data.frame(
+    pH = rep(pH_vector, each = length(pH_vector) - 1),  # 重复 pH 值以匹配社区距离
+    community_dist = community_dist_vector
+)
+
+# 可视化 pH 与群落结构的关系
+ggplot(df, aes(x = pH, y = community_dist)) +
+    geom_point(alpha = 0.5) +
+    geom_smooth(method = "lm", color = "red") +
+    labs(
+        x = "pH",
+        y = "Community Composition Distance",
+        title = "pH vs. Community Structure"
+    ) +
+    theme_bw()
+```
+
+这个示例展示了：
+
+1. **数据准备**：
+   - 微生物群落数据（OTU表）
+   - 环境因子数据（pH、温度、盐度）
+
+2. **分析步骤**：
+   - 计算群落 Bray-Curtis 距离
+   - 计算标准化的环境距离
+   - 整体环境效应的 Mantel 检验
+   - 单个环境因子的 Mantel 检验
+
+3. **结果解读**：
+   - Mantel r 值表示相关强度
+   - p 值表示显著性水平
+   - 散点图直观展示关系
+   - 各环境因子的独立影响比较
+
+4. **实际应用意义**：
+   - 评估环境异质性对群落结构的影响
+   - 识别关键环境驱动因子
+   - 为微生物生态位分化研究提供依据
