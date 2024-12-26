@@ -1,0 +1,130 @@
+# hierarchical partitioning analysis
+
+Hierarchical Partitioning Analysis (HPA) 是一种用于解释多元数据中变量之间关系的统计方法。它通过将数据分解为多个层次，每个层次代表一个变量或变量组，从而揭示不同变量对因变量的独立解释力。
+
+
+## 示例一：汽车油耗数据
+
+以下是 **`rdacca.hp`** 包官方文档中的一个示例，用于展示如何进行层次分区分析。该示例分析环境变量对物种丰度的解释力。
+
+```{r}
+# 安装和加载rdacca.hp包
+# install.packages("rdacca.hp") # 如果未安装请运行此行
+library(rdacca.hp)
+
+# 使用内置数据集 (mtcars)
+data(mtcars)
+
+# 将因变量定义为 mpg（每加仑行驶里程）
+# 自变量分为三组：发动机特性、传动特性、车身特性
+y <- mtcars$mpg
+x <- mtcars[, c("cyl", "disp", "hp", "drat", "wt", "qsec", "vs", "am", "gear", "carb")]
+
+# 使用3组变量分别代表不同特性
+engine <- x[, c("cyl", "disp", "hp")]    # 发动机特性
+transmission <- x[, c("drat", "wt", "qsec")] # 传动特性
+body <- x[, c("vs", "am", "gear", "carb")]  # 车身特性
+
+# 执行层次分区分析
+x = list(engine = engine, 
+         transmission = transmission, 
+         body = body)
+
+# 执行层次分区分析
+hp_result <- rdacca.hp(y, x)
+
+# 查看结果
+print(hp_result)
+```
+
+从 **`rdacca.hp`** 的结果可以看出，层次分区分析对变量组（engine、transmission、body）进行了分解，并计算了它们对因变量（mpg，每加仑行驶里程）的解释力。以下是关键输出的含义和解读：
+
+### 1. **Total explained variation**
+
+```R
+$Total_explained_variation
+[1] 0.807
+```
+
+- **意义**：总解释率为 **80.7%**，表示所有自变量组（engine、transmission、body）共同解释了因变量（mpg）的80.7%变异。
+- 说明这些变量组对因变量具有较强的解释能力。
+
+
+### 2. **Hier.part**
+
+```R
+$Hier.part
+              Unique Average.share Individual I.perc(%)
+engine       -0.0154        0.2621     0.2467     30.57
+transmission  0.0123        0.2866     0.2989     37.04
+body         -0.0133        0.2744     0.2611     32.35
+```
+
+#### 各列含义
+
+- **Unique**：变量组对因变量的**独立贡献**。  
+  - 例如，`engine` 对因变量的独立贡献为 **-0.0154**，表示其独立解释力较低，甚至稍微负向。  
+- **Average.share**：变量组与其他组的**平均共享贡献**，反映交互作用对因变量的贡献。  
+  - 例如，`engine` 的平均共享贡献为 **0.2621**。
+- **Individual**：变量组的总贡献（独立贡献 + 平均共享贡献）。  
+  - 例如，`engine` 的总贡献为 **0.2467**。
+- **I.perc(%)**：变量组的相对贡献百分比，表示其对总变异的比例。  
+  - 例如，`transmission` 占比 **37.04%**，贡献最大。
+
+
+### 3. **解读**
+
+1. **总贡献最大的是 `transmission`（传动特性）**：
+   - 它的相对贡献为 **37.04%**，是对 mpg 变异影响最大的变量组。
+   - 表明传动特性（如齿轮比和车重）在决定燃油效率方面起主要作用。
+
+2. **`engine` 和 `body` 也有较大的贡献**：
+   - `engine`：贡献了 **30.57%**。
+   - `body`：贡献了 **32.35%**。
+   - 它们虽然没有传动特性重要，但仍对燃油效率具有显著影响。
+
+3. **独立贡献的负值（如 `engine` 的 Unique = -0.0154）**：
+   - 表示在考虑交互作用后，该组变量对因变量的直接独立贡献非常小甚至为负。
+   - 可能因为变量间存在较强的共线性，导致独立贡献被抵消。
+
+
+### 4. **总结**
+
+- 层次分区分析结果清晰地量化了各变量组对因变量的解释力，并区分了独立贡献和交互作用。
+- 本分析结果表明，传动特性（`transmission`）对燃油效率的影响最大，建议在相关优化或研究中优先考虑这些因素。
+
+```{r}
+# 绘制结果
+barplot(hp_result$Hier.part[,"Individual"],
+        main = "Independent Contributions of Variable Groups",
+        ylab = "Proportion of Variance Explained",
+        col = c("skyblue", "orange", "green"))
+```
+
+
+## 示例二：环境变量对物种丰度的解释
+
+```{r}
+# 加载必要的R包
+library(vegan)
+library(rdacca.hp)
+
+# 加载数据
+data(varespec)  # 模拟微生物群落（物种丰度矩阵）
+data(varechem)  # 模拟环境变量（理化性质）
+
+# 3. 构造层次分区分析数据
+# 将环境变量分为几个组，模拟微生物群落、病原体、功能基因和理化性质
+hp_data <- list(
+  major_nutrient = varechem[, c("N","P","K")],
+  medium_nutrient = varechem[, c("Ca","Mg","S","Al")],
+  minor_nutrient = varechem[, c("Fe","Mn","Zn","Mo")],
+  other = varechem[, c("Baresoil","Humdepth","pH")]
+)
+
+y = varespec$Callvulg
+
+# 使用 rdacca.hp 进行层次分区分析
+hp_result <- rdacca.hp(y, hp_data)
+print(hp_result)
+```
