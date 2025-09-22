@@ -1,0 +1,87 @@
+# 编程解题
+
+## `f(x)` 的图像
+
+```{r}
+f = expression(x^2 - x * log(x))
+
+x = seq(-2,2,0.001)
+y = eval(f, list(x = x))
+plot(x, y, type = "l", col = "blue", lwd = 2, xlab = "x", ylab = "y")
+```
+
+
+## 计算 `f(x)` 在 `x = 1` 处的值
+
+```{r}
+f1 = eval(f, list(x = 1))
+print(f1)
+```
+
+## 画出坐标点
+
+```{r}
+points(1, f1, type = "p", col = "red", pch = 19, cex = 2)
+```
+
+## 求导，计算斜率
+
+```{r}
+df = D(f, "x")
+df
+
+b = eval(df, list(x = 1))
+
+# 画出切线
+abline(a = 0, b = b, col = "black", lty = 2)
+```
+
+## `(1, Inf)` 区间内的最小值
+
+
+```{r}
+f = expression(x^2 - x * log(x) - x^2 / 2)
+
+x = seq(1, 1000, 0.001)
+y = eval(f, list(x = x))
+plot(x, y, type = "l", col = "blue", lwd = 2, xlab = "x", ylab = "y")
+
+min_y = min(y)
+glue::glue("最小值为 {min_y}，出现在 x = {x[which.min(y)]}")
+```
+
+## 第二题
+
+```{r}
+f = expression(log((1+x)/(1-x)))
+gx = expression(exp(x) - exp(-x) + a * x)
+dgx = D(gx, "x")
+```
+
+```{r}
+library(ggplot2)
+
+# 定义参数 a
+a = 10  # 你可以更改 a 的值
+g = function(x) exp(x) - exp(-x) + a * x
+
+# 绘制曲线
+ggplot(data.frame(x = c(-2, 2)), aes(x = x)) +
+  stat_function(fun = g, color = "blue", linewidth = 1) +
+  labs(title = expression(g(x) == e^x - e^{-x} + a * x),
+       x = "x",
+       y = "g(x)")
+```
+
+
+```{r}
+# exp(-x) 的图像
+ggplot(data.frame(x = c(-20, 20)), aes(x = x)) +
+  stat_function(fun = function(x) exp(-x), color = "blue", size = 1)
+```
+
+```{r}
+# exp(x) 的图像
+ggplot(data.frame(x = c(-20, 20)), aes(x = x)) +
+  stat_function(fun = function(x) exp(x), color = "blue", size = 1)
+```
