@@ -1,0 +1,12 @@
+name: SynComMethods
+channels:
+  - defaults
+dependencies:
+  - numpy
+  - python=3.12
+  - matplotlib
+  - streamlit
+  - ipykernel
+  - pyyaml
+  - nbformat
+  - nbclient
