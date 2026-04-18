@@ -43,6 +43,7 @@ book:
     - part: 组学分析
       chapters:
         - metabolic-analysis.qmd
+        - kraken2.qmd
     - references.qmd
 
 bibliography: references.bib

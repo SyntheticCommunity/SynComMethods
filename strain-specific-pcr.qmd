@@ -64,6 +64,7 @@ rRNA_gene_aln
 :::
 
 ```{r}
+library(RSQLite)
 # initialize a in-memory database
 db_conn = dbConnect(SQLite(), ":memory:")
 

@@ -2,7 +2,7 @@
 
 
 ```{r setup}
-library(cailab.utils)
+# library(cailab.utils)
 ```
 
 ## 设计常规 PCR 引物
@@ -23,7 +23,7 @@ fas = system.file("sequence.fa", package = "rPrimer3")
 
 
 ```{r}
-library(cailab.utils)
+# library(cailab.utils)
 # design_specific_primer(fas)
 ```
 

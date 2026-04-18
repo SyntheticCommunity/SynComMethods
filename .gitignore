@@ -17,3 +17,7 @@ _freeze
 /site_libs/
 
 temp/
+
+# Claude Code — 个人配置不提交
+.claude/settings.local.json
+.claude/agent-memory-local/

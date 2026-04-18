@@ -2,7 +2,7 @@
 
 该部分内容源于 [@scott2024] 和 <https://github.com/gaospecial/learn-fba>。
 
-[![](https://colab.research.google.com/assets/colab-badge.svg)](https://colab.research.google.com/github/segrelab/learn-fba/blob/main/FBA_from_Scratch.ipynb)
+[![](images/colab-badge.svg)](https://colab.research.google.com/github/segrelab/learn-fba/blob/main/FBA_from_Scratch.ipynb)
 
 这些材料旨在以简单但具有生物学意义的方式介绍 FBA。它与 Helen Scott 和 Daniel Segrè 的手稿 *海洋生态系统中的代谢通量建模* 相关 [@scott2024] 。
 

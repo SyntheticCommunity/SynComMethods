@@ -1,0 +1,133 @@
+# Kraken 2 {#sec-kraken2}
+
+Kraken 2 [@wood2019] 是一种基于 k-mer 的超快速宏基因组分类工具，用于将测序 reads 分配到分类学标签（属、种等）。它以速度快、内存占用合理著称，广泛用于宏基因组数据分析。
+
+## 安装
+
+```bash
+# Conda
+conda install -c bioconda kraken2 bracken
+
+# 或从源码编译
+git clone https://github.com/DerrickWood/kraken2.git
+cd kraken2 && ./install_kraken2.sh .
+```
+
+## 数据库
+
+Kraken 2 需要预先构建的分类数据库。官方提供多种预构建数据库，每个数据库同时包含 Bracken 所需的数据库文件（支持 50、75、100、150、200、250、300 bp 读长）。
+
+### 主要数据库概览
+
+@tbl-kraken2-db 列出了 2026 年 2 月更新的主要预构建数据库。
+
+: 主要 Kraken 2 预构建数据库（2026年2月更新） {#tbl-kraken2-db}
+
+| 数据库 | 内容 | 压缩大小 (GB) | 解压大小 (GB) |
+|--------|------|--------------|--------------|
+| Standard | Refseq 古菌、细菌、病毒、质粒、人源、UniVec\_Core | 74.7 | 96.8 |
+| Standard-8 | Standard 限制在 8 GB | 5.5 | 7.5 |
+| Standard-16 | Standard 限制在 16 GB | 11.2 | 14.9 |
+| PlusPF | Standard + Refseq 原生动物和真菌 | 79.8 | 103.4 |
+| PlusPF-8 | PlusPF 限制在 8 GB | 5.5 | 7.5 |
+| PlusPF-16 | PlusPF 限制在 16 GB | 11.2 | 14.9 |
+| PlusPFP | Standard + Refseq 原生动物、真菌和植物 | 164.4 | 221.8 |
+| PlusPFP-8 | PlusPFP 限制在 8 GB | 5.2 | 7.5 |
+| PlusPFP-16 | PlusPFP 限制在 16 GB | 10.5 | 14.9 |
+| MinusB | Refseq 古菌、病毒、质粒、人源、UniVec\_Core（不含细菌） | 7.9 | 11.1 |
+| Viral | Refseq 病毒 | 0.5 | 0.6 |
+| core\_nt | GenBank + RefSeq + TPA + PDB | 245.8 | 316.2 |
+| GTDB v226 | GTDB 细菌和古菌基因组代表序列 | 500.9 | 644.0 |
+
+带 "-8" 或 "-16" 后缀的数据库使用 `--max-db-size` 参数限制了大小，以牺牲一定的灵敏度和准确性换取更小的体积。
+
+### 土壤宏基因组分析推荐 {#sec-kraken2-soil}
+
+对于土壤宏基因组分析，推荐以下数据库：
+
+**首选：PlusPF**（103.4 GB）
+
+土壤微生物群落包含大量细菌、真菌和原生动物。PlusPF 在 Standard 的基础上纳入了原生动物和真菌，是最适合土壤宏基因组的平衡选择。
+
+**备选方案：**
+
+- **Standard**（96.8 GB）— 如果仅关注细菌和古菌组成，不关心真菌
+- **Standard-16**（14.9 GB）— 内存有限时 Standard 的替代
+- **PlusPF-16**（14.9 GB）— 内存有限时 PlusPF 的替代
+- **PlusPFP**（221.8 GB）— 如果样本存在大量植物 DNA，需要过滤植物序列
+
+**通常不需要的数据库：**
+
+- **MinusB** — 不含细菌，不适合土壤分析
+- **Viral** — 仅含病毒，专用于病毒组研究
+- **GTDB / core\_nt** — 体积巨大，常规分析不需要
+
+### 下载数据库
+
+```bash
+# 下载 PlusPF 数据库（推荐用于土壤分析）
+mkdir -p db/kraken2_pluspf
+wget https://genome-idx.s3.amazonaws.com/kraken/k2_pluspf_20260226.tar.gz
+tar -xzf k2_pluspf_20260226.tar.gz -C db/kraken2_pluspf
+
+# 下载 Standard 数据库（较小的备选）
+mkdir -p db/kraken2_standard
+wget https://genome-idx.s3.amazonaws.com/kraken/k2_standard_20260226.tar.gz
+tar -xzf k2_standard_20260226.tar.gz -C db/kraken2_standard
+```
+
+下载后建议用 MD5 校验文件完整性：
+
+```bash
+# 下载 MD5 校验文件并验证
+wget https://genome-idx.s3.amazonaws.com/kraken/pluspf_20260226/pluspf.md5
+md5sum -c pluspf.md5
+```
+
+## 基本使用
+
+### 分类
+
+```bash
+kraken2 --db db/kraken2_pluspf \
+        --threads 8 \
+        --output kraken2_output.txt \
+        --report kraken2_report.txt \
+        --paired sample_R1.fastq.gz sample_R2.fastq.gz
+```
+
+关键参数：
+
+- `--db` — 数据库路径
+- `--threads` — 线程数
+- `--output` — 详细分类输出
+- `--report` — 汇总报告（更常用）
+- `--paired` — 双端测序数据
+- `--gzip-compressed` — 输入为 gzip 压缩文件时使用
+- `--memory-mapping` — 使用内存映射，减少内存占用但可能降低速度
+
+### Bracken 物种水平估计
+
+Kraken 2 的分类结果在种水平不够准确，Bracken（Bayesian Reestimation of Abundance with KrakEN）通过贝叶斯方法重新估计物种丰度：
+
+```bash
+bracken -d db/kraken2_pluspf \
+        -i kraken2_report.txt \
+        -o bracken_output.txt \
+        -r 150 \
+        -l S
+```
+
+关键参数：
+
+- `-r` — 读长（50、75、100、150、200、250 或 300）
+- `-l` — 分类水平（S = 种，G = 属）
+
+### 结果可视化
+
+```bash
+# 使用 KrakenTools 生成 Krona 交互式可视化
+ktimporttaxonomy -q 2 -t 3 kraken2_report.txt -o krona.html
+```
+
+## 参考文献
